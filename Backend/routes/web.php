@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TrangChuController@index');
+
+Route::get('/quan-ly-san-pham', 'SanPhamController@index');
+
+Route::get('/quan-ly-san-pham/them-san-pham', 'SanPhamController@ThemSanPham');
+
+Route::post('/them-san-pham' , 'SanPhamController@InsertProducts');

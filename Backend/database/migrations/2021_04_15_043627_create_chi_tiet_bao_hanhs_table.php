@@ -15,9 +15,6 @@ class CreateChiTietBaoHanhsTable extends Migration
     {
         Schema::create('chi_tiet_bao_hanhs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('hoa_dons_id');
-            $table->unsignedBigInteger('nguoi_dungs_id');
-            $table->unsignedBigInteger('san_phams_id');
             $table->date('NgayBaoHanh');
             $table->date('NgayHenTra');
             $table->string('GhiChu');

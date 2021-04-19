@@ -17,7 +17,7 @@ class CreateLoaiSanPhamsTable extends Migration
             $table->bigIncrements('id');
             $table->string('TenLoai');
             $table->integer('parent_id')->nullable();
-            $table->unsignedBigInteger('DanhMuc_id');
+             // $table->unsignedBigInteger('DanhMuc_id');
             $table->boolean('TrangThai');
             $table->timestamps();
         });
