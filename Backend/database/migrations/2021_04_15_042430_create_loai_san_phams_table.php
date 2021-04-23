@@ -15,10 +15,10 @@ class CreateLoaiSanPhamsTable extends Migration
     {
         Schema::create('loai_san_phams', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('TenLoai');
-            $table->integer('parent_id')->nullable();
-             // $table->unsignedBigInteger('DanhMuc_id');
-            $table->boolean('TrangThai');
+            $table->string('TenLoai')->unique();
+            $table->integer('parent_id')->nullable()->unique();//
+            // $table->unsignedBigInteger('DanhMuc_id');
+            $table->boolean('TrangThai')->default(1);
             $table->timestamps();
         });
     }

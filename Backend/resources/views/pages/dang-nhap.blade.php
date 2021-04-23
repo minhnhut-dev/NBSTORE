@@ -37,16 +37,16 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="POST" class="form-horizontal" action="{{ url('/login') }}">
+            <form method="POST" class="form-horizontal" action="/login">
                 @csrf
                 <div class="card-body">
                     <div class="form-group row">
-                        <input type="email" class="form-control-transparent" id="inputUserName" name="Email"
+                        <input type="text" class="form-control-transparent" id="inputUserName" name="username"
                             placeholder="Tên tài khoản">
                     </div>
                     <div class="form-group row">
-                        <input type="password" class="form-control-transparent" id="inputPassword" name="Pass"
-                            placeholder="Mật khẩu">
+                        <input type="password" class="form-control-transparent" id="inputPassword" name="password"
+                            placeholder="Mật khẩu" required>
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">

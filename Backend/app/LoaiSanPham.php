@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\SanPham;
 class LoaiSanPham extends Model
 {
     //
     public $timestamp= false;
-    protected $table= 'loai_san_phams';
+    protected $fillable=['TenLoai'];
 
     public function SanPham()
     {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddConstraintKeySanPham extends Migration
+class AddConstraintKeyNguoiDung extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddConstraintKeySanPham extends Migration
     public function up()
     {
         //
-        Schema::table('san_phams', function (Blueprint $table) {
-            $table->foreign('loai_san_phams_id')->references('id')->on('loai_san_phams');
+        Schema::table('nguoi_dungs', function (Blueprint $table) {
+            $table->foreign('loai_nguoi_dungs_id')->references('id')->on('loai_nguoi_dungs');
         });
     }
 
@@ -27,10 +27,9 @@ class AddConstraintKeySanPham extends Migration
     public function down()
     {
         //
-        Schema::table('san_phams', function (Blueprint $table) {
+        Schema::table('nguoi_dungs', function (Blueprint $table) {
             //
-            $table->dropForeign('san_phams_loai_san_phams_id_foreign');
-
+            $table->dropForeign('nguoi_dungs_loai_nguoi_dungs_id_foreign');
         });
     }
 }

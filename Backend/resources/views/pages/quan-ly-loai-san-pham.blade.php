@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý thể loại phim</h1>
+                    <h1>Quản lý  loại sản phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <a class="btn btn-primary" role="button"
-                                href="{{ url('quan-ly-the-loai-phim/them-the-loai-phim') }}">
+                                href="{{ url('/quan-ly-loai-san-pham/them-loai') }}">
                                 <i class="fas fa-plus-circle"></i>
                                 Thêm mới
                             </a>
@@ -48,14 +48,13 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Tên loại phim</th>
-                                        <th>Nhân viên thêm</th>
-                                        <th>Trạng thái</th>
+                                        <th>Tên loại </th>
+                                        <th>parent_id</th>
                                         <th>Tác vụ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @php
+                                 @php
                                     $stt=0;
                                     if (isset($_GET['page'])) {
 										$a=$_GET['page'];
@@ -66,31 +65,24 @@
 									}
 									$stt=($a-1)*10;
                                    @endphp
-                                   @foreach ($loaiphim as $v)
+                                   @foreach ($listloaisanpham as $loai)
                                    @php
                                    @endphp
-                                        <tr>
+                                         <tr>
                                         <td>{{++$stt}}</td>
-                                        <td>{{$v->TenLoaiPhim}}</td>
-                                        @foreach($nhanvien as $nv)
-                                        <td>{{$nv->name}}</td>
-                                        @endforeach
-                                        <td>@if($v->TrangThai=='1')
-                                        Đang hoạt động
-                                            @else
-                                            Ngưng hoạt động
-                                            @endif
+                                        <td>{{$loai->TenLoai}}</td>
+                                        <td>
+                                            {{$loai->parent_id}}
                                         </td>
-
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="quan-ly-the-loai-phim/cap-nhat-the-loai-phim/{{$v->MaLoaiPhim}}">
+                                                    <a href="quan-ly-loai-san-pham/update/{{$loai->id}}">
                                                         <button type="button" class="btn btn-warning" data-toggle="tooltip"
                                                             data-placement="top" title="Chỉnh sửa">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="quan-ly-the-loai-phim/xoatheloaiphim/{{$v->MaLoaiPhim}}">
+                                                    <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
                                                         <button type="button" class="btn btn-danger" data-toggle="tooltip"
                                                             title="Xóa">
                                                             <i class="far fa-trash-alt"></i>
@@ -98,14 +90,12 @@
                                                     </a>
                                                 </div>
                                             </td>
-
                                          </tr>
                                     @endforeach
-
-
                                 </tbody>
                             </table>
                         </div>
+                        {{$listloaisanpham->links()}}
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->

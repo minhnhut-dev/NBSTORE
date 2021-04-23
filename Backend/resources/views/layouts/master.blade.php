@@ -167,14 +167,14 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     @if (Session::has('user'))
                         <div class="image">
-                            <img src="/image/nhanvien/{{ Session::get('user')->Avatar }}" class="img-circle elevation-2"
+                            <img src="/images/{{ Session::get('user')->Anh }}" class="img-circle elevation-2"
                                 alt="User Image">
                         </div>
                     @endif
                     <div class="info">
                         <a href="#" class="d-block">
                             @if (Session::has('user'))
-                                {{ Session::get('user')->name }}
+                                {{ Session::get('user')->TenNguoidung}}
                             @endif
                         </a>
                     </div>
@@ -202,7 +202,7 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-the-loai-phim') }}" class="nav-link">
+                            <a href="{{ url('quan-ly-loai-san-pham') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tags"></i>
                                 <p>
                                     Loại sản phẩm
@@ -210,7 +210,7 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-rap') }}" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>
                                     Hóa đơn
@@ -218,7 +218,7 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-suat-chieu') }}" class="nav-link">
+                            <a href="" class="nav-link">
                         <i class="fas fa-cart-arrow-down"></i>
                                  <p>
                                     Nhập hàng
@@ -226,7 +226,7 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-lich-chieu') }}" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>
                                      Nhân viên
@@ -235,7 +235,7 @@
                         </li>
 
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-lich-chieu') }}" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>
                                     Hình thức thanh toán
@@ -245,7 +245,7 @@
 
                     </ul>
                 </nav>
-                <a href="{{ url('dangxuat') }}">
+                <a href="/logout">
                     <button type="button" class="btn btn-dang-xuat btn-warning w-100"><strong>Đăng
                             xuất</strong></button>
                 </a>
@@ -269,8 +269,8 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>CBN2T CINEMA TEAM <a href="https://www.facebook.com/groups/327066398507712">CBN2T
-                    CINEMA</a>.</strong>
+            <strong>NBSTORE<a href="https://www.facebook.com/groups/327066398507712">NBSTORE
+                    </a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0

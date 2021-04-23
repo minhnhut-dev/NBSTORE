@@ -4,14 +4,13 @@
 
     <section class="content-header">
         <div class="container">
-            <h2>Cập nhật phim</h2>
+            <h2>Cập nhật sản phẩm</h2>
             <hr>
-            @foreach ($phim as $p)
-            <form method="POST" action="/quan-ly-phim/formEdit/{{$p->MaPhim}}" class="was-validated d-flex flex-column input-form"
+            {{-- <form method="POST" action="" class="was-validated d-flex flex-column input-form"
                 id="form-cap-nhat-phim" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-12">
-                    <label for="ten-phim">Tên phim:</label>
+                    <label for="ten-phim">Tên Sản Phẩm:</label>
                     <input type="text" class="form-control" id="ten-phim" placeholder="Nhập tên phim" name="ten_phim" value="{{$p->TenPhim}}"
                         required>
                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
@@ -70,19 +69,19 @@
                 <div class="form-group d-flex">
                     <div class="col-4">
                         <label for="loai-phim">Loại phim:</label>
-                        <select class="form-control" id="loai-phim" name="loai_phim" style="background-image: none; " 
+                        <select class="form-control" id="loai-phim" name="loai_phim" style="background-image: none; "
                             required>
                             @foreach ($loaiphim as $l)
                             <option value="{{$l->MaLoaiPhim}}">{{$l->TenLoaiPhim}}</option>
-                            @endforeach        
+                            @endforeach
                         </select>
                     </div>
-                    
+
                     <div class="col-4">
                         <label for="nhan">Nhân Viên:</label>
                         <select class="form-control" id="nhan" name="MaNV" style="background-image: none;" required>
                             <option value="{{$p->MaNV}}" >
-                            {{$p->name}} 
+                            {{$p->name}}
                             </option>
                         </select>
                     </div>
@@ -117,7 +116,7 @@
                                 <input type="radio" class="form-check-input" id="radio-xoa" name="optradio" value="-1">Đã
                                 xóa
                             </label>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-submit-input-form btn-cap-nhat" data-toggle="modal">
@@ -142,8 +141,91 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            @endforeach
+            </form> --}}
+            @foreach ($data as $sp)
+            <form method="POST" action="/updateproduct/{{$sp->id}}" class="was-validated d-flex flex-column input-form"
+            id="form-them-phim" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group col-12">
+                <label for="ten-sản-phẩm">Tên sản phẩm</label>
+                <input type="text" class="form-control" id="ten-phim" placeholder="Nhập tên sản phẩm  " name="ten_san_pham" value="{{$sp->TenSanPham}}"
+                    required>
+                <div class="invalid-feedback">Không được bỏ trống trường này</div>
+            </div>
+            <div class="form-group d-flex">
+                <div class="col-4">
+                    <label for="ngay-dk-chieu">Cấu hình:</label>
+                    <input type="text" class="form-control" id="ngay-dk-chieu" name="cau_hinh" required value="{{$sp->CauHinh}}">
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div>
+
+
+                <div class="col-4">
+                    <label for="ngay-dk-chieu">Thông tin</label>
+                    <input type="text" class="form-control" id="ngay-dk-chieu" name="thong_tin" placeholder="Nhập thông tin sản phẩm" required value="{{$sp->ThongTin}}">
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div>
+
+                <div class="col-4">
+                    <label for="ngay-dk-chieu">Xuất xứ</label>
+                    <input type="text" class="form-control" id="ngay-dk-chieu" name="xuat_xu" placeholder="Nhập thông tin sản phẩm" required value="{{$sp->XuatXu}}">
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div>
+                {{-- <div class="col-4">
+                    <label for="thoi-luong-chieu">Loại:</label>
+                    <input type="number" class="form-control" id="thoi-luong-chieu" name="Loai"
+                        placeholder="Loại sản phẩm" required>
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div> --}}
+
+            </div>
+            <div class="col-4">
+                <label for="nhan">Loại sản phẩm:</label>
+
+
+                <select class="form-control" id="nhan" name="loai" style="background-image: none;" required>
+                    @foreach ($loaisanpham as $loai )
+                    <option value="{{$loai->id}}">{{$loai->TenLoai}}</option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            {{-- Hình ảnh}}
+            {{-- <div class="form-group d-flex">
+                <div class="col-4">
+                    <label for="ngay-dk-chieu">Hình ảnh (Có thể bỏ qua trường này):</label>
+                    <input type="file" class="form-control-file input-border" id="hinh-anh" name="hinh_anh" >
+                </div>
+            </div> --}}
+
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit-input-form btn-them-phim" data-toggle="modal" style="margin:12px">
+                <strong>Tiến hành sửa</strong>
+            </button>
+            <div class="modal fade modal-them-phim-question" id="popup-them-question">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal body -->
+                        <div class="modal-body text-center">
+                            <i class="fas fa-info-circle" style="color: #dc3545;"></i>
+                            Xác nhận Sửa
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-warning btn-xac-nhan-them-phim">
+                                <strong>Xác nhận</strong>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        @endforeach
         </div>
     </section>
 

@@ -6,7 +6,7 @@
         <div class="container">
             <h2>Thêm rạp mới</h2>
             <hr>
-            <form method="POST" action="{{ route('addRap') }}" class="was-validated d-flex flex-column input-form"
+            <form method="POST" action="" class="was-validated d-flex flex-column input-form"
                 id="form-them-rap">
                 @csrf
                 <div class="form-group d-flex">

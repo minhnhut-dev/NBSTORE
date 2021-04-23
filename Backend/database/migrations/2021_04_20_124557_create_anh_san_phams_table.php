@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoaiBaoHanhsTable extends Migration
+class CreateAnhSanPhamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLoaiBaoHanhsTable extends Migration
      */
     public function up()
     {
-        Schema::create('loai_bao_hanhs', function (Blueprint $table) {
+        Schema::create('anh_san_phams', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('TenLoaiBaoHanh');
-            $table->date('ThoiGianXuLy');
-            $table->decimal('Gia');
+            $table->string('AnhSanPham');
+            // Khóa ngoại
+            $table->unsignedBigInteger('san_phams_id');
+            $table->boolean('TrangThai')->default(1);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateLoaiBaoHanhsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loai_bao_hanhs');
+        Schema::dropIfExists('anh_san_phams');
     }
 }

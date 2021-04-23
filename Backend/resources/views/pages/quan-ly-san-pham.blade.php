@@ -70,7 +70,7 @@
 									$stt=($a-1)*10;
                                    @endphp
 
-                                    @foreach ($sanpham as $sp )
+                                    @foreach ($listsanpham as $sp )
                                     @php
                                     $stt++;
                                     @endphp
@@ -82,6 +82,7 @@
                                         <td>{{$sp->CauHinh}}</td>
                                         <td>{{$sp->ThongTin}}</td>
                                         <td>{{$sp->XuatXu}}</td>
+                                        {{-- <td>{{$sp->LoaiSanPham->TenLoai}}</td> --}}
                                         <td>{{$sp->LoaiSanPham->TenLoai}}</td>
                                         {{-- <td>{{$stt}}</td>
                                         <td>{{$p->TenPhim}}</td>
@@ -104,13 +105,13 @@
                                         </td> --}}
                                         <td>
                                             <div class="btn-group">
-                                                <a href="">
+                                                <a href="/quan-ly-san-pham/update/{{$sp->id}}">
                                                     <button type="submit" class="btn btn-warning" data-toggle="tooltip"
                                                         data-placement="top" title="Chỉnh sửa">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                 </a>
-                                                <a href="">
+                                                <a href="/quan-ly-san-pham/{{$sp->id}}">
                                                     <button type="button" class="btn btn-danger" data-toggle="tooltip" type="submit"
                                                     title="Xóa">
                                                     <i class="far fa-trash-alt"></i>
@@ -124,8 +125,19 @@
                                 </tbody>
                             </table>
                         </div>
+
                         <!-- /.card-body -->
                     </div>
+                    <nav aria-label="Page navigation example">
+                        {{-- <ul class="pagination">
+                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul> --}}
+                        {{$listsanpham->links()}}
+                      </nav>
                     <!-- /.card -->
                 </div>
             </div>
