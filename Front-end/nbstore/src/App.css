@@ -1,0 +1,242 @@
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+
+}
+
+header .header-banner {
+    position: relative;
+    background: #0282b7;
+}
+
+/* @media (min-width: 1620px)
+.container {
+    padding: 0 10px;
+    max-width: 1620px;
+    min-width: 1620px;
+} */
+
+@media (min-width: 1620px){
+    .container {
+        padding: 0 10px;
+        max-width: 1620px;
+        min-width: 1620px; 
+    }
+  } 
+
+
+  .header-text-top {
+    background: #3d52bf;
+    color: #fff;
+    padding: 6px 0;
+    font-weight: 300;
+    height: 36px;
+}
+
+.container {
+    padding: 0 10px;
+    max-width: 1260px;
+    min-width: 1620px;
+}
+
+.text-13 {
+    font-size: 13px;
+}
+
+.header-text-top .address-left {
+    position: relative;
+    padding-left: 22px;
+}
+
+.pulse-icon {
+    float: left;
+    position: absolute;
+    display: inline-block;
+    top: 3px;
+    left: 0;
+}
+
+.pulse-icon .icon-wrap {
+    width: 6px;
+    height: 6px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 6px;
+    color: #ffe901;
+    background: #ffe901;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.pulse-icon .elements {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.pulse-icon .pulse-1{
+    border: solid 1px #ffe901;
+    width: 14px;
+    height: 14px;
+    top: -1px;
+    left: -1px;
+}
+
+.pulse-icon .pulse {
+    position: absolute;
+    animation: pulse-wave 1s linear infinite both;
+    border-radius: 50%;
+}
+.pulse {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+}
+
+.header-text-top .text-title a {
+    display: inline-block;
+    margin-right: 30px;
+}
+.header-text-top a {
+    color: #fff !important;
+}
+
+.header-text-top .text-title a
+{
+    text-decoration: none;
+}
+.text-16
+{
+    font-size: 16px;
+}
+
+.header-text-top .text-title a {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.header-main-container {
+    background: #546ce8;
+    padding-top: 5px;
+}
+
+/* @media (min-width: 1620px)
+{
+.header-main-container .logo, .header-main-container .header-menu-container {
+    width: 250px;
+} */
+
+@media (min-width: 1620px){
+    .header-main-container .logo, .header-main-container .header-menu-container {
+        width: 250px;
+    }
+  } 
+
+  .header-main-container .logo {
+    display: block;
+    width: 190px;
+    margin-right: 20px;
+}
+
+.header-main-container .logo img {
+    max-height: 70px;
+}
+
+@media (min-width: 1620px){
+.header-main-container .header-search {
+    width: 790px;
+    margin-right: 20px;
+    }
+}
+.header-search {
+    width: 505px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.header-search select {
+    border: 0;
+    width: 140px;
+    height: 38px;
+    padding-left: 3px;
+    float: left;
+}
+
+@media (min-width: 1200px){
+select, textarea, input,button {
+    font-size: 14px !important;
+    }
+}
+.header-search .searh-form-container {
+    float: left;
+    width: calc(100% - 140px);
+    height: 38px;
+}
+
+.header-search .text_search {
+    border: 0;
+    padding: 0 5px 0 10px;
+    width: calc(100% - 96px);
+    height: 100%;
+}
+
+.header-search .submit-search {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    width: 95px;
+    border-radius: 0 4px 4px 0;
+    font-weight: 300;
+}
+
+.header-search .fa-search {
+    font-size: 16px;
+    color: #777;
+}
+
+.header-search .search-form {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+@media (min-width: 1620px){
+.header-main-container .header-icon-right {
+    width: calc(100% - 1080px);
+    padding: 0 0 0 20px;
+    }
+}
+
+.header-icon-right .item {
+    display: flex;
+}
+
+.header-icon-right .icon-phone {
+    background-position: -98px -5px;
+    margin-top: 2px ;
+}
+.header-icon-right a {
+    color: #fff;
+}
+.header-icon-right .icon {
+    width: 30px ;
+    height: 30px ;
+    margin-right: 8px;
+    float: left;
+}
+
+.icon-text{
+    line-height: 1.2;
+}
+
+.icon{
+    background: url(./assets/sprite-2020.png) no-repeat;
+}
+.header-icon-right .icon-text {
+    float: left;
+}
+.text-12 {
+    font-size: 12px;
+}
