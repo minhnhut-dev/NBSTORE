@@ -1,0 +1,102 @@
+@media (min-width: 1200px){
+.container {
+    width: 1200px;
+    }
+}
+
+@media (min-width: 1200px){
+.container {
+    width: 1170px;
+    }
+}
+
+@media (min-width: 992px){
+.container {
+    width: 970px;
+    }
+}
+@media (min-width: 768px){
+.container {
+    width: 750px;
+}
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+@media (min-width: 992px){
+.col-md-12 {
+    width: 100%;
+}
+}
+
+.box-sliding__left {
+    width: 220px;
+}
+@media (min-width: 992px){
+.col-md-3 {
+    width: 25%;
+    float: left;
+}
+}
+
+@media (min-width: 768px){
+    .col-sm-3 {
+        width: 25%;
+    }
+}
+.col-xs-3 {
+    width: 25%;
+}
+.header__box-menu .box-list-menu, .box-sliding .box-list-menu {
+    height: 375.5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    position: relative;
+}
+
+
+[class*=icon-cps-] {
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(https://cdn.cellphones.com.vn/media/icon/icons_menubar-11.svg);
+    background-repeat: no-repeat;
+    background-size: 1000px;
+}
+.box-sliding .box-list-menu .menu-item>a>i[class*=icon-cps-] {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+.menu-item [class*=icon-cps-] {
+    background-size: 300px;
+}
+.icon-cps-3, .icon-cps-fa-mobile, .icon-cps-smart-phone {
+    background-position: 5px -182px;
+}
+
+.box-sliding .box-list-menu .menu-item>a {
+    min-height: 31.3px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: 0 0;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none!important;
+    color: #343a40;
+    transition: .3s;
+}
