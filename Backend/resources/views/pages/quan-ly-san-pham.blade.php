@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản sản phẩm</h1>
+                    <h1>Quản Lý sản phẩm</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -117,6 +117,14 @@
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 </a>
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="tooltip" type="submit"
+                                                    title="Xóa">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                    </button> --}}
+                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" title="thêm ảnh sản phẩm">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <i class="fas fa-images"></i>
+                                                    </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -143,6 +151,40 @@
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
+        <form method="POST"  enctype="multipart/form-data" class="was-validated d-flex flex-column input-form" action="{{url('/ThemAnhSanPham')}}">
+            @csrf
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                       <div class="col-12">
+                            <input type="file" class="form-control-file input-border" id="hinh-anh" name="hinh_anh" required>
+                       </div>
+                       <div class="col-12">
+                        <label for="nhan">Sẩn Phẩm:</label>
+                        <select class="form-control" id="nhan" name="san_phams_id" style="background-image: none;" required>
+                                 <option value="">Chọn sản phẩm</option>
+                                    @foreach ($listsanpham as $sp)
+                                        <option value="{{$sp->id}}">{{$sp->TenSanPham}}</option>
+                                    @endforeach
+                        </select>
+                       </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                      <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </form>
     </section>
 
 @endsection

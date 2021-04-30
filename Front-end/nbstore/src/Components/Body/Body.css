@@ -1,0 +1,37 @@
+.box-title {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.box-flashsale .box-title__title p img {
+    width: auto;
+    height: 27px;
+    margin: 0 4px;
+}
+.col-6 p img
+{
+    width: auto;
+    height: 27px;
+    margin: 0 4px;
+    
+}
+
+.content-body {
+    margin-top: 20px;
+    border: 1px solid;
+    box-sizing: inherit;
+}
+.sale {
+    display: inline-block;
+    width: 250px;
+    height: 375px;
+}
+
+strong.d-flex.align-items-center {
+    font-size: 20px;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #ef3f23;
+}

@@ -4,7 +4,7 @@
 
     <section class="content-header">
         <div class="container">
-            <h2>Thêm thể loại phim mới</h2>
+            <h2>Thêm loại sản phẩm mới</h2>
             <hr>
             {{-- <form method="POST" action="{{ url('quan-ly-the-loai-phim/formAdd') }}" --}}
             <form method="POST" action="{{url('/them-loai-san-pham')}}"

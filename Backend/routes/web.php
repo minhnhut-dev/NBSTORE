@@ -44,3 +44,5 @@ Route::get('/login','TrangChuController@FormLogin'); // form Login
 Route::post('/login','TrangChuController@Login'); // Login vào trang admin
 
 Route::get('/logout','TrangChuController@Logout')->middleware('checklogin::class');// đăng xuất
+
+Route::post('/ThemAnhSanPham','AnhSanPhamController@InsertImageProducts'); // thêm ảnh sản phẩm
