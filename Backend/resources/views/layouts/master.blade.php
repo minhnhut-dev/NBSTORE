@@ -235,7 +235,7 @@
                         </li>
 
                         <li class="nav-item menu-item has-treeview">
-                            <a href="" class="nav-link">
+                            <a href="{{url('/quan-ly-hinh-thuc-thanh-toan')}}" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>
                                     Hình thức thanh toán

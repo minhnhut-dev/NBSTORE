@@ -36,8 +36,9 @@
                     </div>
                 </div> --}}
                 <div class="col-3">
-                    <label for="nhan">parent_id</label>
+                    <label for="nhan">Thuộc loại:</label>
                     <select class="form-control" id="nhan" name="parent_id" style="background-image: none;" >
+                        <option value>Không thuộc loại nào</option>
                         @foreach ($data as $loai)
                         <option value="{{$loai->parent_id}}">{{$loai->parent_id}}- {{$loai->TenLoai}}</option>
                         @endforeach

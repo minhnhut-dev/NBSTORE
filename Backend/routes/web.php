@@ -46,3 +46,15 @@ Route::post('/login','TrangChuController@Login'); // Login vào trang admin
 Route::get('/logout','TrangChuController@Logout')->middleware('checklogin::class');// đăng xuất
 
 Route::post('/ThemAnhSanPham','AnhSanPhamController@InsertImageProducts'); // thêm ảnh sản phẩm
+
+Route::get('/quan-ly-hinh-thuc-thanh-toan','HinhThucThanhToanController@index'); //quản lý hình thức thanh toán
+
+Route::get('/quan-ly-hinh-thuc-thanh-toan/them-hinh-thuc-thanh-toan','HinhThucThanhToanController@ThemHinhThucThanhToan'); // thêm hình thức thanh toans
+
+Route::post('/them-hinh-thuc-thanh-toan','HinhThucThanhToanController@Insertpayments');// Thêm hình thức thanh toán mới
+
+Route::get('/quan-ly-hinh-thuc-thanh-toan/update/{id}','HinhThucThanhToanController@CapNhatHinhThucThanhToan');
+
+Route::post('/updatepayment/{id}','HinhThucThanhToanController@UpdatePayments'); // cập nhật hình thức thanh toán
+
+Route::get('/quan-ly-hinh-thuc-thanh-toan/{id}','HinhThucThanhToanController@DeletePayments');//xóa hình thức thanh toán

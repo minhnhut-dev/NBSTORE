@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý rạp</h1>
+                    <h1>Quản lý hình thức thanh toán</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản lý rạp</li>
+                        <li class="breadcrumb-item active">Quản lý hình thức thanh toán</li>
                     </ol>
                 </div>
             </div>
@@ -26,9 +26,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary" role="button" href={{ url('quan-ly-rap/them-rap') }}>
+                            <a class="btn btn-primary" role="button" href={{ url('/quan-ly-hinh-thuc-thanh-toan/them-hinh-thuc-thanh-toan') }}>
                                 <i class="fas fa-plus-circle"></i>
-                                Thêm mới
+                                Thêm mới hình thức thanh toán
                             </a>
                             <div class="card-tools">
                                 <div class="input-group">
@@ -47,32 +47,30 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Chi nhánh</th>
-                                        <th>Tên rạp</th>
-                                        <th>Số lượng ghế</th>
-                                        <th>Tác vụ</th>
+                                        <th>Tên hình thức thanh toán</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @php
-                                $stt=0;
+                                $stt=1;
                                 @endphp
-                                    @foreach($raps as $r)
+                                @foreach ($data as $ht)
+
                                     <tr>
                                         <td>{{$stt++}}</td>
-                                        <td>{{$r->TenChiNhanh}}</td>
-                                        <td>{{$r->TenRap}}</td>
-                                        <td>{{$r->SoLuongGhe}}</td>
+                                        <td>{{$ht->TenHinhThuc}}</td>
+                                        </td>
+
                                         <td>
                                             <div class="btn-group">
                                                 <div class="btn-group">
-                                                    <a href="quan-ly-rap/edit/{{$r->MaRap}}">
+                                                    <a href="/quan-ly-hinh-thuc-thanh-toan/update/{{$ht->id}}">
                                                         <button type="submit" class="btn btn-warning" data-toggle="tooltip"
                                                             data-placement="top" title="Chỉnh sửa">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{route('deleteRap',$r->MaRap)}}">
+                                                    <a href="/quan-ly-hinh-thuc-thanh-toan/{{$ht->id}}">
                                                         <button type="button" class="btn btn-danger" data-toggle="tooltip"
                                                             title="Xóa">
                                                             <i class="far fa-trash-alt"></i>
@@ -84,7 +82,7 @@
                                     </tr>
 
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>

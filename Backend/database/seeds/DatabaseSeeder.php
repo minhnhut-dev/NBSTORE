@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
         $this->call(loai_nguoi_dungs::class);
         $this->call(nguoi_dungs::class);
+        $this->call(loai_san_phams::class);
+        $this->call(san_phams::class);
     }
 
 
@@ -42,4 +44,28 @@ class nguoi_dungs extends Seeder
     }
 }
 
+class loai_san_phams extends Seeder
+{
+    public function run()
+    {
+        DB::table('loai_san_phams')->insert([
+           ['TenLoai'=>'Laptop','parent_id'=>null],
+           ['TenLoai'=>'PC','parent_id'=>null],
+           ['TenLoai'=>'Laptop Gaming','parent_id'=>1],
+           ['TenLoai'=>'PC Gaming','parent_id'=>2],
+        ]);
+    }
+}
+class san_phams extends Seeder
+{
+    public function run()
+    {
+        DB::table('san_phams')->insert([
+           ['TenSanPham'=>'Nitro 5 2021','CauHinh'=>'i5 10300H','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Rogstrix g512','CauHinh'=>'i5 10300H','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'PC Gaming','CauHinh'=>'i7 10700','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>2],
+
+        ]);
+    }
+}
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoaiSanPhamsTable extends Migration
+class CreateHinhThucThanhToansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateLoaiSanPhamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('loai_san_phams', function (Blueprint $table) {
+        Schema::create('hinh_thuc_thanh_toans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('TenLoai')->unique();
-            $table->string('parent_id')->nullable();//loại sản phẩm thuộc loại
-            // $table->unsignedBigInteger('DanhMuc_id');
+            $table->string('TenHinhThuc');
             $table->boolean('TrangThai')->default(1);
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ class CreateLoaiSanPhamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loai_san_phams');
+        Schema::dropIfExists('hinh_thuc_thanh_toans');
     }
 }

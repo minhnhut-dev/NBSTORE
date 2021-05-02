@@ -49,7 +49,7 @@
                                     <tr>
                                         <th>STT</th>
                                         <th>Tên loại </th>
-                                        <th>parent_id</th>
+                                        <th>Thuộc loại</th>
                                         <th>Tác vụ</th>
                                     </tr>
                                 </thead>
@@ -71,8 +71,13 @@
                                          <tr>
                                         <td>{{++$stt}}</td>
                                         <td>{{$loai->TenLoai}}</td>
+
                                         <td>
-                                            {{$loai->parent_id}}
+                                           @if ( $loai->parent_id =="")
+                                                Không thuộc loại nào
+                                                @else
+                                                {{$loai->parent_id}}
+                                           @endif
                                         </td>
                                             <td>
                                                 <div class="btn-group">
