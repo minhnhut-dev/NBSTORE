@@ -4,7 +4,7 @@
 
     <section class="content-header">
         <div class="container">
-            <h2>Thêm thể loại phim mới</h2>
+            <h2>Thêm loại sản phẩm mới</h2>
             <hr>
             {{-- <form method="POST" action="{{ url('quan-ly-the-loai-phim/formAdd') }}" --}}
             <form method="POST" action="{{url('/them-loai-san-pham')}}"
@@ -36,8 +36,9 @@
                     </div>
                 </div> --}}
                 <div class="col-3">
-                    <label for="nhan">parent_id</label>
+                    <label for="nhan">Thuộc loại:</label>
                     <select class="form-control" id="nhan" name="parent_id" style="background-image: none;" >
+                        <option value>Không thuộc loại nào</option>
                         @foreach ($data as $loai)
                         <option value="{{$loai->parent_id}}">{{$loai->parent_id}}- {{$loai->TenLoai}}</option>
                         @endforeach

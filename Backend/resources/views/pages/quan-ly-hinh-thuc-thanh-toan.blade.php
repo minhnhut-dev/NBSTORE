@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý  loại sản phẩm</h1>
+                    <h1>Quản lý hình thức thanh toán</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản lý phim</li>
+                        <li class="breadcrumb-item active">Quản lý hình thức thanh toán</li>
                     </ol>
                 </div>
             </div>
@@ -26,10 +26,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary" role="button"
-                                href="{{ url('/quan-ly-loai-san-pham/them-loai') }}">
+                            <a class="btn btn-primary" role="button" href={{ url('/quan-ly-hinh-thuc-thanh-toan/them-hinh-thuc-thanh-toan') }}>
                                 <i class="fas fa-plus-circle"></i>
-                                Thêm mới
+                                Thêm mới hình thức thanh toán
                             </a>
                             <div class="card-tools">
                                 <div class="input-group">
@@ -48,59 +47,45 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Tên loại </th>
-                                        <th>Thuộc loại</th>
-                                        <th>Tác vụ</th>
+                                        <th>Tên hình thức thanh toán</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                 @php
-                                    $stt=0;
-                                    if (isset($_GET['page'])) {
-										$a=$_GET['page'];
+                                @php
+                                $stt=1;
+                                @endphp
+                                @foreach ($data as $ht)
 
-									}
-									else{
-										$a=1;
-									}
-									$stt=($a-1)*10;
-                                   @endphp
-                                   @foreach ($listloaisanpham as $loai)
-                                   @php
-                                   @endphp
-                                         <tr>
-                                        <td>{{++$stt}}</td>
-                                        <td>{{$loai->TenLoai}}</td>
+                                    <tr>
+                                        <td>{{$stt++}}</td>
+                                        <td>{{$ht->TenHinhThuc}}</td>
+                                        </td>
 
                                         <td>
-                                           @if ( $loai->parent_id =="")
-                                                Không thuộc loại nào
-                                                @else
-                                                {{$loai->parent_id}}
-                                           @endif
-                                        </td>
-                                            <td>
+                                            <div class="btn-group">
                                                 <div class="btn-group">
-                                                    <a href="quan-ly-loai-san-pham/update/{{$loai->id}}">
-                                                        <button type="button" class="btn btn-warning" data-toggle="tooltip"
+                                                    <a href="/quan-ly-hinh-thuc-thanh-toan/update/{{$ht->id}}">
+                                                        <button type="submit" class="btn btn-warning" data-toggle="tooltip"
                                                             data-placement="top" title="Chỉnh sửa">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
+                                                    <a href="/quan-ly-hinh-thuc-thanh-toan/{{$ht->id}}">
                                                         <button type="button" class="btn btn-danger" data-toggle="tooltip"
                                                             title="Xóa">
                                                             <i class="far fa-trash-alt"></i>
                                                         </button>
                                                     </a>
                                                 </div>
-                                            </td>
-                                         </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
+
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
-                        {{$listloaisanpham->links()}}
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->

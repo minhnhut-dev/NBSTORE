@@ -35,6 +35,7 @@ class LoaiSanPhamController extends Controller
         $data->parent_id=$request->parent_id;
         $data->save();
         return redirect('/quan-ly-loai-san-pham');
+        // return $data;
     }
 
     public function UpdateProductType(Request $request, $id)
