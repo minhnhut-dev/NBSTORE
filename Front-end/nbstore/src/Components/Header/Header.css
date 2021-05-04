@@ -15,6 +15,15 @@ header .header-banner {
     max-width: 1620px;
     min-width: 1620px;
 } */
+/* reponsive Header
+*/
+@media (min-width: 1366px){
+    .container {
+        padding: 0 10px;
+        max-width: 1366px;
+        min-width: 1366px; 
+    }
+  } 
 
 @media (min-width: 1620px){
     .container {
@@ -24,6 +33,23 @@ header .header-banner {
     }
   } 
 
+  @media (min-width: 1366px){
+    .header-text-top{
+      width: 100%;
+    }
+  } 
+  @media (min-width: 1366px){
+    .text-title{
+        margin-right: 250px;
+    }
+  } 
+  @media (min-width: 1366px){
+    .header-banner .container .text-center img
+    {
+        max-width: 80%;
+    }
+  }
+/*end reponsive*/
 
   .header-text-top {
     background: #3d52bf;
@@ -33,11 +59,11 @@ header .header-banner {
     height: 36px;
 }
 
-.container {
+/* .container {
     padding: 0 10px;
     max-width: 1260px;
     min-width: 1620px;
-}
+} */
 
 .text-13 {
     font-size: 13px;

@@ -20,13 +20,34 @@
     width: 750px;
 }
 }
-
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+@media (min-width: 1366px){
+    .container {
+        padding-right: 15px;
+        padding-left: 116px;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
+@media (min-width: 1366px){
+    .carousel-item img {
+        height: 304px;
+    }
+}
+@media (min-width: 1620px){
+    .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+    /* .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    } */
 
 .row {
     margin-right: -15px;
