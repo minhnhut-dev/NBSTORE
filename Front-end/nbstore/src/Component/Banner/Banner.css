@@ -1,0 +1,59 @@
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-bottom: 10px;
+  }
+  .gearvn-content-section {
+    position: relative;
+    margin: auto;
+  }
+  #xxx-banner {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: 999px)
+  {
+    .gearvn-content-section {
+      width: 970px;
+  }
+  }
+  @media screen and (min-width: 1300px)
+  {
+    .gearvn-content-section {
+      width: 1310px;
+  }
+  }
+  .gearvn-content-section {
+    position: relative;
+    margin: auto;
+  }
+  .row-margin-small {
+    margin: 0 10px;
+  }
+  .col-padding-small {
+    padding: 0 5px !important;
+  }
+  @media (min-width: 768px)
+  {
+    .col-sm-6 {
+      width: 50%;
+  }
+  }
+  @media (min-width: 992px)
+  {
+    .col-md-6 {
+      width: 50%;
+  } 
+  }
+  @media (min-width: 1200px)
+  {
+    .col-lg-3 {
+      width: 25%;
+  }
+  }
+  .border-rus {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
