@@ -1,19 +1,15 @@
 import "./App.css";
 import React from "react";
-import { Badge, Carousel } from "react-bootstrap";
-import logo from "./assets/logo_logo.png";
 import Header from "./Component/Header/Header";
 import Banner from "./Component/Banner/Banner";
 function App() {
   return (
     <>
+    {/**header */}
       <Header/>
-      {/**end header */}
-      <div>
-        <div id="mainframe">
           {/**Banner */}
           <Banner/>
-          {/**end Banner */}
+          {/**Body */}          
           <div className="container pd0-sm-mb">
             <div
               className="ins-preview-wrapper ins-preview-wrapper-301"
@@ -87,9 +83,7 @@ function App() {
                                     className="ins-element-content"
                                   >
                                     <div
-                                      className="ins-product-name"
-                                      contenteditable="false"
-                                    >
+                                      className="ins-product-name">
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
                                   </div>
@@ -168,7 +162,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -247,7 +240,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -326,7 +318,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -405,7 +396,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -484,7 +474,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -563,7 +552,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -642,7 +630,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -764,7 +751,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -844,7 +830,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -923,7 +908,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1002,7 +986,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1081,7 +1064,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1160,7 +1142,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1239,7 +1220,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1318,7 +1298,6 @@ function App() {
                                   >
                                     <div
                                       className="ins-product-name"
-                                      contenteditable="false"
                                     >
                                       Laptop Gaming MSI GF75 Thin 10SCXR 013VN
                                     </div>
@@ -1778,8 +1757,6 @@ function App() {
             </div>
             {/**end list 4 */}
           </div>
-        </div>
-      </div>
       {/**footer */}
       <div id="footer">
         <div className="container" style={{ display: "flex" }}>
@@ -1814,6 +1791,7 @@ function App() {
               </div>
             </div>
           </div>
+
           <div id="user2" className="col-sm-5 col-xs-12">
             <b>Hệ Thống Cửa Hàng</b>
             <p>
