@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Carousel } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
 import "./Header.css";
 export default function Header() {

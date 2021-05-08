@@ -1,11 +1,9 @@
 import React from "react";
 import "./Banner.css";
 import { Carousel } from "react-bootstrap";
-
-function Banner() {
+export default function Banner() {
   return (
     <>
-    
         <div className="gearvn-header-navigation ">
           <div className="row gearvn-content-section gearvn-header-navigation-content padding-10-0 container">
             <div className="gearvn-header-menu">
@@ -225,5 +223,3 @@ function Banner() {
     </>
   );
 }
-
-export default Banner;
