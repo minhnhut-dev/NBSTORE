@@ -17,32 +17,12 @@
                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
                 </div>
 
-                {{-- <div class="check-group col-12">
-                    <label for="check">Trạng thái:</label>
-                    <div class="d-flex" id="check">
-                        <div class="form-check">
-                            <label class="form-check-label" for="radio-sap-chieu">
-                                <input type="radio" class="form-check-input" id="radio-sap-chieu" name="optradio" value="1"
-                                    checked>Đang hoạt động
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="radio-dang-chieu">
-                                <input type="radio" class="form-check-input" id="radio-dang-chieu" name="optradio"
-                                    value="0">Ngưng hoạt động
-                            </label>
-                        </div>
 
-                    </div>
-                </div> --}}
                 <div class="col-3">
                     <label for="nhan">Thuộc loại:</label>
                     <select class="form-control" id="nhan" name="parent_id" style="background-image: none;" >
-                        <option value>Không thuộc loại nào</option>
-                        @foreach ($data as $loai)
-                        <option value="{{$loai->parent_id}}">{{$loai->parent_id}}- {{$loai->TenLoai}}</option>
-                        @endforeach
-
+                        <option value="0">Không thuộc loại nào</option>
+                        {{!!$htmlOption!!}}
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary btn-submit-input-form btn-them-phim" data-toggle="modal">
