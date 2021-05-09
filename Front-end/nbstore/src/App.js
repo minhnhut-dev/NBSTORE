@@ -8,11 +8,11 @@ import ProductDetail from "./Pages/ProductDetail/ProductDetail";
 function App() {
   return (
     <>
-      {/* <Header />
+      <Header />
       <Banner />
       <Body />
-      <Footer /> */}
-      <ProductDetail/>
+      <Footer />
+      {/* <ProductDetail/> */}
     </>
   );
 }

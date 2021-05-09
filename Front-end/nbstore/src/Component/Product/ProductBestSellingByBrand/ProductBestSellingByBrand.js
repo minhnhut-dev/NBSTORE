@@ -36,6 +36,7 @@ import "../../Body/Body.css";
                     </a>
                   </div>
                 </div>
+                
                 <h2 className="product-row-name">
                   Laptop gaming Acer Aspire 7 A715 42G R4ST
                 </h2>
