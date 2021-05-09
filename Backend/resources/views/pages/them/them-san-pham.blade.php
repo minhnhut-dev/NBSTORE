@@ -49,11 +49,9 @@
                         <label for="nhan">Loại sản phẩm:</label>
 
 
-                        <select class="form-control" id="nhan" name="loai" style="background-image: none;" required>
-                            @foreach ($data as $loai)
-                                <option value="{{ $loai->id }}">{{ $loai->TenLoai }}</option>
-                            @endforeach
-
+                        <select class="form-control" id="nhan" name="loai" style="background-image: none;" >
+                                <option value>Không thuộc loại nào</option>
+                                {{!!$htmlOption!!}}
                         </select>
                     </div>
 
@@ -69,7 +67,7 @@
                     <!-- Modal body -->
                     <div class="modal-body text-center">
                         <i class="fas fa-info-circle" style="color: #dc3545;"></i>
-                        Xác nhận thêm phim vào hệ thống
+                        Xác nhận thêm  vào hệ thống
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 

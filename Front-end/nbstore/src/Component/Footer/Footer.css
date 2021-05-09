@@ -1,0 +1,33 @@
+
+/*footer*/
+#footer {
+    background: #f6f6f6;
+    padding: 20px 0;
+  }
+  #user1 h3, #user2 h3, #user3 h3 {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  .moduletable .custom {
+    margin-bottom: 15px;
+  }
+  #user2 {
+    padding: 0px 20px !important;
+  }
+  @media (min-width: 768px)
+  {
+    .col-sm-5 {
+      width: 41.66666667%;
+  }
+  }
+  #user2 p {
+    font-size: 14px;
+    padding-top: 4px;
+  }
+  #user2 b{
+    color: #428bca;
+  }
+  /*end footer*/

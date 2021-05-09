@@ -1,7 +1,7 @@
 @extends('../layouts.master')
 
 @section('content')
-
+      
     <section class="content-header">
         <div class="container">
             <h2>Cập nhật loại sản phẩm</h2>
@@ -18,9 +18,11 @@
                 </div>
 
                 <div class="col-3">
-                    <label for="nhan">parent_id</label>
+                    <label for="nhan">Thuộc loại</label>
+                 
                     <select class="form-control" id="nhan" name="parent_id" style="background-image: none;" >
-                        <option value="{{$loai->parent_id}}">{{$loai->parent_id}}- {{$loai->TenLoai}}</option>
+                       <option value>Không thuộc loại nào</option>
+                         {{!!$htmlOption!!}}
 
                     </select>
                 </div>
@@ -35,7 +37,7 @@
                             <!-- Modal body -->
                             <div class="modal-body text-center">
                                 <i class="fas fa-info-circle" style="color: #dc3545;"></i>
-                                Xác nhận cập nhật thể loại phim
+                                Xác nhận cập nhật loại sản phẩm
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
