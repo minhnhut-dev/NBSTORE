@@ -63,7 +63,7 @@
 									else{
 										$a=1;
 									}
-									$stt=($a-1)*10;
+									$stt=($a-1)*5;
                                    @endphp
                                    @foreach ($listloaisanpham as $loai)
                                    @php

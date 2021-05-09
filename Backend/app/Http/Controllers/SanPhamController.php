@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
 use App\LoaiSanPham;
@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 class SanPhamController extends Controller
 {
     //
+    private $LoaiSanPham;
+    public function __construct(LoaiSanPham $LoaiSanPham)
+    {
+        $this->htmlselect = '';
+        $this->LoaiSanPham = $LoaiSanPham;
+    }
     public function index()
     {
         // $loai=LoaiSanPham::orderby('TenLoai','ASC')->get();
@@ -22,8 +28,11 @@ class SanPhamController extends Controller
 
     public function ThemSanPham()
     {
-        $data= LoaiSanPham::all();
-        return view('pages.them.them-san-pham',compact('data'));
+        $data= LoaiSanPham::where('TrangThai',1)->get();
+        $dataOption =$this->LoaiSanPham::where('TrangThai',1)->get();
+        $Recursion = new Recursion($dataOption);
+        $htmlOption=$Recursion->cat_parent();
+        return view('pages.them.them-san-pham',compact('data','htmlOption'));
     }
 
     public function SuaSanPham($id)
@@ -68,4 +77,13 @@ class SanPhamController extends Controller
         $data->save();
         return redirect('/quan-ly-san-pham');
     }
+    public static function checkSanPhamThuocLoai($id){
+        $sanphams=SanPham::where('TrangThai',1)->get();
+        foreach($sanphams as $item){
+            if($item->loai_san_phams_id==$id)
+            return true;
+        }
+        return false;
+    }
+    
 }

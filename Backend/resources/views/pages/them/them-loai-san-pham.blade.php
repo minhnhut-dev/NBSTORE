@@ -1,5 +1,4 @@
 @extends('../layouts.master')
-
 @section('content')
 
     <section class="content-header">
@@ -18,10 +17,10 @@
                 </div>
 
 
-                <div class="col-3">
+                <div class="col-3 select">
                     <label for="nhan">Thuộc loại:</label>
                     <select class="form-control" id="nhan" name="parent_id" style="background-image: none;" >
-                        <option value="0">Không thuộc loại nào</option>
+                        <option value>Không thuộc loại nào</option>
                         {{!!$htmlOption!!}}
                     </select>
                 </div>
