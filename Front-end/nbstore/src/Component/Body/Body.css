@@ -214,7 +214,16 @@ row {
     border: 1px solid #FFF;
     box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
    min-height: 340px;
+   position: relative;
   }
+  .product-row:hover{
+    border: 1px solid #F1DF8D;
+  }
+  .product-row:hover .product-row-price-hover{
+    opacity: 100%;
+    bottom: 0;
+  }
+
   .product-row-img {
     display: block;
     overflow: hidden;
@@ -225,7 +234,6 @@ row {
     background: #FFF;
   }
   
-  
   .product-row-thumbnail {
     width: 100%;
     min-height: 211px;
@@ -233,14 +241,15 @@ row {
   }
   .product-row-price-hover {
     background: none repeat scroll 0 0 rgba(121, 117, 101, 0.8);
-    bottom: -100px;
+    bottom: -50px;
     color: #fff!important;
     font-size: 13px;
     left: 0;
     padding: 10px;
     position: absolute;
-    transition: bottom 0.5s ease 0s;
     width: 100%;
+    opacity: 0;
+    transition: 0.5s ;
   }
   .pull-left {
     float: left !important;

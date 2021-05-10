@@ -4,13 +4,15 @@ import Header from "./Component/Header/Header";
 import Banner from "./Component/Banner/Banner";
 import Body from "./Component/Body/Body";
 import Footer from "./Component/Footer/Footer";
+import ProductDetail from "./Pages/ProductDetail/ProductDetail";
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Banner />
       <Body />
-      <Footer />
+      <Footer /> */}
+      <ProductDetail/>
     </>
   );
 }
