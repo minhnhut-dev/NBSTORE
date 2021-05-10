@@ -46,6 +46,12 @@
         width: 50%;
     }
 }
+/* @media (min-width: 768px)
+{
+    .col-sm-6 {
+        width: 50%;
+    }
+} */
 .showHere{
     font-size: 14px;
     padding: 5px;
@@ -56,4 +62,118 @@
 }
 .fa-caret-right{
     margin-left: 3px;
+}
+.product_thumbnail .imgContainer{
+    width: 100%;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: nowrap;
+    cursor: pointer;
+}
+
+.product_thumbnail  .imgContainer img{
+    width: 100px;
+    height: 109px;
+    /* border: 1px solid blueviolet; */
+    padding: 3px
+}
+
+.product_name {
+    font-size: 24px;
+    margin: 0px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.ins-preview-wrapper-145{
+    display: flex;
+}
+.img-nb img {
+    max-width: 40px !important;
+}
+.follower {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-weight: 700;
+}
+.Brand-product span{
+    font-size: 15pt;
+}
+.Brand-product{
+    margin-top: 15px;
+}
+.Product-warranty span{
+    font-size: 15pt;
+
+}
+.price-text {
+    font-size: 16px;
+    display: inline-block;
+    width: 70px;
+}
+.product_price {
+    color: #888;
+    font-size: 22px;
+    line-height: 180%;
+}
+.product_sale_price {
+    font-size: 22px;
+    color: #e61010;
+    font-weight: 700;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.clr, .clearfix {
+    clear: both;
+    height: 0;
+}
+.product_buy_btn {
+    background: #ed1f24 !important;
+    margin-top: 10px;
+}
+.product_buy_btn {
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 3px 30px 7px 30px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+.ins-preview-wrapper-2587 div, .ins-preview-wrapper-2587 img, .ins-preview-wrapper-2587 p, .ins-preview-wrapper-2587 span, .ins-preview-wrapper-2587 a, .ins-preview-wrapper-2587 i {
+    border-radius: 5px !important;
+}
+.mce-item-table{
+    box-sizing: border-box;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 1200px;
+    min-width: 500px;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #eeeeee;
+    color: #333333;
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    background-color: #ffffff;
+    height: 500px;
+
+}
+.name-Product{
+    box-sizing: border-box;
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #eeeeee;
+    width: 18.5209%;
+    background-color: #f7f7f7 !important;
+}
+.info-Product{
+    box-sizing: border-box;
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #eeeeee;
+    width: 78.4791%;
 }
