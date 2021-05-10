@@ -39,6 +39,13 @@
         width: 1310px;
     }
 }
+
+@media (min-width: 768px)
+{
+    .col-sm-6 {
+        width: 50%;
+    }
+}
 .showHere{
     font-size: 14px;
     padding: 5px;

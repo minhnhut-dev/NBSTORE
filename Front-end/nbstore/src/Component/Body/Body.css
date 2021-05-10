@@ -216,7 +216,9 @@ row {
    min-height: 340px;
    position: relative;
   }
-
+  .product-row:hover{
+    border: 1px solid #F1DF8D;
+  }
   .product-row:hover .product-row-price-hover{
     opacity: 100%;
     bottom: 0;
