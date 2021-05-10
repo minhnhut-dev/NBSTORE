@@ -177,3 +177,17 @@
     border: 1px solid #eeeeee;
     width: 78.4791%;
 }
+#product_content_detail .tab-content p img {
+    display: block;
+    margin: 5px auto;
+}
+.tab-content img {
+    max-width: 100% !important;
+}
+
+#product_content_detail img {
+    max-width: 703px;
+}
+.react-tabs__tab-panel--selected p img{
+    max-width: 100% !important;
+}

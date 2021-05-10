@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../Component/Header/Header";
+import Footer from "../../Component/Footer/Footer";
 import "./ProductDetail.css";
 import { Button } from "react-bootstrap";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -360,38 +361,235 @@ function ProductDetail() {
                     </TabList>
 
                     <TabPanel>
-                      <h4 style={{color:"red",textDecoration:"underline"}}>
+                      <h5 style={{ color: "red", textDecoration: "underline" }}>
                         <strong>Thông tin sản phẩm</strong>
-                      </h4>
+                      </h5>
                       <div className="scroll-table">
-                            <table className="table table-bordered mce-item-table">
-                                <tbody>
-                                  <tr className="row-info" style={{height:"35px"}}>
-                                    <td className="name-Product" >
-                                      <span style={{color:"black"}}>CPU</span>
-                                    </td>
-                                    <td className="info-Product">AMD Ryzen 5 – 5500U</td>
-                                  </tr>
-                                  <tr className="row-info">
-                                    <td className="name-Product">
-                                      <span style={{color:"black"}}>RAM</span>
-                                    </td>
-                                    <td className="info-Product">16GB</td>
-                                  </tr>
-                                </tbody>
-                            </table>
+                        <table className="table table-bordered mce-item-table">
+                          <tbody>
+                            <tr className="row-info" style={{ height: "35px" }}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>CPU</span>
+                              </td>
+                              <td className="info-Product">
+                                AMD Ryzen 5 – 5500U
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{ height: "35px" }}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>RAM</span>
+                              </td>
+                              <td className="info-Product">16GB</td>
+                            </tr>
+                            <tr className="row-info" style={{ height: "35px" }}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>Ổ cứng</span>
+                              </td>
+                              <td className="info-Product">256GB</td>
+                            </tr>
+                            <tr className="row-info" style={{ height: "35px" }}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Card đồ họa
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                                NVIDIA GeForce GTX 1650 4GB GDDR6
+                              </td>
+                            </tr>
+                            <tr className="row-info"style={{ height: "35px" }}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>Màn hình</span>
+                              </td>
+                              <td className="info-Product">
+                                15.6" FHD (1920 x 1080) IPS, Anti-Glare, 60Hz
+                              </td>
+                            </tr>
+                            <tr className="row-info"  style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Cổng giao tiếp
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                                1x USB 3.0 1x USB Type C 2x USB 2.0 1x HDMI 1x
+                                RJ45
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Ổ quang
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                               None
+                              </td>
+                            </tr>
+                            <tr className="row-info">
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Audio
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              True Harmony; Dolby® Audio Premium
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Đọc thẻ nhớ
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              None
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}} >
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                  Chuẩn Lan
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              10/100/1000/Gigabits Base T
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" >
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Chuẩn WIFI
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              Wi-Fi 6(Gig+)(802.11ax) (2x2)
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Bluetooth
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                             v5.0
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Webcam
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              HD Webcam
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Hệ điều hành	
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              Windows 10 Home
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Pin	
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              4cell
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Trọng lượng	
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                             2.1KG
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Màu sắc
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              Đen, Có đèn bàn phím
+
+                              </td>
+                            </tr>
+                            <tr className="row-info" style={{height:"35px"}}>
+                              <td className="name-Product">
+                                <span style={{ color: "black" }}>
+                                Kích thước	
+                                </span>
+                              </td>
+                              <td className="info-Product">
+                              363.4 x 254.5 x 23.25 (mm)
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
+                      <h2>
+                        <span style={{fontSize:"15pt"}}>Đánh giá chi tiết :&nbsp;</span>
+                        <span style={{fontSize:"15pt"}}>
+                          <br/>
+                        </span>
+                      </h2>
+                      <p>
+                        <img src="https://file.hstatic.net/1000026716/file/1_8adb7d38a9094a94a450be9b3a5c1d05.png"/>
+                      </p>
+                      <h3 style={{textAlign:"left"}}>
+                        <span style={{color:"#000000"}}>Laptop Gaming Tốt Nhất Phân Khúc</span>
+                      </h3>
+                      <p style={{textAlign:"justify"}}>
+                        <span style={{color:"#000000"}}>Acer Aspire 7 2020 A715 42G R4ST tích hợp card đồ họa NVIDIA GTX1650 4GB GDDR6 ra mắt năm 2020, là laptop chơi game tốt nhất phân khúc. Không chỉ vậy, phiên bản này còn mang thiết kế mới gọn gàng và sexy hơn. Aspire 7 2020 được trang bị hệ thống tản nhiệt mạnh mẽ bậc nhất trong phân khúc, thừa hưởng công nghệ từ các dòng máy cao cấp hơn của Acer, cùng cấu hình đỉnh cao, giúp cho người dùng có thể vừa chơi game vừa làm việc ở bất cứ lúc nào.</span>
+                      </p>
+                      <p>
+                        <img src="https://file.hstatic.net/1000026716/file/2_5f8ab09ec95547a9ad2975be2f96300e.png"/>
+                      </p>
+                      <h3 style={{textAlign:"left"}}>
+                        <span style={{color:"#000000"}}>THIẾT KẾ TỐI ƯU TRẢI NGHIỆM CHƠI GAME</span>
+                      </h3>
+                      <p style={{textAlign:"justify"}}>
+                        <span style={{color:"#000000"}}>Hệ thống hai quạt tản nhiệt, 3 ống đồng fullsize, heatsink size lớn giúp Acer Aspire 7 A715 2020 tối ưu khả năng tản nhiệt. Bản lề thiết kế chắc chắn ít bị rung lắc khi chơi, có khả năng mở góc 180 độ giúp bảo vệ máy tốt hơn.</span>
+                      </p>
+                      <p>
+                        <img src="https://file.hstatic.net/1000026716/file/3_21a5af15cbc64fdcab3dc6b881d31f76.png"/>
+                      </p>
                     </TabPanel>
                     <TabPanel>
-                      <h2>Any content 2</h2>
+                      <h2>Cẩm Nhung xinh đẹp </h2>
                     </TabPanel>
                   </Tabs>
                 </div>
               </div>
             </div>
+            {/* <div id="binhluan">
+            <div className="title-bl">
+                <h2>Bình Luận</h2>
+            </div>
+        </div> */}
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
