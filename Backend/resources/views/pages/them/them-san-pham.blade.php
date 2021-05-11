@@ -16,17 +16,21 @@
                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
                 </div>
                 <div class="form-group d-flex">
-                    <div class="col-4">
+                    <div class="col-2">
                         <label for="ngay-dk-chieu">Cấu hình:</label>
-                        <input type="text" class="form-control" id="ngay-dk-chieu" name="cau_hinh" required>
+                        {{-- <input type="text" class="form-control" id="ngay-dk-chieu" name="cau_hinh" required> --}}
+                        <button type="submit" class="btn btn-primary">Thêm Cấu hình</button>
                         <div class="invalid-feedback">Không được bỏ trống trường này</div>
                     </div>
 
 
                     <div class="col-4">
                         <label for="ngay-dk-chieu">Thông tin</label>
-                        <input type="text" class="form-control" id="ngay-dk-chieu" name="thong_tin"
-                            placeholder="Nhập thông tin sản phẩm" required>
+                        {{-- <input type="text" class="form-control" id="ngay-dk-chieu" name="thong_tin"
+                            placeholder="Nhập thông tin sản phẩm" required> --}}
+                            <textarea id="w3review" name="w3review" rows="5" cols="40" style="height:37px;border-radius:4px;">
+
+                                </textarea>
                         <div class="invalid-feedback">Không được bỏ trống trường này</div>
                     </div>
 

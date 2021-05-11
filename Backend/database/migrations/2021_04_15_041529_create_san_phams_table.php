@@ -16,9 +16,11 @@ class CreateSanPhamsTable extends Migration
         Schema::create('san_phams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('TenSanPham');
-            $table->string('CauHinh');
             $table->string('ThongTin');
-            $table->string('XuatXu');
+            $table->string('HangSanXuat');
+            $table->string('GiaCu');
+            $table->string('GiaKM');
+            $table->string('QuaTang');
             // khóa ngoại
             $table->unsignedBigInteger('loai_san_phams_id')->nullable();
             $table->boolean('TrangThai')->default(1);
