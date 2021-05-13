@@ -5,9 +5,7 @@ use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
 use App\LoaiSanPham;
-use PhpParser\Node\Expr\FuncCall;
-use Illuminate\Support\Facades\DB;
-
+use App\CauHinh;
 class SanPhamController extends Controller
 {
     //
@@ -19,10 +17,10 @@ class SanPhamController extends Controller
     }
     public function index()
     {
-        // $loai=LoaiSanPham::orderby('TenLoai','ASC')->get();
-        // return $loai;
+
         $sanpham['listsanpham']=SanPham::where('TrangThai',1)->paginate(5);
-        // return $sanpham;
+        // return $data;
+        //  return $data;
         return view('pages.quan-ly-san-pham',$sanpham);
     }
 
@@ -77,13 +75,5 @@ class SanPhamController extends Controller
         $data->save();
         return redirect('/quan-ly-san-pham');
     }
-    public static function checkSanPhamThuocLoai($id){
-        $sanphams=SanPham::where('TrangThai',1)->get();
-        foreach($sanphams as $item){
-            if($item->loai_san_phams_id==$id)
-            return true;
-        }
-        return false;
-    }
-    
+
 }
