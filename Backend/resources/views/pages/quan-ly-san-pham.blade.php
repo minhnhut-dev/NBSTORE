@@ -123,6 +123,7 @@
                                         <td>{{$sp->HangSanXuat}}</td>
                                         {{-- <td>{{$sp->LoaiSanPham->TenLoai}}</td> --}}
                                         <td>{{$sp->LoaiSanPham->TenLoai}}</td>
+
                                         <td></td>
                                         <td>10</td>
                                         {{-- <td>{{$stt}}</td>

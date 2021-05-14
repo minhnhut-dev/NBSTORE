@@ -50,7 +50,7 @@ class CreateCauHinhsTable extends Migration
             $table->string('Nguồn')->nullable();
             $table->string('Case')->nullable();
             $table->string('Fan')->nullable();
-            $table->unsignedBigInteger('san_phams_id');//Khóa ngoại
+            $table->unsignedBigInteger('san_phams_id')->default(1);//Khóa ngoại
         });
     }
     /**
