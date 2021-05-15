@@ -2,6 +2,7 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
 import "./Header.css";
+import {Link} from "react-router-dom";
 export default function Header() {
   return (
     <>
@@ -15,9 +16,12 @@ export default function Header() {
             <div className="container gearvn-content-section">
               <div className="row">
                 <div className="left_header" style={{ zIndex: 997 }}>
-                  <a href="#">
+                  {/* <a href="#">
                     <img src={logo} title="Logo" alt="NBSTORE" />
-                  </a>
+                  </a> */}
+                  <Link to="/">
+                       <img src={logo} title="Logo" alt="NBSTORE" />
+                  </Link>
                 </div>
                 {/* <div className="right_header">
                             <div className="pd5 fl1">
@@ -70,12 +74,18 @@ export default function Header() {
                           <div className="gearvn-text">Đăng ký</div>
                         </div>
                       </a>
-                      <a href="#" className="gearvn-header-top-item">
+                      {/* <a href="#" className="gearvn-header-top-item">
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
                         <div className="header-right-description">
                           <div className="gearvn-text">Đăng nhập</div>
                         </div>
-                      </a>
+                      </a> */}
+                      <Link to="/Login" className="gearvn-header-top-item">
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">Đăng nhập</div>
+                          </div>
+                      </Link>
                       <a href="#" className="gearvn-header-top-item">
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
                         <div className="header-right-description">
