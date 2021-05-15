@@ -68,12 +68,18 @@ export default function Header() {
                   </div>
                   <div className=" pdl0 fl1 ">
                     <div className="gearvn-right-top-block">
-                      <a href="#" className="gearvn-header-top-item">
+                      {/* <a href="#" className="gearvn-header-top-item">
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak1.png?v=19349" />
                         <div className="header-right-description">
                           <div className="gearvn-text">Đăng ký</div>
                         </div>
-                      </a>
+                      </a> */}
+                      <Link to="/Register" className="gearvn-header-top-item"> 
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak1.png?v=19349" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">Đăng ký</div>
+                          </div>
+                      </Link>
                       {/* <a href="#" className="gearvn-header-top-item">
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
                         <div className="header-right-description">

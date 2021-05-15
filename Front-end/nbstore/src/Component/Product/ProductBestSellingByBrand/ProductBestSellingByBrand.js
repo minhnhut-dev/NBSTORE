@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "../../Body/Body.css";
  export default function ProductBestSellingByBrand() {
     return (
@@ -19,12 +19,17 @@ import "../../Body/Body.css";
               <div className="product-row">
                 <a href="#"></a>
                 <div className="product-row-img">
-                  <a href="#">
+                  {/* <a href="#">
                     <img
                       src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
                       className="product-row-thumbnail"
                     />
-                  </a>
+                  </a> */}
+                  <Link to="/ProductDetail">
+                        <img
+                            src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
+                            className="product-row-thumbnail"/>
+                  </Link>
                   <div className="product-row-price-hover">
                     <a href="#">
                       <div className="product-row-note pull-left">
