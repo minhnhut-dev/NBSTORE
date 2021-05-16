@@ -20,7 +20,7 @@ class CreateSanPhamsTable extends Migration
             $table->string('HangSanXuat');
             $table->string('GiaCu');
             $table->string('GiaKM');
-            $table->string('QuaTang');
+            $table->string('SoLuong');
             // khóa ngoại
             $table->unsignedBigInteger('loai_san_phams_id')->nullable();
             $table->boolean('TrangThai')->default(1);

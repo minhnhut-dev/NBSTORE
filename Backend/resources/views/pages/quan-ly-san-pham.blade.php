@@ -51,9 +51,11 @@
                                         <th>Tên Sản Phẩm</th>
                                         <th>Cấu hình</th>
                                         <th>Thông tin</th>
-                                        <th>Xuất xứ</th>
+                                        <th>Hãng sản xuất</th>
                                         {{-- <th>Hình ảnh</th> --}}
                                         <th>Loại</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Số lượng</th>
                                         <th>Chức năng</th>
                                     </tr>
                                 </thead>
@@ -79,11 +81,51 @@
                                             {{$stt}}
                                         </td>
                                         <td>{{$sp->TenSanPham}}</td>
-                                        <td>{{$sp->CauHinh}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-target="#exampleModal{{$sp->id}}" title="Xem cấu hình" data-toggle="modal">Xem cấu hình
+                                            </button>
+                                            <div class="modal fade" id="exampleModal{{$sp->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Thông tin cấu hình sản phẩm {{$sp->TenSanPham}}</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                       <div class="col-12">
+                                                        <table class="table">
+                                                            <thead>
+                                                              {{-- <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">First</th>
+                                                              </tr> --}}
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">ID</th>
+                                                                    <td>{{$sp->id}}</td>
+                                                                  </tr>
+
+                                                            </tbody>
+                                                          </table>
+                                                       </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </td>
                                         <td>{{$sp->ThongTin}}</td>
-                                        <td>{{$sp->XuatXu}}</td>
+                                        <td>{{$sp->HangSanXuat}}</td>
                                         {{-- <td>{{$sp->LoaiSanPham->TenLoai}}</td> --}}
                                         <td>{{$sp->LoaiSanPham->TenLoai}}</td>
+
+                                        <td></td>
+                                        <td>10</td>
                                         {{-- <td>{{$stt}}</td>
                                         <td>{{$p->TenPhim}}</td>
                                         <td>{{$p->NgayDKChieu}}</td>
@@ -121,10 +163,7 @@
                                                     title="Xóa">
                                                     <i class="fas fa-plus-circle"></i>
                                                     </button> --}}
-                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal" title="thêm ảnh sản phẩm">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                        <i class="fas fa-images"></i>
-                                                    </button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -151,40 +190,7 @@
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
-        <form method="POST"  enctype="multipart/form-data" class="was-validated d-flex flex-column input-form" action="{{url('/ThemAnhSanPham')}}">
-            @csrf
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                       <div class="col-12">
-                            <input type="file" class="form-control-file input-border" id="hinh-anh" name="hinh_anh" required>
-                       </div>
-                       <div class="col-12">
-                        <label for="nhan">Sẩn Phẩm:</label>
-                        <select class="form-control" id="nhan" name="san_phams_id" style="background-image: none;" required>
-                                 <option value="">Chọn sản phẩm</option>
-                                    @foreach ($listsanpham as $sp)
-                                        <option value="{{$sp->id}}">{{$sp->TenSanPham}}</option>
-                                    @endforeach
-                        </select>
-                       </div>
 
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                      <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </form>
     </section>
 
 @endsection

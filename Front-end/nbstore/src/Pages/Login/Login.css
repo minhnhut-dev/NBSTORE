@@ -1,0 +1,159 @@
+@media screen and (min-width: 769px)
+{.noindex {
+    margin-top: 186px;
+}}
+
+#layout-page-login {
+    border: 1px solid #f0f0f0;
+    margin: 30px auto;
+}
+#customer-login {
+    margin: 0px auto;
+    width: 300px;
+}
+.title-register, #title-login {
+    text-align: center;
+}
+
+
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.input-group-addon:first-child {
+    border-right: 0;
+}
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.input-group-addon {
+    width: 40px !important;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+.input-group .form-control {
+    display: table-cell;
+}
+.input-group-addon, .input-group-btn, .input-group .form-control {
+    display: table-cell;
+}
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.input-group-addon:first-child, .input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-group > .btn, .input-group-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group .form-control:last-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+#customer-login  .input-group{
+    margin-bottom: 20px;
+    width: 100%;
+
+}
+#customer-login  .input-group input{
+    outline:  none;
+}
+.btnLogin{
+    width: 40%;
+}
+#customer-login .action_bottom, #customer_login .req_pass {
+    margin-bottom: 10px;
+}
+.linkRegister{
+    margin-left: 10px;
+}
+
+#login{
+    margin-top: 70px;
+}
+/*Animation*/
+#title-login {  
+    background-position: center center;
+    background-size: 1000px 200px;
+    border-radius: 10px;
+    font-family: 'Akronim';
+    overflow: hidden;
+      text-align: center;
+    vertical-align: middle;
+    margin-left: 40px;
+  
+  }
+  #title-login:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  
+  .clearfix {
+    display: inline-block;
+    margin: 0;
+  
+      color: rgb(255, 115, 0);
+      font-size: 100px;
+    line-height: 50px;
+    min-width: 50px;
+    outline: none;
+    vertical-align: middle;
+      
+    text-shadow:
+          0 3px 20px red,
+          0 0 20px red,
+      0 0 10px orange,
+      4px -5px 6px yellow,
+      -4px -10px 10px yellow,
+      0 -10px 30px yellow;
+    animation: 1s clearfix infinite alternate linear;
+  }
+  
+  @keyframes clearfix {
+    0%   { text-shadow: 0 3px 20px red, 0 0 20px red,
+      0 0 10px orange,
+      0 0 0 yellow,
+      0 0 5px yellow,
+      -2px -5px 5px yellow,
+      4px -10px 10px yellow; }
+    25%   { text-shadow: 0 3px 20px red, 0 0 30px red,
+      0 0 20px orange,
+      0 0 5px yellow,
+      -2px -5px 5px yellow,
+      3px -10px 10px yellow,
+      -4px -15px 20px yellow; }
+    50%   { text-shadow: 0 3px 20px red, 0 0 20px red,
+      0 -5px 10px orange,
+      -2px -5px 5px yellow,
+      3px -10px 10px yellow,
+      -4px -15px 20px yellow,
+      2px -20px 30px rgba(255,255,0,0.5); }
+    75%   { text-shadow: 0 3px 20px red, 0 0 20px red,
+      0 -5px 10px orange,
+      3px -5px 5px yellow,
+      -4px -10px 10px yellow,
+      2px -20px 30px rgba(255,255,0,0.5),
+      0px -25px 40px rgba(255,255,0,0)}
+    100%   { text-shadow: 0 3px 20px red, 0 0 20px red,
+      0 0 10px orange,
+      0 0 0 yellow,
+      0 0 5px yellow,
+      -2px -5px 5px yellow,
+      4px -10px 10px yellow; }
+  }

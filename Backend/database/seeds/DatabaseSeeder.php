@@ -61,10 +61,7 @@ class san_phams extends Seeder
     public function run()
     {
         DB::table('san_phams')->insert([
-           ['TenSanPham'=>'Nitro 5 2021','CauHinh'=>'i5 10300H','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'Rogstrix g512','CauHinh'=>'i5 10300H','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'PC Gaming','CauHinh'=>'i7 10700','ThongTin'=>'mới','XuatXu'=>'Trung quốc','loai_san_phams_id'=>2],
-
+           ['TenSanPham'=>'nitro 5 2021','ThongTin'=>'mới','HangSanXuat'=>'Acer','GiaCu'=>17000000,'GiaKM'=>16000000,'Soluong'=>10,'loai_san_phams_id'=>1]
         ]);
     }
 }

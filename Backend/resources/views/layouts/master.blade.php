@@ -22,6 +22,12 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!--Dropzone-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
 </head>
 <!--
       BODY TAG OPTIONS:
@@ -299,6 +305,7 @@
     <script src={{ asset('ajax/suat-chieu-ajax.js') }}></script>
     <script src={{ asset('ajax/ve-ajax.js') }}></script>
     <script src={{ asset('js/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.js') }}></script>
+
     <script>
         $(function() {
             //Bootstrap Duallistbox
@@ -306,7 +313,26 @@
         })
 
     </script>
-
+    <script type="text/javascript">
+       Dropzone.options.dropzone =
+        {
+            maxFilesize: 10,
+            renameFile: function (file) {
+                var dt = new Date();
+                var time = dt.getTime();
+                return time + file.name;
+            },
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            timeout: 60000,
+            success: function (file, response) {
+                console.log(response);
+            },
+            error: function (file, response) {
+                return false;
+            }
+        };
+    </script>
 </body>
 
 </html>
