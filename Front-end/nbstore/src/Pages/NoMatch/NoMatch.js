@@ -9,7 +9,7 @@ function NoMatch() {
     <>
       <Header />
       <div className="noindex">
-        <div className="clearfix" style={{marginLeft:"600px",marginTop:"20px"}}>
+        <div className="clearfix" style={{marginLeft:"300px",marginTop:"20px"}}>
              <h1 className="title-register" >KHÔNG TÌM THẤY TRANG / {location.pathname}</h1>
         </div>
       </div>

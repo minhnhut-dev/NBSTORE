@@ -1,6 +1,9 @@
 import React from "react";
 import "../../Body/Body.css";
-export default function ProductDealinMonth() {
+import NumberFormat from 'react-number-format';
+export default function ProductDealinMonth(props) {
+  const { product } = props;
+  console.log("Product:", product);
   return (
     <div
       className="ins-preview-wrapper ins-preview-wrapper-301"
@@ -40,7 +43,8 @@ export default function ProductDealinMonth() {
             data-current="0"
             style={{ transform: "translateX(0px)", width: "2560px" }}
           >
-            <li
+            {product.map(item =>(
+              <li
               className="ins-web-smart-recommender-box-item"
               style={{ width: "240px" }}
             >
@@ -57,7 +61,7 @@ export default function ProductDealinMonth() {
                       <a href="#" className="ins-product-box ins-element-link">
                         <div>
                           <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
+                            src={item.image}
                             className="ins-image-box"
                           />
                         </div>
@@ -70,8 +74,8 @@ export default function ProductDealinMonth() {
                             id="text-1454703450644"
                             className="ins-element-content"
                           >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
+                            <div className="ins-product-name" style={{textAlign:"center"}}>
+                              {item.name}
                             </div>
                           </div>
                         </div>
@@ -86,83 +90,12 @@ export default function ProductDealinMonth() {
                         >
                           <p
                             className="ins-product-discount"
-                            style={{ display: "inline-block" }}
+                            style={{ display: "inline-block"}}
                           >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
+                            {/* 23,490,000₫ */}
+                            {/* {item.price} VNĐ */}
+                            <NumberFormat value={item.price}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
 
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
                           </p>
                         </div>
                       </div>
@@ -178,7 +111,10 @@ export default function ProductDealinMonth() {
                             className="ins-product-price"
                             style={{ display: "inline-block" }}
                           >
-                            23,490,000₫
+                            {/* 23,490,000₫ */}
+                            {/* {item.price} VNĐ */}
+                            <NumberFormat value={item.price}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
+
                           </p>
                         </div>
                       </div>
@@ -187,444 +123,7 @@ export default function ProductDealinMonth() {
                 </div>
               </div>
             </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
-              >
-                <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
-                >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src="https://product.hstatic.net/1000026716/product/013vn_92e5691dd51c4da4b6da04e99df7c3dc.png"
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
-                        >
-                          <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
-                          >
-                            <div className="ins-product-name">
-                              Laptop Gaming MSI GF75 Thin 10SCXR 013VN
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
-                            style={{ display: "inline-block" }}
-                          >
-                            23,490,000₫
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
+            ))};
           </ul>
         </div>
       </div>
