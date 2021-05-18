@@ -54,26 +54,26 @@ class SanPhamController extends Controller
 
     public function InsertProducts(Request $request)
     {
-        $Ocung = "Ổ Cứng";
-        $CarDoHoa = "Card Đồ Họa";
-        $ManHinh = "Màn hình";
-        $CongGiaoTiep = "Cổng giao tiếp";
-        $TheNho = "Thẻ nhớ";
-        $HDH = "Hệ điều hành";
-        $Mausac = "Màu sắc";
-        $TrongLuong = "Trọng lượng";
-        $KichThuoc = "Kích thước";
-        $TocDoQuay = "Tốc độ quay";
-        $VatLieu = "Vật liệu";
-        $DoOn = "Độ ồn";
-        $TanNhiet = "Tản nhiệt";
-        $KetNoi = "Kết nối";
-        $TuoiTho = "Tuổi thọ";
-        $TocDoPhanhoi = "Tốc độ phản hồi";
-        $ThietKe = "Thiết kế";
-        $Hotro = "Hỗ trợ";
-        $PhuKien = "Phụ kiện";
-        $Nguon = "Nguồn";
+        // $Ocung = "Ổ Cứng";
+        // $CarDoHoa = "Card Đồ Họa";
+        // $ManHinh = "Màn hình";
+        // $CongGiaoTiep = "Cổng giao tiếp";
+        // $TheNho = "Thẻ nhớ";
+        // $HDH = "Hệ điều hành";
+        // $Mausac = "Màu sắc";
+        // $TrongLuong = "Trọng lượng";
+        // $KichThuoc = "Kích thước";
+        // $TocDoQuay = "Tốc độ quay";
+        // $VatLieu = "Vật liệu";
+        // $DoOn = "Độ ồn";
+        // $TanNhiet = "Tản nhiệt";
+        // $KetNoi = "Kết nối";
+        // $TuoiTho = "Tuổi thọ";
+        // $TocDoPhanhoi = "Tốc độ phản hồi";
+        // $ThietKe = "Thiết kế";
+        // $Hotro = "Hỗ trợ";
+        // $PhuKien = "Phụ kiện";
+        // $Nguon = "Nguồn";
 
         $data = new SanPham;
         $data1 = new CauHinh;
@@ -87,69 +87,84 @@ class SanPhamController extends Controller
         $data->loai_san_phams_id = $request->LoaiSanPham;
         $data->save();
         // Cau Hinh
-        $data1->CPU = $request->CPU;
-        $data1->RAM = $request->RAM;
-        $data1->$CarDoHoa = $request->Cardohoa;
-        $data1->$Ocung = $request->Ocung;
-        $data1->$ManHinh = $request->Manhinh;
-        $data1->$CongGiaoTiep = $request->Conggiaotiep;
-        $data1->FDD = $request->FDD;
-        $data1->$TheNho = $request->Thenho;
-        $data1->Audio = $request->Audio;
-        $data1->LAN = $request->LAN;
-        $data1->WIFI = $request->WIFI;
-        $data1->BLuetooth = $request->Bluetooth;
-        $data1->Webcam = $request->Webcam;
-        $data1->Camera = $request->Camera;
-        $data1->$HDH = $request->HDH;
-        $data1->PIN = $request->PIN;
-        $data1->$Mausac = $request->Mausac;
-        $data1->$TrongLuong = $request->Trongluong;
-        $data1->$KichThuoc = $request->Kichthuoc;
-        $data1->$TocDoQuay = $request->Tocdoquay;
-        $data1->$VatLieu = $request->Vatlieu;
-        $data1->$DoOn = $request->Doon;
-        $data1->$TanNhiet = $request->Tannhiet;
-        $data1->$KetNoi = $request->Ketnoi;
-        $data1->$TuoiTho = $request->Tuoitho;
-        $data1->Switch = $request->Switch;
-        $data1->$TocDoPhanhoi = $request->Tocdophanhoi;
-        $data1->$ThietKe = $request->Thietke;
-        $data1->Model = $request->Model;
-        $data1->$Hotro = $request->Hotro;
-        $data1->$PhuKien = $request->Phukien;
-        $data1->Mainboard = $request->Mainboard;
-        $data1->$Nguon = $request->Nguon;
-        $data1->Case = $request->Case;
-        $data1->Fan = $request->Fan;
-        $data1->san_phams_id = $data->id;
-        $data1->save();
+        // $data1->CPU = $request->CPU;
+        // $data1->RAM = $request->RAM;
+        // $data1->$CarDoHoa = $request->Cardohoa;
+        // $data1->$Ocung = $request->Ocung;
+        // $data1->$ManHinh = $request->Manhinh;
+        // $data1->$CongGiaoTiep = $request->Conggiaotiep;
+        // $data1->FDD = $request->FDD;
+        // $data1->$TheNho = $request->Thenho;
+        // $data1->Audio = $request->Audio;
+        // $data1->LAN = $request->LAN;
+        // $data1->WIFI = $request->WIFI;
+        // $data1->BLuetooth = $request->Bluetooth;
+        // $data1->Webcam = $request->Webcam;
+        // $data1->Camera = $request->Camera;
+        // $data1->$HDH = $request->HDH;
+        // $data1->PIN = $request->PIN;
+        // $data1->$Mausac = $request->Mausac;
+        // $data1->$TrongLuong = $request->Trongluong;
+        // $data1->$KichThuoc = $request->Kichthuoc;
+        // $data1->$TocDoQuay = $request->Tocdoquay;
+        // $data1->$VatLieu = $request->Vatlieu;
+        // $data1->$DoOn = $request->Doon;
+        // $data1->$TanNhiet = $request->Tannhiet;
+        // $data1->$KetNoi = $request->Ketnoi;
+        // $data1->$TuoiTho = $request->Tuoitho;
+        // $data1->Switch = $request->Switch;
+        // $data1->$TocDoPhanhoi = $request->Tocdophanhoi;
+        // $data1->$ThietKe = $request->Thietke;
+        // $data1->Model = $request->Model;
+        // $data1->$Hotro = $request->Hotro;
+        // $data1->$PhuKien = $request->Phukien;
+        // $data1->Mainboard = $request->Mainboard;
+        // $data1->$Nguon = $request->Nguon;
+        // $data1->Case = $request->Case;
+        // $data1->Fan = $request->Fan;
+        // $data1->san_phams_id = $data->id;
+        // $data1->save();
         //Hình ảnh
 
-        if($request->hasFile('imageFile'))
-        {
-            // $image = $request->file('imageFile');
-            // $name = time() . '.' . $image->getClientOriginalExtension();
-            // $destinationPath = public_path('/images');
-            // $image->move($destinationPath, $name);
-            // $HinhAnh = $name;
-            // $data2->AnhSanPham=$HinhAnh;
-            // $data2->save();
-           foreach($request->imageFile as $image)
-           {
-            $filenameWithText=$image->getClientOriginalName();
-            $filename=pathinfo($filenameWithText,PATHINFO_FILENAME);
-            $extension=$image->getClientOriginalExtension();
-            $filenamestore=$filename.'_'.time().'.'.$extension;
-            $path=$image->storeAS('public/images',$filenamestore);
-            $data2->AnhSanPham=$filenamestore;
-            $data2->san_phams_id=$data->id;
-            $data2->save();
-           }
-
-        }
+        // if($request->hasFile('imageFile'))
+        // {
+        //     $image = $request->file('imageFile');
+        //     $name = time() . '.' . $image->getClientOriginalExtension();
+        //     $destinationPath = public_path('/images');
+        //     $image->move($destinationPath, $name);
+        //     $HinhAnh = $name;
+        //     $data2->AnhSanPham=$HinhAnh;
+        //     $data2->save();
+        //    foreach($request->imageFile as $image)
+        //    {
+        //     $filenameWithText=$image->getClientOriginalName();
+        //     $filename=pathinfo($filenameWithText,PATHINFO_FILENAME);
+        //     $extension=$image->getClientOriginalExtension();
+        //     $filenamestore=$filename.'_'.time().'.'.$extension;
+        //     $path=$image->storeAS('public/images',$filenamestore);
+        //     $data2->AnhSanPham=$filenamestore;
+        //     $data2->san_phams_id=$data->id;
+        //     // $data2->save();
+        //     return $data2;
+        //    }
+        // }
 
         // return $data1;
+        if($request->hasFile('imageFile'))
+        {
+            foreach($request->file('imageFile') as $image)
+            {
+                // $name=$image->getClientOriginalName();
+               $nameimages= time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path().'/images/',$nameimages);
+                $imageUpload[]=$nameimages;
+
+            }
+        }
+        $data2->AnhSanPham=json_encode($imageUpload);
+        $data2->san_phams_id=$data->id;
+        $data2->save();
+        return $data2;
         return redirect('/quan-ly-san-pham');
     }
 

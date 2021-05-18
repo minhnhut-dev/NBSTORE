@@ -1,7 +1,6 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
-import "./Header.css";
 import {Link} from "react-router-dom";
 export default function Header() {
   return (
