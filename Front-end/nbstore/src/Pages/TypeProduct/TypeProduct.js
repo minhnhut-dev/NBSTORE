@@ -52,12 +52,6 @@ export default function TypeProduct() {
                         <div className="product-row">
                           <a href="#"></a>
                           <div className="product-row-img">
-                            {/* <a href="#">
-                    <img
-                      src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                      className="product-row-thumbnail"
-                    />
-                  </a> */}
                             <Link to="/ProductDetail">
                               <img
                                 src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
@@ -115,7 +109,7 @@ export default function TypeProduct() {
                                 href="#"
                                 className="product-row-btnbuy pull-right"
                               >
-                                đặt hàng
+                                đặt hàng  
                               </a>
                             </div>
                           </div>
@@ -134,7 +128,6 @@ export default function TypeProduct() {
                           </div>
                         </div>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -143,7 +136,8 @@ export default function TypeProduct() {
           </div>
         </section>
       </div>
-      <Footer/>
+      
+      <Footer />
     </>
   );
 }
