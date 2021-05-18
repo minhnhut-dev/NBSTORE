@@ -1,6 +1,7 @@
 import React from "react";
 import "./Banner.css";
 import { Carousel } from "react-bootstrap";
+import {Link} from "react-router-dom";
 export default function Banner() {
   return (
     <>
@@ -14,13 +15,20 @@ export default function Banner() {
                     className="megamenu-nav-main"
                   >
                     <li className="cat-menu-item ">
-                      <a className="gearvn-cat-menu-item" href="#">
+                      {/* <a className="gearvn-cat-menu-item" href="#">
                         <span className="gearvn-cat-menu-icon">
                           <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" />
                           <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" />
                         </span>
                         <span className="gearvn-cat-menu-name">Laptop</span>
-                      </a>
+                      </a> */}
+                      <Link className="gearvn-cat-menu-item" to="/collections">
+                      <span className="gearvn-cat-menu-icon">
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" />
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" />
+                        </span>
+                        <span className="gearvn-cat-menu-name">Laptop</span>
+                      </Link>
                     </li>
                     <li className="cat-menu-item ">
                       <a className="gearvn-cat-menu-item" href="#">
