@@ -97,11 +97,7 @@ export default function Header() {
                           <div className="gearvn-text">Khuyến mãi</div>
                         </div>
                       </a>
-                      <a href="#" className="gearvn-header-top-item rela">
-                        {/* <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349"/>
-                                        <div className="header-right-description">
-                                            <div className="gearvn-text">Khuyến mãi</div>
-                                        </div> */}
+                      <Link to="/cart" className="gearvn-header-top-item rela">
                         <div>
                           <Badge variant="danger">0</Badge>
                         </div>
@@ -109,7 +105,7 @@ export default function Header() {
                         <div className="header-right-description">
                           <div className="gearvn-text">Giỏ hàng</div>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="gearvn-info-top">

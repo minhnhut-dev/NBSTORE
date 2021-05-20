@@ -77,7 +77,6 @@ class SanPhamController extends Controller
 
         $data = new SanPham;
         $data1 = new CauHinh;
-        $data2 = new AnhSanPham;
         $data->TenSanPham = $request->ten_san_pham;
         $data->ThongTin = $request->detail;
         $data->HangSanXuat = $request->HangSanXuat;
@@ -86,44 +85,7 @@ class SanPhamController extends Controller
         $data->SoLuong = $request->SoLuong;
         $data->loai_san_phams_id = $request->LoaiSanPham;
         $data->save();
-        // Cau Hinh
-        // $data1->CPU = $request->CPU;
-        // $data1->RAM = $request->RAM;
-        // $data1->$CarDoHoa = $request->Cardohoa;
-        // $data1->$Ocung = $request->Ocung;
-        // $data1->$ManHinh = $request->Manhinh;
-        // $data1->$CongGiaoTiep = $request->Conggiaotiep;
-        // $data1->FDD = $request->FDD;
-        // $data1->$TheNho = $request->Thenho;
-        // $data1->Audio = $request->Audio;
-        // $data1->LAN = $request->LAN;
-        // $data1->WIFI = $request->WIFI;
-        // $data1->BLuetooth = $request->Bluetooth;
-        // $data1->Webcam = $request->Webcam;
-        // $data1->Camera = $request->Camera;
-        // $data1->$HDH = $request->HDH;
-        // $data1->PIN = $request->PIN;
-        // $data1->$Mausac = $request->Mausac;
-        // $data1->$TrongLuong = $request->Trongluong;
-        // $data1->$KichThuoc = $request->Kichthuoc;
-        // $data1->$TocDoQuay = $request->Tocdoquay;
-        // $data1->$VatLieu = $request->Vatlieu;
-        // $data1->$DoOn = $request->Doon;
-        // $data1->$TanNhiet = $request->Tannhiet;
-        // $data1->$KetNoi = $request->Ketnoi;
-        // $data1->$TuoiTho = $request->Tuoitho;
-        // $data1->Switch = $request->Switch;
-        // $data1->$TocDoPhanhoi = $request->Tocdophanhoi;
-        // $data1->$ThietKe = $request->Thietke;
-        // $data1->Model = $request->Model;
-        // $data1->$Hotro = $request->Hotro;
-        // $data1->$PhuKien = $request->Phukien;
-        // $data1->Mainboard = $request->Mainboard;
-        // $data1->$Nguon = $request->Nguon;
-        // $data1->Case = $request->Case;
-        // $data1->Fan = $request->Fan;
-        // $data1->san_phams_id = $data->id;
-        // $data1->save();
+
         //Hình ảnh
 
         // if($request->hasFile('imageFile'))
@@ -154,17 +116,16 @@ class SanPhamController extends Controller
         {
             foreach($request->file('imageFile') as $image)
             {
+                $data2 = new AnhSanPham;
                 // $name=$image->getClientOriginalName();
-               $nameimages= time() . '.' . $image->getClientOriginalExtension();
+                $nameimages= time() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path().'/images/',$nameimages);
-                $imageUpload[]=$nameimages;
-
+                $data2->san_phams_id=$data->id;
+                $data2->AnhSanPham=$nameimages;
+                $data2->save();
             }
         }
-        $data2->AnhSanPham=json_encode($imageUpload);
-        $data2->san_phams_id=$data->id;
-        $data2->save();
-        return $data2;
+        // $data2->AnhSanPham=json_encode($imageUpload);
         return redirect('/quan-ly-san-pham');
     }
 

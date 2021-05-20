@@ -28,7 +28,7 @@ function Body() {
     <>
       <div className="container pd0-sm-mb">
         {/**List 1 */}
-        <ProductDealinMonth product={products}/>
+        <ProductDealinMonth product={products} />
         {/**List 2 */}
         <ProductKeyBoardDeal/>
         {/**end list 2 */}

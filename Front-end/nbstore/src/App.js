@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Register from "./Pages/Register/Register";
 import NoMatch from "./Pages/NoMatch/NoMatch";
 import Home from "./Pages/Home/Home";
+import Cart from "./Pages/Cart/Cart";
 function App() {
   return (
     <>
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/collections/">
               <TypeProduct/>
+          </Route>
+          <Route path="/cart">
+              <Cart/>
           </Route>
           <Route path="*">
             <NoMatch />

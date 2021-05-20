@@ -1,0 +1,63 @@
+#layout-page-first .title-cart {
+    text-transform: uppercase;
+    font-size: 25px;
+    margin-top: 20px;
+    text-align: center;
+}
+#layout-page-first {
+    text-align: center;
+}
+#layout-page-first {
+    min-height: 250px;
+}
+.back-HomePage{
+    margin-left: 7px;
+}
+
+#layout-page-card .title-card {
+    padding-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+#layout-page-card {
+    min-height: 400px;
+    margin-top: 20px;
+}
+table {
+    max-width: 100%;
+    background-color: transparent;
+}
+#layout-page-card #cartformpage table {
+    margin-bottom: 20px;
+}
+#layout-page-card #cartformpage table tr {
+    border: 1px solid #f0f0f0;
+}
+#layout-page-card #cartformpage table td ,#layout-page-card #cartformpage table th {
+    border-right: 1px solid #f0f0f0;
+    border-left: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 20px 0px;
+}
+
+#cartformpage table .image{
+    width: 186px;
+}
+#cartformpage table .item{
+    width: 628px;
+}
+#cartformpage table .qty{
+    width: 129px;
+}
+#cartformpage table .price{
+    width: 161px;
+}
+#cartformpage .qty input {
+    width: 65px;
+    text-align: center;
+}
+.remove i {
+    color: black;
+    cursor: pointer;
+}
