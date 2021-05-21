@@ -5,7 +5,7 @@ import Footer from "../../Component/Footer/Footer";
 import NumberFormat from "react-number-format";
 import "./Cart.css";
 function Cart() {
-  const [emptyCart, SetEmptyCart] = useState();
+  const [emptyCart, SetEmptyCart] = useState(false);
   return (
     <>
       <Header />
@@ -90,7 +90,48 @@ function Cart() {
                               ></i>
                             </th>
                           </tr>
-                          
+                          <tr>
+                            <th className="image">
+                              <div className="product_image">
+                                <Link to="#">
+                                  <img src="//product.hstatic.net/1000026716/product/khunglaptopwebsite_a48c20bc37b74ba88aab4c7639fb97a9_small.jpg" />
+                                </Link>
+                              </div>
+                            </th>
+                            <th className="item">
+                              <Link to="/ProductDetail">
+                                <strong>
+                                  Laptop gaming Acer Aspire 7 A715 41G R282
+                                </strong>
+                              </Link>
+                            </th>
+                            <th className="qty">
+                              <input
+                                type="number"
+                                size="4"
+                                name="update[]"
+                                min="1"
+                                value="1"
+                              />
+                            </th>
+                            <th className="price">
+                              <NumberFormat
+                                value="22222222"
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <div {...props}>{value} </div>
+                                )}
+                              />
+                            </th>
+                            <th className="remove">
+                              <i
+                                className="fas fa-trash-alt"
+                                onClick={() => SetEmptyCart(true)}
+                              ></i>
+                            </th>
+                          </tr>
                         </tbody>
                       </table>
                     </form>

@@ -218,4 +218,26 @@ class SanPhamController extends Controller
         $data->save();
         return redirect('/quan-ly-san-pham');
     }
+
+    // API
+
+    public function GetProductSeal()
+    {
+        // $Product=  SanPham::OrderBy('giaKM','ASC')->get();
+        // return response()->json($Product,200);
+        $listProducts="[";
+
+        $Product=  SanPham::OrderBy('giaKM','ASC')->get();
+        foreach($Product as $item)
+        {
+
+            $imageProducts=DB::select('select anh_san_phams.AnhSanPham from anh_san_phams where anh_san_phams.san_phams_id ='.$item->id);
+            $string=json_encode($imageProducts);
+            $add="{ id:".$item->id.", TenSanPham:".'"'.$item->TenSanPham.'"'.", HangSanXuat: ".'"'.$item->HangSanXuat.'"'.", GiaCu:".$item->GiaCu.", GiaKM:".$item->GiaKM.", ThongTin: ".'"'.$item->ThongTin.'"'.", images:".$string."},";
+            $listProducts=$listProducts.$add;
+
+        }
+        $listProducts.="]";
+         return response( $listProducts);
+    }
 }

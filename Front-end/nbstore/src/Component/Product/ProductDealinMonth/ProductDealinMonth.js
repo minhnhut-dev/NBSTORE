@@ -75,7 +75,7 @@ export default function ProductDealinMonth(props) {
                             className="ins-element-content"
                           >
                             <div className="ins-product-name" style={{textAlign:"center"}}>
-                              {item.name}
+                              {item.TenSanPham}
                             </div>
                           </div>
                         </div>
@@ -94,7 +94,7 @@ export default function ProductDealinMonth(props) {
                           >
                             {/* 23,490,000₫ */}
                             {/* {item.price} VNĐ */}
-                            <NumberFormat value={item.price}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
+                            <NumberFormat value={item.GiaCu}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
 
                           </p>
                         </div>
@@ -113,7 +113,7 @@ export default function ProductDealinMonth(props) {
                           >
                             {/* 23,490,000₫ */}
                             {/* {item.price} VNĐ */}
-                            <NumberFormat value={item.price}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
+                            <NumberFormat value={item.GiaKM}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
 
                           </p>
                         </div>
