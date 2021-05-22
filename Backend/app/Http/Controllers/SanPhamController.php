@@ -247,6 +247,11 @@ class SanPhamController extends Controller
         WHERE anh_san_phams.san_phams_id=?', [$id]);
         return response($imageProducts,200);
     }
+    public function GetProductById($id)
+    {
+        $products = SanPham::where('id',$id )->get();
+        return response()->json($products);
+    }
 
 
 }

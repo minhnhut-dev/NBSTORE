@@ -1,9 +1,11 @@
-import React ,{useEffect}from "react";
+import React from "react";
 import "../../Body/Body.css";
 import NumberFormat from "react-number-format";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 export default function ProductDealinMonth(props) {
-  const { product } = props;
-  const linkImage="http://127.0.0.1:8000/images/";
+  const { products } = props;
+  const linkImage = "http://127.0.0.1:8000/images/";
+  console.log(products);
   return (
     <div
       className="ins-preview-wrapper ins-preview-wrapper-301"
@@ -43,8 +45,8 @@ export default function ProductDealinMonth(props) {
             data-current="0"
             style={{ transform: "translateX(0px)", width: "2560px" }}
           >
-            {product.map((item) => (
-              <li key={item.id}
+            {products.map((item) => (
+              <li
                 className="ins-web-smart-recommender-box-item"
                 style={{ width: "240px" }}
               >
@@ -58,15 +60,12 @@ export default function ProductDealinMonth(props) {
                   >
                     <div className="editable-product-1454703450643">
                       <div className="ins-web-smart-recommender-inner-box">
-                        <a
-                          href="#"
+                        <Link
+                          to={`/ProductDetail/${item.id}`}
                           className="ins-product-box ins-element-link"
                         >
                           <div>
-                            <img
-                              src={linkImage+item.AnhDaiDien}
-                              className="ins-image-box"
-                            />
+                            <img src={linkImage+item.AnhDaiDien} className="ins-image-box" />
                           </div>
                           <div
                             id="ins-description-box"
@@ -85,7 +84,7 @@ export default function ProductDealinMonth(props) {
                               </div>
                             </div>
                           </div>
-                        </a>
+                        </Link>
                         <div
                           className="price-product-sale"
                           style={{ display: "block" }}
@@ -100,7 +99,15 @@ export default function ProductDealinMonth(props) {
                             >
                               {/* 23,490,000₫ */}
                               {/* {item.price} VNĐ */}
-                              <NumberFormat value={item.GiaCu}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
+                              <NumberFormat
+                                value={item.GiaCu}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <div {...props}>{value} </div>
+                                )}
+                              />
                             </p>
                           </div>
                         </div>
@@ -118,7 +125,15 @@ export default function ProductDealinMonth(props) {
                             >
                               {/* 23,490,000₫ */}
                               {/* {item.price} VNĐ */}
-                              <NumberFormat value={item.GiaKM}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
+                              <NumberFormat
+                                value={item.GiaKM}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <div {...props}>{value}</div>
+                                )}
+                              />
                             </p>
                           </div>
                         </div>
@@ -128,7 +143,6 @@ export default function ProductDealinMonth(props) {
                 </div>
               </li>
             ))}
-            ;
           </ul>
         </div>
       </div>
