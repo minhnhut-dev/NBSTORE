@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(nguoi_dungs::class);
         $this->call(loai_san_phams::class);
         $this->call(san_phams::class);
+        $this->call(anh_san_phams::class);
     }
 
 
@@ -61,8 +62,35 @@ class san_phams extends Seeder
     public function run()
     {
         DB::table('san_phams')->insert([
-           ['TenSanPham'=>'nitro 5 2021','ThongTin'=>'mới','HangSanXuat'=>'Acer','GiaCu'=>17000000,'GiaKM'=>16000000,'Soluong'=>10,'loai_san_phams_id'=>1]
+           ['TenSanPham'=>'Laptop Gaming Asus TUF Dash FX516PE HN005T','ThongTin'=>'mới','HangSanXuat'=>'Acer','GiaCu'=>22490000,'GiaKM'=>21990000,'Soluong'=>10,'AnhDaiDien'=>'image2.jpg','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop HP 15s FQ2027TU 2Q5Y3PA','ThongTin'=>'mới','HangSanXuat'=>'HP','GiaCu'=>16590000,'GiaKM'=>15990000,'Soluong'=>10,'AnhDaiDien'=>'image8.jpg','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Macbook Air 2020 M1 8GPU 8GB 512GB MGNA3SA/A - Silver','ThongTin'=>'mới','HangSanXuat'=>'Apple','GiaCu'=>34990000,'GiaKM'=>30500000,'Soluong'=>10,'AnhDaiDien'=>'image9.jpg','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop ASUS TUF Gaming F15 FX506LH HN002T','ThongTin'=>'mới','HangSanXuat'=>'Asus','GiaCu'=>20490000,'GiaKM'=>19490000,'Soluong'=>10,'AnhDaiDien'=>'image1.jpg','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop Asus ROG Strix SCAR 15 G533QR HF113T','ThongTin'=>'mới','HangSanXuat'=>'Asú','GiaCu'=>59990000,'GiaKM'=>57490000,'Soluong'=>10,'AnhDaiDien'=>'image7.jpg','loai_san_phams_id'=>1],
         ]);
     }
 }
 
+class anh_san_phams extends Seeder {
+    public function run()
+    {
+        DB::table('anh_san_phams')->insert([
+            // sản phẩm 1
+            ['AnhSanPham'=>'image2.jpg','san_phams_id'=>1],
+            ['AnhSanPham'=>'image2_1.jpg','san_phams_id'=>1],
+            ['AnhSanPham'=>'image2_2.jpg','san_phams_id'=>1],
+            // sản phẩm 2
+            ['AnhSanPham'=>'image8.jpg','san_phams_id'=>2],
+            ['AnhSanPham'=>'image8_1.jpg','san_phams_id'=>2],
+            ['AnhSanPham'=>'image8_2.jpg','san_phams_id'=>2],
+            // sản phẩm 3
+            ['AnhSanPham'=>'image9.jpg','san_phams_id'=>3],
+            // sản phẩm 4
+            ['AnhSanPham'=>'image1.jpg','san_phams_id'=>4],
+            // sản phẩm 5
+            ['AnhSanPham'=>'image7.jpg','san_phams_id'=>5],
+            ['AnhSanPham'=>'image7_1.jpg','san_phams_id'=>5],
+            ['AnhSanPham'=>'image7_2.jpg','san_phams_id'=>5],
+        ]);
+    }
+}

@@ -84,7 +84,7 @@ class SanPhamController extends Controller
         $data->GiaKM = $request->GiaKM;
         $data->SoLuong = $request->SoLuong;
         $data->loai_san_phams_id = $request->LoaiSanPham;
-        $data->save();
+        $data->AnhDaiDien=$request->imageFile[0];
 
         //Hình ảnh
 
@@ -223,21 +223,30 @@ class SanPhamController extends Controller
 
     public function GetProductSeal()
     {
+        $Product= SanPham::OrderBy('giaKM','ASC')->get();
+        return response()->json($Product,200);
+        // $listProducts="[";
+
         // $Product=  SanPham::OrderBy('giaKM','ASC')->get();
-        // return response()->json($Product,200);
-        $listProducts="[";
+        // foreach($Product as $item)
+        // {
 
-        $Product=  SanPham::OrderBy('giaKM','ASC')->get();
-        foreach($Product as $item)
-        {
+        //     $imageProducts=DB::select('select anh_san_phams.AnhSanPham from anh_san_phams where anh_san_phams.san_phams_id ='.$item->id);
+        //     $string=json_encode($imageProducts);
+        //     $add="{ id:".$item->id.", TenSanPham:".'"'.$item->TenSanPham.'"'.", HangSanXuat: ".'"'.$item->HangSanXuat.'"'.", GiaCu:".$item->GiaCu.", GiaKM:".$item->GiaKM.", ThongTin: ".'"'.$item->ThongTin.'"'.", images:".$string."},";
+        //     $listProducts=$listProducts.$add;
 
-            $imageProducts=DB::select('select anh_san_phams.AnhSanPham from anh_san_phams where anh_san_phams.san_phams_id ='.$item->id);
-            $string=json_encode($imageProducts);
-            $add="{ id:".$item->id.", TenSanPham:".'"'.$item->TenSanPham.'"'.", HangSanXuat: ".'"'.$item->HangSanXuat.'"'.", GiaCu:".$item->GiaCu.", GiaKM:".$item->GiaKM.", ThongTin: ".'"'.$item->ThongTin.'"'.", images:".$string."},";
-            $listProducts=$listProducts.$add;
-
-        }
-        $listProducts.="]";
-         return response( $listProducts);
+        // }
+        // $listProducts.="]";
+        //  return response($listProducts);
     }
+    public function GetImageProductByid($id)
+    {
+        $imageProducts=DB::select('SELECT anh_san_phams.AnhSanPham
+        FROM anh_san_phams
+        WHERE anh_san_phams.san_phams_id=?', [$id]);
+        return response($imageProducts,200);
+    }
+
+
 }

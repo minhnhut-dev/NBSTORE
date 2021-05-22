@@ -28,31 +28,23 @@ function Body() {
   useEffect(() => {
       axios.get('http://127.0.0.1:8000/api/ProductDealInMonth')
       .then(response=>{
-        console.log(response);
+        console.log("res:",response.data);
         SetProduct(response.data);
-       
       },()=>{
       })
       .catch(err=>
         {
           console.log(err);
         })
+        
   },[])
-  console.log("san phẩm:",products);
     return (
     <>
       <div className="container pd0-sm-mb">
-        {/**List 1 */}
         <ProductDealinMonth product={products}  />
-        {/**List 2 */}
-        <ProductKeyBoardDeal/>
-        {/**end list 2 */}
-        {/**list 3 */}
+        {/* <ProductKeyBoardDeal/>
         <ProductBestSellingByBrand/>
-        {/**end list 3 */}
-        {/**list 4 */}
-        <ProductMouseDeal/>
-        {/**end list 4 */}
+        <ProductMouseDeal/> */}
       </div>
     </>
   );

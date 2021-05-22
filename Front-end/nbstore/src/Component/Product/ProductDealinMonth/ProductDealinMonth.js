@@ -1,9 +1,9 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import "../../Body/Body.css";
-import NumberFormat from 'react-number-format';
+import NumberFormat from "react-number-format";
 export default function ProductDealinMonth(props) {
   const { product } = props;
-  console.log("Product:", product);
+  const linkImage="http://127.0.0.1:8000/images/";
   return (
     <div
       className="ins-preview-wrapper ins-preview-wrapper-301"
@@ -43,87 +43,92 @@ export default function ProductDealinMonth(props) {
             data-current="0"
             style={{ transform: "translateX(0px)", width: "2560px" }}
           >
-            {product.map(item =>(
-              <li
-              className="ins-web-smart-recommender-box-item"
-              style={{ width: "240px" }}
-            >
-              <div
-                className="wrap-product-1454703450643"
-                className="ins-selectable-element ins-element-wrap ins-element-text"
+            {product.map((item) => (
+              <li key={item.id}
+                className="ins-web-smart-recommender-box-item"
+                style={{ width: "240px" }}
               >
                 <div
-                  className="product-1454703450643"
-                  className="ins-element-content ins-editable-text"
+                  className="wrap-product-1454703450643"
+                  className="ins-selectable-element ins-element-wrap ins-element-text"
                 >
-                  <div className="editable-product-1454703450643">
-                    <div className="ins-web-smart-recommender-inner-box">
-                      <a href="#" className="ins-product-box ins-element-link">
-                        <div>
-                          <img
-                            src={item.image}
-                            className="ins-image-box"
-                          />
-                        </div>
-                        <div
-                          id="ins-description-box"
-                          style={{ display: "block" }}
-                          className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
+                  <div
+                    className="product-1454703450643"
+                    className="ins-element-content ins-editable-text"
+                  >
+                    <div className="editable-product-1454703450643">
+                      <div className="ins-web-smart-recommender-inner-box">
+                        <a
+                          href="#"
+                          className="ins-product-box ins-element-link"
                         >
+                          <div>
+                            <img
+                              src={linkImage+item.AnhDaiDien}
+                              className="ins-image-box"
+                            />
+                          </div>
                           <div
-                            id="text-1454703450644"
-                            className="ins-element-content"
+                            id="ins-description-box"
+                            style={{ display: "block" }}
+                            className="ins-product-name-container ins-selectable-element ins-element-wrap ins-element-text"
                           >
-                            <div className="ins-product-name" style={{textAlign:"center"}}>
-                              {item.TenSanPham}
+                            <div
+                              id="text-1454703450644"
+                              className="ins-element-content"
+                            >
+                              <div
+                                className="ins-product-name"
+                                style={{ textAlign: "center" }}
+                              >
+                                {item.TenSanPham}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </a>
-                      <div
-                        className="price-product-sale"
-                        style={{ display: "block" }}
-                      >
+                        </a>
                         <div
-                          className="product-sale"
-                          style={{ display: "inline-block" }}
+                          className="price-product-sale"
+                          style={{ display: "block" }}
                         >
-                          <p
-                            className="ins-product-discount"
-                            style={{ display: "inline-block"}}
-                          >
-                            {/* 23,490,000₫ */}
-                            {/* {item.price} VNĐ */}
-                            <NumberFormat value={item.GiaCu}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
-
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="price-product"
-                        style={{ display: "block" }}
-                      >
-                        <div
-                          className="price-products"
-                          style={{ display: "inline-block" }}
-                        >
-                          <p
-                            className="ins-product-price"
+                          <div
+                            className="product-sale"
                             style={{ display: "inline-block" }}
                           >
-                            {/* 23,490,000₫ */}
-                            {/* {item.price} VNĐ */}
-                            <NumberFormat value={item.GiaKM}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
-
-                          </p>
+                            <p
+                              className="ins-product-discount"
+                              style={{ display: "inline-block" }}
+                            >
+                              {/* 23,490,000₫ */}
+                              {/* {item.price} VNĐ */}
+                              <NumberFormat value={item.GiaCu}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value} </div>} />
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          className="price-product"
+                          style={{ display: "block" }}
+                        >
+                          <div
+                            className="price-products"
+                            style={{ display: "inline-block" }}
+                          >
+                            <p
+                              className="ins-product-price"
+                              style={{ display: "inline-block" }}
+                            >
+                              {/* 23,490,000₫ */}
+                              {/* {item.price} VNĐ */}
+                              <NumberFormat value={item.GiaKM}  displayType={'text'} thousandSeparator={true} suffix={' VNĐ'} renderText={(value, props) => <div {...props}>{value}</div>} />
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            ))};
+              </li>
+            ))}
+            ;
           </ul>
         </div>
       </div>
