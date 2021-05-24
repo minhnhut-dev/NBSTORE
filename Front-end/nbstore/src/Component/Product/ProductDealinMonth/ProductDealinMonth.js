@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 export default function ProductDealinMonth(props) {
   const { products } = props;
   const linkImage = "http://127.0.0.1:8000/images/";
-  console.log(products);
   return (
     <div
       className="ins-preview-wrapper ins-preview-wrapper-301"

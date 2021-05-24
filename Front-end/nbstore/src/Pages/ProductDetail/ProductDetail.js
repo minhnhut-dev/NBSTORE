@@ -10,25 +10,23 @@ import axios from "axios";
 import NumberFormat from "react-number-format";
 
 function ProductDetail(props) {
-  const images = [
-    "//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png",
-    "//product.hstatic.net/1000026716/product/r9jm_541c5029fbf64796b9936a91a52105d8_large.png",
-    "//product.hstatic.net/1000026716/product/78tn_a29a4ed5ae4142e6ad3c3cd2fb28a8d2_large.png",
-  ];
-  const [selectedImage, SetSelectedImage] = useState(images[0]);
+  const [selectedImage, SetSelectedImage] = useState([0]);
   const [Product, SetProducts] = useState([]);
   const { products } = props;
   let { id } = useParams();
-  console.log("id:", { id });
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/GetProductByID/${id}`)
       .then((response) => {
-        console.log("Response :", response);
         SetProducts(response.data);
       });
+      axios.get(`http://127.0.0.1:8000/api/GetImageProductByID/${id}`)
+      .then((res)=>{
+          SetSelectedImage(res.data);
+      })
   }, []);
-
+  console.log(selectedImage[0]);
+  const LinkImage="http://127.0.0.1:8000/images/";
   return (
     <>
       <Header />
@@ -59,23 +57,24 @@ function ProductDetail(props) {
                 <div className="row">
                   <div className="col-sm-6 col-xs-12 product_thumbnail">
                     <img
-                      src={selectedImage}
-                      alt="selected"
+                      src={LinkImage+selectedImage[0].AnhSanPham}
+                      alt={LinkImage+selectedImage[0].AnhSanPham}
                       className="Selected"
+
                     />
                     <div className="imgContainer">
-                      {images.map((img, index) => (
+                      {selectedImage.map((img, index) => (
                         <img
-                          src={img}
-                          key={index}
+                          src={LinkImage+img.AnhSanPham}
+                          alt={img}
                           style={{
                             border:
-                              selectedImage === img ? "3px solid purple" : "",
+                          LinkImage+selectedImage[0].AnhSanPham  === LinkImage+img.AnhSanPham ? "3px solid purple" : "",
                           }}
-                          onClick={() => SetSelectedImage(img)}
+                          onClick={() => console.log(LinkImage+img.AnhSanPham)}
                         />
                       ))}
-                      ;
+                      
                     </div>
                   </div>
                   {Product.map((item) => (
@@ -98,7 +97,7 @@ function ProductDetail(props) {
                       <p className="Product-warranty">
                         <span>Bảo hành : 12 tháng</span>
                       </p>
-                      <p>
+                      <p> 
                         <span style={{ fontSize: "15pt", color: "#ff0000" }}>
                           <strong>Quà Tặng</strong>
                           <strong>:</strong>
