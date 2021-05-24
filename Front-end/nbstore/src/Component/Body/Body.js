@@ -9,10 +9,12 @@ function Body(props) {
     return (
     <>
       <div className="container pd0-sm-mb">
-        <ProductDealinMonth products={products}  />
+        {/* <ProductDealinMonth products={products}  /> */}
+        <ProductBestSellingByBrand products={products}/>
         {/* <ProductKeyBoardDeal/>
         <ProductBestSellingByBrand/>
         <ProductMouseDeal/> */}
+         <ProductMouseDeal/>
       </div>
     </>
   );

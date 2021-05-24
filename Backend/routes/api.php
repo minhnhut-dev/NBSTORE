@@ -23,4 +23,6 @@ Route::get('/ProductDealInMonth','SanPhamController@GetProductSeal');
 Route::get('/GetImageProductByID/{id}','SanPhamController@GetImageProductByid');
 
 Route::get('/GetProductByID/{id}','SanPhamController@GetProductById');
+Route::get('/GetProductMouse','SanPhamController@GetProductMouse');
+
 

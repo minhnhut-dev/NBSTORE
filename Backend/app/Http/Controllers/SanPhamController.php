@@ -253,5 +253,11 @@ class SanPhamController extends Controller
         return response()->json($products);
     }
 
+    public function GetProductMouse()
+    {
+        $productMouse=DB::select('SELECT san_phams.* FROM san_phams , loai_san_phams
+        WHERE san_phams.loai_san_phams_id=loai_san_phams.id AND loai_san_phams.id=1');
+        return response()->json($productMouse,200);
+    }
 
 }
