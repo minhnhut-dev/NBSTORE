@@ -8,11 +8,12 @@ import "react-tabs/style/react-tabs.css";
 import { useParams } from "react-router";
 import axios from "axios";
 import NumberFormat from "react-number-format";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function ProductDetail(props) {
   const [selectedImage, SetSelectedImage] = useState([0]);
   const [Product, SetProducts] = useState([]);
-  const { products } = props;
+  const {onAdd}=props;
   let { id } = useParams();
   useEffect(() => {
     axios
@@ -25,11 +26,11 @@ function ProductDetail(props) {
           SetSelectedImage(res.data);
       })
   }, []);
-  console.log(selectedImage[0]);
   const LinkImage="http://127.0.0.1:8000/images/";
+
   return (
     <>
-      <Header />
+      <Header/>
       <div className="noindex">
         <div id="breadcrumb">
           <div className="main">
@@ -157,9 +158,9 @@ function ProductDetail(props) {
                         </div>
                         <div className="clearfix"></div>
                         <div className="form-group">
-                          <Button className="product_buy_btn btn-success theme_button addtocar">
-                            Mua Hàng
-                          </Button>
+                          <Link to="/cart">
+                            <Button className="product_buy_btn btn-success theme_button addtocar"type="button" onClick={()=>onAdd (item)}> Mua hàng</Button>
+                          </Link>                                 
                         </div>
                       </form>
                     </div>

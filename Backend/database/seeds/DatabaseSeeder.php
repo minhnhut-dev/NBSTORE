@@ -89,8 +89,8 @@ class anh_san_phams extends Seeder {
             ['AnhSanPham'=>'image1.jpg','san_phams_id'=>4],
             // sản phẩm 5
             ['AnhSanPham'=>'image7.jpg','san_phams_id'=>5],
-            ['AnhSanPham'=>'image7_1.jpg','san_phams_id'=>5],
-            ['AnhSanPham'=>'image7_2.jpg','san_phams_id'=>5],
+            ['AnhSanPham'=>'image7_1.png','san_phams_id'=>5],
+            ['AnhSanPham'=>'image7_2.png','san_phams_id'=>5],
         ]);
     }
 }

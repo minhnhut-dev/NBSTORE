@@ -11,6 +11,7 @@ import Home from "./Pages/Home/Home";
 import Cart from "./Pages/Cart/Cart";
 function App() {
   const [products, SetProduct]=useState([]);
+  const [cartItems,setCartItems]=useState([]);
   useEffect(() => {
       axios.get('http://127.0.0.1:8000/api/ProductDealInMonth')
       .then(response=>{
@@ -24,12 +25,27 @@ function App() {
         })
         
   },[])
-  return (
+  const onAdd= (product)=>{
+    setCartItems([...cartItems,product]);
+
+    // const exsit =cartItems.find(x => x.id === product.id)
+    // if(exsit)
+    // {
+    //   setCartItems(
+    //     cartItems.map((x)=>
+    //     x.id===product.id ? {...exsit, qty:exsit.qty+1} : x
+    //     )
+    //   );
+    // }
+   
+  }
+  console.log(cartItems);
+    return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home products={products}/>
+            <Home products={products} cartItems={cartItems}/>
           </Route>
           <Route path="/Login">
             <Login />
@@ -38,13 +54,13 @@ function App() {
             <Register />
           </Route>
           <Route path="/ProductDetail/:id">
-            <ProductDetail products={products}/>
+            <ProductDetail  onAdd={onAdd}/>
           </Route>
           <Route path="/collections/">
               <TypeProduct/>
           </Route>
           <Route path="/cart">
-              <Cart/>
+              <Cart cartItems={cartItems} onAdd={onAdd} />
           </Route>
           <Route path="*">
             <NoMatch />

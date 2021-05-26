@@ -2,7 +2,9 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
 import {Link} from "react-router-dom";
-export default function Header() {
+export default function Header(props) {
+  const {cartItems}=props;
+  console.log("cart item ở Header: ",cartItems);
   return (
     <>
         <div className="fix-xxx">

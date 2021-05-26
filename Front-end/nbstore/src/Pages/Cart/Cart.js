@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import NumberFormat from "react-number-format";
 import "./Cart.css";
-function Cart() {
-  const [emptyCart, SetEmptyCart] = useState(false);
+function Cart(props) {
+  // const [cartItem, SetCartItem] = useState([]);
+  const [qty, SetQty] = useState(0);
+  const { cartItems } = props;
+  console.log("Cart item ở cart:", cartItems);
+  const LinkImage = "http://127.0.0.1:8000/images/";
   return (
     <>
       <Header />
       <div className="noindex">
         <div id="mainframe">
           <div className="container">
-            {emptyCart === true ? (
+            {cartItems.length === 0 ? (
               <div className="row">
                 <div id="layout-page-first" className="col-md-12">
                   <span className="header-page clearfix">
@@ -48,90 +52,48 @@ function Cart() {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th className="image">
-                              <div className="product_image">
-                                <Link to="#">
-                                  <img src="//product.hstatic.net/1000026716/product/khunglaptopwebsite_a48c20bc37b74ba88aab4c7639fb97a9_small.jpg" />
+                          {cartItems.map((item) => (
+                            <tr>
+                              <th className="image">
+                                <div className="product_image">
+                                  <Link to="#">
+                                    <img
+                                      src={LinkImage + item.AnhDaiDien}
+                                      style={{ width: "100px" }}
+                                    />
+                                  </Link>
+                                </div>
+                              </th>
+                              <th className="item">
+                                <Link to="/ProductDetail">
+                                  <strong>{item.TenSanPham}</strong>
                                 </Link>
-                              </div>
-                            </th>
-                            <th className="item">
-                              <Link to="/ProductDetail">
-                                <strong>
-                                  Laptop gaming Acer Aspire 7 A715 41G R282
-                                </strong>
-                              </Link>
-                            </th>
-                            <th className="qty">
-                              <input
-                                type="number"
-                                size="4"
-                                name="update[]"
-                                min="1"
-                                value="1"
-                              />
-                            </th>
-                            <th className="price">
-                              <NumberFormat
-                                value="22222222"
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                suffix={" VNĐ"}
-                                renderText={(value, props) => (
-                                  <div {...props}>{value} </div>
-                                )}
-                              />
-                            </th>
-                            <th className="remove">
-                              <i
-                                className="fas fa-trash-alt"
-                                onClick={() => SetEmptyCart(true)}
-                              ></i>
-                            </th>
-                          </tr>
-                          <tr>
-                            <th className="image">
-                              <div className="product_image">
-                                <Link to="#">
-                                  <img src="//product.hstatic.net/1000026716/product/khunglaptopwebsite_a48c20bc37b74ba88aab4c7639fb97a9_small.jpg" />
-                                </Link>
-                              </div>
-                            </th>
-                            <th className="item">
-                              <Link to="/ProductDetail">
-                                <strong>
-                                  Laptop gaming Acer Aspire 7 A715 41G R282
-                                </strong>
-                              </Link>
-                            </th>
-                            <th className="qty">
-                              <input
-                                type="number"
-                                size="4"
-                                name="update[]"
-                                min="1"
-                                value="1"
-                              />
-                            </th>
-                            <th className="price">
-                              <NumberFormat
-                                value="22222222"
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                suffix={" VNĐ"}
-                                renderText={(value, props) => (
-                                  <div {...props}>{value} </div>
-                                )}
-                              />
-                            </th>
-                            <th className="remove">
-                              <i
-                                className="fas fa-trash-alt"
-                                onClick={() => SetEmptyCart(true)}
-                              ></i>
-                            </th>
-                          </tr>
+                              </th>
+                              <th className="qty">
+                                <input
+                                  type="number"
+                                  size="4"
+                                  name="update[]"
+                                  min="1"
+                                  value="1"
+                                />
+                              </th>
+                              <th className="price">
+                                <NumberFormat
+                                  value={item.GiaKM}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  suffix={" VNĐ"}
+                                  renderText={(value, props) => (
+                                    <div {...props}>{value} </div>
+                                  )}
+                                />
+                              </th>
+                              <th className="remove">
+                                <i className="fas fa-trash-alt"></i>
+                              </th>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </form>

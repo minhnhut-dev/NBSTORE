@@ -4,12 +4,12 @@ import Banner from "../../Component/Banner/Banner";
 import Body from "../../Component/Body/Body";
 import Footer from "../../Component/Footer/Footer";
 function Home(props) {
-  const {products}=props;
+  const {products,cartItems}=props;
   return (
     <>
-      <Header  />
+      <Header cartItems={cartItems} />
       <Banner />
-      <Body products={products}/>
+      <Body products={products} />
       <Footer />
     </>
   );
