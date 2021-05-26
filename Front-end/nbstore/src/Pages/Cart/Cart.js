@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import NumberFormat from "react-number-format";
+import { Button } from "react-bootstrap";
 import "./Cart.css";
 function Cart(props) {
-  // const [cartItem, SetCartItem] = useState([]);
-  const [qty, SetQty] = useState(0);
-  const { cartItems } = props;
-  console.log("Cart item ở cart:", cartItems);
+  const { cartItems, onRemove, onAdd } = props;
+  const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.GiaKM, 0);
+  const totalPrice = itemsPrice;
   const LinkImage = "http://127.0.0.1:8000/images/";
   return (
     <>
@@ -40,7 +40,7 @@ function Cart(props) {
                     <span className="header-page clearfix">
                       <h1 className="title-card"> Giỏ hàng</h1>
                     </span>
-                    <form id="cartformpage">
+                    <div id="cartformpage">
                       <table width="100%">
                         <thead>
                           <tr>
@@ -65,18 +65,32 @@ function Cart(props) {
                                 </div>
                               </th>
                               <th className="item">
-                                <Link to="/ProductDetail">
+                                <Link to={`/ProductDetail/${item.id}`}>
                                   <strong>{item.TenSanPham}</strong>
                                 </Link>
                               </th>
-                              <th className="qty">
-                                <input
-                                  type="number"
-                                  size="4"
-                                  name="update[]"
-                                  min="1"
-                                  value="1"
-                                />
+                              <th
+                                className="qty"
+                                style={{
+                                  display: "flex",
+                                  marginTop: "30px",
+                                  justifyContent: "space-evenly",
+                                }}
+                              >
+                                <button
+                                  onClick={() => onAdd(item)}
+                                  className="add"
+                                >
+                                  +
+                                </button>
+
+                                <span className="cart-qty">{item.qty}</span>
+                                <button
+                                  onClick={() => onRemove(item)}
+                                  className="remove"
+                                >
+                                  -
+                                </button>
                               </th>
                               <th className="price">
                                 <NumberFormat
@@ -90,13 +104,44 @@ function Cart(props) {
                                 />
                               </th>
                               <th className="remove">
-                                <i className="fas fa-trash-alt"></i>
+                                <i
+                                  className="fas fa-trash-alt"
+                                  onClick={() => onRemove(item)}
+                                ></i>
                               </th>
                             </tr>
                           ))}
+                          <tr className="summary">
+                            <td
+                              colSpan="4"
+                              style={{ fontWeight: "bold", fontSize: "20px" }}
+                            >
+                              Tổng tiền
+                            </td>
+                            <td className="price">
+                              <span className="total">
+                                {/* <strong>{totalPrice}</strong> */}
+                                <NumberFormat
+                                  value={totalPrice}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  suffix={" VNĐ"}
+                                  renderText={(value, props) => (
+                                    <strong {...props}>{value} </strong>
+                                  )}
+                                />
+                              </span>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
-                    </form>
+                    
+                      <div className="col-xl-12 col-md-12 cart-buttons inner-right inner-left">
+                             <div className="buttons">
+                                    <Button id="checkout" name="checkout">Thanh toán</Button>
+                               </div>           
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

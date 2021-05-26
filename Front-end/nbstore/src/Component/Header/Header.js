@@ -2,9 +2,9 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
 import {Link} from "react-router-dom";
-export default function Header(props) {
-  const {cartItems}=props;
-  console.log("cart item ở Header: ",cartItems);
+export default function Header() {
+  const cartFromLocalStorage=JSON.parse(localStorage.getItem("cartItems")||"[]");
+console.log("Cái này mới lấy ra ở Localstorage :",cartFromLocalStorage);
   return (
     <>
         <div className="fix-xxx">
@@ -101,7 +101,7 @@ export default function Header(props) {
                       </a>
                       <Link to="/cart" className="gearvn-header-top-item rela">
                         <div>
-                          <Badge variant="danger">0</Badge>
+                          <Badge variant="danger">{cartFromLocalStorage.length}</Badge>
                         </div>
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
                         <div className="header-right-description">

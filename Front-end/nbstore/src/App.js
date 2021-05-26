@@ -9,9 +9,10 @@ import Register from "./Pages/Register/Register";
 import NoMatch from "./Pages/NoMatch/NoMatch";
 import Home from "./Pages/Home/Home";
 import Cart from "./Pages/Cart/Cart";
+const cartFromLocalStorage=JSON.parse(localStorage.getItem("cartItems")||"[]");
 function App() {
   const [products, SetProduct]=useState([]);
-  const [cartItems,setCartItems]=useState([]);
+  const [cartItems,setCartItems]=useState(cartFromLocalStorage);
   useEffect(() => {
       axios.get('http://127.0.0.1:8000/api/ProductDealInMonth')
       .then(response=>{
@@ -25,27 +26,46 @@ function App() {
         })
         
   },[])
-  const onAdd= (product)=>{
-    setCartItems([...cartItems,product]);
+  useEffect( () => {
+    
+      localStorage.setItem("cartItems",JSON.stringify(cartItems));
+  }, [cartItems]);
 
-    // const exsit =cartItems.find(x => x.id === product.id)
-    // if(exsit)
-    // {
-    //   setCartItems(
-    //     cartItems.map((x)=>
-    //     x.id===product.id ? {...exsit, qty:exsit.qty+1} : x
-    //     )
-    //   );
-    // }
+  const onAdd= (product)=>{
+    // setCartItems([...cartItems,product]);
+    // console.log(product.id);
+    const exist =cartItems.find(x => x.id === product.id)
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
    
   }
+  const onRemove = (product) => {
+
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+        )
+      );
+    }
+  };
   console.log(cartItems);
     return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home products={products} cartItems={cartItems}/>
+            <Home products={products} />
           </Route>
           <Route path="/Login">
             <Login />
@@ -60,7 +80,7 @@ function App() {
               <TypeProduct/>
           </Route>
           <Route path="/cart">
-              <Cart cartItems={cartItems} onAdd={onAdd} />
+              <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
           </Route>
           <Route path="*">
             <NoMatch />
