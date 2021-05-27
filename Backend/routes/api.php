@@ -26,3 +26,7 @@ Route::get('/GetProductByID/{id}','SanPhamController@GetProductById');
 Route::get('/GetProductMouse','SanPhamController@GetProductMouse');
 
 
+Route::get('/config-by-category/{id}','SanPhamController@ConfigByCategory');
+Route::post('/add-configs-to-category/{id}','LoaiSanPhamController@AddConfigsAPI');
+Route::post('/add-config/{id}','LoaiSanPhamController@AddConfigAPI');
+Route::post('/delete-configs-from-category/{id}','LoaiSanPhamController@DeleteConfigsAPI');
