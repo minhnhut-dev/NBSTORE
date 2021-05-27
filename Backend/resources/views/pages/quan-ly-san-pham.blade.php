@@ -50,9 +50,7 @@
                                         <th>STT</th>
                                         <th>Tên Sản Phẩm</th>
                                         <th>Cấu hình</th>
-                                        <th>Thông tin</th>
                                         <th>Hãng sản xuất</th>
-                                        {{-- <th>Hình ảnh</th> --}}
                                         <th>Loại</th>
                                         <th>Hình ảnh</th>
                                         <th>Số lượng</th>
@@ -74,6 +72,8 @@
 
                                     @foreach ($listsanpham as $sp )
                                     @php
+                                    $cat=$sp->LoaiSanPham;
+                                    $category_name=$cat->TenLoai;
                                     $stt++;
                                     @endphp
                                     <tr>
@@ -81,70 +81,11 @@
                                             {{$stt}}
                                         </td>
                                         <td>{{$sp->TenSanPham}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary" data-target="#exampleModal{{$sp->id}}" title="Xem cấu hình" data-toggle="modal">Xem cấu hình
-                                            </button>
-                                            <div class="modal fade" id="exampleModal{{$sp->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <h5 class="modal-title" id="exampleModalLabel">Thông tin cấu hình sản phẩm {{$sp->TenSanPham}}</h5>
-                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                       <div class="col-12">
-                                                        <table class="table">
-                                                            <thead>
-                                                              {{-- <tr>
-                                                                <th scope="col">#</th>
-                                                                <th scope="col">First</th>
-                                                              </tr> --}}
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th scope="row">ID</th>
-                                                                    <td>{{$sp->id}}</td>
-                                                                  </tr>
-
-                                                            </tbody>
-                                                          </table>
-                                                       </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                        </td>
-                                        <td>{{$sp->ThongTin}}</td>
-                                        <td>{{$sp->HangSanXuat}}</td>
-                                        {{-- <td>{{$sp->LoaiSanPham->TenLoai}}</td> --}}
-                                        <td>{{$sp->LoaiSanPham->TenLoai}}</td>
-
-                                        <td></td>
-                                        <td>10</td>
-                                        {{-- <td>{{$stt}}</td>
-                                        <td>{{$p->TenPhim}}</td>
-                                        <td>{{$p->NgayDKChieu}}</td>
-                                        <td>{{$p->NgayKetThuc}}</td>
-                                        <td>{{$p->ThoiLuong}}</td>
-                                        <td>{{$p->DaoDien}}</td>
-                                        <td>{{$p->DienVien}}</td>
-                                        <td>
-                                            <img src="/image/phim/{{$p->HinhAnh}}" width="75px" height="100px">
-                                        </td>
-                                        <td>{{$p->LinkPhim}}</td>
-                                        <td>{{$p->TenLoaiPhim}}</td>
-                                        <td>{{$p->TenGioiHan}}</td>
-                                        <td>@if($p->TrangThai=='1')
-                                            Đang chiếu
-                                            @else
-                                            Sắp Chiếu
-
-                                        </td> --}}
+                                        <td> Cấu hình</td>
+                                        <td>{{$sp->HangSanXuat}}</td>  
+                                        <td>{{$category_name}}</td>
+                                        <td>Hình Ảnh</td>
+                                        <td>{{$sp->SoLuong}}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="/quan-ly-san-pham/update/{{$sp->id}}">
@@ -158,11 +99,7 @@
                                                     title="Xóa">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
-                                                </a>
-                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="tooltip" type="submit"
-                                                    title="Xóa">
-                                                    <i class="fas fa-plus-circle"></i>
-                                                    </button> --}}
+                                            
 
                                             </div>
                                         </td>

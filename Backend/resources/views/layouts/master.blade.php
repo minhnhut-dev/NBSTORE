@@ -333,6 +333,8 @@
             }
         };
     </script>
+    <script src={{ asset('ajax/ajax.js') }}></script>
+
 </body>
 
 </html>

@@ -62,11 +62,11 @@ class san_phams extends Seeder
     public function run()
     {
         DB::table('san_phams')->insert([
-           ['TenSanPham'=>'Laptop Gaming Asus TUF Dash FX516PE HN005T','ThongTin'=>'mới','HangSanXuat'=>'Acer','GiaCu'=>22490000,'GiaKM'=>21990000,'Soluong'=>10,'AnhDaiDien'=>'image2.jpg','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'Laptop HP 15s FQ2027TU 2Q5Y3PA','ThongTin'=>'mới','HangSanXuat'=>'HP','GiaCu'=>16590000,'GiaKM'=>15990000,'Soluong'=>10,'AnhDaiDien'=>'image8.jpg','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'Macbook Air 2020 M1 8GPU 8GB 512GB MGNA3SA/A - Silver','ThongTin'=>'mới','HangSanXuat'=>'Apple','GiaCu'=>34990000,'GiaKM'=>30500000,'Soluong'=>10,'AnhDaiDien'=>'image9.jpg','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'Laptop ASUS TUF Gaming F15 FX506LH HN002T','ThongTin'=>'mới','HangSanXuat'=>'Asus','GiaCu'=>20490000,'GiaKM'=>19490000,'Soluong'=>10,'AnhDaiDien'=>'image1.jpg','loai_san_phams_id'=>1],
-           ['TenSanPham'=>'Laptop Asus ROG Strix SCAR 15 G533QR HF113T','ThongTin'=>'mới','HangSanXuat'=>'Asú','GiaCu'=>59990000,'GiaKM'=>57490000,'Soluong'=>10,'AnhDaiDien'=>'image7.jpg','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop Gaming Asus TUF Dash FX516PE HN005T','ThongTin'=>'mới','HangSanXuat'=>'Acer','GiaCu'=>22490000,'GiaKM'=>21990000,'Soluong'=>10,'AnhDaiDien'=>'image2.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop HP 15s FQ2027TU 2Q5Y3PA','ThongTin'=>'mới','HangSanXuat'=>'HP','GiaCu'=>16590000,'GiaKM'=>15990000,'Soluong'=>10,'AnhDaiDien'=>'image8.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Macbook Air 2020 M1 8GPU 8GB 512GB MGNA3SA/A - Silver','ThongTin'=>'mới','HangSanXuat'=>'Apple','GiaCu'=>34990000,'GiaKM'=>30500000,'Soluong'=>10,'AnhDaiDien'=>'image9.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop ASUS TUF Gaming F15 FX506LH HN002T','ThongTin'=>'mới','HangSanXuat'=>'Asus','GiaCu'=>20490000,'GiaKM'=>19490000,'Soluong'=>10,'AnhDaiDien'=>'image1.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
+           ['TenSanPham'=>'Laptop Asus ROG Strix SCAR 15 G533QR HF113T','ThongTin'=>'mới','HangSanXuat'=>'Asú','GiaCu'=>59990000,'GiaKM'=>57490000,'Soluong'=>10,'AnhDaiDien'=>'image7.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
         ]);
     }
 }

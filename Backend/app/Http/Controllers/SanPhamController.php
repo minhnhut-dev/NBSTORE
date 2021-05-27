@@ -8,6 +8,7 @@ use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
 use App\LoaiSanPham;
+use Hamcrest\Core\HasToString;
 use Illuminate\Support\Facades\DB;
 
 class SanPhamController extends Controller
@@ -23,9 +24,6 @@ class SanPhamController extends Controller
     {
 
         $sanpham['listsanpham'] = SanPham::where('TrangThai', 1)->paginate(5);
-
-        // return $data;
-        //  return $data;
         return view('pages.quan-ly-san-pham', $sanpham);
     }
 
@@ -34,180 +32,159 @@ class SanPhamController extends Controller
         $data = LoaiSanPham::where('TrangThai', 1)->get();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $Recursion = new Recursion($dataOption);
+
+        $configs = DB::table('chi_tiet_cau_hinhs')
+            ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
+            ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $dataOption[0]->id)->get();
+        $html = '';
+
+        foreach ($configs as $item) {
+            $html .= '<div class="form-group col-12"><label for="' . $item->KeyName . '">'
+                . $item->TenCauHinh . ':</label><input type="text" class="form-control" id="'
+                . $item->KeyName . '" placeholder="Nhập tên '
+                . $item->TenCauHinh . '"name="' . $item->KeyName . '" ></div>';
+        }
         $htmlOption = $Recursion->cat_parent();
-        return view('pages.them.them-san-pham', compact('data', 'htmlOption'));
+        return view('pages.them.them-san-pham', compact('data', 'htmlOption', 'html'));
     }
 
     public function SuaSanPham($id)
     {
-        // $data=SanPham::find($id);
+
         $data = SanPham::where('id', $id)->get();
-        $data1 =  CauHinh::where('san_phams_id', $id)->get();        // $data=DB::select('select * from san_phams  where id =?', [$id]);
-        // return $data;
-        // $loaisanpham=LoaiSanPham::get();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
+        $configs = json_decode($data[0]->CauHinh);
+        $html = '';
+
+        $configs_by_category = DB::table('chi_tiet_cau_hinhs')
+            ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
+            ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $data[0]->loai_san_phams_id)->get();
+        $len = sizeof($configs_by_category);
+
+        if ($len > 0)
+
+            for ($i = 0; $i < $len; $i++) {
+                $key = $configs_by_category[$i]->KeyName;
+                $cont = null;
+                try {
+                    $content = $configs->$key;
+                    $cont = $content->content;
+                } catch (\ErrorException $e) {
+                    $cont = null;
+
+                }
+
+                $html .= '<div class="form-group col-12"><label for="'
+                    . $key . '">' . $configs_by_category[$i]->TenCauHinh . ':</label><input type="text" class="form-control" id="'
+                    . $key . '" placeholder="Nhập ' . $configs_by_category[$i]->TenCauHinh . '"name="'
+                    . $key . '" value="' . $cont . '"></div>';
+            }
+            else{
+                $html = '<div class="card-header"><label>Loại sản phẩm này chưa có cấu hình vui lòng thêm cấu hình<label></div>';
+            }
+
+
         $Recursion = new Recursion($dataOption);
         $htmlOption = $Recursion->cat_parent();
-        // return $data1;
-        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'data1'));
+
+        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'html'));
     }
 
     public function InsertProducts(Request $request)
     {
-        // $Ocung = "Ổ Cứng";
-        // $CarDoHoa = "Card Đồ Họa";
-        // $ManHinh = "Màn hình";
-        // $CongGiaoTiep = "Cổng giao tiếp";
-        // $TheNho = "Thẻ nhớ";
-        // $HDH = "Hệ điều hành";
-        // $Mausac = "Màu sắc";
-        // $TrongLuong = "Trọng lượng";
-        // $KichThuoc = "Kích thước";
-        // $TocDoQuay = "Tốc độ quay";
-        // $VatLieu = "Vật liệu";
-        // $DoOn = "Độ ồn";
-        // $TanNhiet = "Tản nhiệt";
-        // $KetNoi = "Kết nối";
-        // $TuoiTho = "Tuổi thọ";
-        // $TocDoPhanhoi = "Tốc độ phản hồi";
-        // $ThietKe = "Thiết kế";
-        // $Hotro = "Hỗ trợ";
-        // $PhuKien = "Phụ kiện";
-        // $Nguon = "Nguồn";
 
         $data = new SanPham;
-        $data1 = new CauHinh;
+
         $data->TenSanPham = $request->ten_san_pham;
         $data->ThongTin = $request->detail;
         $data->HangSanXuat = $request->HangSanXuat;
         $data->GiaCu = $request->GiaCu;
         $data->GiaKM = $request->GiaKM;
         $data->SoLuong = $request->SoLuong;
+        $data->AnhDaiDien=$request->Avatar;
         $data->loai_san_phams_id = $request->LoaiSanPham;
-        $data->AnhDaiDien=$request->imageFile[0];
+        if ($request->hasFile('Avatar')) {
+            $image = $request->file('Avatar');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/image/phim');
+            $image->move($destinationPath, $name);
+            $HinhAnh = $name;
+        } else {
+            $HinhAnh = "meo.jpg"; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
+        }
+        $data->AnhDaiDien=$HinhAnh;
+        $configs = DB::table('chi_tiet_cau_hinhs')
+            ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
+            ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $request->LoaiSanPham)->get();
 
-        //Hình ảnh
+        $configJson = array();
 
-        // if($request->hasFile('imageFile'))
-        // {
-        //     $image = $request->file('imageFile');
-        //     $name = time() . '.' . $image->getClientOriginalExtension();
-        //     $destinationPath = public_path('/images');
-        //     $image->move($destinationPath, $name);
-        //     $HinhAnh = $name;
-        //     $data2->AnhSanPham=$HinhAnh;
-        //     $data2->save();
-        //    foreach($request->imageFile as $image)
-        //    {
-        //     $filenameWithText=$image->getClientOriginalName();
-        //     $filename=pathinfo($filenameWithText,PATHINFO_FILENAME);
-        //     $extension=$image->getClientOriginalExtension();
-        //     $filenamestore=$filename.'_'.time().'.'.$extension;
-        //     $path=$image->storeAS('public/images',$filenamestore);
-        //     $data2->AnhSanPham=$filenamestore;
-        //     $data2->san_phams_id=$data->id;
-        //     // $data2->save();
-        //     return $data2;
-        //    }
-        // }
+        foreach ($configs as $item) {
+            $config = array();
+            $key = $config['key'] = $item->KeyName;
+            $config['config_name'] = $item->TenCauHinh;
 
-        // return $data1;
-        if($request->hasFile('imageFile'))
-        {
-            foreach($request->file('imageFile') as $image)
-            {
-                $data2 = new AnhSanPham;
-                // $name=$image->getClientOriginalName();
-                $nameimages= time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path().'/images/',$nameimages);
-                $data2->san_phams_id=$data->id;
-                $data2->AnhSanPham=$nameimages;
-                $data2->save();
+            $config['content'] = $request->$key;
+
+            $configJson[$key] = $config;
+        }
+
+
+        $cauhinhString = json_encode($configJson);
+
+        $data->CauHinh = $cauhinhString;
+        $data->save();
+
+
+
+        if ($request->hasFile('imageFile')) {
+            foreach ($request->file('imageFile') as $image) {
+                $imageProduct = new AnhSanPham;
+                $nameimages = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path() . '/images/', $nameimages);
+                $imageProduct->AnhSanPham = $nameimages;
+                $imageProduct->san_phams_id = $data->id;
+                $imageProduct->save();
             }
         }
-        // $data2->AnhSanPham=json_encode($imageUpload);
+
+
         return redirect('/quan-ly-san-pham');
     }
 
     public function UpdateProduct(Request $request, $id)
     {
-        $Ocung = "Ổ Cứng";
-        $CarDoHoa = "Card Đồ Họa";
-        $ManHinh = "Màn hình";
-        $CongGiaoTiep = "Cổng giao tiếp";
-        $TheNho = "Thẻ nhớ";
-        $HDH = "Hệ điều hành";
-        $Mausac = "Màu sắc";
-        $TrongLuong = "Trọng lượng";
-        $KichThuoc = "Kích thước";
-        $TocDoQuay = "Tốc độ quay";
-        $VatLieu = "Vật liệu";
-        $DoOn = "Độ ồn";
-        $TanNhiet = "Tản nhiệt";
-        $KetNoi = "Kết nối";
-        $TuoiTho = "Tuổi thọ";
-        $TocDoPhanhoi = "Tốc độ phản hồi";
-        $ThietKe = "Thiết kế";
-        $Hotro = "Hỗ trợ";
-        $PhuKien = "Phụ kiện";
-        $Nguon = "Nguồn";
-
-        // $QueryData = DB::select("SELECT cau_hinhs.id
-        //     FROM cau_hinhs , san_phams
-        //     WHERE cau_hinhs.san_phams_id=san_phams.id AND cau_hinhs.san_phams_id=?", [$id]);
 
         $data = SanPham::find($id);
         // $data1 = CauHinh::find(1);
 
-        $data->TenSanPham=$request->ten_san_pham;
-        $data->ThongTin=$request->detail;
-        $data->HangSanXuat=$request->HangSanXuat;
-        $data->GiaCu=$request->GiaCu;
-        $data->GiaKM=$request->GiaKM;
-        $data->SoLuong=$request->SoLuong;
-        $data->loai_san_phams_id=$request->loai;
+        $data->TenSanPham = $request->ten_san_pham;
+        $data->ThongTin = $request->detail;
+        $data->HangSanXuat = $request->HangSanXuat;
+        $data->GiaCu = $request->GiaCu;
+        $data->GiaKM = $request->GiaKM;
+        $data->SoLuong = $request->SoLuong;
+
+        $configs = DB::table('chi_tiet_cau_hinhs')
+            ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
+            ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $request->LoaiSanPham)->get();
+
+        $configJson = array();
+        if (sizeof($configs) > 0)
+            foreach ($configs as $item) {
+                $config = array();
+                $key = $config['key'] = $item->KeyName;
+                $config['config_name'] = $item->TenCauHinh;
+
+                $config['content'] = $request->$key;
+
+                $configJson[$key] = $config;
+            }
+
+        $cauhinhString = json_encode($configJson);
+        $data->CauHinh = $cauhinhString;
         $data->save();
 
-        //CauHinh
-        // $data1->CPU=$request->CPU;
-        // $data1->RAM=$request->RAM;
-        // $data1->$CarDoHoa=$request->Cardohoa;
-        // $data1->$ManHinh=$request->Manhinh;
-        // $data1->$Ocung=$request->Ocung;
-        // $data1->$CongGiaoTiep=$request->Conggiaotiep;
-        // $data1->FDD=$request->FDD;
-        // $data1->$TheNho=$request->Thenho;
-        // $data1->Audio=$request->Audio;
-        // $data1->LAN=$request->LAN;
-        // $data1->WIFI=$request->WIFI;
-        // $data1->BLuetooth=$request->Bluetooth;
-        // $data1->Webcam=$request->Webcam;
-        // $data1->Camera=$request->Camera;
-        // $data1->$HDH=$request->HDH;
-        // $data1->PIN=$request->PIN;
-        // $data1->$Mausac=$request->Mausac;
-        // $data1->$TrongLuong=$request->Trongluong;
-        // $data1->$KichThuoc=$request->Kichthuoc;
-        // $data1->$TocDoQuay=$request->Tocdoquay;
-        // $data1->$VatLieu=$request->Vatlieu;
-        // $data1->$DoOn=$request->Doon;
-        // $data1->$TanNhiet=$request->Tannhiet;
-        // $data1->$KetNoi=$request->Ketnoi;
-        // $data1->$TuoiTho=$request->Tuoitho;
-        // $data1->Switch=$request->Switch;
-        // $data1->$TocDoPhanhoi=$request->Tocdophanhoi;
-        // $data1->$ThietKe=$request->Thietke;
-        // $data1->Model=$request->Model;
-        // $data1->$Hotro=$request->Hotro;
-        // $data1->$PhuKien=$request->Phukien;
-        // $data1->Mainboard=$request->Mainboard;
-        // $data1->$Nguon=$request->Nguon;
-        // $data1->Case=$request->Case;
-        // $data1->Fan=$request->Fan;
-        // $data1->save();
-        // return $QueryData;
-        // return $data1;
-        // echo ($QueryData);
         return redirect('/quan-ly-san-pham');
     }
 
@@ -218,9 +195,26 @@ class SanPhamController extends Controller
         $data->save();
         return redirect('/quan-ly-san-pham');
     }
+    public function ConfigByCategory($id)
+    {
+        $configs = DB::table('chi_tiet_cau_hinhs')
+            ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
+            ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $id)->get();
+        $html = '';
+        foreach ($configs as $item) {
+            $html .= '<div class="form-group col-12"><label for="'
+            . $item->KeyName . '">'
+            . $item->TenCauHinh .':</label> <input type="text" class="form-control" id="'
+            . $item->KeyName .'" placeholder="Nhập tên '
+            . $item->TenCauHinh . '"name="'
+            . $item->KeyName . '" > </div>';
+        }
+        if (sizeof($configs) > 0)
+            return response()->json(['message' => 'success', 'html' => $html]);
+        return response()->json(['message' => 'unsuccessful']);
+    }
 
-    // API
-
+    // api
     public function GetProductSeal()
     {
         $Product= SanPham::OrderBy('giaKM','ASC')->get();
@@ -259,5 +253,4 @@ class SanPhamController extends Controller
         WHERE san_phams.loai_san_phams_id=loai_san_phams.id AND loai_san_phams.id=1');
         return response()->json($productMouse,200);
     }
-
 }
