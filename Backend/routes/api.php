@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/ProductDealInMonth','SanPhamController@GetProductSeal');
+
+Route::get('/GetImageProductByID/{id}','SanPhamController@GetImageProductByid');
+
+Route::get('/GetProductByID/{id}','SanPhamController@GetProductById');
+Route::get('/GetProductMouse','SanPhamController@GetProductMouse');
+
+

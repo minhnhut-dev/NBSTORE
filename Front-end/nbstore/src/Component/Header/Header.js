@@ -3,6 +3,8 @@ import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
 import {Link} from "react-router-dom";
 export default function Header() {
+  const cartFromLocalStorage=JSON.parse(localStorage.getItem("cartItems")||"[]");
+console.log("Cái này mới lấy ra ở Localstorage :",cartFromLocalStorage);
   return (
     <>
         <div className="fix-xxx">
@@ -97,19 +99,15 @@ export default function Header() {
                           <div className="gearvn-text">Khuyến mãi</div>
                         </div>
                       </a>
-                      <a href="#" className="gearvn-header-top-item rela">
-                        {/* <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349"/>
-                                        <div className="header-right-description">
-                                            <div className="gearvn-text">Khuyến mãi</div>
-                                        </div> */}
+                      <Link to="/cart" className="gearvn-header-top-item rela">
                         <div>
-                          <Badge variant="danger">0</Badge>
+                          <Badge variant="danger">{cartFromLocalStorage.length}</Badge>
                         </div>
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
                         <div className="header-right-description">
                           <div className="gearvn-text">Giỏ hàng</div>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="gearvn-info-top">

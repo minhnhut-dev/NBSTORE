@@ -1,0 +1,118 @@
+#layout-page-first .title-cart {
+    text-transform: uppercase;
+    font-size: 25px;
+    margin-top: 20px;
+    text-align: center;
+}
+#layout-page-first {
+    text-align: center;
+}
+#layout-page-first {
+    min-height: 250px;
+}
+.back-HomePage{
+    margin-left: 7px;
+}
+
+#layout-page-card .title-card {
+    padding-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+#layout-page-card {
+    min-height: 400px;
+    margin-top: 20px;
+}
+table {
+    max-width: 100%;
+    background-color: transparent;
+}
+#layout-page-card #cartformpage table {
+    margin-bottom: 20px;
+}
+#layout-page-card #cartformpage table tr {
+    border: 1px solid #f0f0f0;
+}
+#layout-page-card #cartformpage table td ,#layout-page-card #cartformpage table th {
+    border-right: 1px solid #f0f0f0;
+    border-left: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 20px 0px;
+}
+
+#cartformpage table .image{
+    width: 186px;
+}
+#cartformpage table .item{
+    width: 628px;
+}
+#cartformpage table .qty{
+    width: 129px;
+}
+#cartformpage table .price{
+    width: 161px;
+}
+#cartformpage .qty input {
+    width: 35px;
+    text-align: center;
+}
+
+.remove i {
+    color: black;
+    cursor: pointer;
+}
+button.add {
+    background-color: #40c0f0;
+    width: 1.8rem;
+    font-size: .8rem;
+    padding: .2rem;
+    margin: .1rem;
+    border-radius: 1.5rem;
+    border: .1rem solid #404040;
+
+    cursor: pointer;
+  }
+
+  button.remove {
+    background-color: #f04040;
+    width: 1.8rem;
+    font-size: .8rem;
+    padding: .2rem;
+    margin: .1rem;
+    border-radius: 1.5rem;
+    border: .1rem solid #404040;
+
+    cursor: pointer;
+  }
+
+  .cart-qty{
+      font-size: 19px;
+  }
+  #layout-page-card #cartformpage table tr {
+    border: 1px solid #f0f0f0;
+}
+#layout-page-card #cartformpage table td, #layout-page-card #cartformpage table th {
+    border-right: 1px solid #f0f0f0;
+    border-left: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 20px 0px;
+}
+#layout-page-card .inner-left.inner-right {
+    padding: 0px;
+}
+
+.cart-buttons button#checkout, .cart-buttons button#update-cart {
+    background: #ec2424;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+   margin-left: 90%;
+}
+
+
+#cartformpage .checkout-buttons {
+    display: inline;
+}
