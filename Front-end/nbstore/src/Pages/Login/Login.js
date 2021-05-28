@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import { Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
+  const [userName,setUserName]=useState("");
+  const [Password,setPassword]=useState("");
+  console.log('Username: ',userName);
+  console.log('Password: ',Password);
+ 
+  const HandleSubmit=(e)=>{
+      e.preventDefault();
+      const data={
+        username:userName,
+        password: Password,
+      }
+      axios.post('http://127.0.0.1:8000/api/Login',data)
+          .then((response)=>{
+            localStorage.setItem('userLogin',JSON.stringify(response.data.data.user));
+          })
+  }
   return (
     <>
       <Header />
@@ -19,7 +36,7 @@ function Login() {
               <div className="accounttype">
                 <h2 className="title"></h2>
               </div>
-              <form>
+              <form onSubmit={HandleSubmit} >
                 <div className="input-group">
                   <span className="input-group-addon">
                     <i class="fas fa-user-tie"></i>
@@ -30,6 +47,7 @@ function Login() {
                     name="username"
                     placeholder="Nhập tài khoản "
                     className="text form-control"
+                    onChange={e=>setUserName(e.target.value)}
                   />
                 </div>
                 <div className="input-group">
@@ -38,14 +56,15 @@ function Login() {
                   </span>
                   <input
                     required
-                    type="text"
+                    type="password"
                     name="username"
                     placeholder="Nhập mật khẩu "
                     className="text form-control"
+                    onChange={e=>setPassword(e.target.value)}
                   />
                 </div>
                 <div className="action_bottom">
-                  <Button variant="primary" className="btnLogin">
+                  <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
                   </Button>
                 </div>
