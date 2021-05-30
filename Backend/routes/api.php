@@ -33,11 +33,3 @@ Route::post('/delete-configs-from-category/{id}', 'LoaiSanPhamController@DeleteC
 
 Route::post('/Register','AuthController@Register');
 Route::post('/Login','AuthController@Login');
-
-// Route::group( [
-//         'prefix' => 'auth'
-// ],function () {
-//         Route::post('Login', 'AuthController@Login');
-//         Route::post('Register', 'AuthController@Register');
-//     });
-

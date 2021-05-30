@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo_logo.png";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+const cartFromLocalStorage = JSON.parse(
+  localStorage.getItem("cartItems") || "[]"
+);
+const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
+
 export default function Header() {
-  const cartFromLocalStorage = JSON.parse(
-    localStorage.getItem("cartItems") || "[]"
-  );
-  const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
-  console.log("User Login :", userLogin);
+  const handleLogout = () => {
+    window.location.reload();
+    localStorage.removeItem("userLogin");
+    localStorage.removeItem("accessToken");
+  };
+
   return (
     <>
       <div className="fix-xxx">
@@ -20,27 +26,11 @@ export default function Header() {
           <div className="container gearvn-content-section">
             <div className="row">
               <div className="left_header" style={{ zIndex: 997 }}>
-                {/* <a href="#">
-                    <img src={logo} title="Logo" alt="NBSTORE" />
-                  </a> */}
                 <Link to="/">
                   <img src={logo} title="Logo" alt="NBSTORE" />
                 </Link>
               </div>
-              {/* <div className="right_header">
-                            <div className="pd5 fl1">
-                                <div className="search">
-                                    <div className="input-search">
-                                            <form className="popup-content ultimate-search" role="search" className="searchbox">
-                                                  <input name="q" type="text" placeholder="Tìm kiếm sản phẩm...." className="inputbox search-query" autoComplete="off"/>
-                                                  <button className="btn-search btn btn-link" type="submit" >
-                                                    <span className="fa fa-search" aria-hidden="true"></span>
-                                                  </button>
-                                            </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
+
               <div className="right_header">
                 <div className=" pd5 fl1 ">
                   <div id="search">
@@ -72,29 +62,45 @@ export default function Header() {
                 </div>
                 <div className=" pdl0 fl1 ">
                   <div className="gearvn-right-top-block">
-                    {/* <a href="#" className="gearvn-header-top-item">
-                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak1.png?v=19349" />
-                        <div className="header-right-description">
-                          <div className="gearvn-text">Đăng ký</div>
-                        </div>
-                      </a> */}
-                    {userLogin.TenNguoidung ? 
-                     <div>
-                      
+                  
+                    {userLogin.TenNguoidung ? (
+                      <div>
+                        <Link to="" className="gearvn-header-top-item">
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">
+                              {userLogin.TenNguoidung}
+                            </div>
+                          </div>
+                        </Link>
+                        <Link
+                          to=""
+                          className="gearvn-header-top-item"
+                          onClick={handleLogout}
+                        >
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/ak2.png?v=19762" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">Đăng xuất</div>
+                          </div>
+                        </Link>
+                      </div>
+                    ) : (
+                      <div>
+                        <Link to="/Register" className="gearvn-header-top-item">
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/ak1.png?v=19349" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">Đăng ký</div>
+                          </div>
+                        </Link>
 
-                      <Link to="/Login" className="gearvn-header-top-item">
-                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
-                        <div className="header-right-description">
-                          <div className="gearvn-text">{userLogin.TenNguoidung}</div>
-                        </div>
-                      </Link>
-                      <Link to="/Register" className="gearvn-header-top-item">
-                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak2.png?v=19762" />
-                        <div className="header-right-description">
-                          <div className="gearvn-text">Đăng xuất</div>
-                        </div>
-                      </Link>
-                    </div> :""}
+                        <Link to="/Login" className="gearvn-header-top-item">
+                          <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
+                          <div className="header-right-description">
+                            <div className="gearvn-text">Đăng nhập</div>
+                          </div>
+                        </Link>
+                      </div>
+                    )}
                     <a href="#" className="gearvn-header-top-item">
                       <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
                       <div className="header-right-description">

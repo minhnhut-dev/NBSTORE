@@ -27,10 +27,10 @@ function App() {
         
   },[])
   useEffect( () => {
-    
       localStorage.setItem("cartItems",JSON.stringify(cartItems));
   }, [cartItems]);
 
+ 
   const onAdd= (product)=>{
     // setCartItems([...cartItems,product]);
     // console.log(product.id);
@@ -59,7 +59,7 @@ function App() {
       );
     }
   };
-  console.log(cartItems);
+  
     return (
     <>
       <Router>
@@ -67,7 +67,7 @@ function App() {
           <Route exact path="/">
             <Home products={products} />
           </Route>
-          <Route path="/Login">
+          <Route path="/Login" >
             <Login />
           </Route>
           <Route path="/Register">

@@ -27,7 +27,6 @@ function ProductDetail(props) {
       })
   }, []);
   const LinkImage="http://127.0.0.1:8000/images/";
-
   return (
     <>
       <Header/>
@@ -66,6 +65,7 @@ function ProductDetail(props) {
                     <div className="imgContainer">
                       {selectedImage.map((img, index) => (
                         <img
+                        key={index}
                           src={LinkImage+img.AnhSanPham}
                           alt={img}
                           style={{
@@ -78,8 +78,8 @@ function ProductDetail(props) {
                       
                     </div>
                   </div>
-                  {Product.map((item) => (
-                    <div className="col-sm-6 col-xs-12 product_parameters">
+                  {Product.map((item,index) => (
+                    <div className="col-sm-6 col-xs-12 product_parameters" key={index}>
                       <h1 className="product_name">
                         {item.TenSanPham}
                       </h1>

@@ -20,7 +20,7 @@ class CreateNguoiDungsTable extends Migration
             $table->string('SDT');
             $table->string('DiaChi');
             $table->string('Anh')->nullable();
-            $table->boolean('GioiTinh');
+            $table->integer('GioiTinh')->default(1);
             $table->string('username');
             $table->string('password');
             $table->unsignedBigInteger('loai_nguoi_dungs_id');
