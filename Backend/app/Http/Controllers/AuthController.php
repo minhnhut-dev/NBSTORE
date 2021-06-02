@@ -7,12 +7,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\NguoiDung;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     //
     public function Register(Request $request)
     {
+        $rule=[
+            "Email"=>"required|unique:nguoi_dungs",
+            "username"=>"required|unique:nguoi_dungs|min:5"
+        ];
+        $customMessage=[
+            "Email.unique"=>"Email không được phép trùng !",
+            "username.unique"=>"Tên tài khoản không được phép trùng !",
+            "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
+        ];
+        $validator=Validator::make($request->all(),$rule,$customMessage);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
         $user = new NguoiDung;
         $user->Email = $request->Email;
         $user->TenNguoiDung = $request->TenNguoidung;

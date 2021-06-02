@@ -9,6 +9,7 @@ import Register from "./Pages/Register/Register";
 import NoMatch from "./Pages/NoMatch/NoMatch";
 import Home from "./Pages/Home/Home";
 import Cart from "./Pages/Cart/Cart";
+import Checkout from "./Pages/Checkout/Checkout";
 const cartFromLocalStorage=JSON.parse(localStorage.getItem("cartItems")||"[]");
 function App() {
   const [products, SetProduct]=useState([]);
@@ -41,7 +42,9 @@ function App() {
           x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
         )
       );
-    } else {
+
+    } 
+    else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
    
@@ -59,7 +62,7 @@ function App() {
       );
     }
   };
-  
+  console.log(cartItems);
     return (
     <>
       <Router>
@@ -81,6 +84,9 @@ function App() {
           </Route>
           <Route path="/cart">
               <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+          </Route>
+          <Route path="/checkout">
+                <Checkout />
           </Route>
           <Route path="*">
             <NoMatch />

@@ -62,7 +62,7 @@ function Login() {
       <Header />
       <div className="noindex">
         <div id="layout-page-login" className="container">
-          {error && <Alert severity="error" variant="outlined" style={{textAlign:"center"}}>{error}</Alert>}
+          {error && <Alert severity="error"  style={{textAlign:"center"}}>{error}</Alert>}
         
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
@@ -103,7 +103,7 @@ function Login() {
                   <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
                   </Button>
-                 {}
+                
                 </div>
                 <div className="req_pass">
                   <a href="#">Quên mật khẩu? </a>

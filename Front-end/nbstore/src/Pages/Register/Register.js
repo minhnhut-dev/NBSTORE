@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 import "./Register.css";
 import { useState } from "react";
 import axios from "axios";
+import Alert from '@material-ui/lab/Alert';
 function Register() {
   const [username,setUserName]=useState("");
   const [password,setPassword]=useState("");
@@ -15,6 +16,8 @@ function Register() {
   const [address,setAddress]=useState("");
   const [sex,setSex]=useState("");
   const [redirect,setRedirect]=useState(false);
+  const [errorEmail,setErrorEmail]=useState([]);
+  const [errorUsername,setErrorUsername]=useState([]);
   const onSubmit = (e)=>{
     e.preventDefault();
     const data={
@@ -27,12 +30,13 @@ function Register() {
       GioiTinh:sex,
     }
     axios.post ('http://127.0.0.1:8000/api/Register',data)
-    .then(()=>{
+    .then((response)=>{
       setRedirect(true);
      
     })
     .catch((e)=>{
-      console.log(e);
+      setErrorEmail(e.response.data.Email);
+      setErrorUsername(e.response.data.username);
     })
    
     
@@ -41,12 +45,23 @@ function Register() {
    {
      return <Redirect to="/Login"/>
    }
+
   return (
     
     <>
       <Header />
       <div className="noindex">
+      {errorEmail && errorEmail.map((emailError)=>(
+          <Alert severity="error"  style={{textAlign:"center"}}>{emailError}</Alert>
+        ))} 
+         { errorUsername && errorUsername.map((usernameError)=>(
+          <Alert severity="error"  style={{textAlign:"center"}}>{usernameError}</Alert>
+    ))}
+              {/* {errorEmail && <Alert severity="error"  style={{textAlign:"center"}}>{errorEmail}</Alert>} */}
+
+
         <div id="layout-page-register" className="container">
+      
           <span className="header-contact header-page clearfix">
             <h1 className="title-register">Tạo tài khoản</h1>
           </span>
@@ -80,6 +95,7 @@ function Register() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+             
               <div id="first_name" className="input-group">
                 <span className="input-group-addon">
                   <i class="fa fa-user"></i>
@@ -134,19 +150,6 @@ function Register() {
                   className="text form-control"
                   size="30"
                   onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-              <div id="imageUser" className="input-group">
-                <span className="input-group-addon">
-                  <i class="far fa-id-badge"></i>
-                </span>
-                <input
-                  type="File"
-                  required
-                  name="imageUser"
-                  placeholder="Chọn 1 ảnh"
-                  className="text form-control"
-                  size="30"
                 />
               </div>
               <div id="Sex" className="input-group">

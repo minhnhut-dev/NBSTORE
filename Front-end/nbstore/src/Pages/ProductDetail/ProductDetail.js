@@ -13,23 +13,45 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function ProductDetail(props) {
   const [selectedImage, SetSelectedImage] = useState([0]);
   const [Product, SetProducts] = useState([]);
-  const {onAdd}=props;
+  const { onAdd } = props;
   let { id } = useParams();
+
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/GetProductByID/${id}`)
       .then((response) => {
         SetProducts(response.data);
       });
-      axios.get(`http://127.0.0.1:8000/api/GetImageProductByID/${id}`)
-      .then((res)=>{
-          SetSelectedImage(res.data);
-      })
+    axios
+      .get(`http://127.0.0.1:8000/api/GetImageProductByID/${id}`)
+      .then((res) => {
+        SetSelectedImage(res.data);
+      });
   }, []);
-  const LinkImage="http://127.0.0.1:8000/images/";
+  const LinkImage = "http://127.0.0.1:8000/images/";
+  var elements = [];
+  Product.forEach((element) => {
+      
+          const configs = element.CauHinh;
+          const ch = JSON.parse(configs);
+          for (const [key, value] of Object.entries(ch)) {
+            console.log(`${value.config_name}: ${value.content}`);
+            elements.push(
+              <tr className="row-info" style={{ height: "35px" }}>
+                <td className="name-Product">
+                  <span style={{ color: "black" }}>{`${value.config_name}`}</span>
+                </td>
+                <td className="info-Product">{`${value.content}`}</td>
+              </tr>
+            );
+          }
+        
+       
+  });
+  
   return (
     <>
-      <Header/>
+      <Header />
       <div className="noindex">
         <div id="breadcrumb">
           <div className="main">
@@ -57,32 +79,36 @@ function ProductDetail(props) {
                 <div className="row">
                   <div className="col-sm-6 col-xs-12 product_thumbnail">
                     <img
-                      src={LinkImage+selectedImage[0].AnhSanPham}
-                      alt={LinkImage+selectedImage[0].AnhSanPham}
+                      src={LinkImage + selectedImage[0].AnhSanPham}
+                      alt={LinkImage + selectedImage[0].AnhSanPham}
                       className="Selected"
-
                     />
                     <div className="imgContainer">
                       {selectedImage.map((img, index) => (
                         <img
-                        key={index}
-                          src={LinkImage+img.AnhSanPham}
+                          key={index}
+                          src={LinkImage + img.AnhSanPham}
                           alt={img}
                           style={{
                             border:
-                          LinkImage+selectedImage[0].AnhSanPham  === LinkImage+img.AnhSanPham ? "3px solid purple" : "",
+                              LinkImage + selectedImage[0].AnhSanPham ===
+                              LinkImage + img.AnhSanPham
+                                ? "3px solid purple"
+                                : "",
                           }}
-                          onClick={() => console.log(LinkImage+img.AnhSanPham)}
+                          onClick={() =>
+                            console.log(LinkImage + img.AnhSanPham)
+                          }
                         />
                       ))}
-                      
                     </div>
                   </div>
-                  {Product.map((item,index) => (
-                    <div className="col-sm-6 col-xs-12 product_parameters" key={index}>
-                      <h1 className="product_name">
-                        {item.TenSanPham}
-                      </h1>
+                  {Product.map((item, index) => (
+                    <div
+                      className="col-sm-6 col-xs-12 product_parameters"
+                      key={index}
+                    >
+                      <h1 className="product_name">{item.TenSanPham}</h1>
                       <div className="ins-preview-wrapper ins-preview-wrapper-145">
                         <div className="img-nb">
                           <img src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png" />
@@ -98,7 +124,7 @@ function ProductDetail(props) {
                       <p className="Product-warranty">
                         <span>Bảo hành : 12 tháng</span>
                       </p>
-                      <p> 
+                      <p>
                         <span style={{ fontSize: "15pt", color: "#ff0000" }}>
                           <strong>Quà Tặng</strong>
                           <strong>:</strong>
@@ -131,7 +157,7 @@ function ProductDetail(props) {
                           <div className="product_sales_off pull-left">
                             <span className="price-text">Giá cũ :</span>
                             <span className="product_price">
-                            <NumberFormat
+                              <NumberFormat
                                 value={item.GiaCu}
                                 displayType={"text"}
                                 thousandSeparator={true}
@@ -144,7 +170,7 @@ function ProductDetail(props) {
                             <br />
                             <span className="price-text">Giá KM:</span>
                             <span className="product_sale_price">
-                            <NumberFormat
+                              <NumberFormat
                                 value={item.GiaKM}
                                 displayType={"text"}
                                 thousandSeparator={true}
@@ -153,14 +179,21 @@ function ProductDetail(props) {
                                   <span {...props}>{value}</span>
                                 )}
                               />
-                            </span>   
+                            </span>
                           </div>
                         </div>
                         <div className="clearfix"></div>
                         <div className="form-group">
                           <Link to="/cart">
-                            <Button className="product_buy_btn btn-success theme_button addtocar"type="button" onClick={()=>onAdd (item)}> Mua hàng</Button>
-                          </Link>                                 
+                            <Button
+                              className="product_buy_btn btn-success theme_button addtocar"
+                              type="button"
+                              onClick={() => onAdd(item) }
+                            >
+                              {" "}
+                              Mua hàng
+                            </Button>
+                          </Link>
                         </div>
                       </form>
                     </div>
@@ -398,151 +431,8 @@ function ProductDetail(props) {
                       <div className="scroll-table">
                         <table className="table table-bordered mce-item-table">
                           <tbody>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>CPU</span>
-                              </td>
-                              <td className="info-Product">
-                                AMD Ryzen 5 – 5500U
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>RAM</span>
-                              </td>
-                              <td className="info-Product">16GB</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Ổ cứng</span>
-                              </td>
-                              <td className="info-Product">256GB</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Card đồ họa
-                                </span>
-                              </td>
-                              <td className="info-Product">
-                                NVIDIA GeForce GTX 1650 4GB GDDR6
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Màn hình</span>
-                              </td>
-                              <td className="info-Product">
-                                15.6" FHD (1920 x 1080) IPS, Anti-Glare, 60Hz
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Cổng giao tiếp
-                                </span>
-                              </td>
-                              <td className="info-Product">
-                                1x USB 3.0 1x USB Type C 2x USB 2.0 1x HDMI 1x
-                                RJ45
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Ổ quang</span>
-                              </td>
-                              <td className="info-Product">None</td>
-                            </tr>
-                            <tr className="row-info">
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Audio</span>
-                              </td>
-                              <td className="info-Product">
-                                True Harmony; Dolby® Audio Premium
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Đọc thẻ nhớ
-                                </span>
-                              </td>
-                              <td className="info-Product">None</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Chuẩn Lan
-                                </span>
-                              </td>
-                              <td className="info-Product">
-                                10/100/1000/Gigabits Base T
-                              </td>
-                            </tr>
-                            <tr className="row-info">
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Chuẩn WIFI
-                                </span>
-                              </td>
-                              <td className="info-Product">
-                                Wi-Fi 6(Gig+)(802.11ax) (2x2)
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Bluetooth
-                                </span>
-                              </td>
-                              <td className="info-Product">v5.0</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Webcam</span>
-                              </td>
-                              <td className="info-Product">HD Webcam</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Hệ điều hành
-                                </span>
-                              </td>
-                              <td className="info-Product">Windows 10 Home</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Pin</span>
-                              </td>
-                              <td className="info-Product">4cell</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Trọng lượng
-                                </span>
-                              </td>
-                              <td className="info-Product">2.1KG</td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>Màu sắc</span>
-                              </td>
-                              <td className="info-Product">
-                                Đen, Có đèn bàn phím
-                              </td>
-                            </tr>
-                            <tr className="row-info" style={{ height: "35px" }}>
-                              <td className="name-Product">
-                                <span style={{ color: "black" }}>
-                                  Kích thước
-                                </span>
-                              </td>
-                              <td className="info-Product">
-                                363.4 x 254.5 x 23.25 (mm)
-                              </td>
-                            </tr>
+                            {elements.map((item) => item)}
+                            
                           </tbody>
                         </table>
                       </div>

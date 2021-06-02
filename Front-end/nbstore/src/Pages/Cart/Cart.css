@@ -116,3 +116,79 @@ button.add {
 #cartformpage .checkout-buttons {
     display: inline;
 }
+.cart-container {
+    width: 790px;
+    margin: auto auto 20px auto;
+    background: #fff;
+    padding: 20px;
+}
+.cart-container>h1 {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+.title_box_cart {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 6px;
+}
+.box-cart-user-info input  {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.box-cart-user-info select {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.left input {
+    width: auto;
+    height: auto;
+}
+#orther-payment {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+#orther-payment span {
+    font-size: 18px;
+    padding: 0 10px;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+#momo input {
+    width: auto;
+    height: auto;
+}
+#momo i {
+    height: 27px;
+    background-image: url(https://cdn.cellphones.com.vn/media/logo/icon-online_21102019.png);
+     background-repeat: no-repeat;
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    background-position: -162px;
+    margin-bottom: 15px;
+}
+i.cps-zalopay {
+    width: 75px;
+    margin: 5px 0;
+    background-position: 0 -30px;
+}
