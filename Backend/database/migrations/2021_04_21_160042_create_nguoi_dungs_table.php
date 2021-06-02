@@ -15,13 +15,13 @@ class CreateNguoiDungsTable extends Migration
     {
         Schema::create('nguoi_dungs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('Email');
+            $table->string('Email')->unique();
             $table->string('TenNguoidung');
             $table->string('SDT');
             $table->string('DiaChi');
-            $table->string('Anh');
-            $table->boolean('GioiTinh');
-            $table->string('username');
+            $table->string('Anh')->nullable();
+            $table->integer('GioiTinh')->default(1);
+            $table->string('username')->unique();
             $table->string('password');
             $table->unsignedBigInteger('loai_nguoi_dungs_id');
             $table->boolean('TrangThai')->default(1);
