@@ -65,9 +65,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2">Hình ảnh:</label>
+                        <label class="col-sm-2">Ảnh đại diện:</label>
                         <div class="col-sm-12">
-                            <input name="HinhAnh" class="form-control" id="HinhAnh" type="file"required>
+                            <input name="AnhDaiDien" class="form-control" id="HinhAnh" type="file"required>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>

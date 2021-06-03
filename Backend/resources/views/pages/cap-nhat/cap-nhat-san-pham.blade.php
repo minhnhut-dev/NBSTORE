@@ -6,7 +6,7 @@
         <div class="container">
             <h2>Cập nhật sản phẩm</h2>
             <hr>
-           
+
             @foreach ($data as $sp)
             <form method="POST" action="/updateproduct/{{$sp->id}}" class="was-validated d-flex flex-column input-form"
             id="form-them-phim" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label class="col-sm-2">Mô tả:</label>
                         <div class="col-sm-12">
-                            <textarea name="detail" class="form-control" id="des" required></textarea>
+                            <textarea name="detail" class="form-control" id="des" ></textarea>
                         </div>
                     </div>
 
@@ -64,15 +64,15 @@
                     </div>
 
 
-                  
-                    
+
+
                 </div>
                 <input name="LoaiSanPham" type="hidden" id="LoaiSanPham" value="{{$sp->loai_san_phams_id}}">
                 <div class="tab-pane container" id="menu1">
                         {!!$html!!}
                 <div>
                 <div class="tab-pane container" id="menu2">
-                
+
                 </div>
             </div>
             </div>

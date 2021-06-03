@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHinhThucThanhToansTable extends Migration
+class CreateHinhThucGiaoHangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHinhThucThanhToansTable extends Migration
      */
     public function up()
     {
-        Schema::create('hinh_thuc_thanh_toans', function (Blueprint $table) {
+        Schema::create('hinh_thuc_giao_hangs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('TenHinhThuc');
             $table->boolean('TrangThai')->default(1);
@@ -28,6 +28,6 @@ class CreateHinhThucThanhToansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hinh_thuc_thanh_toans');
+        Schema::dropIfExists('hinh_thuc_giao_hangs');
     }
 }

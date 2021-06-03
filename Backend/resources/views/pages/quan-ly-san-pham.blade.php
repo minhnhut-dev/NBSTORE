@@ -82,9 +82,11 @@
                                         </td>
                                         <td>{{$sp->TenSanPham}}</td>
                                         <td> Cấu hình</td>
-                                        <td>{{$sp->HangSanXuat}}</td>  
+                                        <td>{{$sp->HangSanXuat}}</td>
                                         <td>{{$category_name}}</td>
-                                        <td>Hình Ảnh</td>
+                                        <td>
+                                            <img src="/images/{{$sp->AnhDaiDien}}" style="width:70px"/>
+                                        </td>
                                         <td>{{$sp->SoLuong}}</td>
                                         <td>
                                             <div class="btn-group">
@@ -99,7 +101,7 @@
                                                     title="Xóa">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
-                                            
+
 
                                             </div>
                                         </td>

@@ -101,12 +101,11 @@ class SanPhamController extends Controller
         $data->GiaCu = $request->GiaCu;
         $data->GiaKM = $request->GiaKM;
         $data->SoLuong = $request->SoLuong;
-        $data->AnhDaiDien=$request->Avatar;
         $data->loai_san_phams_id = $request->LoaiSanPham;
-        if ($request->hasFile('Avatar')) {
-            $image = $request->file('Avatar');
+        if ($request->hasFile('AnhDaiDien')) {
+            $image = $request->file('AnhDaiDien');
             $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/image/phim');
+            $destinationPath = public_path('/images');
             $image->move($destinationPath, $name);
             $HinhAnh = $name;
         } else {

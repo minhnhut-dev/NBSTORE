@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(loai_san_phams::class);
         $this->call(san_phams::class);
         $this->call(anh_san_phams::class);
+        $this->call(hinh_thuc_giao_hangs::class);
+        $this->call(hinh_thuc_thanh_toans::class);
+        $this->call(don_hangs::class);
+        $this->call(chi_tiet_don_hangs::class);
     }
 
 
@@ -40,6 +44,7 @@ class nguoi_dungs extends Seeder
         DB::table('nguoi_dungs')->insert([
             ['Email'=>'nhatminh785@gmail.com','TenNguoidung'=>'Minh Nhựt','SDT'=>'0911079197','DiaChi'=>'Nha Be','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'minhnhut123','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>1],
             ['Email'=>'binhgold@gmail.com','TenNguoidung'=>'Thái Bình','SDT'=>'12345678','DiaChi'=>'Quận 8','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'tb1234','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>2],
+            ['Email'=>'haha@gmail.com','TenNguoidung'=>'test','SDT'=>'12345678','DiaChi'=>'Nhà Bè','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'test1234','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>2],
 
         ]);
     }
@@ -91,6 +96,46 @@ class anh_san_phams extends Seeder {
             ['AnhSanPham'=>'image7.jpg','san_phams_id'=>5],
             ['AnhSanPham'=>'image7_1.png','san_phams_id'=>5],
             ['AnhSanPham'=>'image7_2.png','san_phams_id'=>5],
+        ]);
+    }
+}
+
+class hinh_thuc_giao_hangs extends Seeder
+{
+    public function run()
+    {
+        DB::table('hinh_thuc_giao_hangs')->insert([
+         ['TenHinhThuc'=>'COD']
+        ]);
+    }
+}
+
+class hinh_thuc_thanh_toans extends Seeder
+{
+    public function run()
+    {
+        DB::table('hinh_thuc_thanh_toans')->insert([
+         ['TenThanhToan'=>'Tiền mặt'],
+         ['TenThanhToan'=>'MOMO'],
+        ]);
+    }
+}
+class don_hangs extends Seeder
+{
+    public function run()
+    {
+        DB::table('don_hangs')->insert([
+         ['hinh_thuc_thanh_toans_id'=>1,'hinh_thuc_giao_hangs_id'=>1,'nguoi_dungs_id'=>3,'ThoiGianMua'=>'2021/6/3','Tongtien'=>2000000,'TrangThai'=>1],
+        ]);
+    }
+}
+
+class chi_tiet_don_hangs extends Seeder
+{
+    public function run()
+    {
+        DB::table('chi_tiet_don_hangs')->insert([
+        ['don_hangs_id'=>1,'san_phams_id'=>1,'SoLuong'=>2,'DonGia'=>200000,'ThanhTien'=>400000]
         ]);
     }
 }
