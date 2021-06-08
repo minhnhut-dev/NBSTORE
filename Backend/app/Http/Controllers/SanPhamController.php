@@ -51,7 +51,7 @@ class SanPhamController extends Controller
     public function SuaSanPham($id)
     {
 
-        $data = SanPham::where('id', $id)->get();
+        $data = SanPham::where('san_phams.id', $id)->join('loai_san_phams','loai_san_phams.id','san_phams.loai_san_phams_id')->get();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $configs = json_decode($data[0]->CauHinh);
         $html = '';
@@ -150,7 +150,21 @@ class SanPhamController extends Controller
 
         return redirect('/quan-ly-san-pham');
     }
+    public static function AffterOrder($id,$soluong)
+    {
 
+        $data = SanPham::find($id);
+        if($data->SoLuong<$soluong){
+            return ['result'=>false,'amount'=>$data->SoLuong,'name'=>$data->TenSanPham];
+        }
+        else{
+            $amount=$data->SoLuong-$soluong;
+            $data->SoLuong =  $amount;
+            $data->save();
+            return ['result'=>true,'amount'=>$data->SoLuong];
+        }
+        return ['result'=>false,'amount'=>$data->SoLuong,'name'=>$data->TenSanPham];
+    }
     public function UpdateProduct(Request $request, $id)
     {
 

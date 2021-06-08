@@ -33,3 +33,7 @@ Route::post('/delete-configs-from-category/{id}', 'LoaiSanPhamController@DeleteC
 
 Route::post('/Register','AuthController@Register');
 Route::post('/Login','AuthController@Login');
+
+//order api
+Route::post('/order', 'OrderController@create');
+Route::post('/orderAPI', 'OrderController@createAPI');
