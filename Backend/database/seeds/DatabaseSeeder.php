@@ -32,7 +32,7 @@ class loai_nguoi_dungs extends Seeder
     {
         DB::table('loai_nguoi_dungs')->insert([
             ['TenLoai' => 'Admin'],
-            ['TenLoai' => 'Nhân Viên'],
+            ['TenLoai' => 'Customer'],
         ]);
     }
 }
@@ -45,6 +45,7 @@ class nguoi_dungs extends Seeder
             ['Email'=>'nhatminh785@gmail.com','TenNguoidung'=>'Minh Nhựt','SDT'=>'0911079197','DiaChi'=>'Nha Be','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'minhnhut123','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>1],
             ['Email'=>'binhgold@gmail.com','TenNguoidung'=>'Thái Bình','SDT'=>'12345678','DiaChi'=>'Quận 8','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'tb1234','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>2],
             ['Email'=>'haha@gmail.com','TenNguoidung'=>'test','SDT'=>'12345678','DiaChi'=>'Nhà Bè','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'test1234','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>2],
+            ['Email'=>'dangthaibinha3@gmail.com','TenNguoidung'=>'Thái Bình','SDT'=>'12345678','DiaChi'=>'Quận 8','Anh'=>'meo.jpg', 'GioiTinh'=>1,'username'=>'binhdang','password'=>bcrypt('12345'),'loai_nguoi_dungs_id'=>1],
 
         ]);
     }
@@ -135,7 +136,8 @@ class chi_tiet_don_hangs extends Seeder
     public function run()
     {
         DB::table('chi_tiet_don_hangs')->insert([
-        ['don_hangs_id'=>1,'san_phams_id'=>1,'SoLuong'=>2,'DonGia'=>200000,'ThanhTien'=>400000]
+        ['don_hangs_id'=>1,'san_phams_id'=>1,'SoLuong'=>4,'DonGia'=>200000,'ThanhTien'=>800000],
+        ['don_hangs_id'=>1,'san_phams_id'=>2,'SoLuong'=>6,'DonGia'=>200000,'ThanhTien'=>1200000]
         ]);
     }
 }
