@@ -137,99 +137,19 @@ $(document).ready(function () {
             });
         else alert("Vui lòng nhập Cấu hình !");
     });
-    // $(".btn-xac-nhan-them-suat-chieu").click(function (e) {
-    //     e.preventDefault();
-    //     var SuatChieu = $("#suat-chieu").val();
-    //     if(SuatChieu==''){
-
-    //     }else{
-    //         $.ajax({
-    //             url: "/quan-ly-suat-chieu/AddAjax",
-    //             type: "POST",
-    //             datatype: "json",
-    //             data: {
-    //                 _suatChieu: SuatChieu,
-
-    //             },
-    //             beforeSend: function() {
-    //                 $('#body-list').html('<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">');
-    //             },
-    //             success: function (response) {
-    //                var body =  JSON.parse(JSON.stringify(response));
-    //                 if(body.message=='success'){
-    //                     $('#body-list').html(body.html);
-
-    //                 }
-
-    //             },
-    //             error: function (data, textStatus, errorThrown) {
-    //                 console.log(data);
-    //             },
-    //         });
-    //         $("#popup-them-question .close").click()
-    //     }
-
-    // });
-
-    // $(document).on('click',".btn-cap-nhat-suat-chieu",function (e) {
-    //     e.preventDefault();
-    //     var SuatChieu = $("#suat-chieu").val();
-    //     var ID = $("#id-suat-chieu").val();
-    //     if(SuatChieu==''){
-    //         alert('Ban chua nhap');
-    //     }
-    //         $.ajax({
-    //             url: "/quan-ly-suat-chieu/UpdateAjax",
-    //             type: "POST",
-    //             datatype: "json",
-    //             data: {
-    //                 _SuatChieu: SuatChieu,
-    //                 _ID: ID,
-
-    //             },
-    //             beforeSend: function() {
-    //                 $('#body-list').html('<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">');
-    //             },
-    //             success: function (response) {
-    //                var body =  JSON.parse(JSON.stringify(response));
-    //                 if(body.message=='success'){
-    //                     $('#body-list').html(body.html);
-
-    //                 }
-
-    //             },
-    //             error: function (data, textStatus, errorThrown) {
-    //                 console.log(data);
-    //             },
-    //         });
-
-    // });
-    // $(document).on('click',".btn-delete",function (e) {
-
-    //     var id=$(this).attr('data-href');
-
-    //         $.ajax({
-    //             url: "/quan-ly-suat-chieu/xoa-suat-chieu-ajax",
-    //             type: "GET",
-    //             datatype: "json",
-    //             data: {
-    //                 _ID: id,
-    //             },
-    //             beforeSend: function() {
-    //                 $('#body-list').html('<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">');
-    //             },
-    //             success: function (response) {
-    //                var body =  JSON.parse(JSON.stringify(response));
-    //                 if(body.message=='success'){
-    //                     $('#body-list').html(body.html);
-
-    //                 }
-
-    //             },
-    //             error: function (data, textStatus, errorThrown) {
-    //                 console.log(data);
-    //             },
-    //         });
-
-    // });
+        $('#pwdId, #cPwdId').on('keyup', function () {
+            if ($('#pwdId').val() != '' && $('#cPwdId').val() != '' && $('#pwdId').val() == $('#cPwdId').val()) {
+            $("#submitBtn").attr("disabled",false);
+            $('#cPwdValid').show();
+            $('#cPwdInvalid').hide();
+            $('#cPwdValid').html('Valid').css('color', 'green');
+            $('.pwds').removeClass('is-invalid')
+            } else {
+            $("#submitBtn").attr("disabled",true);
+            $('#cPwdValid').hide();
+            $('#cPwdInvalid').show();
+            $('#cPwdInvalid').html('Not Matching').css('color', 'red');
+            $('.pwds').addClass('is-invalid')
+            }
+    });
 });
