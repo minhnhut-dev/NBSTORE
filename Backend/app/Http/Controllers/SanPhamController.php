@@ -51,7 +51,11 @@ class SanPhamController extends Controller
     public function SuaSanPham($id)
     {
 
-        $data = SanPham::where('san_phams.id', $id)->join('loai_san_phams','loai_san_phams.id','san_phams.loai_san_phams_id')->get();
+        $data = SanPham::where('san_phams.id', $id)
+        // ->join('loai_san_phams','loai_san_phams.id','san_phams.loai_san_phams_id')
+        // ->select('san_phams.id')
+        ->get();
+        $category = LoaiSanPham::where('id', $data[0]->loai_san_phams_id)->first();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $configs = json_decode($data[0]->CauHinh);
         $html = '';
@@ -87,7 +91,7 @@ class SanPhamController extends Controller
         $Recursion = new Recursion($dataOption);
         $htmlOption = $Recursion->cat_parent();
 
-        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'html'));
+        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption','category', 'html'));
     }
 
     public function InsertProducts(Request $request)

@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label class="col-sm-2">Mô tả:</label>
                         <div class="col-sm-12">
-                            <textarea name="detail" class="form-control" id="des" ></textarea>
+                            <textarea name="detail" class="form-control" id="des" >{{$sp->ThongTin}}</textarea>
                         </div>
                     </div>
 
@@ -65,11 +65,10 @@
                     <div class="form-group">
                         <label class="col-sm-2">Loại sản phẩm :</label>
                         <div class="col-sm-12">
-                            <input name="SoLuong" class="form-control" id="SoLuong" value="{{$sp->TenLoai}}" disabled>
+                            <input name="LoaiSanPham" class="form-control" id="SoLuong" value="{{$category->TenLoai}}" disabled>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
-
 
 
                 </div>

@@ -39,7 +39,7 @@ class OrderController extends Controller
             if($i==$currentPage)$disabled='disabled';
             $html .= '<li class="page-item '.$disabled.'"><a class="page-link" href="/quan-ly-don-hang?page=' . $i . '">' . $i . '</a></li>';
         }
-     
+
         if ($currentPage == $totalPages) {
             $html .= '  <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
         } else {
@@ -64,7 +64,7 @@ class OrderController extends Controller
             $order->hinh_thuc_thanh_toans_id = $request->hinh_thuc_thanh_toans_id;
             $order->ThoiGianMua = Carbon::now();
             $order->Tongtien = 0;
-            $order->TrangThai = $request->TrangThai;
+            $order->trang_thai_don_hangs_id = $request->trang_thai_don_hangs_id;
             $order->save();
             $items = ($request->line_items);
             $total = 0;
@@ -174,7 +174,7 @@ class OrderController extends Controller
             ->join('san_phams', 'chi_tiet_don_hangs.san_phams_id', '=', 'san_phams.id')->where('don_hangs_id', '=', $id)
             ->select('chi_tiet_don_hangs.SoLuong', 'chi_tiet_don_hangs.DonGia', 'ThanhTien', 'san_phams.TenSanPham', 'san_phams.AnhDaiDien', 'san_phams.id')
             ->paginate(5);
-        // dd($listOrder); 
+        // dd($listOrder);
         // $order=DB::table('don_hangs')->where('don_hangs.id','=',$id)
         // ->join('hinh_thuc_thanh_toans', 'don_hangs.hinh_thuc_thanh_toans_id', '=', 'hinh_thuc_thanh_toans.id')
         // ->join('nguoi_dungs', 'don_hangs.id', '=', 'nguoi_dungs.id')->first();

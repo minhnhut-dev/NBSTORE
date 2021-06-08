@@ -18,8 +18,12 @@ function Cart(props) {
       .then((response) =>{
           setCity(response.data.LtsItem);
       })
-  }, [])
-  console.log("Hinh thuc thanh toan :",optionPayment);
+  }, []);
+
+  const newArr=cartItems.map(item=>{
+    return {san_phams_id:item.id,DonGia:item.GiaKM,SoLuong:item.qty};
+  });
+  console.log("new Array :",newArr);
   return (
     <>
       <Header />
