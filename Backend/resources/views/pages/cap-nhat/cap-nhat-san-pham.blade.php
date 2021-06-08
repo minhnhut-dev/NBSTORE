@@ -62,7 +62,13 @@
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="col-sm-2">Loại sản phẩm :</label>
+                        <div class="col-sm-12">
+                            <input name="SoLuong" class="form-control" id="SoLuong" value="{{$sp->TenLoai}}" disabled>
+                            <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                        </div>
+                    </div>
 
 
 
