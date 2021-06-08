@@ -216,26 +216,26 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="" class="nav-link">
+                            <a href="{{url('/quan-ly-don-hang')}}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>
-                                    Hóa đơn
+                                    Đơn hàng
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-item has-treeview">
+                        <!-- <li class="nav-item menu-item has-treeview">
                             <a href="" class="nav-link">
                         <i class="fas fa-cart-arrow-down"></i>
                                  <p>
                                     Nhập hàng
                                 </p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item menu-item has-treeview">
-                            <a href="" class="nav-link">
+                            <a href="{{url('/quan-ly-nguoi-dung')}}" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>
-                                     Nhân viên
+                                    User
                                 </p>
                             </a>
                         </li>
@@ -244,7 +244,7 @@
                             <a href="{{url('/quan-ly-hinh-thuc-thanh-toan')}}" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>
-                                    Hình thức thanh toán
+                                   Hình thức thanh toán 
                                 </p>
                             </a>
                         </li>
