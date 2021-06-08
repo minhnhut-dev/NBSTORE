@@ -58,3 +58,13 @@ Route::get('/quan-ly-hinh-thuc-thanh-toan/update/{id}','HinhThucThanhToanControl
 Route::post('/updatepayment/{id}','HinhThucThanhToanController@UpdatePayments'); // cập nhật hình thức thanh toán
 
 Route::get('/quan-ly-hinh-thuc-thanh-toan/{id}','HinhThucThanhToanController@DeletePayments');//xóa hình thức thanh toán
+
+//Bình quản lis người dùng
+Route::get('/quan-ly-nguoi-dung','CustomerController@index');
+Route::get('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@create');
+Route::post('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@store');
+Route::get('/quan-ly-nguoi-dung/show/{id}','CustomerController@show');
+Route::post('/quan-ly-nguoi-dung/update/{id}','CustomerController@update');
+// quản lí đơn hàng
+Route::get('/quan-ly-don-hang','OrderController@index');
+Route::get('/quan-ly-don-hang/{id}','OrderController@show');
