@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use Illuminate\Support\Facades\DB;
 class CreateDonHangsTable extends Migration
 {
     /**
@@ -21,7 +21,7 @@ class CreateDonHangsTable extends Migration
             $table->unsignedBigInteger('nguoi_dungs_id');
             $table->date('ThoiGianMua');
             $table->string('Tongtien');
-            $table->integer('TrangThai'); // 1 Đã thanh toán , 0 Chưa thanh toán
+            $table->unsignedBigInteger('trang_thai_don_hangs_id');
             $table->timestamps();
         });
     }

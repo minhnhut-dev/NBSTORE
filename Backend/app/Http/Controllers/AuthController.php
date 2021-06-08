@@ -19,8 +19,8 @@ class AuthController extends Controller
             "username"=>"required|unique:nguoi_dungs|min:5"
         ];
         $customMessage=[
-            "Email.unique"=>"Email không được phép trùng !",
-            "username.unique"=>"Tên tài khoản không được phép trùng !",
+            "Email.unique"=>"Email đã tồn tại !",
+            "username.unique"=>"Tên tài khoản đã tồn tại !",
             "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
         ];
         $validator=Validator::make($request->all(),$rule,$customMessage);
@@ -38,11 +38,11 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
         $user->save();
-        return response()->json(['message' => 'User has been registered'], 200);
+        return response()->json(['message' => 'Tài khoản được tạo thành công'], 200);
     }
     public function Login(Request  $request)
     {
-        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs' ==2);
+        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id'==2);
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
         }
