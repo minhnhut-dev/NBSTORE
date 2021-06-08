@@ -12,12 +12,14 @@ function Cart(props) {
   const totalPrice = itemsPrice;
   const LinkImage = "http://127.0.0.1:8000/images/";
   const [city,setCity]=useState([]);
+  const [optionPayment,setOptionPayment]=useState();
   useEffect(() => {
       axios.get('/city')
       .then((response) =>{
           setCity(response.data.LtsItem);
       })
   }, [])
+  console.log("Hinh thuc thanh toan :",optionPayment);
   return (
     <>
       <Header />
@@ -169,7 +171,7 @@ function Cart(props) {
                               className="left"
                               style={{ marginRight: "15px" }}
                             >
-                              <input name="Shipping" type="radio" checked="checked" name="payment" value="COD"/>
+                              <input name="Shipping" type="radio"  name="payment" value="1" onChange={e=>setOptionPayment(e.target.value)}/>
                               <label
                                 style={{
                                   display: "inline-block",
@@ -184,7 +186,7 @@ function Cart(props) {
                               <span>HOẶC CHỌN THANH TOÁN ONLINE</span>
                             </div> */}
                             <div id="momo">
-                              <input name="payment_momo" type="radio"name="payment" value="MOMO"/>
+                              <input name="payment_momo" type="radio"name="payment" value="2" onChange={e=>setOptionPayment(e.target.value)}/>
                               <label
                                 style={{
                                   display: "inline-block",

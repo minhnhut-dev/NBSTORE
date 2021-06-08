@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(anh_san_phams::class);
         $this->call(hinh_thuc_giao_hangs::class);
         $this->call(hinh_thuc_thanh_toans::class);
+        $this->call(trang_thai_don_hangs::class);
         $this->call(don_hangs::class);
         $this->call(chi_tiet_don_hangs::class);
     }
@@ -72,6 +73,7 @@ class san_phams extends Seeder
            ['TenSanPham'=>'Macbook Air 2020 M1 8GPU 8GB 512GB MGNA3SA/A - Silver','ThongTin'=>'mới','HangSanXuat'=>'Apple','GiaCu'=>34990000,'GiaKM'=>30500000,'Soluong'=>10,'AnhDaiDien'=>'image9.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
            ['TenSanPham'=>'Laptop ASUS TUF Gaming F15 FX506LH HN002T','ThongTin'=>'mới','HangSanXuat'=>'Asus','GiaCu'=>20490000,'GiaKM'=>19490000,'Soluong'=>10,'AnhDaiDien'=>'image1.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
            ['TenSanPham'=>'Laptop Asus ROG Strix SCAR 15 G533QR HF113T','ThongTin'=>'mới','HangSanXuat'=>'Asú','GiaCu'=>59990000,'GiaKM'=>57490000,'Soluong'=>10,'AnhDaiDien'=>'image7.jpg','CauHinh'=>'','loai_san_phams_id'=>1],
+
         ]);
     }
 }
@@ -120,12 +122,23 @@ class hinh_thuc_thanh_toans extends Seeder
         ]);
     }
 }
+class trang_thai_don_hangs extends Seeder
+{
+    public function run()
+    {
+        DB::table('trang_thai_don_hangs')->insert([
+         ['TenTrangThai'=>'Chưa thanh toán'],
+         ['TenTrangThai'=>'Đã thanh toán'],
+         ['TenTrangThai'=>'Đã đặt đơn'],
+        ]);
+    }
+}
 class don_hangs extends Seeder
 {
     public function run()
     {
         DB::table('don_hangs')->insert([
-         ['hinh_thuc_thanh_toans_id'=>1,'hinh_thuc_giao_hangs_id'=>1,'nguoi_dungs_id'=>3,'ThoiGianMua'=>'2021/6/3','Tongtien'=>2000000,'TrangThai'=>1],
+         ['hinh_thuc_thanh_toans_id'=>1,'hinh_thuc_giao_hangs_id'=>1,'nguoi_dungs_id'=>3,'ThoiGianMua'=>'2021/6/3','Tongtien'=>2000000,'trang_thai_don_hangs_id'=>1],
         ]);
     }
 }

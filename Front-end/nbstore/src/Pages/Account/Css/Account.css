@@ -1,0 +1,58 @@
+#tb-account {
+    /* width: 100%; */
+    border-collapse: collapse;
+}
+#account-left {
+    width: 220px;
+    vertical-align: top;
+    padding-right: 30px;
+}
+#account-left dl {
+    margin-bottom: 10px;
+}
+#account-left dd, dt, dl {
+    margin: 0;
+    padding: 0;
+}
+#account-left dt {
+    font-weight: bold;
+    line-height: 26px;
+    background: #546ce8;
+    color: white;
+    padding: 0 8px;
+}
+#account-left a {
+    color: #383838;
+    text-decoration: none;
+    line-height: 30px;
+}
+#tb-account .tb-order tr {
+    border: 1px solid #f0f0f0;
+}
+
+#tb-account .tb-order tr td {
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 10px 0px;
+    width: 232px;
+}
+.title-order-date {
+    font-size: 20px;
+}
+
+#order_details tbody tr {
+    border: 1px solid #f0f0f0;
+}
+#order_details tbody tr th {
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 10px 0px;
+}
+#order_details {
+    width: 100%;
+}
+#order_details tbody tr td {
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+    padding: 10px 0px;
+}

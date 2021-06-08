@@ -65,7 +65,7 @@ export default function Header() {
                   
                     {userLogin.TenNguoidung ? (
                       <div>
-                        <Link to="" className="gearvn-header-top-item">
+                        <Link to="/account-order" className="gearvn-header-top-item">
                           <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
