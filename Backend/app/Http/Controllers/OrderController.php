@@ -18,7 +18,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung,nguoi_dungs.SDT,don_hangs.id,don_hangs.ThoiGianMua,don_hangs.Tongtien FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
+        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
+        FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
+        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
         ');
         $amountItemsPage = 10;
         $totalPages = FLOOR(sizeof($orders['orders']) / $amountItemsPage);
@@ -82,7 +84,7 @@ class OrderController extends Controller
                     $orderItem->save();
                 } else {
                     DB::rollBack();
-                    return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']]);
+                    return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']],400);
                 }
             }
             $order->Tongtien = $total;
@@ -90,9 +92,9 @@ class OrderController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return response(['message' => 'unsuccessful', 'error' => $e]);
+            return response(['message' => 'unsuccessful', 'error' => $e],400);
         }
-        return response(['message' => 'successful', 'order' => $order]);
+        return response(['message' => 'successful', 'order' => $order],200);
     }
 
 
@@ -171,31 +173,37 @@ class OrderController extends Controller
     {
 
         $listOrder = DB::table('chi_tiet_don_hangs')
-            ->join('san_phams', 'chi_tiet_don_hangs.san_phams_id', '=', 'san_phams.id')->where('don_hangs_id', '=', $id)
+            ->join('san_phams', 'chi_tiet_don_hangs.san_phams_id', '=', 'san_phams.id')
+            ->where('don_hangs_id', '=', $id)
             ->select('chi_tiet_don_hangs.SoLuong', 'chi_tiet_don_hangs.DonGia', 'ThanhTien', 'san_phams.TenSanPham', 'san_phams.AnhDaiDien', 'san_phams.id')
             ->paginate(5);
         // dd($listOrder);
         // $order=DB::table('don_hangs')->where('don_hangs.id','=',$id)
         // ->join('hinh_thuc_thanh_toans', 'don_hangs.hinh_thuc_thanh_toans_id', '=', 'hinh_thuc_thanh_toans.id')
         // ->join('nguoi_dungs', 'don_hangs.id', '=', 'nguoi_dungs.id')->first();
-        $orders = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, nguoi_dungs.DiaChi, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.Tongtien, hinh_thuc_thanh_toans.TenThanhToan
+        $orders = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, trang_thai_don_hangs.TenTrangThai, don_hangs.trang_thai_don_hangs_id, nguoi_dungs.DiaChi, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.Tongtien, hinh_thuc_thanh_toans.TenThanhToan
             FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
             INNER JOIN `hinh_thuc_thanh_toans` ON `don_hangs`.hinh_thuc_thanh_toans_id=`hinh_thuc_thanh_toans`.id
+            INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
             WHERE don_hangs.id=' . $id . ' LIMIT 1');
+       
         if (sizeof($orders) > 0) {
+            
             $order = $orders[0];
-            return view('pages.cap-nhat.xem-don-hang', compact('listOrder', 'order'));
+            $disabled=$order->trang_thai_don_hangs_id==3?'disabled':'';
+            return view('pages.cap-nhat.xem-don-hang', compact('listOrder', 'order','disabled'));
         } else {
             return redirect('/notFound');
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\DonHang  $donHang
-     * @return \Illuminate\Http\Response
-     */
+    public function complete(Request $request,$id)
+    {
+        $order=DonHang::find($id);
+        $order->trang_thai_don_hangs_id=3;
+        $order->save();
+        return redirect('/quan-ly-don-hang/'.$id);
+    }
     public function edit(DonHang $donHang)
     {
         //

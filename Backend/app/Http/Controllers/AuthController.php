@@ -3,30 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classes\ActivationService;
+use App\Classes\ResetPasswordService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\NguoiDung;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
+    protected $activationService;
+    protected $resetPasswordService;
+    public function __construct(ActivationService $activationService, ResetPasswordService $resetPasswordService)
+    {
+        $this->middleware('guest');
+        $this->activationService = $activationService;
+        $this->resetPasswordService = $resetPasswordService;
+    }
     //
     public function Register(Request $request)
     {
-        $rule=[
-            "Email"=>"required|unique:nguoi_dungs",
-            "username"=>"required|unique:nguoi_dungs|min:5"
+        $rule = [
+            "Email" => "required|unique:nguoi_dungs",
+            "username" => "required|unique:nguoi_dungs|min:5"
         ];
-        $customMessage=[
-            "Email.unique"=>"Email đã tồn tại !",
-            "username.unique"=>"Tên tài khoản đã tồn tại !",
-            "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
+        $customMessage = [
+            "Email.unique" => "Email đã tồn tại !",
+            "username.unique" => "Tên tài khoản đã tồn tại !",
+            "username.min" => "Tên tài khoản phải lớn hơn 5 ký tự !",
         ];
-        $validator=Validator::make($request->all(),$rule,$customMessage);
-        if($validator->fails())
-        {
-            return response()->json($validator->errors(),400);
+        $validator = Validator::make($request->all(), $rule, $customMessage);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
         $user = new NguoiDung;
         $user->Email = $request->Email;
@@ -38,11 +48,15 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
         $user->save();
-        return response()->json(['message' => 'Tài khoản được tạo thành công'], 200);
+
+        event(new Registered($user));
+        $result = $this->resetPasswordService->sendResetPasswordMail($user);
+
+        return response()->json(['message' => 'Tài khoản được tạo thành công', 'result' => $result], 200);
     }
     public function Login(Request  $request)
     {
-        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id'==2);
+        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
         }
@@ -61,5 +75,39 @@ class AuthController extends Controller
                 'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
             ]
         ]);
+    }
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            return redirect(' (Front-end) host/login');
+            // rediect front end
+        }
+    }
+    public function resetPasswordUser($token)
+    {  
+        redirect('(Front-end)  host/route-reset-password/' . $token);
+         // rediect front end
+    }
+    public function resetPasswordUserClient(Request $request, $token)
+    {
+        $password = $request->query->get('password');
+        if ($user = $this->resetPasswordService->resetPasswordUser($token, $password)) {
+            return response()->json(['message' => 'success'],200);
+        } else {
+            return response()->json(['message' => 'unsuccess'],400);
+        }
+    }
+    public function ForgotPassword($id)
+    {
+        $user = NguoiDung::find($id);
+
+        if ($user) {
+
+            event(new Registered($user));
+            $result = $this->resetPasswordService->sendResetPasswordMail($user);
+                return response()->json(['message' => 'success'],200);
+        } else {
+            return response()->json(['message' => 'No user match'],400);
+        }
     }
 }
