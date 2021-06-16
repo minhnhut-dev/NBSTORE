@@ -80,7 +80,7 @@ a:hover{
     padding-left: 15px;
   }
   .headerxxx img {
-    width: 170px;
+    width: 140px;
   }
   
   @media (min-width: 1200px)
@@ -152,10 +152,16 @@ a:hover{
     padding-left: 0;
   }
   
+  .gearvn-content-section .gearvn-right-top-block div{
+    display: flex;
+  }
+
   .gearvn-content-section .gearvn-right-top-block {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
+
   .gearvn-content-section .gearvn-right-top-block .gearvn-header-top-item:first-child {
     color: #505050;
     display: inline-flex;
@@ -230,7 +236,7 @@ a:hover{
   .gearvn-content-section .gearvn-info-top {
     position: absolute;
     align-items: center;
-    bottom: -5px;
+    bottom: -8px;
     margin-left: 20px;
   }
   .gearvn-content-section .gearvn-info-top ul {

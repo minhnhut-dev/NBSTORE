@@ -139,9 +139,6 @@
     width: 15%;
     padding-left: 15px;
   }
-  .headerxxx img {
-    width: 170px;
-  }
   
   @media (min-width: 1200px)
   {
@@ -212,10 +209,6 @@
     padding-left: 0;
   }
   
-  .gearvn-content-section .gearvn-right-top-block {
-    display: flex;
-    align-items: center;
-  }
   .gearvn-content-section .gearvn-right-top-block .gearvn-header-top-item:first-child {
     color: #505050;
     display: inline-flex;
@@ -286,13 +279,7 @@
     border-radius: 10px;
   
   }
-  
-  .gearvn-content-section .gearvn-info-top {
-    position: absolute;
-    align-items: center;
-    bottom: -5px;
-    margin-left: 20px;
-  }
+
   .gearvn-content-section .gearvn-info-top ul {
     display: flex;
     margin: 0;
