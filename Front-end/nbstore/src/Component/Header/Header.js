@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Badge } from "react-bootstrap";
-import logo from "../../assets/logo_logo.png";
-import { Link} from "react-router-dom";
+import logo from "../../assets/logo-nbstore.png";
+import { Link } from "react-router-dom";
+import "./Header.css";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -62,10 +63,12 @@ export default function Header() {
                 </div>
                 <div className=" pdl0 fl1 ">
                   <div className="gearvn-right-top-block">
-                  
                     {userLogin.TenNguoidung ? (
                       <div>
-                        <Link to="/account-order" className="gearvn-header-top-item">
+                        <Link
+                          to="/account-order"
+                          className="gearvn-header-top-item"
+                        >
                           <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
@@ -101,23 +104,25 @@ export default function Header() {
                         </Link>
                       </div>
                     )}
-                    <a href="#" className="gearvn-header-top-item">
-                      <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
-                      <div className="header-right-description">
-                        <div className="gearvn-text">Khuyến mãi</div>
-                      </div>
-                    </a>
-                    <Link to="/cart" className="gearvn-header-top-item rela">
-                      <div>
-                        <Badge variant="danger">
-                          {cartFromLocalStorage.length}
-                        </Badge>
-                      </div>
-                      <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
-                      <div className="header-right-description">
-                        <div className="gearvn-text">Giỏ hàng</div>
-                      </div>
-                    </Link>
+                    <div>
+                      <a href="#" className="gearvn-header-top-item">
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
+                        <div className="header-right-description">
+                          <div className="gearvn-text">Khuyến mãi</div>
+                        </div>
+                      </a>
+                      <Link to="/cart" className="gearvn-header-top-item rela">
+                        <div>
+                          <Badge variant="danger">
+                            {cartFromLocalStorage.length}
+                          </Badge>
+                        </div>
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
+                        <div className="header-right-description">
+                          <div className="gearvn-text">Giỏ hàng</div>
+                        </div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="gearvn-info-top">
