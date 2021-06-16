@@ -1,0 +1,182 @@
+.build-pc_content{
+    margin-top: 0;
+}
+ .build-pc_content h3 {
+    font-size: 21px;
+    text-transform: uppercase;
+    user-select: none;
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: #333;
+    border: none;
+    float: left;
+    margin: 5px 0 15px 0px;
+}
+.list-group{
+    line-height:15px;
+    width:fit-content;
+    margin: 0;
+    padding:0;
+    float: right;
+    border: none;
+}
+.list-group-item span {
+    text-decoration: uppercase;
+    cursor: pointer;
+}
+.list-group-item span i{
+    margin-left: 5px;
+}
+#build-pc-function, .build-pc-function {
+    width: 100%;
+    margin: 20px auto;
+}
+#build-pc-function .build-pc-header, .build-pc-function .build-pc-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid red;
+}
+#build-pc-function .build-pc-header .left-content button.re-build i, .build-pc-function .build-pc-header .left-content button.re-build i {
+    margin-right: 15px;
+}
+#build-pc-function .build-pc-header .left-content button.re-build, .build-pc-function .build-pc-header .left-content button.re-build {
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 10px;
+    color: white;
+    background-color: red;
+    font-weight: bold;
+}
+#build-pc-function .build-pc-header .right-content strong, .build-pc-function .build-pc-header .right-content strong {
+    color: red;
+}
+#build-pc-function .build-pc-body .product-type-item, .build-pc-function .build-pc-body .product-type-item {
+    display: flex;
+}
+
+#build-pc-function .build-pc-body .product-type-item .left-content, .build-pc-function .build-pc-body .product-type-item .left-content {
+    border: 1px solid silver;
+    border-top: 0;
+    border-left: 0;
+    width: 130px;
+    padding: 10px;
+}
+
+@media screen and (min-width: 1024px)
+{
+    #build-pc-function .build-pc-body .product-type-item .left-content, .build-pc-function .build-pc-body .product-type-item .left-content {
+        width: 200px;
+    }
+}
+
+#build-pc-function .build-pc-body .product-type-item .right-content, .build-pc-function .build-pc-body .product-type-item .right-content {
+    border-bottom: 1px solid silver;
+    width: calc(100% - 130px);
+}
+@media screen and (min-width: 1024px)
+{
+    #build-pc-function .build-pc-body .product-type-item .right-content, .build-pc-function .build-pc-body .product-type-item .right-content {
+        width: calc(100% - 200px);
+    }
+}
+
+#build-pc-function .build-pc-body .product-type-item .right-content button.choose-product, .build-pc-function .build-pc-body .product-type-item .right-content button.choose-product {
+    border: 0;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border-radius: 4px;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content button.choose-product i, .build-pc-function .build-pc-body .product-type-item .right-content button.choose-product i {
+    margin-right: 10px;
+}
+#build-pc-function .build-pc-body .product-type-item:nth-child(2n), .build-pc-function .build-pc-body .product-type-item:nth-child(2n) {
+    background-color: #c0c0c024;
+}
+#build-pc-function .build-pc-footer, .build-pc-function .build-pc-footer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#build-pc-function .build-pc-footer .btn-item, .build-pc-function .build-pc-footer .btn-item {
+    margin-left: 10px;
+}
+#build-pc-function .build-pc-footer .btn-item .btn, .build-pc-function .build-pc-footer .btn-item .btn {
+    border: 0;
+    margin: 5px;
+    background-color: red;
+    color: white;
+    border-radius: 4px;
+}
+#build-pc-function .build-pc-footer .btn-item .btn i, .build-pc-function .build-pc-footer .btn-item .btn i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+@media (min-width: 1200px)
+{
+    .modal-dialog {
+        max-width: 1200px;
+        margin: 1.75rem auto;
+    }
+}
+.modal {
+    top:150px !important;
+}
+
+
+.modal-open {
+    overflow: auto !important;
+}
+.modal-content .modal-header {
+    position: relative;
+    display: flex;
+    background-color: red;
+    color: white;
+    padding: 0;
+    height: 50px;
+}
+@media screen and (min-width: 1024px)
+{
+    .modal-content .modal-header {
+        flex-direction: row;
+        height: 50px;
+    }
+}
+@media screen and (min-width: 1024px)
+{
+    .modal-content .modal-header   .header-title {
+        width: 400px;
+        display: block;
+    }
+}
+.modal-content .modal-header   .header-title{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    margin-left: 10px;
+
+}
+.modal-content .modal-header  .input-group input {
+    width: calc(100% - 60px);
+    height: 70%;
+    margin: 7px 0;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+}
+
+.modal-content .modal-header i.fa-times{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 100;
+    font-size: 25px;
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ use App\Http\Controllers\SanPhamController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
@@ -57,7 +58,24 @@ class OrderController extends Controller
     {
 
         DB::beginTransaction();
-        try {
+        $rule=[
+            "hinh_thuc_giao_hangs_id"=>"required",
+            'hinh_thuc_thanh_toans_id'=>"required",
+        ];
+        $customMessage=[
+            // "Email.unique"=>"Email đã tồn tại !",
+            // "username.unique"=>"Tên tài khoản đã tồn tại !",
+            // "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
+            "hinh_thuc_giao_hangs_id.required"=>"Hình thức giao hàng bắt buộc !",
+            "hinh_thuc_thanh_toans_id.required"=>"Hình thức thanh toán bắt buộc !",
+        ];
+        $validator=Validator::make($request->all(),$rule,$customMessage);
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+            DB::rollBack();
+        }
+        // try {
             $order = new DonHang;
             $order->nguoi_dungs_id = $request->nguoi_dungs_id;
             $order->hinh_thuc_giao_hangs_id = $request->hinh_thuc_giao_hangs_id;
@@ -82,16 +100,17 @@ class OrderController extends Controller
                     $orderItem->save();
                 } else {
                     DB::rollBack();
-                    return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']]);
+                    return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']],500);
                 }
             }
             $order->Tongtien = $total;
             $order->save();
             DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response(['message' => 'unsuccessful', 'error' => $e]);
-        }
+
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return response(['message' => 'unsuccessful', 'error' => $e],500);
+        // }
         return response(['message' => 'successful', 'order' => $order]);
     }
 
@@ -208,11 +227,40 @@ class OrderController extends Controller
      * @param  \App\DonHang  $donHang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DonHang $donHang)
+    public function updateOrderPaid(Request $request,$id)
     {
         //
-    }
+        $data=DonHang::find($id);
+        if(empty($data))
+        {
+            return response()->json(["message"=>"id không tồn tại"],400);
 
+        }
+        $data->trang_thai_don_hangs_id=2;
+        $data->save();
+        return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công"],200);
+    }
+    public function GetOrderUnpiadByUserID($id)
+    {
+        $data= DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
+        FROM don_hangs , hinh_thuc_thanh_toans,hinh_thuc_giao_hangs, trang_thai_don_hangs
+        WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=1 AND don_hangs.nguoi_dungs_id=?', [$id]);
+        return response()->json($data);
+    }
+    public function GetOrderPaidByUserID($id)
+    {
+        $data= DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
+        FROM don_hangs , hinh_thuc_thanh_toans,hinh_thuc_giao_hangs, trang_thai_don_hangs
+        WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=2 AND don_hangs.nguoi_dungs_id=?', [$id]);
+        return response()->json($data);
+    }
+    public function GetOrderDetails($id)
+    {
+        $data=DB::select('SELECT don_hangs.ThoiGianMua,don_hangs.trang_thai_don_hangs_id,san_phams.TenSanPham,chi_tiet_don_hangs.DonGia,chi_tiet_don_hangs.SoLuong,don_hangs.Tongtien
+        FROM don_hangs, chi_tiet_don_hangs,san_phams
+        WHERE don_hangs.id=chi_tiet_don_hangs.don_hangs_id AND chi_tiet_don_hangs.san_phams_id=san_phams.id AND don_hangs.id= ?', [$id]);
+        return response()->json($data,200);
+    }
     /**
      * Remove the specified resource from storage.
      *

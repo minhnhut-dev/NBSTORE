@@ -38,3 +38,8 @@ Route::post('/Login','AuthController@Login');
 //order api
 Route::post('/order', 'OrderController@create');
 Route::post('/orderAPI', 'OrderController@createAPI');
+Route::put('/updateOrder/{id}', 'OrderController@updateOrderPaid');
+Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUserID');
+Route::get('/getOrderPaidByUserID/{id}', 'OrderController@GetOrderPaidByUserID');
+Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
+

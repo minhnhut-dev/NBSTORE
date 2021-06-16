@@ -10,10 +10,11 @@ function Ordered() {
   const [order, setOder] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/getOrderByUserID/${userLogin.id}`)
+      .get(`http://127.0.0.1:8000/api/getOrderPaidByUserID/${userLogin.id}`)
       .then((response) => {
         // console.log(response.data);
         setOder(response.data);
+
       });
   }, []);
 
@@ -31,10 +32,10 @@ function Ordered() {
                       <dl>
                         <dt>Đơn hàng đặt mua</dt>
                         <dd>
-                          <Link to="/account-order">Tất cả đơn hàng</Link>
+                          <Link to="/account-order">ĐH chưa thanh toán</Link>
                         </dd>
                         <dd>
-                          <Link to="/account-ordered"> Đơn hàng đã đặt</Link>
+                          <Link to="/account-ordered">Đơn hàng đã thanh toán</Link>
                         </dd>
                       </dl> 
                       <dl>
@@ -65,7 +66,9 @@ function Ordered() {
                       ) : (
                         order.map((item) => (
                           <tr className="odd cancelled_order">
-                            <td>#HD{item.id}</td>
+                            <td>
+                              <Link to={`/account/order/${item.id}`}>#HD{item.id}</Link>
+                            </td>
                             <td>{item.ThoiGianMua}</td>
                             <td>{item.TenHinhThuc}</td>
                             <td>{item.TenThanhToan}</td>

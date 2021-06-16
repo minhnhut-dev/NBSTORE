@@ -1,35 +1,214 @@
-import React, { useEffect ,useState} from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import NumberFormat from "react-number-format";
 import { Button } from "react-bootstrap";
 import "./Cart.css";
 import axios from "axios";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import CryptoJS from "crypto-js";
 function Cart(props) {
+  const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   const { cartItems, onRemove, onAdd } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.GiaKM, 0);
   const totalPrice = itemsPrice;
   const LinkImage = "http://127.0.0.1:8000/images/";
-  const [city,setCity]=useState([]);
-  const [optionPayment,setOptionPayment]=useState();
+  const [city, setCity] = useState([]);
+  const [optionPayment, setOptionPayment] = useState();
+  const [optionShipping, setOptionShipping] = useState();
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = useState();
+  const [errorPayment, setErrorPayment] = useState([]);
+  const [errorShipping, setErrorShipping] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [payURL, setPayURL] = useState();
   useEffect(() => {
-      axios.get('/city')
-      .then((response) =>{
-          setCity(response.data.LtsItem);
-      })
+    axios.get("/city").then((response) => {
+      setCity(response.data.LtsItem);
+    });
   }, []);
 
-  const newArr=cartItems.map(item=>{
-    return {san_phams_id:item.id,DonGia:item.GiaKM,SoLuong:item.qty};
+  const newArr = cartItems.map((item) => {
+    return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
-  console.log("new Array :",newArr);
+
+  const handleOrder = (e) => {
+    e.preventDefault();
+    const data = {
+      nguoi_dungs_id: userLogin.id,
+      hinh_thuc_thanh_toans_id: optionPayment,
+      hinh_thuc_giao_hangs_id: optionShipping,
+      trang_thai_don_hangs_id: 1,
+      line_items: newArr,
+    };
+
+    if (!optionPayment) {
+      axios
+        .post("http://127.0.0.1:8000/api/order", data)
+        .then((response) => {
+          console.log(response.data);
+          setOpen(true);
+          setTimeout(() => {
+            setRedirect(true);
+          }, 4000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setError(err.response.data.error);
+          setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
+          setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+        });
+    } else if (optionPayment == 1) {
+      axios
+        .post("http://127.0.0.1:8000/api/order", data)
+        .then((response) => {
+          console.log(response.data);
+          setOpen(true);
+          setTimeout(() => {
+            setRedirect(true);
+            localStorage.removeItem("cartItems");
+            window.location.reload();
+          }, 4000);
+        })
+        .catch((err) => {
+          console.log(err.response);
+          setError(err.response.data.error);
+          setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
+          setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+        });
+    } 
+    else {
+      var dataMoMo = {
+        accessKey: accessKey,
+        partnerCode: partnerCode,
+        requestType: requestType,
+        notifyUrl: notifyUrl,
+        returnUrl: returnUrl,
+        orderId: orderId,
+        amount: amount,
+        orderInfo: orderInfo,
+        requestId: requestId,
+        extraData: extraData,
+        signature: signature,
+      };
+      axios.post("http://127.0.0.1:8000/api/order",data)
+      .then((response)=>{
+        console.log(response.data.order);
+        localStorage.setItem("Order", JSON.stringify(response.data.order));
+      })
+        axios.post(apiEndPoint, dataMoMo).then((response) => {
+        setPayURL(response.data.payUrl);
+        localStorage.removeItem("cartItems");
+        setRedirect(true);
+      });
+    }
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+  //Thanh toán tiền mặc
+  if (redirect && optionPayment==2) {
+    return window.open(payURL);
+
+  }
+  else if(redirect&& optionPayment==1)
+  {
+    return <Redirect to="/" />
+  }
+
+  // Thanh toán MOMO
+
+  const randomId = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  };
+
+  const GenerateID = () => {
+    return (
+      randomId() +
+      randomId() +
+      "-" +
+      randomId() +
+      "-" +
+      randomId() +
+      "-" +
+      randomId() +
+      "-" +
+      randomId()
+    );
+  };
+
+  const apiEndPoint = "/transactionProcessor";
+  var partnerCode = "MOMO6KRQ20210610";
+  var accessKey = "MYc8b7Wo8858OGUg";
+  var secretKey = "zG3fTEcy3voCjcyLAWr81b4mBcmYG8DD";
+  var requestType = "captureMoMoWallet";
+  var orderInfo = "Payment MOMO";
+  var amount = totalPrice.toString();
+  var orderId = "HD" + GenerateID();
+  var returnUrl = "http://localhost:3000/resultOrder/";
+  var notifyUrl = "http://localhost:3000/resultOrder/";
+  var requestId = orderId;
+  var extraData = "email=nhatminh785@gmail.com";
+  var raw_signature =
+    "partnerCode=" +
+    partnerCode +
+    "&accessKey=" +
+    accessKey +
+    "&requestId=" +
+    requestId +
+    "&amount=" +
+    amount +
+    "&orderId=" +
+    orderId +
+    "&orderInfo=" +
+    orderInfo +
+    "&returnUrl=" +
+    returnUrl +
+    "&notifyUrl=" +
+    notifyUrl +
+    "&extraData=" +
+    extraData;
+
+  var signature = CryptoJS.HmacSHA256(raw_signature, secretKey).toString(
+    CryptoJS.enc.Hex
+  );
   return (
     <>
       <Header />
       <div className="noindex">
         <div id="mainframe">
           <div className="container">
+            {error ? (
+              <Alert severity="error" style={{ textAlign: "center" }}>
+                {error}
+              </Alert>
+            ) : (
+              ""
+            )}
+            {errorPayment &&
+              errorPayment.map((item) => (
+                <Alert severity="error" style={{ textAlign: "center" }}>
+                  {item}
+                </Alert>
+              ))}
+            {errorShipping &&
+              errorShipping.map((item) => (
+                <Alert severity="error" style={{ textAlign: "center" }}>
+                  {item}
+                </Alert>
+              ))}
             {cartItems.length === 0 ? (
               <div className="row">
                 <div id="layout-page-first" className="col-md-12">
@@ -156,16 +335,32 @@ function Cart(props) {
                             1. Thông tin khách hàng
                           </div>
                           <div className="box-cart-user-info">
-                            <input name="name" placeholder="Họ tên" />
-                            <input name="name" placeholder="Email" />
-                            <input name="name" placeholder="Số điện thoại" />
+                            <input
+                              name="name"
+                              placeholder="Họ tên"
+                              value={userLogin.TenNguoidung}
+                            />
+                            <input
+                              name="name"
+                              placeholder="Email"
+                              value={userLogin.Email}
+                            />
+                            <input
+                              name="name"
+                              placeholder="Số điện thoại"
+                              value={userLogin.SDT}
+                            />
                             <select name="city">
                               <option value="0">Chọn tỉnh / Thành phố</option>
-                              {city.map((item)=>(
+                              {city.map((item) => (
                                 <option value={item.ID}>{item.Title}</option>
                               ))}
                             </select>
-                            <input name="name" placeholder="Địa chỉ" />
+                            <input
+                              name="name"
+                              placeholder="Địa chỉ"
+                              value={userLogin.DiaChi}
+                            />
                           </div>
                           <div className="box-cart-user-info">
                             <div className="title_box_cart">
@@ -175,7 +370,15 @@ function Cart(props) {
                               className="left"
                               style={{ marginRight: "15px" }}
                             >
-                              <input name="Shipping" type="radio"  name="payment" value="1" onChange={e=>setOptionPayment(e.target.value)}/>
+                              <input
+                                name="Cash"
+                                type="radio"
+                                name="payment"
+                                value="1"
+                                onChange={(e) =>
+                                  setOptionPayment(e.target.value)
+                                }
+                              />
                               <label
                                 style={{
                                   display: "inline-block",
@@ -183,14 +386,20 @@ function Cart(props) {
                                   marginLeft: "15px",
                                 }}
                               >
-                                Giao hàng tận nơi
+                                Tiền mặt
                               </label>
                             </div>
-                            {/* <div id="orther-payment">
-                              <span>HOẶC CHỌN THANH TOÁN ONLINE</span>
-                            </div> */}
+
                             <div id="momo">
-                              <input name="payment_momo" type="radio"name="payment" value="2" onChange={e=>setOptionPayment(e.target.value)}/>
+                              <input
+                                name="payment_momo"
+                                type="radio"
+                                name="payment"
+                                value="2"
+                                onChange={(e) =>
+                                  setOptionPayment(e.target.value)
+                                }
+                              />
                               <label
                                 style={{
                                   display: "inline-block",
@@ -199,7 +408,34 @@ function Cart(props) {
                                 }}
                               >
                                 <i class="cps-zalopay"></i>
-                              <span>  Cổng thanh toán MOMO</span>
+                                <span> Cổng thanh toán MOMO</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div className="box-cart-user-info">
+                            <div className="title_box_cart">
+                              3. Hình thức giao hàng
+                            </div>
+                            <div
+                              className="left"
+                              style={{ marginRight: "15px" }}
+                            >
+                              <input
+                                name="Shipping"
+                                type="radio"
+                                value="1"
+                                onChange={(e) =>
+                                  setOptionShipping(e.target.value)
+                                }
+                              />
+                              <label
+                                style={{
+                                  display: "inline-block",
+                                  lineHeight: "20px",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                COD
                               </label>
                             </div>
                           </div>
@@ -207,9 +443,45 @@ function Cart(props) {
                       </div>
                       <div className="col-xl-12 col-md-12 cart-buttons inner-right inner-left">
                         <div className="buttons">
-                          <Button id="checkout" name="checkout">
-                            Thanh toán
-                          </Button>
+                          {/* {optionPayment == 2 ? (
+                            <a href={payURL} target="_blank">
+                              <Button
+                                id="checkout"
+                                name="checkout"
+                                type="submit"
+                                onClick={handleOrder}
+                              >
+                                Thanh toán
+                              </Button>
+                            </a>
+                          ) : (
+                            <Button
+                              id="checkout"
+                              name="checkout"
+                              type="submit"
+                              onClick={handleOrder}
+                            >
+                              Thanh toán
+                            </Button>
+                         )
+                          } */}
+                           <Button
+                              id="checkout"
+                              name="checkout"
+                              type="submit"
+                              onClick={handleOrder}
+                            >
+                              Thanh toán
+                            </Button>
+                          <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                          >
+                            <Alert onClose={handleClose} severity="success">
+                              Chúc mừng bạn đặt hàng thành công !
+                            </Alert>
+                          </Snackbar>
                         </div>
                       </div>
                     </div>
