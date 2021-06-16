@@ -187,7 +187,7 @@
     padding: 0px;
 }
 
-.modal-content .modal-body .filter-attri {
+/* .modal-content .modal-body .filter-attri {
     width: 390px;
     visibility: visible;
     position: unset;
@@ -210,3 +210,147 @@
     border-right: 1px solid silver;
 }
 
+.modal-content .modal-body .filter-attri .attribute-item {
+    border-bottom: 1px solid #c0c0c047;
+    height: 30px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.modal-content .modal-body .filter-attri .attribute-item .header-attr-name{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
+    height: 30px;
+    cursor: pointer;
+}
+.modal-content .modal-body .filter-attri .attribute-item .header-attr-name h4{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    line-height: 30px;
+    padding-left: 5px;
+    font-size:18px
+}
+.modal-content .modal-body .filter-attri .attribute-item .header-attr-name i {
+    line-height: 30px;
+}
+.modal-content .modal-body .filter-attri .attribute-item .body-attr-value{
+    display: flex;
+    flex-wrap: wrap;
+}
+.modal-content .modal-body .filter-attri .attribute-item .body-attr-value .input-group{
+    width: 50%;
+    padding-left: 5px;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+} */
+
+
+.modal-content .modal-body .list-product-modal{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.modal-content .modal-body .list-product-modal .list-product-header{
+    height: 33px;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 2px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid red;
+}
+.modal-content .modal-body .list-product-modal .list-product-header .btn-prev{
+    margin: 0 5px;
+    border: none;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding-left: 4.5px;
+    width: 25px;
+    height: 25px;
+    line-height: 10px;
+}
+.modal-content .modal-body .list-product-modal .list-product-header .input-paging{
+    width: 50px;
+    margin: 0 10px;
+    /* padding: 5px; */
+    border-radius: 10px;
+    border: 1px solid silver;
+}
+.modal-content .modal-body .list-product-modal .list-product-header .btn-next{
+    margin: 0 5px;
+    border: none;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding-left: 4.5px;
+    width: 25px;
+    height: 25px;
+    line-height: 10px;
+    padding-left: 8px;
+    margin-right: 20px;
+}
+.modal-content .modal-body .list-product-modal .list-product-data{
+    overflow: hidden;
+    overflow-y: auto;
+    height: 400px;
+    margin-left: 20px;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail{
+    min-height: 130px;
+    height: auto;
+    width: 100%;
+    border-bottom: 1px solid silver;
+    display: flex;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .image{
+    width: 130px;
+    padding: 5px;
+    height: 130px;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .image img{
+    width: 120px;
+    height: 120px;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .content{
+    width: calc(100% - 130px);
+    padding: 5px;
+    position: relative;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .content .name {
+    font-weight: bold;
+    color: black;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .content .productid {
+    font-weight: bold;
+    color: black;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .content .price{
+    font-weight: bold;
+    font-size: 18px;
+    color: red;
+}
+.modal-content .modal-body .list-product-modal .list-product-data  .modal-product-detail .content .add-to-build{
+    border: 0;
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+@media screen and (min-width: 1024px)
+{
+    .modal-content .modal-body .list-product-modal {
+        /* width: calc(100% - 400px); */
+        width: 100%;
+        /* position: absolute;
+        top: 0;
+        right: 0; */
+    }
+}

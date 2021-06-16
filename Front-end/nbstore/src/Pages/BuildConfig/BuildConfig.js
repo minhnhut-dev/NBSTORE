@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { InputGroup } from "react-bootstrap";
 import { FormControl } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 function BuildConfig() {
   const [show, setShow] = useState(false);
 
@@ -282,16 +284,117 @@ function BuildConfig() {
           <i className="fas fa-times" onClick={handleClose}></i>
         </Modal.Header>
         <Modal.Body>
-          <div className="filter-attri">
+          {/* <div className="filter-attri">
             <div className="filter-attr-items-rect"></div>
-            <div className="list-attributes"></div>
+            <div className="list-attributes">
+              <Accordion className="attribute-item" >
+                <Card>
+                  <Accordion.Toggle as={Card.Header} eventKey="0" className="header-attr-name">
+                  <h4> Thương hiệu</h4>
+                  <i className="fas fa-caret-down"></i>
+                  </Accordion.Toggle>
+                  <Accordion.Collapse eventKey="0" className="body-attr-value">
+                    <Card.Body className="input-group">Hello! I'm the body</Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+                
+              </Accordion>
+            </div>
+          </div> */}
+          <div className="list-product-modal">
+            <div className="list-product-header">
+              <span>
+                Trang
+                <strong>1</strong>/<strong>33</strong>
+              </span>
+              <Button className="btn-prev">
+                <i className="fas fa-backward"></i>
+              </Button>
+              <input
+                className="input-paging"
+                type="number"
+                disabled
+                value="1"
+              />
+              <Button className="btn-next">
+                <i className="fas fa-forward"></i>
+              </Button>
+            </div>
+            <div className="list-product-data">
+                <div className="modal-product-detail">
+                    <div className="image">
+                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                    </div>
+                    <div className="content">
+                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
+                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                            <p className="price">Giá: 19,500,000 đ</p>
+                            <p className="productid">Mã sản phẩm: SP1234</p>
+                        </a>
+                        <Button className="add-to-build">Chọn</Button>
+                    </div>
+                </div>
+                <div className="modal-product-detail">
+                    <div className="image">
+                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                    </div>
+                    <div className="content">
+                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
+                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                            <p className="price">Giá: 19,500,000 đ</p>
+                            <p className="productid">Mã sản phẩm: SP1234</p>
+                        </a>
+                        <Button className="add-to-build">Chọn</Button>
+                    </div>
+                </div>
+                <div className="modal-product-detail">
+                    <div className="image">
+                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                    </div>
+                    <div className="content">
+                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
+                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                            <p className="price">Giá: 19,500,000 đ</p>
+                            <p className="productid">Mã sản phẩm: SP1234</p>
+                        </a>
+                        <Button className="add-to-build">Chọn</Button>
+                    </div>
+                </div>
+                <div className="modal-product-detail">
+                    <div className="image">
+                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                    </div>
+                    <div className="content">
+                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
+                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                            <p className="price">Giá: 19,500,000 đ</p>
+                            <p className="productid">Mã sản phẩm: SP1234</p>
+                        </a>
+                        <Button className="add-to-build">Chọn</Button>
+                    </div>
+                </div>
+                <div className="modal-product-detail">
+                    <div className="image">
+                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                    </div>
+                    <div className="content">
+                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
+                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                            <p className="price">Giá: 19,500,000 đ</p>
+                            <p className="productid">Mã sản phẩm: SP1234</p>
+                        </a>
+                        <Button className="add-to-build">Chọn</Button>
+                    </div>
+                </div>
+                
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          {/* <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Understood</Button>
+          <Button variant="primary">Understood</Button> */}
         </Modal.Footer>
       </Modal>
       <Footer />
