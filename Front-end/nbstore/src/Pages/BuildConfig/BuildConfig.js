@@ -5,9 +5,9 @@ import "./BuildConfig.css";
 import { Carousel } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Modal from 'react-bootstrap/Modal';
-import {InputGroup} from 'react-bootstrap'
-import {FormControl} from 'react-bootstrap'
+import Modal from "react-bootstrap/Modal";
+import { InputGroup } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 function BuildConfig() {
   const [show, setShow] = useState(false);
 
@@ -63,154 +63,180 @@ function BuildConfig() {
               </div>
               <div className="build-pc-body">
                 <div className="product-type-item">
-                  <div className="left-content">
-                    1. Bo mạch chủ
-                  </div>
+                  <div className="left-content">1. Bo mạch chủ</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Bo mạch chủ
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    2. Vi xử lý
-                  </div>
+                  <div className="left-content">2. Vi xử lý</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Vi xử lý
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    3. Ram
-                  </div>
+                  <div className="left-content">3. Ram</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Ram
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    4. Ổ cứng SSD
-                  </div>
+                  <div className="left-content">4. Ổ cứng SSD</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
-                      <i className="fas fa-plus"></i>
-                      Ổ cứng SSD
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
+                      <i className="fas fa-plus"></i>Ổ cứng SSD
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    5. Ổ cứng HDD
-                  </div>
+                  <div className="left-content">5. Ổ cứng HDD</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
-                      <i className="fas fa-plus"></i>
-                      Ổ cứng HDD
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
+                      <i className="fas fa-plus"></i>Ổ cứng HDD
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    6. Nguồn
-                  </div>
+                  <div className="left-content">6. Nguồn</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Nguồn
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    7. VGA
-                  </div>
+                  <div className="left-content">7. VGA</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       VGA
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    8. Case
-                  </div>
+                  <div className="left-content">8. Case</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Case
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    9. Màn hình
-                  </div>
+                  <div className="left-content">9. Màn hình</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Màn hình
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    10. Tản nhiệt
-                  </div>
+                  <div className="left-content">10. Tản nhiệt</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Tản nhiệt
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    11. Bàn phím
-                  </div>
+                  <div className="left-content">11. Bàn phím</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Bàn phím
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    12. Chuột
-                  </div>
+                  <div className="left-content">12. Chuột</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Chuột
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    13. Tai nghe
-                  </div>
+                  <div className="left-content">13. Tai nghe</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Tai nghe
                     </Button>
                   </div>
                 </div>
                 <div className="product-type-item">
-                  <div className="left-content">
-                    14. Fan
-                  </div>
+                  <div className="left-content">14. Fan</div>
                   <div className="right-content">
-                    <Button variant="danger" className="choose-product" onClick={handleShow}>
+                    <Button
+                      variant="danger"
+                      className="choose-product"
+                      onClick={handleShow}
+                    >
                       <i className="fas fa-plus"></i>
                       Fan
                     </Button>
@@ -231,9 +257,7 @@ function BuildConfig() {
                     Chia sẻ cấu hình
                   </Button>
                 </div>
-
               </div>
-
             </div>
           </div>
         </div>
@@ -244,8 +268,10 @@ function BuildConfig() {
         backdrop="static"
         keyboard={false}
       >
-        <Modal.Header >
-          <Modal.Title as="h2" className="header-title">Chọn linh kiện</Modal.Title>
+        <Modal.Header>
+          <Modal.Title as="h2" className="header-title">
+            Chọn linh kiện
+          </Modal.Title>
           <InputGroup className="mb-3">
             <FormControl
               placeholder="Tìm kiếm sản phẩm"
@@ -256,8 +282,10 @@ function BuildConfig() {
           <i className="fas fa-times" onClick={handleClose}></i>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
+          <div className="filter-attri">
+            <div className="filter-attr-items-rect"></div>
+            <div className="list-attributes"></div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
