@@ -222,9 +222,7 @@
     margin-right: 8px;
     max-height: 25px;
   }
-  .gearvn-content-section .gearvn-right-top-block .gearvn-header-top-item:nth-child(1) .header-right-description {
-    width: 60px;
-  }
+
   .gearvn-content-section .gearvn-right-top-block .gearvn-header-top-item .header-right-description .gearvn-text {
     color: #010101;
     font-weight: 700;
@@ -271,13 +269,6 @@
   }
   .gearvn-header-top-item.rela {
     position: relative;
-  }
-  .badge
-  {
-    position: absolute;
-    top: -10px;
-    border-radius: 10px;
-  
   }
 
   .gearvn-content-section .gearvn-info-top ul {
