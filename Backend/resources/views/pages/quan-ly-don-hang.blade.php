@@ -46,6 +46,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Ngày order</th>
                                     <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
@@ -69,6 +70,9 @@
                                 @php
 
                                 $stt++;
+                                if($item->trang_thai_don_hangs_id==3)
+                                $success='bg-success';
+                                else $success='bg-danger';
                                 @endphp
                                 <tr>
                                     <td>
@@ -76,8 +80,9 @@
                                     </td>
                                     <td>{{$item->TenNguoidung}}</td>
                                     <td>{{$item->SDT}}</td>
-                                    <td>{{$item->ThoiGianMua}}</td>
+                                    <td>{{date_format(date_create($item->ThoiGianMua),'d-m-Y')}}</td>     
                                     <td>{{number_format($item->Tongtien, 0, '', ',')}}</td>
+                                    <td class="alert {{$success}}">{{$item->TenTrangThai}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="/quan-ly-don-hang/{{$item->id}}">

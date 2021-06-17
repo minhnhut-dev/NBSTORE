@@ -1,6 +1,5 @@
 @extends('../layouts.master')
 @section('content')
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -16,7 +15,12 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
+@php
 
+if($order->trang_thai_don_hangs_id==3)
+$success='bg-success';
+else $success='bg-danger';
+@endphp
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -27,62 +31,77 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
 
                         <div class="card-tools">
-                        <div class="float-left">
-                    <table class="wc-order-totals">
-                        <tbody>
-                        <tr>
-                                <td class="label">Mã đơn hàng:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->id}}</span></bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Khách hàng:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->TenNguoidung}}</span></bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Địa chỉ:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>{{$order->DiaChi}}</bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Số điện thoại:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>{{$order->SDT}}</bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Hình thức thanh toán:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->TenThanhToan}}</span></bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Thời gian mua:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->ThoiGianMua}}</span></bdi></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label">Tổng thanh toán:</td>
-                                <td width="2%"></td>
-                                <td class="total">
-                                    <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol myDIV" >{{number_format($order->Tongtien, 0, '', ',')}}</span> VNĐ</bdi></span>
-                                </td>
-                            </tr>
 
-                        </tbody>
-                    </table>
-                </div>
+                            <table class="table table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td class="label">Mã đơn hàng:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->id}}</span></bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Khách hàng:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->TenNguoidung}}</span></bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Địa chỉ:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>{{$order->DiaChi}}</bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Số điện thoại:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol"></span>{{$order->SDT}}</bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Hình thức thanh toán:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{$order->TenThanhToan}}</span></bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Thời gian mua:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol">{{date_format(date_create($order->ThoiGianMua),'d-m-Y')}}</span></bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Trạng thái:</td>
+                                        <td width="2%"></td>
+                                      
+                                        <td class="alert {{$success}}">
+                                           {{$order->TenTrangThai}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">Tổng thanh toán:</td>
+                                        <td width="2%"></td>
+                                        <td class="total">
+                                            <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol myDIV">{{number_format($order->Tongtien, 0, '', ',')}}</span> VNĐ</bdi></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-primary {{$disabled}}" role="button" href='order/complete/{{$order->id}}'>
+                                                <i class="fas fa-check"></i>
+                                                Hoàn thành 
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -138,7 +157,7 @@
                 <nav aria-label="Page navigation example">
                     {{$listOrder->links()}}
                 </nav>
-                
+
                 <!-- /.card -->
             </div>
 

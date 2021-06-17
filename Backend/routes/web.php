@@ -68,3 +68,4 @@ Route::post('/quan-ly-nguoi-dung/update/{id}','CustomerController@update');
 // quản lí đơn hàng
 Route::get('/quan-ly-don-hang','OrderController@index');
 Route::get('/quan-ly-don-hang/{id}','OrderController@show');
+Route::get('/quan-ly-don-hang/order/complete/{id}','OrderController@complete');
