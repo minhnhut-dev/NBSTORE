@@ -1,69 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../../Component/Footer/Footer";
 import Header from "../../../Component/Header/Header";
 import "../Css/Account.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useParams } from "react-router";
+import axios from "axios";
 function InformationOrder() {
-  return (
-    <>
-      <Header />
-      <div className="noindex">
-            <div id="layout-page-order" className="container">
-                <div className="col-md-12 header-page">
-                    <h1 className="title-order-date">
-                    Đơn hàng: #1000132432, đặt lúc 
-                    <span className="order_date">-2021-06-03</span>
-                    </h1>
-                    <div className="flash notice">
-                        <h5 id="order_cancelled_title">Trình trạng đơn hàng: Hủy đơn hàng </h5>
+    let { id } = useParams();
+    const [orderDetails, setOrderDetails] = useState([]);
+    const TotalPrice = orderDetails.reduce((a, c) => a + c.SoLuong * c.DonGia, 0);
+  
+    useEffect(() => {
+        axios
+            .get(`http://127.0.0.1:8000/api/getOrderDetails/${id}`)
+            .then((response) => {
+                console.log(response);
+                setOrderDetails(response.data);
+            });
+    }, []);
+    return (
+        <>
+            <Header />
+            <div className="noindex">
+                <div id="layout-page-order" className="container">
+                    <div className="col-xs-12">
+                        <h4>
+                            <Link to="/account-order" style={{ marginLeft: "12px", fontSize: "18px" }}>Quay lại trang tài khoản</Link>
+                        </h4>
+                    </div>
+                    <div className="col-md-12 content-page">
+                        <table id="order_details">
+                            <tbody>
+                                <tr style={{ height: "40px" }}>
+                                    <th style={{ width: "530px" }}>Sản phẩm</th>
+                                    <th style={{ width: "141px" }}>Giá</th>
+                                    <th style={{ width: "112px" }}>Số lượng</th>
+                                    <th style={{ width: "152px" }}>Tổng cộng</th>
+                                </tr>
+                                {orderDetails.map((item) => (
+                                    <tr style={{ height: "40px" }}>
+                                        <td style={{ width: "530px" }}>
+                                            <Link>{item.TenSanPham}</Link>
+                                        </td>
+                                        <td style={{ width: "141px" }}>{item.DonGia}</td>
+                                        <td style={{ width: "112px" }}>{item.SoLuong}</td>
+                                        <td style={{ width: "152px" }}>{item.Tongtien}</td>
+                                    </tr>
+                                ))}
+
+                                <tr style={{ height: "40px" }} className="order_summary">
+                                    <td colspan="3">
+                                        <b>Phí giao hàng</b>
+                                    </td>
+                                    <td >
+                                        <b>0 VNĐ</b>
+                                    </td>
+                                </tr>
+                                <tr style={{ height: "40px" }} className="order_summary order_total">
+                                    <td colspan="3">
+                                        <b>Tổng tiền</b>
+                                    </td>
+                                    <td >
+                                        <b>{TotalPrice}</b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div className="col-xs-12">
-                    <h4>
-                        <Link to="/account-order" style={{marginLeft:"12px",fontSize:"18px"}}>Quay lại trang tài khoản</Link>
-                    </h4>
-                </div>
-                <div className="col-md-12 content-page">
-                   <table id="order_details">
-                        <tbody>
-                            <tr style={{height:"40px"}}>
-                                    <th style={{width:"530px"}}>Sản phẩm</th>
-                                    <th style={{width:"141px"}}>Giá</th>
-                                    <th  style={{width:"112px"}}>Số lượng</th>
-                                    <th  style={{width:"152px"}}>Tổng cộng</th>
-                            </tr>
-                            <tr style={{height:"40px"}}>
-                                <td style={{width:"530px"}}> 
-                                    <Link>Laptop gaming Acer Nitro 5 AN515 56 79U2 - Default Title</Link>
-                                </td>
-                                <td  style={{width:"141px"}}>24,490,000₫</td>
-                                <td  style={{width:"112px"}}>2</td>
-                                <td  style={{width:"152px"}}>24,490,000₫</td>
-                            </tr>
-                            <tr style={{height:"40px"}} className="order_summary">
-                                <td colspan="3">
-                                    <b>Phí giao hàng</b>
-                                </td>
-                                <td >
-                                    <b>0 VNĐ</b>
-                                </td>
-                            </tr>
-                            <tr style={{height:"40px"}} className="order_summary order_total">
-                                <td colspan="3">
-                                    <b>Tổng tiền</b>
-                                </td>
-                                <td >
-                                    <b>24,490,000 VNĐ</b>
-                                </td>
-                            </tr>
-                        </tbody>
-                   </table>
-                </div>
-            </div>  
-      </div>
-      <Footer />
-    </>
-  );
+            </div>
+            <Footer />
+        </>
+    );
 }
 
 export default InformationOrder;

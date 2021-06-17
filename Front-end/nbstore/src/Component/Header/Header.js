@@ -19,9 +19,9 @@ export default function Header() {
     <>
       <div className="fix-xxx">
         <div className="gearvn-top-banner-block">
-          <a href="#">
+          <Link >
             <div className="gearvn-top-banner oktr"></div>
-          </a>
+          </Link>
         </div>
         <div className="headerxxx">
           <div className="container gearvn-content-section">
@@ -77,7 +77,6 @@ export default function Header() {
                           </div>
                         </Link>
                         <Link
-                          to=""
                           className="gearvn-header-top-item"
                           onClick={handleLogout}
                         >
@@ -153,9 +152,9 @@ export default function Header() {
                     <li>
                       <img src="//theme.hstatic.net/1000026716/1000440777/14/gNewsFavIco.png?v=19349" />
                       <span>
-                        <a href="#" style={{ color: "#ea1c00" }}>
+                        <Link to="/buildPC"style={{ color: "#ea1c00" }}>
                           Xây dựng cấu hình
-                        </a>
+                        </Link>
                       </span>
                     </li>
                     <li>

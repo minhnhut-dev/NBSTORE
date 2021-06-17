@@ -31,10 +31,10 @@ function Order() {
                       <dl>
                         <dt>Đơn hàng đặt mua</dt>
                         <dd>
-                          <Link to="/account-order">Tất cả đơn hàng</Link>
+                          <Link to="/account-order">ĐH chưa thanh toán</Link>
                         </dd>
                         <dd>
-                          <Link to="/account-ordered"> Đơn hàng đã đặt</Link>
+                          <Link to="/account-ordered"> Đơn hàng đã thanh toán</Link>
                         </dd>
                       </dl>
                       <dl>
@@ -50,7 +50,7 @@ function Order() {
                       </dl>
                     </td>
                     <td valign="top" className="tb-order">
-                      <h3>Tất cả đơn hàng</h3>
+                      <h3>Tất cả đơn hàng chưa thanh toán</h3>
                       <tr>
                         <td>Mã đơn hàng</td>
                         <td>Ngày đặt</td>
@@ -66,7 +66,7 @@ function Order() {
                         order.map((item) => (
                           <tr className="odd cancelled_order">
                             <td>
-                              <Link to="/account/order/">#HD{item.id}</Link>
+                              <Link to={`/account/order/${item.id}`}>#HD{item.id}</Link>
                             </td>
                             <td>{item.ThoiGianMua}</td>
                             <td>{item.TenHinhThuc}</td>
