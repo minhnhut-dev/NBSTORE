@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import "./BuildConfig.css";
 import { Carousel } from "react-bootstrap";
-import { ListGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { InputGroup } from "react-bootstrap";
 import { FormControl } from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
+import axios from "axios";
 function BuildConfig() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [accessories, setAccessories] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/getAccessories")
+    .then((response) => {
+      setAccessories(response.data);
+    });
+  }, []);
+
+  const handleShowAccessories= (data) => {
+      console.log("handle accessories: ",data);
+      setShow(true);
+  }
   return (
     <>
       <Header />
@@ -48,9 +57,6 @@ function BuildConfig() {
             <div id="build-pc-function">
               <div className="build-pc-header">
                 <div className="left-content">
-                  {/* <button className="re-build">
-                          <i className="fas fa-sync"></i>
-                          </button> */}
                   <Button variant="danger" className="re-build">
                     <i className="fas fa-sync"></i>
                     Xây dựng lại
@@ -64,186 +70,21 @@ function BuildConfig() {
                 </div>
               </div>
               <div className="build-pc-body">
-                <div className="product-type-item">
-                  <div className="left-content">1. Bo mạch chủ</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Bo mạch chủ
-                    </Button>
+                {accessories.map((item, index) => (
+                  <div className="product-type-item">
+                    <div className="left-content">{index++}. {item.TenLoai}</div>
+                    <div className="right-content">
+                      <Button
+                        variant="danger"
+                        className="choose-product"
+                        onClick={()=> handleShowAccessories(item)}
+                      >
+                        <i className="fas fa-plus"></i>
+                        {item.TenLoai}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">2. Vi xử lý</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Vi xử lý
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">3. Ram</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Ram
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">4. Ổ cứng SSD</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>Ổ cứng SSD
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">5. Ổ cứng HDD</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>Ổ cứng HDD
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">6. Nguồn</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Nguồn
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">7. VGA</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      VGA
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">8. Case</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Case
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">9. Màn hình</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Màn hình
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">10. Tản nhiệt</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Tản nhiệt
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">11. Bàn phím</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Bàn phím
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">12. Chuột</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Chuột
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">13. Tai nghe</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Tai nghe
-                    </Button>
-                  </div>
-                </div>
-                <div className="product-type-item">
-                  <div className="left-content">14. Fan</div>
-                  <div className="right-content">
-                    <Button
-                      variant="danger"
-                      className="choose-product"
-                      onClick={handleShow}
-                    >
-                      <i className="fas fa-plus"></i>
-                      Fan
-                    </Button>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="build-pc-footer">
@@ -284,23 +125,6 @@ function BuildConfig() {
           <i className="fas fa-times" onClick={handleClose}></i>
         </Modal.Header>
         <Modal.Body>
-          {/* <div className="filter-attri">
-            <div className="filter-attr-items-rect"></div>
-            <div className="list-attributes">
-              <Accordion className="attribute-item" >
-                <Card>
-                  <Accordion.Toggle as={Card.Header} eventKey="0" className="header-attr-name">
-                  <h4> Thương hiệu</h4>
-                  <i className="fas fa-caret-down"></i>
-                  </Accordion.Toggle>
-                  <Accordion.Collapse eventKey="0" className="body-attr-value">
-                    <Card.Body className="input-group">Hello! I'm the body</Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-                
-              </Accordion>
-            </div>
-          </div> */}
           <div className="list-product-modal">
             <div className="list-product-header">
               <span>
@@ -321,72 +145,86 @@ function BuildConfig() {
               </Button>
             </div>
             <div className="list-product-data">
-                <div className="modal-product-detail">
-                    <div className="image">
-                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                    </div>
-                    <div className="content">
-                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
-                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                            <p className="price">Giá: 19,500,000 đ</p>
-                            <p className="productid">Mã sản phẩm: SP1234</p>
-                        </a>
-                        <Button className="add-to-build">Chọn</Button>
-                    </div>
+              <div className="modal-product-detail">
+                <div className="image">
+                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
                 </div>
-                <div className="modal-product-detail">
-                    <div className="image">
-                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                    </div>
-                    <div className="content">
-                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
-                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                            <p className="price">Giá: 19,500,000 đ</p>
-                            <p className="productid">Mã sản phẩm: SP1234</p>
-                        </a>
-                        <Button className="add-to-build">Chọn</Button>
-                    </div>
+                <div className="content">
+                  <a
+                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
+                    target="_blank"
+                  >
+                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                    <p className="price">Giá: 19,500,000 đ</p>
+                    <p className="productid">Mã sản phẩm: SP1234</p>
+                  </a>
+                  <Button className="add-to-build">Chọn</Button>
                 </div>
-                <div className="modal-product-detail">
-                    <div className="image">
-                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                    </div>
-                    <div className="content">
-                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
-                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                            <p className="price">Giá: 19,500,000 đ</p>
-                            <p className="productid">Mã sản phẩm: SP1234</p>
-                        </a>
-                        <Button className="add-to-build">Chọn</Button>
-                    </div>
+              </div>
+              <div className="modal-product-detail">
+                <div className="image">
+                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
                 </div>
-                <div className="modal-product-detail">
-                    <div className="image">
-                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                    </div>
-                    <div className="content">
-                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
-                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                            <p className="price">Giá: 19,500,000 đ</p>
-                            <p className="productid">Mã sản phẩm: SP1234</p>
-                        </a>
-                        <Button className="add-to-build">Chọn</Button>
-                    </div>
+                <div className="content">
+                  <a
+                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
+                    target="_blank"
+                  >
+                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                    <p className="price">Giá: 19,500,000 đ</p>
+                    <p className="productid">Mã sản phẩm: SP1234</p>
+                  </a>
+                  <Button className="add-to-build">Chọn</Button>
                 </div>
-                <div className="modal-product-detail">
-                    <div className="image">
-                          <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                    </div>
-                    <div className="content">
-                        <a href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi" target="_blank">
-                            <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                            <p className="price">Giá: 19,500,000 đ</p>
-                            <p className="productid">Mã sản phẩm: SP1234</p>
-                        </a>
-                        <Button className="add-to-build">Chọn</Button>
-                    </div>
+              </div>
+              <div className="modal-product-detail">
+                <div className="image">
+                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
                 </div>
-                
+                <div className="content">
+                  <a
+                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
+                    target="_blank"
+                  >
+                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                    <p className="price">Giá: 19,500,000 đ</p>
+                    <p className="productid">Mã sản phẩm: SP1234</p>
+                  </a>
+                  <Button className="add-to-build">Chọn</Button>
+                </div>
+              </div>
+              <div className="modal-product-detail">
+                <div className="image">
+                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                </div>
+                <div className="content">
+                  <a
+                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
+                    target="_blank"
+                  >
+                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                    <p className="price">Giá: 19,500,000 đ</p>
+                    <p className="productid">Mã sản phẩm: SP1234</p>
+                  </a>
+                  <Button className="add-to-build">Chọn</Button>
+                </div>
+              </div>
+              <div className="modal-product-detail">
+                <div className="image">
+                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+                </div>
+                <div className="content">
+                  <a
+                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
+                    target="_blank"
+                  >
+                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
+                    <p className="price">Giá: 19,500,000 đ</p>
+                    <p className="productid">Mã sản phẩm: SP1234</p>
+                  </a>
+                  <Button className="add-to-build">Chọn</Button>
+                </div>
+              </div>
             </div>
           </div>
         </Modal.Body>

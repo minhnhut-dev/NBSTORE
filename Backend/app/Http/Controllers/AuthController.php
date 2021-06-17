@@ -48,9 +48,8 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
         $user->save();
-
         event(new Registered($user));
-        $result = $this->resetPasswordService->sendResetPasswordMail($user);
+        $result = $this->activationService->sendActivationMail($user);
 
         return response()->json(['message' => 'Tài khoản được tạo thành công', 'result' => $result], 200);
     }
@@ -84,7 +83,7 @@ class AuthController extends Controller
         }
     }
     public function resetPasswordUser($token)
-    {  
+    {
         redirect('(Front-end)  host/route-reset-password/' . $token);
          // rediect front end
     }

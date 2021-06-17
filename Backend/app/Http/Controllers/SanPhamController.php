@@ -270,4 +270,16 @@ class SanPhamController extends Controller
         WHERE san_phams.loai_san_phams_id=loai_san_phams.id AND loai_san_phams.id=1');
         return response()->json($productMouse,200);
     }
+
+    public function GetAccessories()
+    {
+        $accessories=DB::select('SELECT *
+        FROM loai_san_phams
+        WHERE loai_san_phams.parent_id=5');
+        return response()->json($accessories,200);
+        // $accessories = LoaiSanPham::select('parent_id',5);
+        // return response()->json($accessories,200);
+    }
+
+
 }

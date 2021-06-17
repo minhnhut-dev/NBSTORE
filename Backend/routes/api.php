@@ -38,7 +38,7 @@ Route::post('/Login','AuthController@Login');
 //order api
 Route::post('/order', 'OrderController@create');
 Route::post('/orderAPI', 'OrderController@createAPI');
-// mail xác thực 
+// mail xác thực
 Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user.activate');
 Route::get('user/reset-password/{token}', 'AuthController@resetPasswordUser')->name('user.reset-password');
 // client call api
@@ -50,3 +50,6 @@ Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUser
 Route::get('/getOrderPaidByUserID/{id}', 'OrderController@GetOrderPaidByUserID');
 Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
 
+// api build cấu hình
+
+Route::get('/getAccessories','SanPhamController@GetAccessories');
