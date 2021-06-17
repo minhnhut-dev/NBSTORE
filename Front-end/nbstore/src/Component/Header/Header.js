@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Badge } from "react-bootstrap";
-import logo from "../../assets/logo_logo.png";
-import { Link} from "react-router-dom";
+import logo from "../../assets/logo-nbstore.png";
+import { Link } from "react-router-dom";
+import "./Header.css";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -18,9 +19,9 @@ export default function Header() {
     <>
       <div className="fix-xxx">
         <div className="gearvn-top-banner-block">
-          <a href="#">
+          <Link >
             <div className="gearvn-top-banner oktr"></div>
-          </a>
+          </Link>
         </div>
         <div className="headerxxx">
           <div className="container gearvn-content-section">
@@ -62,10 +63,12 @@ export default function Header() {
                 </div>
                 <div className=" pdl0 fl1 ">
                   <div className="gearvn-right-top-block">
-                  
                     {userLogin.TenNguoidung ? (
                       <div>
-                        <Link to="/account-order" className="gearvn-header-top-item">
+                        <Link
+                          to="/account-order"
+                          className="gearvn-header-top-item"
+                        >
                           <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
@@ -74,7 +77,6 @@ export default function Header() {
                           </div>
                         </Link>
                         <Link
-                          to=""
                           className="gearvn-header-top-item"
                           onClick={handleLogout}
                         >
@@ -101,23 +103,25 @@ export default function Header() {
                         </Link>
                       </div>
                     )}
-                    <a href="#" className="gearvn-header-top-item">
-                      <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
-                      <div className="header-right-description">
-                        <div className="gearvn-text">Khuyến mãi</div>
-                      </div>
-                    </a>
-                    <Link to="/cart" className="gearvn-header-top-item rela">
-                      <div>
-                        <Badge variant="danger">
-                          {cartFromLocalStorage.length}
-                        </Badge>
-                      </div>
-                      <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
-                      <div className="header-right-description">
-                        <div className="gearvn-text">Giỏ hàng</div>
-                      </div>
-                    </Link>
+                    <div>
+                      <a href="#" className="gearvn-header-top-item">
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
+                        <div className="header-right-description">
+                          <div className="gearvn-text">Khuyến mãi</div>
+                        </div>
+                      </a>
+                      <Link to="/cart" className="gearvn-header-top-item rela">
+                        <div>
+                          <Badge variant="danger">
+                            {cartFromLocalStorage.length}
+                          </Badge>
+                        </div>
+                        <img src="//theme.hstatic.net/1000026716/1000440777/14/ak5.png?v=19349" />
+                        <div className="header-right-description">
+                          <div className="gearvn-text">Giỏ hàng</div>
+                        </div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="gearvn-info-top">
@@ -148,9 +152,9 @@ export default function Header() {
                     <li>
                       <img src="//theme.hstatic.net/1000026716/1000440777/14/gNewsFavIco.png?v=19349" />
                       <span>
-                        <a href="#" style={{ color: "#ea1c00" }}>
+                        <Link to="/buildPC"style={{ color: "#ea1c00" }}>
                           Xây dựng cấu hình
-                        </a>
+                        </Link>
                       </span>
                     </li>
                     <li>

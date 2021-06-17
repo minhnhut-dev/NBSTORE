@@ -9,9 +9,12 @@ import Register from "./Pages/Register/Register";
 import NoMatch from "./Pages/NoMatch/NoMatch";
 import Home from "./Pages/Home/Home";
 import Cart from "./Pages/Cart/Cart";
-import Order from "./Pages/Account/Order/Order";
+import Order from "./Pages/Account/allOrder/Order";
 import Ordered from "./Pages/Account/Ordered/Ordered";
 import InformationOrder from "./Pages/Account/InformationOrder/InformationOrder";
+import PaymentMoMo from "./Pages/PaymentMoMo/PaymentMOMO";
+import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword.1";
+import BuildConfig from "./Pages/BuildConfig/BuildConfig";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -92,8 +95,17 @@ function App() {
           <Route path="/account-ordered">
             <Ordered />
           </Route>
-          <Route path="/account/order/">
+          <Route path="/account/order/:id">
             <InformationOrder />
+          </Route>
+          <Route path="/resultOrder/">
+            <PaymentMoMo />
+          </Route>
+          <Route path="/acount/resetPassword">
+            <ResetPassword />
+          </Route>
+          <Route path="/buildPC">
+            <BuildConfig />
           </Route>
           <Route path="*">
             <NoMatch />
