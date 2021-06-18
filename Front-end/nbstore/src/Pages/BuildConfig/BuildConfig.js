@@ -8,23 +8,32 @@ import Modal from "react-bootstrap/Modal";
 import { InputGroup } from "react-bootstrap";
 import { FormControl } from "react-bootstrap";
 import axios from "axios";
+import NumberFormat from "react-number-format";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function BuildConfig() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [accessories, setAccessories] = useState([]);
-
+  const [idConfig, setIdConfig] = useState("");
+  const [listAccessories, setListAccessories] = useState([]);
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/getAccessories")
-    .then((response) => {
+    axios.get("http://127.0.0.1:8000/api/getAccessories").then((response) => {
       setAccessories(response.data);
     });
   }, []);
 
-  const handleShowAccessories= (data) => {
-      console.log("handle accessories: ",data);
-      setShow(true);
-  }
+  const handleShowAccessories = (data) => {
+    setIdConfig(data.id);
+    axios
+      .get(`http://127.0.0.1:8000/api/getAccessoriesByTypeProductId/${data.id}`)
+      .then((res) => {
+        setListAccessories(res.data);
+      });
+    setShow(true);
+  };
+  const LinkImage = "http://127.0.0.1:8000/images/";
+
   return (
     <>
       <Header />
@@ -72,12 +81,14 @@ function BuildConfig() {
               <div className="build-pc-body">
                 {accessories.map((item, index) => (
                   <div className="product-type-item">
-                    <div className="left-content">{index++}. {item.TenLoai}</div>
+                    <div className="left-content">
+                      {index}. {item.TenLoai}
+                    </div>
                     <div className="right-content">
                       <Button
                         variant="danger"
                         className="choose-product"
-                        onClick={()=> handleShowAccessories(item)}
+                        onClick={() => handleShowAccessories(item)}
                       >
                         <i className="fas fa-plus"></i>
                         {item.TenLoai}
@@ -110,6 +121,7 @@ function BuildConfig() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        id={`CH${idConfig}`}
       >
         <Modal.Header>
           <Modal.Title as="h2" className="header-title">
@@ -145,95 +157,33 @@ function BuildConfig() {
               </Button>
             </div>
             <div className="list-product-data">
-              <div className="modal-product-detail">
-                <div className="image">
-                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
+              {listAccessories.map((item, index) => (
+                <div className="modal-product-detail">
+                  <div className="image">
+                    <img src={LinkImage + item.AnhDaiDien} />
+                  </div>
+                  <div className="content">
+                    <Link to={`/ProductDetail/${item.id}`} target="_blank">
+                      <p className="name">{item.TenSanPham}</p>
+                      {/* <p className="price">{item.GiaKM}</p> */}
+                      <p className="productid">Mã sản phẩm: SP{item.id}</p>
+                      <NumberFormat
+                        value={item.GiaKM}
+                        displayType={"text"}
+                        thousandSeparator={true}
+                        suffix={" VNĐ"}
+                        renderText={(value, props) => (
+                          <p className="price" {...props}>{value}</p>
+                        )}
+                      />
+                    </Link>
+                    <Button className="add-to-build">Chọn</Button>
+                  </div>
                 </div>
-                <div className="content">
-                  <a
-                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
-                    target="_blank"
-                  >
-                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                    <p className="price">Giá: 19,500,000 đ</p>
-                    <p className="productid">Mã sản phẩm: SP1234</p>
-                  </a>
-                  <Button className="add-to-build">Chọn</Button>
-                </div>
-              </div>
-              <div className="modal-product-detail">
-                <div className="image">
-                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                </div>
-                <div className="content">
-                  <a
-                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
-                    target="_blank"
-                  >
-                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                    <p className="price">Giá: 19,500,000 đ</p>
-                    <p className="productid">Mã sản phẩm: SP1234</p>
-                  </a>
-                  <Button className="add-to-build">Chọn</Button>
-                </div>
-              </div>
-              <div className="modal-product-detail">
-                <div className="image">
-                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                </div>
-                <div className="content">
-                  <a
-                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
-                    target="_blank"
-                  >
-                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                    <p className="price">Giá: 19,500,000 đ</p>
-                    <p className="productid">Mã sản phẩm: SP1234</p>
-                  </a>
-                  <Button className="add-to-build">Chọn</Button>
-                </div>
-              </div>
-              <div className="modal-product-detail">
-                <div className="image">
-                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                </div>
-                <div className="content">
-                  <a
-                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
-                    target="_blank"
-                  >
-                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                    <p className="price">Giá: 19,500,000 đ</p>
-                    <p className="productid">Mã sản phẩm: SP1234</p>
-                  </a>
-                  <Button className="add-to-build">Chọn</Button>
-                </div>
-              </div>
-              <div className="modal-product-detail">
-                <div className="image">
-                  <img src="https://tinhocngoisao.cdn.vccloud.vn/wp-content/uploads/2021/06/MB_GG_WRX80-SU8-IPMI-365x365.jpg" />
-                </div>
-                <div className="content">
-                  <a
-                    href="https://tinhocngoisao.com/mainboard-gigabyte-wrx80-su8-ipmi"
-                    target="_blank"
-                  >
-                    <p className="name">Mainboard Gigabyte WRX80-SU8-IPMI</p>
-                    <p className="price">Giá: 19,500,000 đ</p>
-                    <p className="productid">Mã sản phẩm: SP1234</p>
-                  </a>
-                  <Button className="add-to-build">Chọn</Button>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Understood</Button> */}
-        </Modal.Footer>
       </Modal>
       <Footer />
     </>

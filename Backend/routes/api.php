@@ -53,3 +53,4 @@ Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
 // api build cấu hình
 
 Route::get('/getAccessories','SanPhamController@GetAccessories');
+Route::get('/getAccessoriesByTypeProductId/{id}', 'SanPhamController@getTypeProductById');

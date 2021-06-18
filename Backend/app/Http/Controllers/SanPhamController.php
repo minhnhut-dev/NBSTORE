@@ -281,5 +281,11 @@ class SanPhamController extends Controller
         // return response()->json($accessories,200);
     }
 
-
+    public function getTypeProductById($id)
+    {
+        $data=DB::select('SELECT san_phams.*
+        FROM loai_san_phams , san_phams
+        WHERE san_phams.loai_san_phams_id = loai_san_phams.id AND loai_san_phams.id= ?', [$id]);
+        return response()->json($data,200);
+    }
 }

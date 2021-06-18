@@ -19,7 +19,7 @@ export default function Header() {
     <>
       <div className="fix-xxx">
         <div className="gearvn-top-banner-block">
-          <Link >
+          <Link to="/">
             <div className="gearvn-top-banner oktr"></div>
           </Link>
         </div>
