@@ -13,8 +13,9 @@ import Order from "./Pages/Account/allOrder/Order";
 import Ordered from "./Pages/Account/Ordered/Ordered";
 import InformationOrder from "./Pages/Account/InformationOrder/InformationOrder";
 import PaymentMoMo from "./Pages/PaymentMoMo/PaymentMOMO";
-import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword.1";
 import BuildConfig from "./Pages/BuildConfig/BuildConfig";
+import SendMailResetPassword from "./Pages/Account/SendMailResetPassword/SendMailResetPassword";
+import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -102,10 +103,13 @@ function App() {
             <PaymentMoMo />
           </Route>
           <Route path="/acount/resetPassword">
-            <ResetPassword />
+            <SendMailResetPassword />
           </Route>
           <Route path="/buildPC">
             <BuildConfig />
+          </Route>
+          <Route path="/account/configPassword/:token">
+            <ResetPassword />
           </Route>
           <Route path="*">
             <NoMatch />

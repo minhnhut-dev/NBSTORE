@@ -443,28 +443,7 @@ function Cart(props) {
                       </div>
                       <div className="col-xl-12 col-md-12 cart-buttons inner-right inner-left">
                         <div className="buttons">
-                          {/* {optionPayment == 2 ? (
-                            <a href={payURL} target="_blank">
-                              <Button
-                                id="checkout"
-                                name="checkout"
-                                type="submit"
-                                onClick={handleOrder}
-                              >
-                                Thanh toán
-                              </Button>
-                            </a>
-                          ) : (
-                            <Button
-                              id="checkout"
-                              name="checkout"
-                              type="submit"
-                              onClick={handleOrder}
-                            >
-                              Thanh toán
-                            </Button>
-                         )
-                          } */}
+                          
                            <Button
                               id="checkout"
                               name="checkout"

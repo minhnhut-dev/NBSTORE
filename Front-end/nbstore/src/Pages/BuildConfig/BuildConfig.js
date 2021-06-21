@@ -17,6 +17,7 @@ function BuildConfig() {
   const [accessories, setAccessories] = useState([]);
   const [idConfig, setIdConfig] = useState("");
   const [listAccessories, setListAccessories] = useState([]);
+  // console.log(accessoriesItem);
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/api/getAccessories").then((response) => {
       setAccessories(response.data);
@@ -32,8 +33,13 @@ function BuildConfig() {
       });
     setShow(true);
   };
-  const LinkImage = "http://127.0.0.1:8000/images/";
 
+  const handAddAccessories =  (data) =>{
+      console.log(data);
+      setShow(false);
+  }
+
+  const LinkImage = "http://127.0.0.1:8000/images/";
   return (
     <>
       <Header />
@@ -80,6 +86,7 @@ function BuildConfig() {
               </div>
               <div className="build-pc-body">
                 {accessories.map((item, index) => (
+                  
                   <div className="product-type-item">
                     <div className="left-content">
                       {index}. {item.TenLoai}
@@ -93,6 +100,7 @@ function BuildConfig() {
                         <i className="fas fa-plus"></i>
                         {item.TenLoai}
                       </Button>
+                      
                     </div>
                   </div>
                 ))}
@@ -157,10 +165,10 @@ function BuildConfig() {
               </Button>
             </div>
             <div className="list-product-data">
-              {listAccessories.map((item, index) => (
+              {listAccessories.map((item) => (
                 <div className="modal-product-detail">
                   <div className="image">
-                    <img src={LinkImage + item.AnhDaiDien} />
+                    <img src={LinkImage + item.AnhDaiDien} alt="AnhDaiDien"/>
                   </div>
                   <div className="content">
                     <Link to={`/ProductDetail/${item.id}`} target="_blank">
@@ -177,7 +185,7 @@ function BuildConfig() {
                         )}
                       />
                     </Link>
-                    <Button className="add-to-build">Chọn</Button>
+                    <Button className="add-to-build" onClick={()=> handAddAccessories(item)}>Chọn</Button>
                   </div>
                 </div>
               ))}

@@ -43,7 +43,7 @@ Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user
 Route::get('user/reset-password/{token}', 'AuthController@resetPasswordUser')->name('user.reset-password');
 // client call api
 Route::post('user/reset-password-client/{token}', 'AuthController@resetPasswordUserClient');
-Route::get('user/forgot-password/{id}', 'AuthController@ForgotPassword');
+Route::post('user/forgot-password', 'AuthController@ForgotPassword');
 
 Route::put('/updateOrder/{id}', 'OrderController@updateOrderPaid');
 Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUserID');
