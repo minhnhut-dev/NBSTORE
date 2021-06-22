@@ -234,7 +234,7 @@ class SanPhamController extends Controller
     // api
     public function GetProductSeal()
     {
-        $Product= SanPham::OrderBy('giaKM','ASC')->get();
+        $Product= SanPham::OrderBy('giaKM','ASC')->limit(5)->get();
         return response()->json($Product,200);
         // $listProducts="[";
 
@@ -286,6 +286,12 @@ class SanPhamController extends Controller
         $data=DB::select('SELECT san_phams.*
         FROM loai_san_phams , san_phams
         WHERE san_phams.loai_san_phams_id = loai_san_phams.id AND loai_san_phams.id= ?', [$id]);
+        return response()->json($data,200);
+    }
+
+    public function GetAllProduct()
+    {
+        $data=SanPham::get();
         return response()->json($data,200);
     }
 }

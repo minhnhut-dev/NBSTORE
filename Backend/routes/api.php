@@ -54,3 +54,5 @@ Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
 
 Route::get('/getAccessories','SanPhamController@GetAccessories');
 Route::get('/getAccessoriesByTypeProductId/{id}', 'SanPhamController@getTypeProductById');
+// API tìm kiếm
+Route::get('/getAllProduct','SanPhamController@GetAllProduct');

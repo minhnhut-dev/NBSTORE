@@ -16,6 +16,7 @@
     "fotorama-react-wrapper": "^1.0.7",
     "react": "^16.14.0",
     "react-bootstrap": "^1.5.2",
+    "react-bootstrap-floating-label": "^1.6.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.3.2",
     "react-hook-form": "^7.6.10",

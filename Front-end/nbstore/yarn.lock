@@ -9746,6 +9746,13 @@
     "regenerator-runtime" "^0.13.7"
     "whatwg-fetch" "^3.4.1"
 
+"react-bootstrap-floating-label@^1.6.0":
+  "integrity" "sha512-UkNXeQ+ZfZfqgLDPERDS1DvHbtrM/QFh/82iTPXgdZkgseDUVB54PJ5LedyEHboqpG7TN3E9J7vb238qJWb+xA=="
+  "resolved" "https://registry.npmjs.org/react-bootstrap-floating-label/-/react-bootstrap-floating-label-1.6.0.tgz"
+  "version" "1.6.0"
+  dependencies:
+    "react-icons" "^4.2.0"
+
 "react-bootstrap@^1.5.2":
   "integrity" "sha512-mGKPY5+lLd7Vtkx2VFivoRkPT4xAHazuFfIhJLTEgHlDfIUSePn7qrmpZe5gXH9zvHV0RsBaQ9cLfXjxnZrOpA=="
   "resolved" "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-1.5.2.tgz"
@@ -9828,6 +9835,11 @@
   "integrity" "sha512-V39bRK1iK4N9TbQf3jR2oUu7OcgnZAe/WUar1otRR8OHgnGM41XJ7UDQX176/nyCjIcmkcArQdsYc9dPYPpQ9Q=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.6.10.tgz"
   "version" "7.6.10"
+
+"react-icons@^4.2.0":
+  "integrity" "sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.2.0.tgz"
+  "version" "4.2.0"
 
 "react-is@^16.3.2", "react-is@^16.6.0", "react-is@^16.7.0", "react-is@^16.8.0 || ^17.0.0", "react-is@^16.8.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="

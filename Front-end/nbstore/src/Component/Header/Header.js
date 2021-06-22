@@ -3,18 +3,30 @@ import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo-nbstore.png";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import axios from "axios";
+import NumberFormat from "react-number-format";
+
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
 export default function Header() {
+  const [display, setDisplay] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [search, setSearch] = useState("");
   const handleLogout = () => {
     window.location.reload();
     localStorage.removeItem("userLogin");
     localStorage.removeItem("accessToken");
   };
-
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/getAllProduct").then((response) => {
+      setOptions(response.data);
+    });
+  }, []);
+  const LinkImage = "http://127.0.0.1:8000/images/";
+   
   return (
     <>
       <div className="fix-xxx">
@@ -42,12 +54,16 @@ export default function Header() {
                         role="search"
                       >
                         <input
+                          value={search}
                           name="q"
                           type="text"
                           placeholder="Nhập mã hoặc tên sản phẩm....."
                           className="inputbox search-query"
+                          onChange={(e) =>setSearch(e.target.value)}
+                          onClick={()=>setDisplay(true)}
                           autoComplete="off"
                         />
+
                         <button
                           className="btn-search btn btn-link"
                           type="submit"
@@ -56,7 +72,30 @@ export default function Header() {
                             className="fa fa-search"
                             aria-hidden="true"
                           ></span>
-                        </button>
+                        </button> 
+                        {display && search &&
+                        <div className="smart-search-wrapper search-wrapper">
+                          {options.filter(({ TenSanPham }) => TenSanPham.toLowerCase().includes(search.toLowerCase()))
+                          .map((v, i) => (
+                            <div className="search-results" key={i}>
+                              <Link to={`/ProductDetail/${v.id}`} className="thumbs" onClick={() =>setDisplay(false)}>
+                                <img src={LinkImage + v.AnhDaiDien}  alt={v.TenSanPham}/>
+                              </Link>
+                              <Link to={`/ProductDetail/${v.id}`} onClick={() =>setDisplay(false)}>
+                               {v.TenSanPham}
+                                <NumberFormat
+                                value={v.GiaKM}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <span className="price-search" {...props}>{value}</span>
+                                )}
+                              />
+                              </Link>
+                            </div>
+                          ))}
+                        </div>}
                       </form>
                     </div>
                   </div>
@@ -152,7 +191,7 @@ export default function Header() {
                     <li>
                       <img src="//theme.hstatic.net/1000026716/1000440777/14/gNewsFavIco.png?v=19349" />
                       <span>
-                        <Link to="/buildPC"style={{ color: "#ea1c00" }}>
+                        <Link to="/buildPC" style={{ color: "#ea1c00" }}>
                           Xây dựng cấu hình
                         </Link>
                       </span>
