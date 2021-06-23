@@ -82,6 +82,7 @@ function Ordered() {
                                 <td {...props}>{value}</td>
                               )}
                             />
+                            <td>{item.TenTrangThai}</td>
                           </tr>
                         ))
                       )}

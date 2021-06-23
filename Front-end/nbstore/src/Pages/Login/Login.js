@@ -6,15 +6,14 @@ import { Link, Redirect } from "react-router-dom";
 import Footer from "../../Component/Footer/Footer";
 import Header from "../../Component/Header/Header";
 import "./Login.css";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState("");
-  const [process,setProcess] = useState(false);
-
+  const [process, setProcess] = useState(false);
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -24,18 +23,23 @@ function Login() {
     axios
       .post("http://127.0.0.1:8000/api/Login", data)
       .then((response) => {
-        console.log(response);
-        localStorage.setItem(
-          "userLogin",
-          JSON.stringify(response.data.data.user)
-        );
-        localStorage.setItem("accessToken", response.data.data.access_token);
-        setProcess(true);
-          setTimeout(()=>{
-            
+        console.log(response.data.data.user.active);
+        if (response.data.data.user.active === 1) {
+          localStorage.setItem(
+            "userLogin",
+            JSON.stringify(response.data.data.user)
+          );
+          localStorage.setItem("accessToken", response.data.data.access_token);
+          setProcess(true);
+          setTimeout(() => {
             setRedirect(true);
             window.location.reload();
-          },3000)
+          }, 3000);
+        } else {
+          const message =
+            "Tài khoản chưa được xác thực vui lòng liên hệ để xác thực !";
+          setError(message);
+        }
       })
       .catch((e) => {
         if (e.response && e.response.data) {
@@ -59,19 +63,18 @@ function Login() {
               {error}
             </Alert>
           )}
+      
 
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
               <h1 id="title-login">Đăng Nhập</h1>
             </span>
             <div id="login" className="userbox">
-            
               <div className="accounttype">
                 <h2 className="title"></h2>
               </div>
-            
+
               <form onSubmit={onSubmit}>
-              
                 <div className="input-group">
                   <span className="input-group-addon">
                     <i class="fas fa-user-tie"></i>
@@ -102,15 +105,12 @@ function Login() {
                   <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
                   </Button>
-                
                 </div>
-                {process ? <LinearProgress /> :""}
+                {process ? <LinearProgress /> : ""}
                 <div className="req_pass">
-                  <a href="#">Quên mật khẩu? </a>
+                  <Link to="/acount/resetPassword">Quên mật khẩu? </Link>
                   hoặc
-                  {/* <a href="#" className="linkRegister">
-                    Đăng ký
-                  </a> */}
+                  
                   <Link className="linkRegister" to="/Register">
                     Đăng ký
                   </Link>

@@ -48,9 +48,8 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
         $user->save();
-
         event(new Registered($user));
-        $result = $this->resetPasswordService->sendResetPasswordMail($user);
+        $result = $this->activationService->sendActivationMail($user);
 
         return response()->json(['message' => 'Tài khoản được tạo thành công', 'result' => $result], 200);
     }
@@ -84,30 +83,33 @@ class AuthController extends Controller
         }
     }
     public function resetPasswordUser($token)
-    {  
-        redirect('(Front-end)  host/route-reset-password/' . $token);
+    {
+       return redirect('http://localhost:3000/account/configPassword/' . $token);
          // rediect front end
     }
     public function resetPasswordUserClient(Request $request, $token)
     {
-        $password = $request->query->get('password');
+        $password = $request->password;
         if ($user = $this->resetPasswordService->resetPasswordUser($token, $password)) {
             return response()->json(['message' => 'success'],200);
         } else {
             return response()->json(['message' => 'unsuccess'],400);
         }
     }
-    public function ForgotPassword($id)
+    public function ForgotPassword(Request $request)
     {
-        $user = NguoiDung::find($id);
+        $user = NguoiDung::where('Email',$request->Email)->first();
 
-        if ($user) {
+        if ($user ){
 
-            event(new Registered($user));
+            event(new Registered($user ));
             $result = $this->resetPasswordService->sendResetPasswordMail($user);
-                return response()->json(['message' => 'success'],200);
+                return response()->json(['message' => 'Email khôi phục mật khẩu đã được gửi'],200);
         } else {
-            return response()->json(['message' => 'No user match'],400);
+            return response()->json(['message' => 'Không tìm thấy Email'],400);
         }
     }
+
+
+
 }

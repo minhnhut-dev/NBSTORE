@@ -11,7 +11,6 @@ export default function Banner() {
               <div className="cat-menu gearvn-cat-menu">
                 <nav id="megamenu-nav" className="megamenu-nav">
                   <ol
-                    className="megamenu-nav-primary responsive"
                     className="megamenu-nav-main"
                   >
                     <li className="cat-menu-item ">

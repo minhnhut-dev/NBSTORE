@@ -3,6 +3,10 @@ import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import { Link } from "react-router-dom";
 import "./TypeProduct.css";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 export default function TypeProduct() {
   return (
     <>
@@ -34,14 +38,31 @@ export default function TypeProduct() {
                     <div className="row">
                       <div className="col-sm-12 wrap-sort-by">
                         <div className="browse-tags pull-right">
-                          <span>Sắp xếp theo:</span>
-                          <span className="custom-dropdown custom-dropdown--white">
+                          {/* <span>Sắp xếp theo:</span> 
+                         <span className="custom-dropdown custom-dropdown--white">
                             <select className="sort-by custom-dropdown__select custom-dropdown__select--white">
                               <option>Sản phẩm nổi bật</option>
                               <option>Giá: Tăng dần</option>
                               <option>Sản phẩm nổi bật</option>
                             </select>
-                          </span>
+                          </span> */}
+                          <FormControl variant="outlined">
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Tùy chọn
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              label="Age"
+                            >
+                              <MenuItem value="">
+                                <em>Tùy chọn</em>
+                              </MenuItem>
+                              <MenuItem value={10}>Sắp xếp theo giá tăng dần</MenuItem>
+                              <MenuItem value={20}>Sắp xếp theo giá giảm dần</MenuItem>
+                              <MenuItem value={30}>Mới nhất</MenuItem>
+                            </Select>
+                          </FormControl>
                         </div>
                       </div>
                     </div>
@@ -109,7 +130,7 @@ export default function TypeProduct() {
                                 href="#"
                                 className="product-row-btnbuy pull-right"
                               >
-                                đặt hàng  
+                                đặt hàng
                               </a>
                             </div>
                           </div>
@@ -136,7 +157,7 @@ export default function TypeProduct() {
           </div>
         </section>
       </div>
-      
+
       <Footer />
     </>
   );

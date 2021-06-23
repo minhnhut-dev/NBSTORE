@@ -30,10 +30,10 @@ class ResetPasswordService
         $reset_password = $this->userResetPassword->getResetPasswordByToken($token);
         if ($reset_password === null) return null;
         $user = NguoiDung::find($reset_password->user_id);
+
         $user->password= Hash::make($password);
         $user->save();
         $this->userResetPassword->deleteResetPassword($token);
-
         return $user;
     }
 

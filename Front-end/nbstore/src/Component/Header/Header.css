@@ -548,4 +548,66 @@ a:hover{
     width: calc(100%/3);
     /* width: 367px; */
   }
-  
+  .smart-search-wrapper {
+    width: 510px;
+    left: 234px;
+    top: 93px;
+      position: fixed;
+    background: #fff;
+    border: 1px solid rgb(215, 215, 215);
+    border-top: none;
+    z-index: 9999;
+  }
+  .smart-search-wrapper .search-results>a.thumbs {
+    width: 80px;
+    display: inline-block;
+    padding: 0px;
+}
+.smart-search-wrapper .search-results>a {
+  width: calc(100% - 80px);
+  float: left;
+  color: #686767;
+  text-decoration: none;
+  line-height: 29px;
+  font-size: 13px;
+  font-family: sans-serif;
+  padding: 5px 80px 5px 5px;
+  position: relative;
+  height: 80px;
+  line-height: 20px;
+  padding-top: 20px;
+}
+.smart-search-wrapper .search-results>a.thumbs img {
+  position: absolute;
+  top: 0px;
+  width: 80px;
+  height: 80px;
+  left: 0px;
+}
+.smart-search-wrapper .search-results>a {
+  width: calc(100% - 80px);
+  float: left;
+  color: #686767;
+  text-decoration: none;
+  line-height: 29px;
+  font-size: 13px;
+  font-family: sans-serif;
+  padding: 5px 80px 5px 5px;
+  position: relative;
+  height: 80px;
+  line-height: 20px;
+  padding-top: 20px;
+}
+.smart-search-wrapper .search-results>a>span.price-search {
+  position: absolute;
+  right: 5px;
+  top: 30px;
+  color: #D42424;
+  font-size: 15px;
+}
+  @media screen and (min-width: 1300px) and (max-width: 1400px)
+{
+  .smart-search-wrapper {
+    left: 230px;
+}
+}

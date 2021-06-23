@@ -4,10 +4,10 @@ import Banner from "../../Component/Banner/Banner";
 import Body from "../../Component/Body/Body";
 import Footer from "../../Component/Footer/Footer";
 function Home(props) {
-  const {products,cartItems,loading}=props;
+  const {products,loading}=props;
   return (
     <>
-      <Header cartItems={cartItems} />
+      <Header />
       <Banner />
       <Body products={products} loading={loading}/>
       <Footer />
