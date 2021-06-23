@@ -234,7 +234,7 @@ class SanPhamController extends Controller
     // api
     public function GetProductSeal()
     {
-        $Product= SanPham::OrderBy('giaKM','ASC')->limit(5)->get();
+        $Product= SanPham::OrderBy('giaKM','ASC')->get();
         return response()->json($Product,200);
         // $listProducts="[";
 
