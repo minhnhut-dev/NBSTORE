@@ -31,24 +31,21 @@ function ProductDetail(props) {
   const LinkImage = "http://127.0.0.1:8000/images/";
   var elements = [];
   Product.forEach((element) => {
-      
-          const configs = element.CauHinh;
-          const ch = JSON.parse(configs);
-          for (const [key, value] of Object.entries(ch)) {
-            console.log(`${value.config_name}: ${value.content}`);
-            elements.push(
-              <tr className="row-info" style={{ height: "35px" }}>
-                <td className="name-Product">
-                  <span style={{ color: "black" }}>{`${value.config_name}`}</span>
-                </td>
-                <td className="info-Product">{`${value.content}`}</td>
-              </tr>
-            );
-          }
-        
-       
+    const configs = element.CauHinh;
+    const ch = JSON.parse(configs);
+    for (const [key, value] of Object.entries(ch)) {
+      console.log(`${value.config_name}: ${value.content}`);
+      elements.push(
+        <tr className="row-info" style={{ height: "35px" }}>
+          <td className="name-Product">
+            <span style={{ color: "black" }}>{`${value.config_name}`}</span>
+          </td>
+          <td className="info-Product">{`${value.content}`}</td>
+        </tr>
+      );
+    }
   });
-  
+
   return (
     <>
       <Header />
@@ -188,7 +185,7 @@ function ProductDetail(props) {
                             <Button
                               className="product_buy_btn btn-success theme_button addtocar"
                               type="button"
-                              onClick={() => onAdd(item) }
+                              onClick={() => onAdd(item)}
                             >
                               {" "}
                               Mua hàng
@@ -430,10 +427,7 @@ function ProductDetail(props) {
                       </h5>
                       <div className="scroll-table">
                         <table className="table table-bordered mce-item-table">
-                          <tbody>
-                            {elements.map((item) => item)}
-                            
-                          </tbody>
+                          <tbody>{elements.map((item) => item)}</tbody>
                         </table>
                       </div>
                       <h2>

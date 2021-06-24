@@ -56,3 +56,10 @@ Route::get('/getAccessories','SanPhamController@GetAccessories');
 Route::get('/getAccessoriesByTypeProductId/{id}', 'SanPhamController@getTypeProductById');
 // API tìm kiếm
 Route::get('/getAllProduct','SanPhamController@GetAllProduct');
+Route::get('/searchByKeyWord/{keyword}', 'SanPhamController@search');
+// API get all types products
+Route::get('/getAllTypeProduct','LoaiSanPhamController@getListTypeProduct');
+//api get Type product by Id
+Route::get('/getTypeProductById/{id}','LoaiSanPhamController@getTypeProductById');
+// get Product by Type product Id
+Route::get('/getProductByTypeProductId/{id}','SanPhamController@getProductByTypeProductId');

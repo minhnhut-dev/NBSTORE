@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Badge } from "react-bootstrap";
 import logo from "../../assets/logo-nbstore.png";
-import { Link } from "react-router-dom";
+import { Link,Redirect,useLocation } from "react-router-dom";
 import "./Header.css";
 import axios from "axios";
 import NumberFormat from "react-number-format";
@@ -15,18 +15,32 @@ export default function Header() {
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
+  const [redirect, setRedirect]=useState(false);
   const handleLogout = () => {
     window.location.reload();
     localStorage.removeItem("userLogin");
     localStorage.removeItem("accessToken");
   };
+  const handleSearch = (e) =>{
+    e.preventDefault();
+      setRedirect(true);
+  } 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  var query = useQuery();
+  var name = query.get("kq");
+  console.log("result:",name);
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/api/getAllProduct").then((response) => {
       setOptions(response.data);
     });
   }, []);
   const LinkImage = "http://127.0.0.1:8000/images/";
-   
+  if(redirect)
+  {
+    return <Redirect to={`/search?kq=${search}`} />
+  }
   return (
     <>
       <div className="fix-xxx">
@@ -48,10 +62,11 @@ export default function Header() {
                 <div className=" pd5 fl1 ">
                   <div id="search">
                     <div className="search">
-                      <form
+                      <form 
                         id="searchbox"
                         className="popup-content ultimate-search"
                         role="search"
+                        onSubmit={handleSearch}
                       >
                         <input
                           value={search}
@@ -67,6 +82,7 @@ export default function Header() {
                         <button
                           className="btn-search btn btn-link"
                           type="submit"
+                          // onClick={handleSearch}
                         >
                           <span
                             className="fa fa-search"

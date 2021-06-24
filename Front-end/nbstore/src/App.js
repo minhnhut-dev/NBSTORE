@@ -16,6 +16,7 @@ import PaymentMoMo from "./Pages/PaymentMoMo/PaymentMOMO";
 import BuildConfig from "./Pages/BuildConfig/BuildConfig";
 import SendMailResetPassword from "./Pages/Account/SendMailResetPassword/SendMailResetPassword";
 import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword";
+import Search from "./Pages/Search/Search";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -84,7 +85,7 @@ function App() {
           <Route path="/ProductDetail/:id">
             <ProductDetail onAdd={onAdd} />
           </Route>
-          <Route path="/collections/">
+          <Route path="/collections/:id">
             <TypeProduct />
           </Route>
           <Route path="/cart">
@@ -110,6 +111,9 @@ function App() {
           </Route>
           <Route path="/account/configPassword/:token">
             <ResetPassword />
+          </Route>
+          <Route path="/search">
+            <Search />
           </Route>
           <Route path="*">
             <NoMatch />
