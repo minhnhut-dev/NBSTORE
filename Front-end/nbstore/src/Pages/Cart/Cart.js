@@ -9,6 +9,7 @@ import axios from "axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import CryptoJS from "crypto-js";
+import Paypal from "../../Component/Paypal/Paypal";
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
@@ -28,6 +29,7 @@ function Cart(props) {
   const [errorShipping, setErrorShipping] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
+  const [paypal,setPayPal]=useState(false);
   useEffect(() => {
     axios.get("/city").then((response) => {
       setCity(response.data.LtsItem);
@@ -48,7 +50,7 @@ function Cart(props) {
       line_items: newArr,
     };
 
-    if (!optionPayment) {
+    if (!optionPayment && !optionShipping) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
@@ -83,7 +85,7 @@ function Cart(props) {
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
         });
     } 
-    else {
+    else if(optionPayment ==2) {
       var dataMoMo = {
         accessKey: accessKey,
         partnerCode: partnerCode,
@@ -107,6 +109,17 @@ function Cart(props) {
         localStorage.removeItem("cartItems");
         setRedirect(true);
       });
+    }
+    else if(optionPayment == 3 &&  optionShipping)
+    {
+      axios.post("http://127.0.0.1:8000/api/order",data)
+      .then((response)=>{
+        console.log(response.data.order);
+        localStorage.setItem("Order", JSON.stringify(response.data.order));
+      })
+        setPayPal(true);
+        localStorage.removeItem("cartItems");
+
     }
   };
   const handleClose = (event, reason) => {
@@ -148,7 +161,11 @@ function Cart(props) {
       randomId()
     );
   };
-
+  const Moneyconversion=(totalPrice)=>{
+      var dola=totalPrice/23000;
+      return dola.toFixed(2).toString(); 
+  }
+  console.log((Moneyconversion(totalPrice)));
   const apiEndPoint = "/transactionProcessor";
   var partnerCode = "MOMO6KRQ20210610";
   var accessKey = "MYc8b7Wo8858OGUg";
@@ -407,8 +424,29 @@ function Cart(props) {
                                   marginLeft: "15px",
                                 }}
                               >
-                                <i class="cps-zalopay"></i>
+                                <i className="cps-zalopay"></i>
                                 <span> Cổng thanh toán MOMO</span>
+                              </label>
+                            </div>
+                            <div id="paypal">
+                              <input
+                                name="payment_paypal"
+                                type="radio"
+                                name="payment"
+                                value="3"
+                                onChange={(e) =>
+                                  setOptionPayment(e.target.value)
+                                }
+                              />
+                              <label
+                                style={{
+                                  display: "inline-block",
+                                  lineHeight: "20px",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                <i className="fab fa-cc-paypal"></i>
+                                <span> Paypal</span>
                               </label>
                             </div>
                           </div>
@@ -439,9 +477,11 @@ function Cart(props) {
                               </label>
                             </div>
                           </div>
+                          {paypal ? <Paypal Moneyconversion={Moneyconversion(totalPrice)} />:""}
                         </div>
                       </div>
                       <div className="col-xl-12 col-md-12 cart-buttons inner-right inner-left">
+                        
                         <div className="buttons">
                           
                            <Button

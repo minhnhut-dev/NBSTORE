@@ -1,0 +1,88 @@
+.Heading {
+    font-size:19px;
+    font-weight:300;
+    display: flex;
+    align-items: center;
+}
+.status{
+    font-weight: bolder;
+}
+.status i {
+    margin: 0 5px;
+}
+.split{
+    margin: 0 5px;
+}
+.created-date {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.totalPrice{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.information-User{
+    margin:10px 0 20px;
+    display: flex;
+}
+.address-User> div:first-child {
+    margin-left: 0px;
+}
+
+.address-User .title {
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 0px 0px 15px;
+    color: rgb(36, 36, 36);
+}
+.address-User .content {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(239, 239, 239);
+    padding: 10px;
+    border-radius: 4px;
+    height: 100%;
+}
+.address-User .name {
+    text-transform: uppercase;
+}
+.information-User .name {
+    color: rgb(36, 36, 36);
+    font-weight: bold;
+}
+.information-User p{
+   margin: 5px 0px 0px;
+}
+.information-User >div{
+    width: 33.3333%;
+    margin: 0px 5px;
+}
+
+.view-list-order{
+    margin-bottom: 30px;
+    margin-top: 20px;
+    display: inline-block;
+    border: 1px solid transparent;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.view-list-order .backOrder{
+    margin-left: 5px;
+}
+.view-tracking-detail{
+    margin-bottom: 30px;
+    background: rgb(253, 216, 53);
+    border-color: rgb(253, 216, 53);
+    color: rgb(74, 74, 74);
+    margin-top: 20px;
+    padding: 9px 12px;
+    width: 225px;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    font-weight: bolder;
+}

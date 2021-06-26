@@ -27,6 +27,7 @@ function ProductDetail(props) {
       .then((res) => {
         SetSelectedImage(res.data);
       });
+      
   }, []);
   const LinkImage = "http://127.0.0.1:8000/images/";
   var elements = [];

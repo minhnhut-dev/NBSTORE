@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../Component/Footer/Footer";
 import Header from "../../Component/Header/Header";
-import {
-  BrowserRouter as Router,
-  Link,
-  useLocation
-} from "react-router-dom";
+import "./PaymentMoMo.css";
+import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
 import axios from "axios";
+
 function PaymentMoMo() {
+  const [order,setOder]=useState([]);
+
   const orderInfo = JSON.parse(localStorage.getItem("Order") || "[]");
+
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
@@ -16,39 +17,103 @@ function PaymentMoMo() {
   //localMessage
   //Thành công
   //Đơn hàng đã bị huỷ bỏ
-
+  const data = {
+    trang_thai_don_hangs_id: 2,
+  }
   var query = useQuery();
   var name = query.get("localMessage");
-  // if(name=="Thành công")
-  // {
-  //     localStorage.removeItem("Order");
-  // }
-  // else
-  // {
-  //   localStorage.removeItem("Order");
-  // }
+  var message = query.get("message");
+  if (name == "Thành công") {
+    // localStorage.removeItem("Order");
+   
+     
+          axios.put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`,data)
+            .then((res) => {
+              console.log(res.data);
+              localStorage.removeItem("Order");
+            })
+        
+  } else if (message == 1) {
+    axios.put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`,data)
+    .then((res) => {
+      console.log(res.data);
+      // localStorage.removeItem("Order");
+    })
+    name="Đơn hàng thành công";
+  } else if (message == 2) {
+    name="Đơn hàng không thành công";
+  } else {
+    // localStorage.removeItem("Order");
+    // console.log("Thông tin đơn hàng", orderInfo);
+    name="Đơn hàng không thành công";
+  }
+
+  
   useEffect(() => {
-    const data = {
-      trang_thai_don_hangs_id: 2,
-    }
-    if (name == "Thành công") {
-      axios.put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`,data)
-        .then((res) => {
-          console.log(res.data);
-          localStorage.removeItem("Order");
-        })
-    }
-    else {
-      localStorage.removeItem("Order");
-    }
-  }, []);
+      axios.get(`http://127.0.0.1:8000/api/getInformationOrderById/${orderInfo.id}`)
+      .then((res)=>{
+        setOder(res.data);
+      })
+  },[])
+  console.log("Đơn hàng của bạn là :",order)
   return (
     <>
       <Header />
       <div className="noindex">
-        <div className="clearfix" >
-          <h1 className="title-register" >{name} </h1>
+        {order.map((item, index)=>(
+          <div className="container" key={index}>
+          <div className="order-Detail">
+            <div className="Heading">
+              <span>Chi tiết đơn hàng #HD{item.id} </span>
+              <span className="split">-</span>
+              <span className="status">
+                <i className="fal fa-check-circle"></i>
+                {name}
+              </span>
+            </div>
+            <div className="totalPrice">Tổng giá: {item.Tongtien} VNĐ</div>
+            <div className="created-date">Ngày đặt hàng: {item.ThoiGianMua}</div>
+
+            <div className="information-User">
+              <div className="address-User">
+                <div className="title">Địa chỉ người nhận</div>
+                <div className="content">
+                  <p className="name">{item.TenNguoidung}</p>
+                  <p className="address">
+                    <span>Địa chỉ:</span>
+                   {item.DiaChi}
+                  </p>
+                  <p className="phone">
+                    <span>Số điện thoại: </span>
+                    {item.SDT}
+                  </p>
+                </div>
+              </div>
+              <div className="address-User">
+                <div className="title">Hình thức vận chuyển</div>
+                <div className="content">
+                  <p className="name">{item.TenHinhThuc}</p>
+
+                  <p className="phone">
+                    <span>Phí vận chuyển: 0đ</span>
+                  </p>
+                </div>
+              </div>
+              <div className="address-User">
+                <div className="title">Hình thức thanh toán</div>
+                <div className="content">
+                  <p className="name">{item.TenThanhToan}</p>
+                </div>
+              </div>
+            </div>
+            <Link to="/account-order" className="view-list-order">
+               <i className="far fa-arrow-left"></i>
+                    <span className="backOrder">Quay lại đơn hàng của tôi</span>
+            </Link>
+            <Link to={`/account/order/${orderInfo.id}`} className="view-tracking-detail">Xem đơn hàng</Link>
+          </div>
         </div>
+        ))}
       </div>
       <br />
       <br />

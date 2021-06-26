@@ -16,6 +16,7 @@ export default function Search() {
       .then((response) =>{
         setResult(response.data);
       })
+      // document.title=`${name}-Kết quả tìm kiếm- NBSTORE uy tín số 1`;
   },[])
   const LinkImage = "http://127.0.0.1:8000/images/";
 
@@ -62,7 +63,7 @@ export default function Search() {
                               <Link
                                 to={`/ProductDetail/${v.id}`}
                                 className="product-row-btnbuy pull-right"
-                              >
+                              > 
                                 đặt hàng
                               </Link>
                             </div>
@@ -84,9 +85,7 @@ export default function Search() {
                                 )}
                               />
                               <br />
-                              {/* <span className="product-row-sale">
-                                17,290,000₫
-                              </span> */}
+                             
                               <NumberFormat
                                 value={v.GiaKM}
                                 displayType={"text"}

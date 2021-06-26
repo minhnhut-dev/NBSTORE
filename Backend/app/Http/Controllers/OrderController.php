@@ -207,9 +207,9 @@ class OrderController extends Controller
             INNER JOIN `hinh_thuc_thanh_toans` ON `don_hangs`.hinh_thuc_thanh_toans_id=`hinh_thuc_thanh_toans`.id
             INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
             WHERE don_hangs.id=' . $id . ' LIMIT 1');
-       
+
         if (sizeof($orders) > 0) {
-            
+
             $order = $orders[0];
             $disabled=$order->trang_thai_don_hangs_id==3?'disabled':'';
             return view('pages.cap-nhat.xem-don-hang', compact('listOrder', 'order','disabled'));
@@ -269,6 +269,15 @@ class OrderController extends Controller
         $data=DB::select('SELECT don_hangs.ThoiGianMua,don_hangs.trang_thai_don_hangs_id,san_phams.TenSanPham,chi_tiet_don_hangs.DonGia,chi_tiet_don_hangs.SoLuong,don_hangs.Tongtien
         FROM don_hangs, chi_tiet_don_hangs,san_phams
         WHERE don_hangs.id=chi_tiet_don_hangs.don_hangs_id AND chi_tiet_don_hangs.san_phams_id=san_phams.id AND don_hangs.id= ?', [$id]);
+        return response()->json($data,200);
+    }
+    public function getInformationOrderById($id)
+    {
+        $data=DB::select('SELECT don_hangs.* ,nguoi_dungs.TenNguoidung,nguoi_dungs.DiaChi,hinh_thuc_thanh_toans.TenThanhToan,hinh_thuc_giao_hangs.TenHinhThuc,nguoi_dungs.SDT
+        FROM don_hangs, nguoi_dungs,hinh_thuc_thanh_toans,hinh_thuc_giao_hangs
+        WHERE don_hangs.id=? AND don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id
+         AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND nguoi_dungs.id=don_hangs.nguoi_dungs_id
+        ', [$id]);
         return response()->json($data,200);
     }
     /**

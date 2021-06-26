@@ -192,3 +192,8 @@ i.cps-zalopay {
     margin: 5px 0;
     background-position: 0 -30px;
 }
+
+#paypal input {
+    width: auto;
+    height: auto;
+}

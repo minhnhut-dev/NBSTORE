@@ -38,6 +38,7 @@ Route::post('/Login','AuthController@Login');
 //order api
 Route::post('/order', 'OrderController@create');
 Route::post('/orderAPI', 'OrderController@createAPI');
+Route::get('/getInformationOrderById/{id}','OrderController@getInformationOrderById');
 // mail xác thực
 Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user.activate');
 Route::get('user/reset-password/{token}', 'AuthController@resetPasswordUser')->name('user.reset-password');
@@ -63,3 +64,5 @@ Route::get('/getAllTypeProduct','LoaiSanPhamController@getListTypeProduct');
 Route::get('/getTypeProductById/{id}','LoaiSanPhamController@getTypeProductById');
 // get Product by Type product Id
 Route::get('/getProductByTypeProductId/{id}','SanPhamController@getProductByTypeProductId');
+//test
+Route::get('/test/{id}','SanPhamController@test');

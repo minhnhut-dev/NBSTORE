@@ -25,12 +25,7 @@ export default function Header() {
     e.preventDefault();
       setRedirect(true);
   } 
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-  var query = useQuery();
-  var name = query.get("kq");
-  console.log("result:",name);
+
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/api/getAllProduct").then((response) => {
       setOptions(response.data);
