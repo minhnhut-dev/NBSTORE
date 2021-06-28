@@ -63,6 +63,7 @@ class OrderController extends Controller
         $rule=[
             "hinh_thuc_giao_hangs_id"=>"required",
             'hinh_thuc_thanh_toans_id'=>"required",
+            "nguoi_dungs_id"=>"required",
         ];
         $customMessage=[
             // "Email.unique"=>"Email đã tồn tại !",
@@ -70,6 +71,7 @@ class OrderController extends Controller
             // "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
             "hinh_thuc_giao_hangs_id.required"=>"Hình thức giao hàng bắt buộc !",
             "hinh_thuc_thanh_toans_id.required"=>"Hình thức thanh toán bắt buộc !",
+            "nguoi_dungs_id.required"=>"Bạn chưa đăng nhập vui lòng đăng nhập !",
         ];
         $validator=Validator::make($request->all(),$rule,$customMessage);
         if($validator->fails())

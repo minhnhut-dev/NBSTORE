@@ -27,11 +27,19 @@ function Cart(props) {
   const [error, setError] = useState();
   const [errorPayment, setErrorPayment] = useState([]);
   const [errorShipping, setErrorShipping] = useState([]);
+  const [errorLogin, setErrorLogin] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
   const [paypal,setPayPal]=useState(false);
   useEffect(() => {
-    axios.get("/city").then((response) => {
+    axios.get(`/city`,{
+      params: {},
+      headers: {
+          'Content-Type': 'application/json',
+      }
+    })
+    
+    .then((response) => {
       setCity(response.data.LtsItem);
     });
   }, []);
@@ -50,7 +58,7 @@ function Cart(props) {
       line_items: newArr,
     };
 
-    if (!optionPayment && !optionShipping) {
+    if (!optionPayment || !optionShipping || userLogin.id == null) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
@@ -61,10 +69,11 @@ function Cart(props) {
           }, 4000);
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err.response.data);
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+          setErrorLogin(err.response.data.nguoi_dungs_id);
         });
     } else if (optionPayment == 1) {
       axios
@@ -83,9 +92,10 @@ function Cart(props) {
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+          setErrorLogin(err.response.data.nguoi_dungs_id);
         });
     } 
-    else if(optionPayment ==2) {
+    else if(optionPayment ==2 ) {
       var dataMoMo = {
         accessKey: accessKey,
         partnerCode: partnerCode,
@@ -104,13 +114,20 @@ function Cart(props) {
         console.log(response.data.order);
         localStorage.setItem("Order", JSON.stringify(response.data.order));
       })
+      .catch((err) => {
+        console.log(err.response);
+        setError(err.response.data.error);
+        setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
+        setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+        setErrorLogin(err.response.data.nguoi_dungs_id);
+      });
         axios.post(apiEndPoint, dataMoMo).then((response) => {
         setPayURL(response.data.payUrl);
         localStorage.removeItem("cartItems");
         setRedirect(true);
       });
     }
-    else if(optionPayment == 3 &&  optionShipping)
+    else if(optionPayment == 3 )
     {
       axios.post("http://127.0.0.1:8000/api/order",data)
       .then((response)=>{
@@ -226,6 +243,13 @@ function Cart(props) {
                   {item}
                 </Alert>
               ))}
+               {errorLogin &&
+              errorLogin.map((item) => (
+                <Alert severity="error" style={{ textAlign: "center" }}>
+                  {item}
+                </Alert>
+              ))}
+
             {cartItems.length === 0 ? (
               <div className="row">
                 <div id="layout-page-first" className="col-md-12">

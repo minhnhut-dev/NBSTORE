@@ -2,7 +2,8 @@
   "name": "nbstore",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://test-payment.momo.vn/gw_payment",
+  "proxy":
+    "https://test-payment.momo.vn/gw_payment",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
