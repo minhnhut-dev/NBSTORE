@@ -74,7 +74,7 @@ export default function ProductBestSellingByBrand(props) {
                       />
                     </span>
                   </div>
-                  <div className="new-product-percent">-10%</div>
+                  <div className="new-product-percent">{item.SoLuong ==0 ?"Hết hàng" :"Còn hàng"}</div>
                 </div>
               </div>
             </div>

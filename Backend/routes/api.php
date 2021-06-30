@@ -50,7 +50,7 @@ Route::put('/updateOrder/{id}', 'OrderController@updateOrderPaid');
 Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUserID');
 Route::get('/getOrderPaidByUserID/{id}', 'OrderController@GetOrderPaidByUserID');
 Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
-
+Route::get('/getOrderCompleteByUserId/{id}','OrderController@getOrderCompleteByUserId');
 // api build cấu hình
 
 Route::get('/getAccessories','SanPhamController@GetAccessories');
@@ -66,3 +66,7 @@ Route::get('/getTypeProductById/{id}','LoaiSanPhamController@getTypeProductById'
 Route::get('/getProductByTypeProductId/{id}','SanPhamController@getProductByTypeProductId');
 //test
 Route::get('/test/{id}','SanPhamController@test');
+
+// User
+Route::post('/updateUser/{id}','CustomerController@edit');
+Route::post('/updatePassword/{id}','CustomerController@editPassword');

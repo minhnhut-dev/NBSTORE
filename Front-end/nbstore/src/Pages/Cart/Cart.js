@@ -24,24 +24,25 @@ function Cart(props) {
   const [optionPayment, setOptionPayment] = useState();
   const [optionShipping, setOptionShipping] = useState();
   const [open, setOpen] = React.useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const [errorPayment, setErrorPayment] = useState([]);
   const [errorShipping, setErrorShipping] = useState([]);
   const [errorLogin, setErrorLogin] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
-  const [paypal,setPayPal]=useState(false);
+  const [paypal, setPayPal] = useState(false);
   useEffect(() => {
-    axios.get(`/city`,{
-      params: {},
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    })
-    
-    .then((response) => {
-      setCity(response.data.LtsItem);
-    });
+    axios
+      .get(`/city`, {
+        params: {},
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      .then((response) => {
+        setCity(response.data.LtsItem);
+      });
   }, []);
 
   const newArr = cartItems.map((item) => {
@@ -66,7 +67,7 @@ function Cart(props) {
           setOpen(true);
           setTimeout(() => {
             setRedirect(true);
-          }, 4000);
+          }, 2000);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -85,17 +86,16 @@ function Cart(props) {
             setRedirect(true);
             localStorage.removeItem("cartItems");
             window.location.reload();
-          }, 4000);
+          }, 2000);
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err.response.data);
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
           setErrorLogin(err.response.data.nguoi_dungs_id);
         });
-    } 
-    else if(optionPayment ==2 ) {
+    } else if (optionPayment == 2) {
       var dataMoMo = {
         accessKey: accessKey,
         partnerCode: partnerCode,
@@ -109,34 +109,24 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-      axios.post("http://127.0.0.1:8000/api/order",data)
-      .then((response)=>{
+      axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
         console.log(response.data.order);
         localStorage.setItem("Order", JSON.stringify(response.data.order));
-      })
-      .catch((err) => {
-        console.log(err.response);
-        setError(err.response.data.error);
-        setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
-        setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
-        setErrorLogin(err.response.data.nguoi_dungs_id);
       });
-        axios.post(apiEndPoint, dataMoMo).then((response) => {
+
+      axios.post(apiEndPoint, dataMoMo)
+      .then((response) => {
         setPayURL(response.data.payUrl);
         localStorage.removeItem("cartItems");
         setRedirect(true);
       });
-    }
-    else if(optionPayment == 3 )
-    {
-      axios.post("http://127.0.0.1:8000/api/order",data)
-      .then((response)=>{
+    } else if (optionPayment == 3) {
+      axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
         console.log(response.data.order);
         localStorage.setItem("Order", JSON.stringify(response.data.order));
-      })
-        setPayPal(true);
-        localStorage.removeItem("cartItems");
-
+      });
+      setPayPal(true);
+      localStorage.removeItem("cartItems");
     }
   };
   const handleClose = (event, reason) => {
@@ -147,13 +137,14 @@ function Cart(props) {
     setOpen(false);
   };
   //Thanh toán tiền mặc
-  if (redirect && optionPayment==2) {
-    return window.open(payURL);
+  if (redirect && optionPayment == 2) {
+    // return window.open(payURL);
+    // return window.location.assign(payURL);
+   return window.location.href = payURL;
 
-  }
-  else if(redirect&& optionPayment==1)
-  {
-    return <Redirect to="/" />
+
+  } else if (redirect && optionPayment == 1) {
+    return <Redirect to="/" />;
   }
 
   // Thanh toán MOMO
@@ -178,11 +169,10 @@ function Cart(props) {
       randomId()
     );
   };
-  const Moneyconversion=(totalPrice)=>{
-      var dola=totalPrice/23000;
-      return dola.toFixed(2).toString(); 
-  }
-  console.log((Moneyconversion(totalPrice)));
+  const Moneyconversion = (totalPrice) => {
+    var dola = totalPrice / 23000;
+    return dola.toFixed(2).toString();
+  };
   const apiEndPoint = "/transactionProcessor";
   var partnerCode = "MOMO6KRQ20210610";
   var accessKey = "MYc8b7Wo8858OGUg";
@@ -243,7 +233,7 @@ function Cart(props) {
                   {item}
                 </Alert>
               ))}
-               {errorLogin &&
+            {errorLogin &&
               errorLogin.map((item) => (
                 <Alert severity="error" style={{ textAlign: "center" }}>
                   {item}
@@ -294,6 +284,7 @@ function Cart(props) {
                                     <img
                                       src={LinkImage + item.AnhDaiDien}
                                       style={{ width: "100px" }}
+                                      alt={item.AnhDaiDien}
                                     />
                                   </Link>
                                 </div>
@@ -311,19 +302,21 @@ function Cart(props) {
                                   justifyContent: "space-evenly",
                                 }}
                               >
-                                <button
-                                  onClick={() => onAdd(item)}
-                                  className="add"
-                                >
-                                  +
-                                </button>
+                                
 
-                                <span className="cart-qty">{item.qty}</span>
                                 <button
                                   onClick={() => onRemove(item)}
                                   className="remove"
                                 >
                                   -
+                                </button>
+                                <span className="cart-qty">{item.qty}</span>
+
+                                <button
+                                  onClick={() => onAdd(item)}
+                                  className="add"
+                                >
+                                  +
                                 </button>
                               </th>
                               <th className="price">
@@ -501,21 +494,25 @@ function Cart(props) {
                               </label>
                             </div>
                           </div>
-                          {paypal ? <Paypal Moneyconversion={Moneyconversion(totalPrice)} />:""}
+                          {paypal ? (
+                            <Paypal
+                              Moneyconversion={Moneyconversion(totalPrice)}
+                            />
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                       <div className="col-xl-12 col-md-12 cart-buttons inner-right inner-left">
-                        
                         <div className="buttons">
-                          
-                           <Button
-                              id="checkout"
-                              name="checkout"
-                              type="submit"
-                              onClick={handleOrder}
-                            >
-                              Thanh toán
-                            </Button>
+                          <Button
+                            id="checkout"
+                            name="checkout"
+                            type="submit"
+                            onClick={handleOrder}
+                          >
+                            Thanh toán
+                          </Button>
                           <Snackbar
                             open={open}
                             autoHideDuration={6000}

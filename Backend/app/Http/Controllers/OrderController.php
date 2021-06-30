@@ -266,6 +266,14 @@ class OrderController extends Controller
         WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=2 AND don_hangs.nguoi_dungs_id=?', [$id]);
         return response()->json($data);
     }
+    public function getOrderCompleteByUserId($id)
+    {
+        $data=DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
+        FROM don_hangs , hinh_thuc_thanh_toans,hinh_thuc_giao_hangs, trang_thai_don_hangs
+        WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=3 AND don_hangs.nguoi_dungs_id=?', [$id]);
+    return response()->json($data,200);
+}
+
     public function GetOrderDetails($id)
     {
         $data=DB::select('SELECT don_hangs.ThoiGianMua,don_hangs.trang_thai_don_hangs_id,san_phams.TenSanPham,chi_tiet_don_hangs.DonGia,chi_tiet_don_hangs.SoLuong,don_hangs.Tongtien

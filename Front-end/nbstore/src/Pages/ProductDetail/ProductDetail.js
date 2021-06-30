@@ -182,16 +182,17 @@ function ProductDetail(props) {
                         </div>
                         <div className="clearfix"></div>
                         <div className="form-group">
-                          <Link to="/cart">
+                          {item.SoLuong == 0 ? <p style={{color:"red",fontSize:"24px"}}>Sản phẩm tạm hết hàng</p>:<Link to="/cart">
                             <Button
+                            
                               className="product_buy_btn btn-success theme_button addtocar"
                               type="button"
                               onClick={() => onAdd(item)}
                             >
-                              {" "}
                               Mua hàng
                             </Button>
-                          </Link>
+                          </Link>}
+                          
                         </div>
                       </form>
                     </div>

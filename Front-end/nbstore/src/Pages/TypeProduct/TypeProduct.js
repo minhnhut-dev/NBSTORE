@@ -3,15 +3,15 @@ import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import { Link, useParams } from "react-router-dom";
 import "./TypeProduct.css";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import axios from "axios";
+import { Form } from "react-bootstrap";
+import NumberFormat from "react-number-format";
+
 export default function TypeProduct() {
   let { id } = useParams();
   const [name, setName] = useState("");
   const [product, setProduct] = useState([]);
+  const [sort, setSort] = useState("");
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/getTypeProductById/${id}`)
@@ -27,7 +27,24 @@ export default function TypeProduct() {
         setProduct(res.data);
       });
   }, []);
-  const LinkImage= "http://127.0.0.1:8000/images/";
+  const handleSort = () => {
+    if (sort == 1) {
+      const sortIncrease = [...product].sort((a, b) => {
+        return a.GiaKM - b.GiaKM;
+      });
+      setProduct(sortIncrease);
+    } else if (sort == 2) {
+      const sortDecrease = [...product].sort((a, b) => {
+        return b.GiaKM - a.GiaKM;
+      });
+      setProduct(sortDecrease);
+    }
+    else
+    {
+      return;
+    }
+  };
+  const LinkImage = "http://127.0.0.1:8000/images/";
   return (
     <>
       <Header />
@@ -58,22 +75,20 @@ export default function TypeProduct() {
                     <div className="row">
                       <div className="col-sm-12 wrap-sort-by">
                         <div className="browse-tags pull-right">
-                          <FormControl variant="outlined">
-                            <InputLabel id="demo-simple-select-outlined-label">
-                              Tùy chọn
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
-                              label="Age"
-                            >
-                              <MenuItem value="">
-                                <em>Tùy chọn</em>
-                              </MenuItem>
-                              <MenuItem value={1}>Sắp xếp theo giá tăng dần</MenuItem>
-                              <MenuItem value={2}>Sắp xếp theo giá giảm dần</MenuItem>
-                            </Select>
-                          </FormControl>
+                          <Form>
+                            <Form.Group controlId="exampleForm.ControlSelect1">
+                              <Form.Label>Tùy chọn</Form.Label>
+                              <Form.Control
+                                as="select"
+                                onChange={(e) => setSort(e.target.value)}
+                                onClick={handleSort}
+                              >
+                                <option value="">Tùy chọn</option>
+                                <option value="1">Giá từ thấp đến cao</option>
+                                <option value="2">Giá từ cao đến thấp</option>
+                              </Form.Control>
+                            </Form.Group>
+                          </Form>
                         </div>
                       </div>
                     </div>
@@ -81,12 +96,17 @@ export default function TypeProduct() {
                   <div className="col-md-12 product-list">
                     <div className="row content-product-list">
                       {product.map((item, index) => (
-                        <div className="col-sm-4 col-xs-12 padding-none col-fix20" key={index}>
+                        <div
+                          className="col-sm-4 col-xs-12 padding-none col-fix20"
+                          key={index}
+                        >
                           <div className="product-row">
                             <div className="product-row-img">
                               <Link to={`/ProductDetail/${item.id}`}>
-                                <img  src={LinkImage+item.AnhDaiDien}alt={item.AnhDaiDien}
-                                 className="product-row-thumbnail"
+                                <img
+                                  src={LinkImage + item.AnhDaiDien}
+                                  alt={item.AnhDaiDien}
+                                  className="product-row-thumbnail"
                                 />
                               </Link>
                               <div className="product-row-price-hover">
@@ -105,17 +125,32 @@ export default function TypeProduct() {
                             </div>
 
                             <h2 className="product-row-name">
-                              Laptop gaming Acer Aspire 7 A715 42G R4ST
+                              {item.TenSanPham}
                             </h2>
                             <div className="product-row-info">
                               <div className="product-row-price pull-left">
-                                <del>17,290,000₫</del>
+                                <NumberFormat
+                                value={item.GiaCu}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <del {...props}>{value}</del>
+                                )}
+                              />
                                 <br />
-                                <span className="product-row-sale">
-                                  17,290,000₫
-                                </span>
+                                
+                                 <NumberFormat
+                                value={item.GiaKM}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" VNĐ"}
+                                renderText={(value, props) => (
+                                  <span className="product-row-sale" {...props}>{value}</span>
+                                )}
+                              />
                               </div>
-                              <div className="new-product-percent">-10%</div>
+                              <div className="new-product-percent">{item.SoLuong ==0 ? "Hết hàng" :"Còn hàng"}</div>
                             </div>
                           </div>
                         </div>

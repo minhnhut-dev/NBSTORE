@@ -56,3 +56,14 @@
     text-align: center;
     padding: 10px 0px;
 }
+.table-UpdateUser input {
+    border:1px solid;
+    border-radius:4px;
+    outline:none;
+}
+.btn-updateUser{
+    margin-top: 10px;
+}
+.tb-order input {
+    margin-top:5px;
+}

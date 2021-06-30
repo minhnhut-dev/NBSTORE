@@ -64,7 +64,7 @@ export default function ProductDealinMonth(props) {
                           className="ins-product-box ins-element-link"
                         >
                           <div>
-                            <img src={linkImage+item.AnhDaiDien} className="ins-image-box" />
+                            <img src={linkImage+item.AnhDaiDien} className="ins-image-box" alt={item.AnhDaiDien} />
                           </div>
                           <div
                             id="ins-description-box"
@@ -96,8 +96,7 @@ export default function ProductDealinMonth(props) {
                               className="ins-product-discount"
                               style={{ display: "inline-block" }}
                             >
-                              {/* 23,490,000₫ */}
-                              {/* {item.price} VNĐ */}
+                             
                               <NumberFormat
                                 value={item.GiaCu}
                                 displayType={"text"}
@@ -122,8 +121,7 @@ export default function ProductDealinMonth(props) {
                               className="ins-product-price"
                               style={{ display: "inline-block" }}
                             >
-                              {/* 23,490,000₫ */}
-                              {/* {item.price} VNĐ */}
+                            
                               <NumberFormat
                                 value={item.GiaKM}
                                 displayType={"text"}
