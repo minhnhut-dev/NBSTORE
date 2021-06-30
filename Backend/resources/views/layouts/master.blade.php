@@ -166,7 +166,11 @@
                 style="height: 80px; display:flex; justify-content: center; align-items: center;">
                 <img src={{ asset('dist/img/your-logo.png') }} alt="AdminLTE Logo" class="brand-image elevation-3">
             </a>
+                @php
+                $url = URL::current();
+                
 
+                @endphp
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -178,7 +182,7 @@
                         </div>
                     @endif
                     <div class="info">
-                        <a href="#" class="d-block">
+                        <a href="{{route('my-profile')}}" class="d-block">
                             @if (Session::has('user'))
                                 {{ Session::get('user')->TenNguoidung}}
                             @endif
@@ -186,14 +190,11 @@
                     </div>
                 </div>
 
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="/" class="nav-link active bg-danger">
+                        <li class="nav-item has-treeview ">
+                            <a href="/" class="nav-link {{$url==route('home')? 'btn-danger' : ''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng điều khiển
@@ -201,14 +202,14 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-san-pham') }}" class="nav-link">
+                            <a href="{{ url('quan-ly-san-pham') }}" class="nav-link {{str_contains($url,route('admin-products'))? 'btn-danger' : ''}}">
                                 <i class="fab fa-product-hunt"></i>                                <p>
                                     Sản Phẩm
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{ url('quan-ly-loai-san-pham') }}" class="nav-link">
+                            <a href="{{ url('quan-ly-loai-san-pham') }}" class="nav-link {{str_contains($url,route('admin-categories'))? 'btn-danger' : ''}}">
                                 <i class="nav-icon fas fa-tags"></i>
                                 <p>
                                     Loại sản phẩm
@@ -216,39 +217,30 @@
                             </a>
                         </li>
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{url('/quan-ly-don-hang')}}" class="nav-link">
+                            <a href="{{url('/quan-ly-don-hang')}}" class="nav-link {{str_contains($url,route('admin-orders'))? 'btn-danger' : ''}}">
                                 <i class="fas fa-money-bill"></i>
                                 <p>
                                     Đơn hàng
                                 </p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item menu-item has-treeview">
-                            <a href="" class="nav-link">
-                        <i class="fas fa-cart-arrow-down"></i>
-                                 <p>
-                                    Nhập hàng
-                                </p>
-                            </a>
-                        </li> -->
+
                         <li class="nav-item menu-item has-treeview">
-                            <a href="{{url('/quan-ly-nguoi-dung')}}" class="nav-link">
+                            <a href="{{url('/quan-ly-nguoi-dung')}}" class="nav-link {{str_contains($url,route('admin-customers'))? 'btn-danger' : ''}}">
                                 <i class="fas fa-users"></i>
                                 <p>
                                     User
                                 </p>
                             </a>
                         </li>
-
-                        <!-- <li class="nav-item menu-item has-treeview">
-                            <a href="{{url('/quan-ly-hinh-thuc-thanh-toan')}}" class="nav-link">
-                                <i class="fas fa-users"></i>
+                        <li class="nav-item menu-item has-treeview">
+                            <a href="{{route('quan-ly-slide')}}" class="nav-link {{str_contains($url,route('quan-ly-slide'))? 'btn-danger' : ''}}">
+                                <i class="fas fa-images"></i>
                                 <p>
-                                   Hình thức thanh toán 
+                                    Images slide
                                 </p>
                             </a>
-                        </li> -->
-
+                        </li>
                     </ul>
                 </nav>
                 <a href="/logout">

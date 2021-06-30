@@ -9,10 +9,7 @@
                     <h1 class="m-0 text-dark">Trang chủ</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    {{-- <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v3</li>
-                    </ol> --}}
+                   
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -23,12 +20,12 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Những sản phẩm bán nhiều nhất</h3>
-                                {{-- <a href="javascript:void(1);">View Report</a> --}}
+                                 <a href="javascript:void(1);">View Report</a> 
                             </div>
                         </div>
                         {{-- <div class="card-body">
@@ -70,23 +67,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                @foreach($prods as $product)
                                     <tr>
                                         <td>
-                                            <img src="dist/img/default-150x150.png" alt="Product 1"
+                                            <img src="/images/{{$product->AnhDaiDien}}" alt="Product 1"
                                                 class="img-circle img-size-32 mr-2">
-                                            i9 9900K
-                                            <span class="badge bg-danger">NEW</span>
+                                           {{$product->TenSanPham}}
                                         </td>
-                                        <td>12.000.000 VNĐ</td>
+                                        <td>{{number_format($product->GiaCu, 0, '', ',')}} VNĐ</td>
                                         <td>
-                                            <small class="text-success mr-1">
+                                            <!-- <small class="text-success mr-1">
                                                 <i class="fas fa-arrow-down"></i>
                                                 10%
-                                            </small>
-                                            87 Đã bán
+                                            </small> -->
+                                            {{$product->SoLuong}} Đã bán
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -204,12 +201,12 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col-md-6 -->
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Khách hàng mua hàng</h3>
-                                {{-- <a href="javascript:void(0);">Xem chi tiết</a> --}}
+                           <a href="{{ route('admin-customers') }}">Xem chi tiết</a> 
                             </div>
                         </div>
                         <div class="card-body table-responsive p-0">
@@ -222,17 +219,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                @foreach ($users as $user)
                                     <tr>
                                         <td>
-                                            Minh Nhut
-                                            {{-- <span class="badge bg-danger">NEW</span> --}}
+                                           {{$user->TenNguoidung}}
+                
                                         </td>
-                                        <td>0911079197</td>
+                                        <td>{{$user->SDT}}</td>
                                         <td>
-                                            87 Đã mua
+                                        {{$user->SanPhams}}
                                         </td>
                                     </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -247,74 +245,38 @@
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Hóa đơn xuất</h3>
-                                {{-- <a href="javascript:void(0);">Xem chi tiết</a> --}}
+                                <h3 class="card-title">Đơn Hàng</h3>
+                               <a href="{{ route('admin-orders') }}">Xem chi tiết</a>
                             </div>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-striped table-valign-middle">
                                 <thead>
                                     <tr>
-                                        <th>Số hóa đơn</th></th>
+                                        <th>Mã đơn hàng</th></th>
                                         <th>Khách hàng mua</th>
                                         <th>Sản phẩm mua</th>
+                                        <th>Thời gian đặt hàng</th>
                                         <th>Tổng tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                        @foreach ($orders as $order)
                                     <tr>
                                         <td>
-                                            HD1
-                                            {{-- <span class="badge bg-danger">NEW</span> --}}
+                                            DH{{$order->id}}
                                         </td>
-                                        <td>0911079197</td>
+                                        <td>{{$order->TenNguoidung}}  - SĐT: {{$order->SDT}}</td>
                                         <td>
-                                            10
+                                            {{$order->SanPhams}}
                                         </td>
-                                        <td>100.000 VNĐ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <!-- /.card -->
-
-
-                </div>
-
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Hóa đơn nhập</h3>
-                                {{-- <a href="javascript:void(0);">Xem chi tiết</a> --}}
-                            </div>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-striped table-valign-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Số hóa đơn</th></th>
-                                        <th>Nhà cung cấp</th>
-                                        <th>Sản phẩm nhập</th>
-                                        <th>Số lượng nhập</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
                                         <td>
-                                            HD1
-                                            {{-- <span class="badge bg-danger">NEW</span> --}}
+                                        {{date_format(date_create($order->created_at),'d-m-Y')}}
+                                       
                                         </td>
-                                        <td>Apple</td>
-                                        <td>
-                                            iPhone 12 ProMax
-                                        </td>
-                                        <td>100</td>
+                                        <td>  {{number_format($order->Tongtien, 0, '', ',')}} VNĐ</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

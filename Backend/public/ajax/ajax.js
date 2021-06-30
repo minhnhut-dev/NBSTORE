@@ -152,4 +152,16 @@ $(document).ready(function () {
             $('.pwds').addClass('is-invalid')
             }
     });
+
+    $(document).on("click", "#reset-password", function (e) {
+       
+        $("#repassword").show();
+     
+    });
+    $(document).on("click", "#btn-un-reset-password", function (e) {
+
+        $("#repassword").hide();
+        $(".btn-un-reset-password").hide();
+     
+    });
 });

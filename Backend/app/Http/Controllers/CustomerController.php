@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\LoaiNguoiDung;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
@@ -125,45 +126,60 @@ class CustomerController extends Controller
         //  dd($user);
         return view('pages.cap-nhat.cap-nhat-nguoi-dung',compact('user','orders','html'));
     }
+    public function MyProfile(Request $request)
+    {  
+
+        $admin =Auth::user();
+        $user =NguoiDung::where('nguoi_dungs.id','=',$admin->id)
+        ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
+        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
+        ->first();
+
+        return view('pages.cap-nhat.my-profile',compact('user'));
+    }
 
     public function edit(NguoiDung $nguoiDung)
     {
         //
     }
+    public static function getProductsByUser( $id)
+    {
+        $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
+       $amounts =$products[0];
+        $amount=(int)$amounts->amount;
+        return $amount;
+    }
 
     public function update(Request $request,  $id)
     {
-        
-        // $rule=[
-        //     "email"=>"required|email|unique:nguoi_dungs",
-           
-        //     "sdt"=>"required|unique:nguoi_dungs|numeric",
-        //     "password"=>"min:5",
-        //     "password_verified"=>"same:password"
-        // ];
-        // $customMessage=[
-        //     "password.min"=>"Mật khẩu không được bé hơn 5 kí tự",
-        //     "password_verified.same"=>"Mật khẩu xác nhận không chính xác .",
-        //     "sdt.unique"=>"Số điện thoại ".$request->sdt." đã có người sử dụng!",
-        //     "sdt.numeric"=>"Số điện thoại ".$request->sdt." không đúng định dạng!",
-        //     "email.email"=>"Email ".$request->email." không đúng định dạng!",
-        //     "email.unique"=>"Email ".$request->email." đã có người sử dụng!",
-        // ];
-        // $validator=Validator::make($request->all(),$rule,$customMessage);
-        // if($validator->fails())
-        // {
-        //     return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
-        // }
+        $admin =Auth::user();
+        if($request->password){
+            $rule=[
+            "password"=>"required|min:5",
+        ];
+        $customMessage=[
+            "password.min"=>"Mật khẩu không được bé hơn 5 kí tự",
+            "password.required"=>"Mật khẩu không được bỏ trống",
+        ];
+        $validator=Validator::make($request->all(),$rule,$customMessage);
+        if($validator->fails())
+        {
+            if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile')->withErrors($validator);
+            return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
+        }
+        }
          
            $user = NguoiDung::find($id);
         //    $user->Email = $request->email;
            $user->TenNguoiDung = $request->name;
-        //    $user->SDT = $request->sdt;
+           if(!$request->password) $user->password = $user->password;
+           else 
+           $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
            $user->GioiTinh = $request->sex;
            $user->save();
 
-          
+           if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile');
            return redirect('/quan-ly-nguoi-dung/show/'.$id);
     }
     public function destroy(NguoiDung $nguoiDung)

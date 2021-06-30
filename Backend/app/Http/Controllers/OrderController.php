@@ -19,9 +19,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
+        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
         FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
-        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
+        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ORDER BY don_hangs.created_at DESC; 
         ');
         $amountItemsPage = 10;
         $totalPages = FLOOR(sizeof($orders['orders']) / $amountItemsPage);
@@ -270,6 +270,20 @@ class OrderController extends Controller
         FROM don_hangs, chi_tiet_don_hangs,san_phams
         WHERE don_hangs.id=chi_tiet_don_hangs.don_hangs_id AND chi_tiet_don_hangs.san_phams_id=san_phams.id AND don_hangs.id= ?', [$id]);
         return response()->json($data,200);
+    }
+    public static function getProductOrdersByProduct($id)
+    {
+        $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
+       $amounts =$products[0];
+        $amount=(int)$amounts->amount;
+        return $amount;
+    }
+    public static function getProductOrdersByOrder($id)
+    {
+        $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
+       $amounts =$products[0];
+        $amount=(int)$amounts->amount;
+        return $amount;
     }
     /**
      * Remove the specified resource from storage.

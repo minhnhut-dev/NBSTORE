@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'TrangChuController@index')->middleware('checklogin::class');
+Route::get('/', 'TrangChuController@index')->middleware('checklogin::class')->name('home');
 
-Route::get('/quan-ly-san-pham', 'SanPhamController@index')->middleware('checklogin::class');
+Route::get('/quan-ly-san-pham', 'SanPhamController@index')->middleware('checklogin::class')->name('admin-products');;
 
 Route::get('/quan-ly-san-pham/them-san-pham', 'SanPhamController@ThemSanPham')->middleware('checklogin::class'); // lấy sản phẩm thêm theo id
 
@@ -27,7 +27,7 @@ Route::post('/updateproduct/{id}','SanPhamController@UpdateProduct'); // cập n
 
 Route::get('/quan-ly-san-pham/{id}','SanPhamController@DeleteProduct')->middleware('checklogin::class');// xóa sản phẩm
 
-Route::get('/quan-ly-loai-san-pham','LoaiSanPhamController@index')->middleware('checklogin::class'); // Xem danh sách loại sản phẩm
+Route::get('/quan-ly-loai-san-pham','LoaiSanPhamController@index')->middleware('checklogin::class')->name('admin-categories'); // Xem danh sách loại sản phẩm
 
 Route::get('/quan-ly-loai-san-pham/them-loai', 'LoaiSanPhamController@ThemLoai')->middleware('checklogin::class');// lấy tất cả loại sản phẩm
 
@@ -60,12 +60,16 @@ Route::post('/updatepayment/{id}','HinhThucThanhToanController@UpdatePayments');
 Route::get('/quan-ly-hinh-thuc-thanh-toan/{id}','HinhThucThanhToanController@DeletePayments');//xóa hình thức thanh toán
 
 //Bình quản lis người dùng
-Route::get('/quan-ly-nguoi-dung','CustomerController@index');
+Route::get('/quan-ly-nguoi-dung','CustomerController@index')->name('admin-customers');
 Route::get('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@create');
 Route::post('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@store');
-Route::get('/quan-ly-nguoi-dung/show/{id}','CustomerController@show');
+Route::get('/quan-ly-nguoi-dung/show/{id}','CustomerController@show')->middleware('checklogin::class');
 Route::post('/quan-ly-nguoi-dung/update/{id}','CustomerController@update');
+Route::get('/quan-ly-nguoi-dung/my-profile','CustomerController@MyProfile')->middleware('checklogin::class')->name('my-profile');
+
 // quản lí đơn hàng
-Route::get('/quan-ly-don-hang','OrderController@index');
-Route::get('/quan-ly-don-hang/{id}','OrderController@show');
-Route::get('/quan-ly-don-hang/order/complete/{id}','OrderController@complete');
+Route::get('/quan-ly-don-hang','OrderController@index')->name('admin-orders')->middleware('checklogin::class');
+Route::get('/quan-ly-don-hang/{id}','OrderController@show')->middleware('checklogin::class');;
+Route::get('/quan-ly-don-hang/order/complete/{id}','OrderController@complete')->middleware('checklogin::class');
+
+Route::get('/quan-ly-slide','ImageSlideController@index')->name('quan-ly-slide')->middleware('checklogin::class');

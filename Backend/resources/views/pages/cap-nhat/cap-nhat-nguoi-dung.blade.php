@@ -8,12 +8,12 @@
 
         <form method="POST" action="/quan-ly-nguoi-dung/update/{{$user->id}}" class="was-validated d-flex flex-column input-form" id="form-them-the-loai-phim">
             @csrf
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 <label for="ten-nguoi-dung">Tên người dùng </label>
                 <input type="text" class="form-control" id="name" placeholder="Nhập tên người dùng" name="name" value="{{$user->TenNguoidung}}" required>
                 <div class="invalid-feedback">Không được bỏ trống tên người dùng</div>
             </div>
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 <label for="ten-nguoi-dung">Số điện thoại </label>
                 <input type="text" class="form-control" id="sdt" placeholder="Nhập số điện thoại" name="sdt" value="{{$user->SDT}}" required disabled>
                 <div class="invalid-feedback">Không được bỏ trống số điên thoại </div>
@@ -24,7 +24,7 @@
                 @endif
             </div>
 
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 <label for="ten-nguoi-dung">Địa chỉ</label>
                 <textarea type="text" class="form-control" id="dia_chi" placeholder="Nhập địa chỉ" name="dia_chi" value="{{$user->DiaChi}}" required>{{$user->DiaChi}}</textarea>
                 <div class="invalid-feedback">Không được bỏ trống địa chỉ</div>
@@ -49,14 +49,14 @@
             </div>
 
 
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 <label for="ten-nguoi-dung">Username </label>
                 <input type="text" class="form-control" id="username" placeholder="Nhập username" name="username" value="{{$user->username}}" disabled>
 
             </div>
 
 
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 <label for="ten-nguoi-dung">Email</label>
                 <input type="text" class="form-control" id="email" placeholder="Nhập email" name="email" value="{{$user->Email}}" required disabled>
                 <div class="invalid-feedback">Không được bỏ trống email</div>
@@ -66,7 +66,53 @@
                 @endforeach
                 @endif
             </div>
+            <div class="form-group col-md-6">
+                <span class="btn btn-danger">
+                    <a id="reset-password">Đặt lại mật khẩu</a>
+                </span>
 
+
+            </div>
+            @if($errors->has('password'))
+            <div class="form-group col-md-6" style="display: block;" id="repassword">
+                <label for="ten-nguoi-dung">Mật khẩu </label>
+                <div style="display:flex;">
+                <input type="password" class="form-control password col-md-9" id="password" placeholder="Nhập password" name="password" >
+                <div class="col-3">
+                    <span class="btn btn-dark " id="btn-un-reset-password">
+                        <a id="un-reset-password">Huỷ</a>
+                    </span>
+                </div>
+                </div>
+                <div class="invalid-feedback">Không được bỏ trống mật khẩu</div>
+                @if($errors->has('password'))
+                @foreach($errors->get('password') as $item)
+                <div class="error">{{$item}}</div>
+                @endforeach
+                @endif
+                
+            </div>
+            @endif
+            @if(!$errors->has('password'))
+            <div class="form-group col-md-6" style="display: none;" id="repassword">
+                <label for="ten-nguoi-dung">Mật khẩu </label>
+                <div style="display:flex;">
+                <input type="password" class="form-control password col-md-9" id="password" placeholder="Nhập password" name="password" >
+                <div class="col-3">
+                    <span class="btn btn-dark " id="btn-un-reset-password">
+                        <a id="un-reset-password">Huỷ</a>
+                    </span>
+                </div>
+                </div>
+                <div class="invalid-feedback">Không được bỏ trống mật khẩu</div>
+                @if($errors->has('password'))
+                @foreach($errors->get('password') as $item)
+                <div class="error">{{$item}}</div>
+                @endforeach
+                @endif
+                
+            </div>
+            @endif
 
 
 
