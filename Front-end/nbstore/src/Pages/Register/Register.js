@@ -51,6 +51,7 @@ function Register() {
          },1000)
       })
       .catch((e) => {
+        console.log(e.response.data);
         setErrorEmail(e.response.data.Email);
         setErrorUsername(e.response.data.username);
       });

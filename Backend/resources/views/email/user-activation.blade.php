@@ -22,7 +22,7 @@
         ">
             <div style="margin: 10px">
                 <h3 style="margin: 10px">
-                    Chào mừng {{ $user->name }} đã đăng ký thành viên tại BTStore.com. Bạn hãy click vào đường link sau đây
+                    Chào mừng {{ $user->username }} đã đăng ký thành viên tại NBSTORE.VN. Bạn hãy click vào đường link sau đây
                     để hoàn tất việc đăng ký.
                     </br>
 
@@ -48,15 +48,15 @@
                     border-radius: .25rem;
                     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
                     color: #fff;
-                
+
                     background-color: #198754;
                     border-color: #198754;">
                             Tới trang đăng nhập</div>
                     </a>
-                </div>     
+                </div>
                 <image
-                        src="https://cdn.shortpixel.ai/client/q_lossless,ret_img,w_1400/https://tentech.vn/wp-content/uploads/2019/07/banner-slider-linh-kien-may-tinh.jpg"
-                        style="       display: block;
+                        src="https://tentech.vn/wp-content/uploads/2019/07/banner-slider-linh-kien-may-tinh.jpg"
+                        style=" display: block;
                     width: 100%;
                     object-fit: cover;">
                 </image>

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -131,7 +130,7 @@ class CustomerController extends Controller
         return view('pages.cap-nhat.cap-nhat-nguoi-dung',compact('user','orders','html'));
     }
     public function MyProfile(Request $request)
-    {  
+    {
 
         $admin =Auth::user();
         $user =NguoiDung::where('nguoi_dungs.id','=',$admin->id)
@@ -156,7 +155,7 @@ class CustomerController extends Controller
     public function editPassword(Request $request,$id)
     {
         $data=NguoiDung::find($id);
-        
+
      if (!(Hash::check($request->get('oldPassword'), $data->password))) {
             // The passwords matches
             return response()->json(["message" => "Mật khẩu cũ không đúng"], 500);
@@ -178,7 +177,7 @@ class CustomerController extends Controller
 
 
         // }
-        
+
     public function update(Request $request,  $id)
     {
 
@@ -221,12 +220,12 @@ class CustomerController extends Controller
             return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
         }
         }
-         
+
            $user = NguoiDung::find($id);
         //    $user->Email = $request->email;
            $user->TenNguoiDung = $request->name;
            if(!$request->password) $user->password = $user->password;
-           else 
+           else
            $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
            $user->GioiTinh = $request->sex;

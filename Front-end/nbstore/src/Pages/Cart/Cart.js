@@ -140,7 +140,8 @@ function Cart(props) {
   if (redirect && optionPayment == 2) {
     // return window.open(payURL,'_blank',"width=600,height=400").focus();
     // return window.location.assign(payURL);
-   return window.location.href = payURL;
+    return window.location.replace(payURL);
+  //  return window.location.href = payURL;
 
 
   } else if (redirect && optionPayment == 1) {

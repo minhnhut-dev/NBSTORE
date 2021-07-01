@@ -79,7 +79,7 @@ class AuthController extends Controller
     public function activateUser($token)
     {
         if ($user = $this->activationService->activateUser($token)) {
-            return redirect(' (Front-end) host/login');
+            return redirect('http://localhost:3000/Login/'.$token);
             // rediect front end
         }
     }
