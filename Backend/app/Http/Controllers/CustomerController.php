@@ -9,8 +9,12 @@ use App\LoaiNguoiDung;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+
 class CustomerController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +45,7 @@ class CustomerController extends Controller
         return view('pages.them.them-nguoi-dung', compact('typeUser'));
     }
     public function store(Request $request)
-    {   
+    {
 
         $rule=[
             "email"=>"required|email|unique:nguoi_dungs",
@@ -65,7 +69,7 @@ class CustomerController extends Controller
         {
             return redirect('/quan-ly-nguoi-dung/them-nguoi-dung')->withErrors($validator);
         }
-         
+
            $user = new NguoiDung;
            $user->Email = $request->email;
            $user->TenNguoiDung = $request->name;
@@ -77,7 +81,7 @@ class CustomerController extends Controller
            $user->loai_nguoi_dungs_id = $request->loai_nguoi_dungs_id;;
            $user->save();
            return redirect('/quan-ly-nguoi-dung');
-  
+
     }
     public function CheckUser(Request $request)
     {
@@ -87,15 +91,15 @@ class CustomerController extends Controller
         dd($email, $sdt, $username);
     }
 
-  
+
     public function show(Request $request, $id)
-    {  
+    {
         $user =NguoiDung::where('nguoi_dungs.id','=',$id)
         ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
         ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
         ->first();
 
-        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung,nguoi_dungs.SDT,don_hangs.id,don_hangs.ThoiGianMua,don_hangs.Tongtien FROM `don_hangs` 
+        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung,nguoi_dungs.SDT,don_hangs.id,don_hangs.ThoiGianMua,don_hangs.Tongtien FROM `don_hangs`
         INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id WHERE don_hangs.nguoi_dungs_id='.$id);
         $amountItemsPage = 10;
         $totalPages = FLOOR(sizeof($orders['orders']) / $amountItemsPage);
@@ -116,7 +120,7 @@ class CustomerController extends Controller
             if($i==$currentPage)$disabled='disabled';
             $html .= '<li class="page-item '.$disabled.'"><a class="page-link" href="/quan-ly-nguoi-dung/show/'.$id.'?page=' . $i . '">' . $i . '</a></li>';
         }
-     
+
         if ($currentPage == $totalPages) {
             $html .= '  <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
         } else {
@@ -138,10 +142,32 @@ class CustomerController extends Controller
         return view('pages.cap-nhat.my-profile',compact('user'));
     }
 
-    public function edit(NguoiDung $nguoiDung)
+    public function edit(Request $request,$id)
     {
         //
+        $data=NguoiDung::find($id);
+        $data->TenNguoidung=$request->name;
+        $data->DiaChi = $request->address;
+        $data->SDT= $request->phone;
+        $data->save();
+        return response()->json(["message"=>"Cập nhât người dùng thành công","user"=>$data],200);
     }
+
+    public function editPassword(Request $request,$id)
+    {
+        $data=NguoiDung::find($id);
+        
+     if (!(Hash::check($request->get('oldPassword'), $data->password))) {
+            // The passwords matches
+            return response()->json(["message" => "Mật khẩu cũ không đúng"], 500);
+        }else
+        {
+            $data->password=bcrypt($request->password);
+            $data->save();
+            return response()->json(["message"=>"Thay đổi mật khẩu thành công"]);
+        }
+    }
+
     public static function getProductsByUser( $id)
     {
         $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
@@ -150,8 +176,35 @@ class CustomerController extends Controller
         return $amount;
     }
 
+
+        // }
+        
     public function update(Request $request,  $id)
     {
+
+
+        // $rule=[
+        //     "email"=>"required|email|unique:nguoi_dungs",
+
+        //     "sdt"=>"required|unique:nguoi_dungs|numeric",
+        //     "password"=>"min:5",
+        //     "password_verified"=>"same:password"
+        // ];
+        // $customMessage=[
+        //     "password.min"=>"Mật khẩu không được bé hơn 5 kí tự",
+        //     "password_verified.same"=>"Mật khẩu xác nhận không chính xác .",
+        //     "sdt.unique"=>"Số điện thoại ".$request->sdt." đã có người sử dụng!",
+        //     "sdt.numeric"=>"Số điện thoại ".$request->sdt." không đúng định dạng!",
+        //     "email.email"=>"Email ".$request->email." không đúng định dạng!",
+        //     "email.unique"=>"Email ".$request->email." đã có người sử dụng!",
+        // ];
+        // $validator=Validator::make($request->all(),$rule,$customMessage);
+        // if($validator->fails())
+        // {
+        //     return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
+        // }
+
+
         $admin =Auth::user();
         if($request->password){
             $rule=[
@@ -178,7 +231,6 @@ class CustomerController extends Controller
            $user->DiaChi = $request->dia_chi;
            $user->GioiTinh = $request->sex;
            $user->save();
-
            if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile');
            return redirect('/quan-ly-nguoi-dung/show/'.$id);
     }

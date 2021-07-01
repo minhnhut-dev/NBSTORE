@@ -70,10 +70,10 @@ class LoaiSanPhamController extends Controller
             $html_configs_added .= "<option value=" . $val->cau_hinhs_id . ">" . $val->TenCauHinh . "</option>";
         }
         // lấy cấu hình chưa thuộc loại
-        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs` 
-        WHERE id NOT IN 
-        (SELECT cau_hinhs_id 
-            FROM chi_tiet_cau_hinhs 
+        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs`
+        WHERE id NOT IN
+        (SELECT cau_hinhs_id
+            FROM chi_tiet_cau_hinhs
             WHERE loai_san_phams_id =' . $id . '
         )');
 
@@ -249,10 +249,10 @@ class LoaiSanPhamController extends Controller
         }
         $html_configs_added .= '</select>';
         // lấy cấu hình chưa thuộc loại
-        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs` 
-        WHERE id NOT IN 
-        (SELECT cau_hinhs_id 
-            FROM chi_tiet_cau_hinhs 
+        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs`
+        WHERE id NOT IN
+        (SELECT cau_hinhs_id
+            FROM chi_tiet_cau_hinhs
             WHERE loai_san_phams_id =' . $id . '
         )');
 
@@ -282,10 +282,10 @@ class LoaiSanPhamController extends Controller
         }
         $html_configs_added .= '</select>';
         // lấy cấu hình chưa thuộc loại
-        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs` 
-        WHERE id NOT IN 
-        (SELECT cau_hinhs_id 
-            FROM chi_tiet_cau_hinhs 
+        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs`
+        WHERE id NOT IN
+        (SELECT cau_hinhs_id
+            FROM chi_tiet_cau_hinhs
             WHERE loai_san_phams_id =' . $id . '
         )');
 
@@ -301,13 +301,13 @@ class LoaiSanPhamController extends Controller
     {
         $key=$this->convert_name($req->config);
         DB::insert('insert into cau_hinhs (TenCauHinh, KeyName) values (?, ?)', [$req->config, $key]);
-      
+
 
         // lấy cấu hình chưa thuộc loại
-        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs` 
-        WHERE id NOT IN 
-        (SELECT cau_hinhs_id 
-            FROM chi_tiet_cau_hinhs 
+        $configs_not_added = DB::select('SELECT * FROM `cau_hinhs`
+        WHERE id NOT IN
+        (SELECT cau_hinhs_id
+            FROM chi_tiet_cau_hinhs
             WHERE loai_san_phams_id =' . $id . '
         )');
 
@@ -339,4 +339,17 @@ class LoaiSanPhamController extends Controller
 		$str = preg_replace("/( )/", '_', $str);
 		return strtolower($str);
 	}
+    public function getListTypeProduct()
+    {
+        $listTypeProduct= LoaiSanPham::where('TrangThai',1)
+        ->whereNull('parent_id')
+        ->get();
+        return response()->json($listTypeProduct,200);
+    }
+    public function getTypeProductById($id)
+    {
+        $typeProduct=LoaiSanPham::find($id);
+        return response()->json($typeProduct,200);
+    }
+
 }

@@ -37,16 +37,19 @@ function Ordered() {
                         <dd>
                           <Link to="/account-ordered">Đơn hàng đã thanh toán</Link>
                         </dd>
+                        <dd>
+                          <Link to="/account-completeOrder">Đơn hàng đã hoàn thành</Link>
+                        </dd>
                       </dl> 
                       <dl>
                         <dt>Thông tin tài khoản</dt>
                         <dd>
-                          <Link to="/account-updateUser">
+                          <Link to="/updateUser">
                             Thông tin cá nhân
                           </Link>
                         </dd>
                         <dd>
-                          <Link to="/account-order">Thay đổi mật khẩu</Link>
+                          <Link to="/updatePassword">Thay đổi mật khẩu</Link>
                         </dd>
                       </dl>
                     </td>

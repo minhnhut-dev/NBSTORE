@@ -63,6 +63,7 @@ class OrderController extends Controller
         $rule=[
             "hinh_thuc_giao_hangs_id"=>"required",
             'hinh_thuc_thanh_toans_id'=>"required",
+            "nguoi_dungs_id"=>"required",
         ];
         $customMessage=[
             // "Email.unique"=>"Email đã tồn tại !",
@@ -70,6 +71,7 @@ class OrderController extends Controller
             // "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
             "hinh_thuc_giao_hangs_id.required"=>"Hình thức giao hàng bắt buộc !",
             "hinh_thuc_thanh_toans_id.required"=>"Hình thức thanh toán bắt buộc !",
+            "nguoi_dungs_id.required"=>"Bạn chưa đăng nhập vui lòng đăng nhập !",
         ];
         $validator=Validator::make($request->all(),$rule,$customMessage);
         if($validator->fails())
@@ -207,9 +209,9 @@ class OrderController extends Controller
             INNER JOIN `hinh_thuc_thanh_toans` ON `don_hangs`.hinh_thuc_thanh_toans_id=`hinh_thuc_thanh_toans`.id
             INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
             WHERE don_hangs.id=' . $id . ' LIMIT 1');
-       
+
         if (sizeof($orders) > 0) {
-            
+
             $order = $orders[0];
             $disabled=$order->trang_thai_don_hangs_id==3?'disabled':'';
             return view('pages.cap-nhat.xem-don-hang', compact('listOrder', 'order','disabled'));
@@ -264,6 +266,14 @@ class OrderController extends Controller
         WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=2 AND don_hangs.nguoi_dungs_id=?', [$id]);
         return response()->json($data);
     }
+    public function getOrderCompleteByUserId($id)
+    {
+        $data=DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
+        FROM don_hangs , hinh_thuc_thanh_toans,hinh_thuc_giao_hangs, trang_thai_don_hangs
+        WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=3 AND don_hangs.nguoi_dungs_id=?', [$id]);
+    return response()->json($data,200);
+}
+
     public function GetOrderDetails($id)
     {
         $data=DB::select('SELECT don_hangs.ThoiGianMua,don_hangs.trang_thai_don_hangs_id,san_phams.TenSanPham,chi_tiet_don_hangs.DonGia,chi_tiet_don_hangs.SoLuong,don_hangs.Tongtien
@@ -271,6 +281,16 @@ class OrderController extends Controller
         WHERE don_hangs.id=chi_tiet_don_hangs.don_hangs_id AND chi_tiet_don_hangs.san_phams_id=san_phams.id AND don_hangs.id= ?', [$id]);
         return response()->json($data,200);
     }
+
+    public function getInformationOrderById($id)
+    {
+        $data=DB::select('SELECT don_hangs.* ,nguoi_dungs.TenNguoidung,nguoi_dungs.DiaChi,hinh_thuc_thanh_toans.TenThanhToan,hinh_thuc_giao_hangs.TenHinhThuc,nguoi_dungs.SDT
+        FROM don_hangs, nguoi_dungs,hinh_thuc_thanh_toans,hinh_thuc_giao_hangs
+        WHERE don_hangs.id=? AND don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id
+         AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND nguoi_dungs.id=don_hangs.nguoi_dungs_id
+        ', [$id]);
+        return response()->json($data,200);
+
     public static function getProductOrdersByProduct($id)
     {
         $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
@@ -284,6 +304,7 @@ class OrderController extends Controller
        $amounts =$products[0];
         $amount=(int)$amounts->amount;
         return $amount;
+
     }
     /**
      * Remove the specified resource from storage.

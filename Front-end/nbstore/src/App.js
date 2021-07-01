@@ -12,10 +12,14 @@ import Cart from "./Pages/Cart/Cart";
 import Order from "./Pages/Account/allOrder/Order";
 import Ordered from "./Pages/Account/Ordered/Ordered";
 import InformationOrder from "./Pages/Account/InformationOrder/InformationOrder";
-import PaymentMoMo from "./Pages/PaymentMoMo/PaymentMOMO";
 import BuildConfig from "./Pages/BuildConfig/BuildConfig";
 import SendMailResetPassword from "./Pages/Account/SendMailResetPassword/SendMailResetPassword";
 import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword";
+import Search from "./Pages/Search/Search";
+import PaymentResult from "./Pages/PaymentMoMo/PaymentResult";
+import CompleteOrder from "./Pages/Account/CompleteOrder/CompleteOrder";
+import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
+import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -84,7 +88,7 @@ function App() {
           <Route path="/ProductDetail/:id">
             <ProductDetail onAdd={onAdd} />
           </Route>
-          <Route path="/collections/">
+          <Route path="/collections/:id">
             <TypeProduct />
           </Route>
           <Route path="/cart">
@@ -96,11 +100,20 @@ function App() {
           <Route path="/account-ordered">
             <Ordered />
           </Route>
+          <Route path="/account-completeOrder">
+            <CompleteOrder />
+          </Route>
           <Route path="/account/order/:id">
             <InformationOrder />
           </Route>
           <Route path="/resultOrder/">
-            <PaymentMoMo />
+            <PaymentResult/>
+          </Route>
+          <Route path="/updateUser/">
+            <UpdateUser/>
+          </Route>
+          <Route path="/updatePassword/">
+            <UpdatePassword/>
           </Route>
           <Route path="/acount/resetPassword">
             <SendMailResetPassword />
@@ -110,6 +123,9 @@ function App() {
           </Route>
           <Route path="/account/configPassword/:token">
             <ResetPassword />
+          </Route>
+          <Route path="/search">
+            <Search />
           </Route>
           <Route path="*">
             <NoMatch />

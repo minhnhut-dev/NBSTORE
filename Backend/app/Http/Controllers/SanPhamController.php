@@ -294,4 +294,19 @@ class SanPhamController extends Controller
         $data=SanPham::get();
         return response()->json($data,200);
     }
+    public function getProductByTypeProductId($id){
+        $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
+        return response()->json($listProduct,200);
+    }
+    public function search($keyword)
+    {
+        $data = DB::select('select * from san_phams where TenSanPham  like concat("%",?,"%") ', [$keyword]);
+        return response()->json($data,200);
+    }
+
+    public function test($id)
+    {
+        $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
+        return $data;
+    }
 }
