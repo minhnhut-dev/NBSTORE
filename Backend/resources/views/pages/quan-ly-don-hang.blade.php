@@ -80,9 +80,9 @@
                                     </td>
                                     <td>{{$item->TenNguoidung}}</td>
                                     <td>{{$item->SDT}}</td>
-                                    <td>{{date_format(date_create($item->ThoiGianMua),'d-m-Y')}}</td>     
+                                    <td>{{date_format(date_create($item->created_at),'d-m-Y')}}</td>     
                                     <td>{{number_format($item->Tongtien, 0, '', ',')}}</td>
-                                    <td class="alert {{$success}}">{{$item->TenTrangThai}}</td>
+                                    <td > <span class="card {{$success}} status" >{{$item->TenTrangThai}}</span></td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="/quan-ly-don-hang/{{$item->id}}">
