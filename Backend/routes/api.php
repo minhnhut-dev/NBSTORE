@@ -57,6 +57,7 @@ Route::get('/getAccessories','SanPhamController@GetAccessories');
 Route::get('/getAccessoriesByTypeProductId/{id}', 'SanPhamController@getTypeProductById');
 // API tìm kiếm
 Route::get('/getAllProduct','SanPhamController@GetAllProduct');
+
 Route::get('/searchByKeyWord/{keyword}', 'SanPhamController@search');
 // API get all types products
 Route::get('/getAllTypeProduct','LoaiSanPhamController@getListTypeProduct');
@@ -70,3 +71,9 @@ Route::get('/test/{id}','SanPhamController@test');
 // User
 Route::post('/updateUser/{id}','CustomerController@edit');
 Route::post('/updatePassword/{id}','CustomerController@editPassword');
+
+//api slide
+Route::post('insert-image-slides', 'ImageSlideController@InsertImageAPI');
+Route::get('delete-image-slides', 'ImageSlideController@DeleteImageAPI');
+Route::get('get-image-slides', 'ImageSlideController@getURLImages');
+

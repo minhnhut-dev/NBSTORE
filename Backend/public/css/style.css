@@ -1,47 +1,79 @@
-.input-border {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #ffffff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+@media (min-width:320px) {
+    .input-border {
+        display: block;
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #ffffff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .error {
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 80%;
+        color: #dc3545;
+    }
+    .status {
+        width: 80%;
+        padding: 8px;
+        text-align: center;
+        border-radius: 0.5rem !important;
+    }
+    .sex {
+        display: flex;
+        padding: 8px 0 8px 0px;
+    }
+    #table-orders {
+        padding-top: 24px;
+    }
+    .check-group .form-check:not(:first-child) {
+        margin-left: 20px;
+    }
+
+    .input-form .btn-submit-input-form {
+        margin-top: 30px;
+        margin-left: 7.5px;
+        margin-right: 7.5px;
+    }
+
+    .active-menu {
+        border-radius: 0.25rem;
+        background: #007bff;
+    }
+
+    /*# sourceMappingURL=style.css.map */
+    .select {
+        max-width: 30% !important;
+    }
+    .file {
+        visibility: hidden;
+        position: absolute;
+    }
+    .item-slide {
+        margin: 8px;
+    }
+    .image-slide-item {
+        height: 120px;
+    }
+    .card-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+    }
 }
-.error{
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 80%;
-  color: #dc3545;
+@media (min-width:801px) {
+  .image-slide-item {
+    height: 160px;
 }
-.sex{
-  display: flex;
-  padding: 8px 0 8px 0px;
-}
-#table-orders{
-  padding-top: 24px;
-}
-.check-group .form-check:not(:first-child) {
-  margin-left: 20px;
 }
 
-.input-form .btn-submit-input-form {
-  margin-top: 30px;
-  margin-left: 7.5px;
-  margin-right: 7.5px;
-}
-
-.active-menu {
-  border-radius: 0.25rem;
-  background: #007bff;
-}
-
-/*# sourceMappingURL=style.css.map */
-.select{
-  max-width: 30% !important;
-}

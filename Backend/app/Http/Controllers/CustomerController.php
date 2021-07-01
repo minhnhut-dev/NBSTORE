@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\LoaiNguoiDung;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -129,6 +130,17 @@ class CustomerController extends Controller
         //  dd($user);
         return view('pages.cap-nhat.cap-nhat-nguoi-dung',compact('user','orders','html'));
     }
+    public function MyProfile(Request $request)
+    {  
+
+        $admin =Auth::user();
+        $user =NguoiDung::where('nguoi_dungs.id','=',$admin->id)
+        ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
+        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
+        ->first();
+
+        return view('pages.cap-nhat.my-profile',compact('user'));
+    }
 
     public function edit(Request $request,$id)
     {
@@ -139,35 +151,13 @@ class CustomerController extends Controller
         $data->SDT= $request->phone;
         $data->save();
         return response()->json(["message"=>"Cập nhât người dùng thành công","user"=>$data],200);
-
     }
+
     public function editPassword(Request $request,$id)
     {
         $data=NguoiDung::find($id);
-        // if($data->password!=Hash::make($request->OldPassword))
-        // {
-        //     return response()->json(["message"=>"Mật khẩu không đúng"],500);
-        // }
-        // else
-        // {
-        //     $data->password=Hash::make($request->password);
-        //     $data->save();
-        //     return response()->json(["message"=>"Thay đổi mật khẩu thành công"]);
-        // }
-        // $credentials = Hash::make($request->password);
-        // $arr=[
-        //     $data->password=>($request->oldPassword),
-        //     ];
-        // if (Auth::attempt($arr)) {
-        //     echo "hihi";
-
-        // }
-        // else
-        // {
-        //     return response()->json(["message" => "Mật khẩu cũ không đúng"], 500);
-
-        // }
-        if (!(Hash::check($request->get('oldPassword'), $data->password))) {
+        
+     if (!(Hash::check($request->get('oldPassword'), $data->password))) {
             // The passwords matches
             return response()->json(["message" => "Mật khẩu cũ không đúng"], 500);
         }else
@@ -177,8 +167,21 @@ class CustomerController extends Controller
             return response()->json(["message"=>"Thay đổi mật khẩu thành công"]);
         }
     }
+
+    public static function getProductsByUser( $id)
+    {
+        $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');
+       $amounts =$products[0];
+        $amount=(int)$amounts->amount;
+        return $amount;
+    }
+
+
+        // }
+        
     public function update(Request $request,  $id)
     {
+
 
         // $rule=[
         //     "email"=>"required|email|unique:nguoi_dungs",
@@ -201,15 +204,34 @@ class CustomerController extends Controller
         //     return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
         // }
 
+
+        $admin =Auth::user();
+        if($request->password){
+            $rule=[
+            "password"=>"required|min:5",
+        ];
+        $customMessage=[
+            "password.min"=>"Mật khẩu không được bé hơn 5 kí tự",
+            "password.required"=>"Mật khẩu không được bỏ trống",
+        ];
+        $validator=Validator::make($request->all(),$rule,$customMessage);
+        if($validator->fails())
+        {
+            if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile')->withErrors($validator);
+            return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
+        }
+        }
+         
            $user = NguoiDung::find($id);
         //    $user->Email = $request->email;
            $user->TenNguoiDung = $request->name;
-        //    $user->SDT = $request->sdt;
+           if(!$request->password) $user->password = $user->password;
+           else 
+           $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
            $user->GioiTinh = $request->sex;
            $user->save();
-
-
+           if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile');
            return redirect('/quan-ly-nguoi-dung/show/'.$id);
     }
     public function destroy(NguoiDung $nguoiDung)
