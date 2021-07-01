@@ -49,7 +49,7 @@ function Cart(props) {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
 
-  const handleOrder = (e) => {
+  const handleOrder = async(e) => {
     e.preventDefault();
     const data = {
       nguoi_dungs_id: userLogin.id,
@@ -109,12 +109,12 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-      axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
+     await axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
         console.log(response.data.order);
         localStorage.setItem("Order", JSON.stringify(response.data.order));
       });
 
-      axios.post(apiEndPoint, dataMoMo)
+      await axios.post(apiEndPoint, dataMoMo)
       .then((response) => {
         setPayURL(response.data.payUrl);
         localStorage.removeItem("cartItems");
@@ -138,7 +138,7 @@ function Cart(props) {
   };
   //Thanh toán tiền mặc
   if (redirect && optionPayment == 2) {
-    // return window.open(payURL);
+    // return window.open(payURL,'_blank',"width=600,height=400").focus();
     // return window.location.assign(payURL);
    return window.location.href = payURL;
 
