@@ -145,7 +145,7 @@ function Cart(props) {
 
 
   } else if (redirect && optionPayment == 1) {
-    return <Redirect to="/" />;
+    return <Redirect to="/account-order" />;
   }
 
   // Thanh toán MOMO

@@ -236,20 +236,6 @@ class SanPhamController extends Controller
     {
         $Product= SanPham::OrderBy('giaKM','ASC')->get();
         return response()->json($Product,200);
-        // $listProducts="[";
-
-        // $Product=  SanPham::OrderBy('giaKM','ASC')->get();
-        // foreach($Product as $item)
-        // {
-
-        //     $imageProducts=DB::select('select anh_san_phams.AnhSanPham from anh_san_phams where anh_san_phams.san_phams_id ='.$item->id);
-        //     $string=json_encode($imageProducts);
-        //     $add="{ id:".$item->id.", TenSanPham:".'"'.$item->TenSanPham.'"'.", HangSanXuat: ".'"'.$item->HangSanXuat.'"'.", GiaCu:".$item->GiaCu.", GiaKM:".$item->GiaKM.", ThongTin: ".'"'.$item->ThongTin.'"'.", images:".$string."},";
-        //     $listProducts=$listProducts.$add;
-
-        // }
-        // $listProducts.="]";
-        //  return response($listProducts);
     }
     public function GetImageProductByid($id)
     {
@@ -264,21 +250,13 @@ class SanPhamController extends Controller
         return response()->json($products);
     }
 
-    public function GetProductMouse()
-    {
-        $productMouse=DB::select('SELECT san_phams.* FROM san_phams , loai_san_phams
-        WHERE san_phams.loai_san_phams_id=loai_san_phams.id AND loai_san_phams.id=1');
-        return response()->json($productMouse,200);
-    }
-
     public function GetAccessories()
     {
         $accessories=DB::select('SELECT *
         FROM loai_san_phams
         WHERE loai_san_phams.parent_id=5');
         return response()->json($accessories,200);
-        // $accessories = LoaiSanPham::select('parent_id',5);
-        // return response()->json($accessories,200);
+
     }
 
     public function getTypeProductById($id)
@@ -295,7 +273,10 @@ class SanPhamController extends Controller
         return response()->json($data,200);
     }
     public function getProductByTypeProductId($id){
-        $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
+        // $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
+        $listProduct=DB::select('SELECT san_phams.*
+        FROM loai_san_phams , san_phams
+        WHERE san_phams.loai_san_phams_id = loai_san_phams.id=?', [$id]);
         return response()->json($listProduct,200);
     }
     public function search($keyword)
@@ -308,5 +289,10 @@ class SanPhamController extends Controller
     {
         $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
         return $data;
+    }
+    // pagination
+    public function geProductLandingPage()
+    {
+
     }
 }
