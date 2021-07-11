@@ -7,10 +7,13 @@ import axios from "axios";
 function Body(props) { 
   const [typeProduct,setTypeProduct] = useState([]);
     useEffect(() => {
+      
          axios.get('http://127.0.0.1:8000/api/getAllTypeProduct')
          .then((response) =>{
              setTypeProduct(response.data);
          })
+
+       
     },[])
   const {products,loading}=props;
     return (

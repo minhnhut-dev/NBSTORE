@@ -10,35 +10,79 @@ import { FormControl } from "react-bootstrap";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+const buildConfig = JSON.parse(
+  localStorage.getItem("BuildConfig") || "[]"
+);
 function BuildConfig() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [accessories, setAccessories] = useState([]);
   const [idConfig, setIdConfig] = useState("");
-  const [listAccessories, setListAccessories] = useState([]);
-  // console.log(accessoriesItem);
-  useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/getAccessories").then((response) => {
-      setAccessories(response.data);
-    });
-  }, []);
+  const [cpu,setCPU] = useState([]);
+  const [ram,setRAM] = useState([]);
+  const [config,setConfig] = useState({
+      cpu:buildConfig.cpu,
+      ram:{qty:1},
+      main:{qty:1},
+      hdd:{qty:1},
+      vga:{qty:1},
+      monitor:{qty:1},
+      keyboard:{qty:1},
+      nguon:{qty:1},
+      case:{qty:1},
+      cooler:{qty:1},
+      fan:{qty:1},
+      tainghe:{qty:1},
 
+  })
+  localStorage.setItem("BuildConfig", JSON.stringify(config));
+  // const newData={"SoLuong":1};
+  // console.log('CPU',config.cpu={...config.cpu,...newData});
+ 
   const handleShowAccessories = (data) => {
-    setIdConfig(data.id);
-    axios
-      .get(`http://127.0.0.1:8000/api/getAccessoriesByTypeProductId/${data.id}`)
-      .then((res) => {
-        setListAccessories(res.data);
-      });
+   setIdConfig(data.id);
+   axios.get(`http://127.0.0.1:8000/api/getProductByTypeProductId/${data.id}`)
+   .then((response)=>{
+     setAccessories(response.data);
+   })
     setShow(true);
+   
   };
-
-  const handAddAccessories =  (data) =>{
-      console.log(data);
-      setShow(false);
+  
+  const getTypeCPU=()=>
+  {
+    axios.get('http://127.0.0.1:8000/api/typeCPU')
+    .then((response)=>{
+      setCPU(response.data);
+    })
+  }
+  const getTypeRAM=()=>
+  {
+    axios.get('http://127.0.0.1:8000/api/typeRAM')
+    .then((response)=>{
+      setRAM(response.data);
+    })
   }
 
+  useEffect(() => {
+     getTypeCPU();
+     getTypeRAM();
+
+  },[])
+  const handleAddAccessories=(data)=>{
+    if(data.loai_san_phams_id==6)
+    {
+      console.log(data);
+      config.cpu={...config.cpu,...data,qty:1};
+    }
+    else
+    {
+      console.log('không phai cpu');
+    }
+      
+  }
+  
   const LinkImage = "http://127.0.0.1:8000/images/";
   return (
     <>
@@ -85,25 +129,46 @@ function BuildConfig() {
                 </div>
               </div>
               <div className="build-pc-body">
-                {accessories.map((item, index) => (
-                  
-                  <div className="product-type-item">
+               
+                  {/* CPU */}
+                 {cpu.map((item, index)=>(
+                    <div className="product-type-item" key={index}>
                     <div className="left-content">
-                      {index}. {item.TenLoai}
+                        1. {item.TenLoai}
                     </div>
                     <div className="right-content">
                       <Button
                         variant="danger"
                         className="choose-product"
-                        onClick={() => handleShowAccessories(item)}
+                        onClick={()=>handleShowAccessories(item)}
                       >
                         <i className="fas fa-plus"></i>
                         {item.TenLoai}
+                      
                       </Button>
                       
                     </div>
                   </div>
-                ))}
+                 ))}
+               {ram.map((item, index)=>(
+                    <div className="product-type-item" key={index}>
+                    <div className="left-content">
+                        2. {item.TenLoai}
+                    </div>
+                    <div className="right-content">
+                      <Button
+                        variant="danger"
+                        className="choose-product"
+                        onClick={()=>handleShowAccessories(item)}
+                      >
+                        <i className="fas fa-plus"></i>
+                        {item.TenLoai}
+                      
+                      </Button>
+                      
+                    </div>
+                  </div>
+                 ))}
               </div>
 
               <div className="build-pc-footer">
@@ -165,8 +230,8 @@ function BuildConfig() {
               </Button>
             </div>
             <div className="list-product-data">
-              {listAccessories.map((item) => (
-                <div className="modal-product-detail">
+              {accessories.map((item, index) => (
+                <div className="modal-product-detail" key={index}>
                   <div className="image">
                     <img src={LinkImage + item.AnhDaiDien} alt="AnhDaiDien"/>
                   </div>
@@ -185,7 +250,7 @@ function BuildConfig() {
                         )}
                       />
                     </Link>
-                    <Button className="add-to-build" onClick={()=> handAddAccessories(item)}>Chọn</Button>
+                    <Button className="add-to-build" onClick={()=>handleAddAccessories(item)}>Chọn</Button>
                   </div>
                 </div>
               ))}

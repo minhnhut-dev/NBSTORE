@@ -124,12 +124,16 @@
     }
 }
 .modal {
-    top:150px !important;
+    top:-5px !important;
+    z-index: 99999;
 }
 
 
 .modal-open {
     overflow: auto !important;
+}
+.modal-content {
+    height:45vw;
 }
 .modal-content .modal-header {
     position: relative;
@@ -353,4 +357,7 @@
         top: 0;
         right: 0; */
     }
+}
+.modal-backdrop{
+    z-index: 99999;
 }

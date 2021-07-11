@@ -351,5 +351,20 @@ class LoaiSanPhamController extends Controller
         $typeProduct=LoaiSanPham::find($id);
         return response()->json($typeProduct,200);
     }
-
+     //get typeProduct CPU
+     public function getTypeCPU()
+     {
+         $TypeCPU=DB::table('loai_san_phams')
+         ->where('TrangThai','=',1)->where('TenLoai','=','CPU')
+         ->get();
+         return response()->json($TypeCPU);
+     }
+     //get type Ram
+     public function getTypeRAM()
+     {
+         $TypeCPU=DB::table('loai_san_phams')
+         ->where('TrangThai','=',1)->where('TenLoai','=','RAM')
+         ->get();
+         return response()->json($TypeCPU);
+     }
 }

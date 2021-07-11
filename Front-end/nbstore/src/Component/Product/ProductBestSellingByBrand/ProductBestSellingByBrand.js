@@ -11,10 +11,10 @@ export default function ProductBestSellingByBrand(props) {
     <div id="featured-product">
       <div style={{ position: "relative" }}>
         <h2 className="new-product-title">Deal Hot Trong Tháng</h2>
-        <a className="gearvn-new-products-hot-view-all" href="#">
+        <Link className="gearvn-new-products-hot-view-all" to="#">
           Xem tất cả
           <i className="fa fa-chevron-right"></i>
-        </a>
+        </Link>
       </div>
       
       <div className="loop-pro">
@@ -28,6 +28,7 @@ export default function ProductBestSellingByBrand(props) {
                     <img
                       src={linkImage + item.AnhDaiDien}
                       className="product-row-thumbnail"
+                      alt={item.AnhDaiDie}
                     />
                   </Link>
                   <div className="product-row-price-hover">

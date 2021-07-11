@@ -6,12 +6,20 @@ import "./TypeProduct.css";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import NumberFormat from "react-number-format";
+import Paginate from "../../Component/Pagination/Paginate";
 
 export default function TypeProduct() {
   let { id } = useParams();
   const [name, setName] = useState("");
   const [product, setProduct] = useState([]);
   const [sort, setSort] = useState("");
+  const [page,setPage] = useState(1);
+  const [total, setTotal] = useState("");
+  const handleChangePage= (page)=>{
+    
+    console.log(page);
+    setPage(page);
+  }
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/getTypeProductById/${id}`)
@@ -22,11 +30,12 @@ export default function TypeProduct() {
         console.log(err);
       });
     axios
-      .get(`http://127.0.0.1:8000/api/getProductByTypeProductId/${id}`)
+      .get(`http://127.0.0.1:8000/api/getAccessoriesByTypeProductId/${id}?page=${page}`)
       .then((res) => {
-        setProduct(res.data);
+        setProduct(res.data.data);
+        setTotal(res.data.last_page);
       });
-  }, []);
+  }, [page]);
   const handleSort = () => {
     if (sort == 1) {
       const sortIncrease = [...product].sort((a, b) => {
@@ -155,7 +164,9 @@ export default function TypeProduct() {
                           </div>
                         </div>
                       ))}
+                         
                     </div>
+                      {product.length >=10  ? <Paginate handleChangePage={handleChangePage} total={total}/>:""}              
                   </div>
                 </div>
               </div>

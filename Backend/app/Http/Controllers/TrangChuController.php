@@ -7,8 +7,11 @@ use App\NguoiDung;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Validator;
 
 class TrangChuController extends Controller
 {
@@ -40,7 +43,7 @@ class TrangChuController extends Controller
         );
         $orders = DB::table('don_hangs')->join('nguoi_dungs', 'nguoi_dungs.id', '=', 'don_hangs.nguoi_dungs_id')
         ->select('nguoi_dungs.TenNguoidung','nguoi_dungs.SDT','don_hangs.*')->limit(5)->orderBy('don_hangs.created_at', 'DESC')->get();
-    
+
         foreach ($orders as $item) {
 
             $amount = (int)OrderController::getProductOrdersByOrder($item->id);
@@ -56,24 +59,37 @@ class TrangChuController extends Controller
 
     public function Login(Request $request)
     {
-
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|',
+            'password' => 'required|',
+        ]);
         $arr = [
             'username' => $request->username,
             'password' => $request->password,
             'loai_nguoi_dungs_id' => 1
         ];
-        // return $arr;
+        $errors = new MessageBag;
+
+        if($validator->fails()){
+            return redirect('/login')->withErrors($validator);
+        }
+
         if (Auth::attempt($arr)) {
             $user = auth()->user();
             // $user=User::find(Auth::user());
             // return $user;
             // đăng nhập đúng
             // return "Đăng nhập thành công";
+
             $request->session()->put('user', $user); // muốn dùng auth thì phải mã hóa mật khẩu
+
             return redirect('/');
         } else {
             // đăng nhập sai
-            return "Đăng nhập thất bại";
+            //if any error send back with message.
+            $errors=new MessageBag(['password'=>['Username or password valid']]);
+
+            return redirect('/login')->withErrors($errors);
         }
     }
 

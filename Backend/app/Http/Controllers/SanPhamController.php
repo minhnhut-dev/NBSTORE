@@ -10,6 +10,7 @@ use App\SanPham;
 use App\LoaiSanPham;
 use Hamcrest\Core\HasToString;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class SanPhamController extends Controller
 {
@@ -116,6 +117,7 @@ class SanPhamController extends Controller
             $HinhAnh = "meo.jpg"; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
         }
         $data->AnhDaiDien=$HinhAnh;
+
         $configs = DB::table('chi_tiet_cau_hinhs')
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
             ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $request->LoaiSanPham)->get();
@@ -136,9 +138,8 @@ class SanPhamController extends Controller
         $cauhinhString = json_encode($configJson);
 
         $data->CauHinh = $cauhinhString;
+
         $data->save();
-
-
 
         if ($request->hasFile('imageFile')) {
             foreach ($request->file('imageFile') as $image) {
@@ -150,7 +151,6 @@ class SanPhamController extends Controller
                 $imageProduct->save();
             }
         }
-
 
         return redirect('/quan-ly-san-pham');
     }
@@ -247,7 +247,8 @@ class SanPhamController extends Controller
     public function GetProductById($id)
     {
         $products = SanPham::where('id',$id )->get();
-        return response()->json($products);
+        $typeId=(object)$products[0]->loai_san_phams_id;
+        return response()->json(['data'=>$products,'TypeId'=>$typeId]);
     }
 
     public function GetAccessories()
@@ -261,9 +262,15 @@ class SanPhamController extends Controller
 
     public function getTypeProductById($id)
     {
-        $data=DB::select('SELECT san_phams.*
-        FROM loai_san_phams , san_phams
-        WHERE san_phams.loai_san_phams_id = loai_san_phams.id AND loai_san_phams.id= ?', [$id]);
+        // $data=DB::select('SELECT san_phams.*
+        // FROM loai_san_phams , san_phams
+        // WHERE san_phams.loai_san_phams_id = loai_san_phams.id AND loai_san_phams.id= ?', [$id]);
+
+        $data=DB::table('san_phams')
+            ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
+            ->where('san_phams.loai_san_phams_id','=',$id)->orWhere('loai_san_phams.parent_id','=',$id)
+            ->select('san_phams.*')
+            ->paginate(2);
         return response()->json($data,200);
     }
 
@@ -274,9 +281,10 @@ class SanPhamController extends Controller
     }
     public function getProductByTypeProductId($id){
         // $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
-        $listProduct=DB::select('SELECT san_phams.*
-        FROM loai_san_phams , san_phams
-        WHERE san_phams.loai_san_phams_id = loai_san_phams.id=?', [$id]);
+            $listProduct=DB::select('SELECT san_phams.*
+            FROM san_phams
+            JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
+            WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id,$id]);
         return response()->json($listProduct,200);
     }
     public function search($keyword)
@@ -287,12 +295,46 @@ class SanPhamController extends Controller
 
     public function test($id)
     {
-        $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
-        return $data;
-    }
-    // pagination
-    public function geProductLandingPage()
-    {
+        // $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
+        // return $data;
+        // $categories = LoaiSanPham::where('parent_id', $id)
+        //                           ->orWhere('id', $id)
 
+        //                             ->join('san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
+        //                           ->select('san_phams.*')
+        //                           ->latest()
+        //                           ->get();
+        //                           return $categories;
+        // $listProduct=DB::select('SELECT san_phams.*
+        // FROM san_phams
+        // JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
+        // WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id,$id]);
+        // return $listProduct;
+         $user = DB::table('san_phams')->select('loai_san_phams_id')->where('id', $id)->get();
+         $typeId=(object)$user[0]->loai_san_phams_id;
+
+         return response()->json($typeId);
     }
+
+    public function SuggestProduct($id)
+    {
+        $data= DB::table('san_phams')
+                    ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
+                    ->where('loai_san_phams.id','=',$id)
+                    ->select('san_phams.*')
+                    ->orderBy('GiaKM','ASC')
+                    ->get();
+        return response()->json($data,200);
+    }
+    // api build configs
+    public function CPU()
+    {
+        $cpu=DB::table('san_phams')
+        ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
+        ->select('san_phams.*')
+        ->where('loai_san_phams.TenLoai','=','CPU')->where('san_phams.TrangThai','=',1)
+        ->get();
+        return response()->json($cpu);
+    }
+
 }

@@ -7,13 +7,14 @@ import axios from "axios";
 export default function ProductsAccordingToCriteria(props) {
   const { title, id } = props;
   const [product, setProduct] = useState([]);
+  
+
   const linkImage = "http://127.0.0.1:8000/images/";
-  console.log("id: ", id);
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/getAccessoriesByTypeProductId/${id}`)
       .then((response) => {
-        setProduct(response.data);
+        setProduct(response.data.data);
       });
   }, []);
   return (
@@ -21,10 +22,10 @@ export default function ProductsAccordingToCriteria(props) {
       <div id="featured-product">
         <div style={{ position: "relative" }}>
           <h2 className="new-product-title">{title}</h2>
-          <a className="gearvn-new-products-hot-view-all" href="#">
+          <Link className="gearvn-new-products-hot-view-all" to={`collections/${id}`}>
             Xem tất cả
             <i className="fa fa-chevron-right"></i>
-          </a>
+          </Link>
         </div>
         <div className="loop-pro">
           <div className="module-products row">
@@ -55,7 +56,7 @@ export default function ProductsAccordingToCriteria(props) {
                     </div>
                   </div>
 
-                  <h2 className="product-row-name"></h2>
+                  <h2 className="product-row-name">{item.TenSanPham}</h2>
                   <div className="product-row-info">
                     <div className="product-row-price pull-left">
                       <NumberFormat

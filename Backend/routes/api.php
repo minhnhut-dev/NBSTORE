@@ -77,3 +77,10 @@ Route::post('insert-image-slides', 'ImageSlideController@InsertImageAPI');
 Route::get('delete-image-slides', 'ImageSlideController@DeleteImageAPI');
 Route::get('get-image-slides', 'ImageSlideController@getURLImages');
 
+// suggest product
+Route::get('/suggestProduct/{id}', 'SanPhamController@SuggestProduct');
+//api build config
+Route::get('/cpu','SanPhamController@CPU');// get cpu
+Route::get('/typeCPU','LoaiSanPhamController@getTypeCPU');
+Route::get('/typeRAM','LoaiSanPhamController@getTypeRAM'); // get  type CPU
+
