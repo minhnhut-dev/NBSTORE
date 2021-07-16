@@ -247,8 +247,7 @@ class SanPhamController extends Controller
     public function GetProductById($id)
     {
         $products = SanPham::where('id',$id )->get();
-        $typeId=(object)$products[0]->loai_san_phams_id;
-        return response()->json(['data'=>$products,'TypeId'=>$typeId]);
+        return response()->json($products);
     }
 
     public function GetAccessories()

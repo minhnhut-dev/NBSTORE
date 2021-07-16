@@ -61,6 +61,20 @@ class loai_san_phams extends Seeder
            ['TenLoai'=>'PC','parent_id'=>null],
            ['TenLoai'=>'Laptop Gaming','parent_id'=>1],
            ['TenLoai'=>'PC Gaming','parent_id'=>2],
+           ['TenLoai'=>'Linh kiện','parent_id'=>null],
+           ['TenLoai'=>'CPU','parent_id'=>5],
+           ['TenLoai'=>'RAM','parent_id'=>5],
+           ['TenLoai'=>'MainBoard','parent_id'=>5],
+           ['TenLoai'=>'Monitor','parent_id'=>5],
+           ['TenLoai'=>'Storage','parent_id'=>5],
+           ['TenLoai'=>'Power','parent_id'=>5],
+           ['TenLoai'=>'VGA','parent_id'=>5],
+           ['TenLoai'=>'Cooler','parent_id'=>5],
+           ['TenLoai'=>'Fan','parent_id'=>5],
+           ['TenLoai'=>'Case','parent_id'=>5],
+           ['TenLoai'=>'Headphone','parent_id'=>5],
+           ['TenLoai'=>'Bàn phím','parent_id'=>5],
+           ['TenLoai'=>'Chuột','parent_id'=>5],
         ]);
     }
 }

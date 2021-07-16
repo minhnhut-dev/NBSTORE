@@ -45,7 +45,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
-
+  
   const onAdd = (product) => {
     // setCartItems([...cartItems,product]);
     // console.log(product.id);

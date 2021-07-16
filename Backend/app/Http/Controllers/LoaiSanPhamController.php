@@ -367,4 +367,53 @@ class LoaiSanPhamController extends Controller
          ->get();
          return response()->json($TypeCPU);
      }
+     // get type MainBoard
+     public function getTypeMainBoard()
+     {
+         $TypeMainBoard=DB::table('loai_san_phams')
+         ->where('TrangThai','=',1)->where('TenLoai','=','MainBoard')
+         ->get();
+         return response()->json($TypeMainBoard);
+     }
+       // get type Monitor
+       public function getTypeMonitor()
+       {
+           $TypeMonitor=DB::table('loai_san_phams')
+           ->where('TrangThai','=',1)->where('TenLoai','=','Monitor')
+           ->get();
+           return response()->json($TypeMonitor);
+       }
+        // get type Storage
+        public function getTypeStorage()
+        {
+            $TypeStorager=DB::table('loai_san_phams')
+            ->where('TrangThai','=',1)->where('TenLoai','=','Storage')
+            ->get();
+            return response()->json($TypeStorager);
+        }
+        // get type Storage
+        public function getTypePower()
+        {
+            $TypePower=DB::table('loai_san_phams')
+            ->where('TrangThai','=',1)->where('TenLoai','=','Power')
+            ->get();
+            return response()->json($TypePower);
+        }
+          // get type Storage
+          public function getTypeVGA()
+          {
+              $TypeVGA=DB::table('loai_san_phams')
+              ->where('TrangThai','=',1)->where('TenLoai','=','VGA')
+              ->get();
+              return response()->json($TypeVGA);
+          }
+           // get type Cooler
+           public function getTypeCooler()
+           {
+               $TypeCooler=DB::table('loai_san_phams')
+               ->where('TrangThai','=',1)->where('TenLoai','=','Cooler')
+               ->get();
+               return response()->json($TypeCooler);
+           }
+
 }

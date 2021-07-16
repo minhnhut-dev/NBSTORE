@@ -81,6 +81,14 @@ Route::get('get-image-slides', 'ImageSlideController@getURLImages');
 Route::get('/suggestProduct/{id}', 'SanPhamController@SuggestProduct');
 //api build config
 Route::get('/cpu','SanPhamController@CPU');// get cpu
-Route::get('/typeCPU','LoaiSanPhamController@getTypeCPU');
-Route::get('/typeRAM','LoaiSanPhamController@getTypeRAM'); // get  type CPU
+Route::get('/typeCPU','LoaiSanPhamController@getTypeCPU');// get  type CPU
+Route::get('/typeRAM','LoaiSanPhamController@getTypeRAM');// get  type ram
+Route::get('/typeMainBoard','LoaiSanPhamController@getTypeMainBoard');// get  type mainboard
+Route::get('/typeMonitor','LoaiSanPhamController@getTypeMonitor');// get  type monitor
+Route::get('/typeStorage','LoaiSanPhamController@getTypeStorage');// get  type Storage
+Route::get('/typePower','LoaiSanPhamController@getTypePower');// get  type Power
+Route::get('/typeVGA','LoaiSanPhamController@getTypeVGA');// get  type VGA
+Route::get('/typeCooler','LoaiSanPhamController@getTypeCooler');// get  type Cooler
+
+
 

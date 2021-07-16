@@ -11,6 +11,7 @@ function Body(props) {
          axios.get('http://127.0.0.1:8000/api/getAllTypeProduct')
          .then((response) =>{
              setTypeProduct(response.data);
+             
          })
 
        
@@ -22,8 +23,9 @@ function Body(props) {
         {/* <ProductDealinMonth products={products}  /> */}
        {loading ?<Skeleton count={5}/> :  <ProductBestSellingByBrand products={products}/>} 
        {typeProduct.map((item,index)=>(
-        <ProductsAccordingToCriteria key={index} title={item.TenLoai} id={item.id} />
+         <ProductsAccordingToCriteria key={index} title={item.TenLoai} id={item.id} />
        ))}
+           
       </div>
     </>
   );

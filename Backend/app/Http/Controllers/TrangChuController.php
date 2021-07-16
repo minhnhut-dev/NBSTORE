@@ -80,14 +80,13 @@ class TrangChuController extends Controller
             // return $user;
             // đăng nhập đúng
             // return "Đăng nhập thành công";
-
             $request->session()->put('user', $user); // muốn dùng auth thì phải mã hóa mật khẩu
 
             return redirect('/');
         } else {
             // đăng nhập sai
             //if any error send back with message.
-            $errors=new MessageBag(['password'=>['Username or password valid']]);
+            $errors=new MessageBag(['password'=>['Username or password invalid']]);
 
             return redirect('/login')->withErrors($errors);
         }

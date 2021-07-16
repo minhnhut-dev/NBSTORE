@@ -62,6 +62,50 @@
     width: 130px;
     padding: 10px;
 }
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .image {
+    width: 130px;
+    height: 130%;
+    padding: 5px;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .image img {
+    width: 120px;
+    height: 120px;
+}
+@media screen and (min-width: 768px)
+{
+    #build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail {
+       display: flex;
+}
+
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content {
+    width: 100%;
+    padding: 5px;
+    position: relative;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content p{
+    padding: 3px 0;
+    margin: 0;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content p.name{
+    font-weight: bold;
+    color: black;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content p.price{
+    font-weight: bold;
+    font-size: 18px;
+    color: red;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content .action strong.price{
+    color:red;
+    font-weight:bolder;
+}
+#build-pc-function .build-pc-body .product-type-item .right-content .choose-product-item-detail .content .action span.delete {
+    border: 0;
+    margin-left: 5px;
+    cursor: pointer;
+    background-color: transparent;
+}
 
 @media screen and (min-width: 1024px)
 {
@@ -95,24 +139,24 @@
 #build-pc-function .build-pc-body .product-type-item:nth-child(2n), .build-pc-function .build-pc-body .product-type-item:nth-child(2n) {
     background-color: #c0c0c024;
 }
-#build-pc-function .build-pc-footer, .build-pc-function .build-pc-footer {
+ .build-pc-footer, .build-pc-function .build-pc-footer {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
-#build-pc-function .build-pc-footer .btn-item, .build-pc-function .build-pc-footer .btn-item {
+ .build-pc-footer .btn-item, .build-pc-function .build-pc-footer .btn-item {
     margin-left: 10px;
 }
-#build-pc-function .build-pc-footer .btn-item .btn, .build-pc-function .build-pc-footer .btn-item .btn {
+ .build-pc-footer .btn-item .btn, .build-pc-function .build-pc-footer .btn-item .btn {
     border: 0;
     margin: 5px;
     background-color: red;
     color: white;
     border-radius: 4px;
 }
-#build-pc-function .build-pc-footer .btn-item .btn i, .build-pc-function .build-pc-footer .btn-item .btn i {
+.build-pc-footer .btn-item .btn i, .build-pc-function .build-pc-footer .btn-item .btn i {
     font-size: 20px;
     margin-right: 10px;
 }
@@ -360,4 +404,14 @@
 }
 .modal-backdrop{
     z-index: 99999;
+}
+/* .MuiOutlinedInput-root {
+    width: 80px !important;
+    height: 30px !important;
+    margin-left: 10px;
+} */
+.qty .MuiInputBase-formControl {
+    width: 80px !important;
+    height: 30px !important;
+    margin-left: 10px; 
 }
