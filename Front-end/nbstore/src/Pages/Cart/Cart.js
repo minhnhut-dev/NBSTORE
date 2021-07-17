@@ -10,6 +10,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import CryptoJS from "crypto-js";
 import Paypal from "../../Component/Paypal/Paypal";
+import { createProxyMiddleware } from "http-proxy-middleware";
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
@@ -32,17 +33,26 @@ function Cart(props) {
   const [payURL, setPayURL] = useState();
   const [paypal, setPayPal] = useState(false);
   useEffect(() => {
-    axios
-      .get(`/city`, {
-        params: {},
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-
-      .then((response) => {
-        setCity(response.data.LtsItem);
-      });
+    // axios({ method: 'get',
+    //  url: '/districts', headers: { 'Content-Type': 'application/json', },
+    //  proxy: createProxyMiddleware({ target: 'https://dc.tintoc.net/app/api-customer/public',
+    //   changeOrigin: true})
+    //   .then((response)=>{
+    //     console.log(response);
+    //   })
+    
+  // })
+    // axios(
+    //   {
+    //   method: 'get',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   url: 'https://dc.tintoc.net/app/api-customer/public/provinces',
+      
+    // }).then((response)=>{
+    //   console.log(response.data)
+    // });
+    
+  
   }, []);
 
   const newArr = cartItems.map((item) => {
@@ -140,11 +150,12 @@ function Cart(props) {
   if (redirect && optionPayment == 2) {
     // return window.open(payURL,'_blank',"width=600,height=400").focus();
     // return window.location.assign(payURL);
-   return window.location.href = payURL;
+    return window.location.replace(payURL);
+  //  return window.location.href = payURL;
 
 
   } else if (redirect && optionPayment == 1) {
-    return <Redirect to="/" />;
+    return <Redirect to="/account-order" />;
   }
 
   // Thanh toán MOMO

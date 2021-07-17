@@ -57,10 +57,24 @@ class loai_san_phams extends Seeder
     public function run()
     {
         DB::table('loai_san_phams')->insert([
-           ['TenLoai'=>'Laptop','parent_id'=>null],
-           ['TenLoai'=>'PC','parent_id'=>null],
-           ['TenLoai'=>'Laptop Gaming','parent_id'=>1],
-           ['TenLoai'=>'PC Gaming','parent_id'=>2],
+           ['TenLoai'=>'Laptop','icon'=>'<i class="fas fa-laptop"></i>','parent_id'=>null],
+           ['TenLoai'=>'PC','icon'=>'<i class="fas fa-desktop"></i>','parent_id'=>null],
+           ['TenLoai'=>'Laptop Gaming','icon'=>null,'parent_id'=>1],
+           ['TenLoai'=>'PC Gaming','icon'=>null,'parent_id'=>2],
+           ['TenLoai'=>'Linh kiện','icon'=> '<i class="fas fa-microchip"></i>', 'parent_id'=>null],
+           ['TenLoai'=>'CPU','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'RAM','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'MainBoard','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Monitor','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Storage','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Power','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'VGA','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Cooler','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Fan','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Case','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Headphone','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Bàn phím','icon'=>null,'parent_id'=>5],
+           ['TenLoai'=>'Chuột','icon'=>null,'parent_id'=>5],
         ]);
     }
 }
@@ -120,6 +134,7 @@ class hinh_thuc_thanh_toans extends Seeder
         DB::table('hinh_thuc_thanh_toans')->insert([
          ['TenThanhToan'=>'Tiền mặt'],
          ['TenThanhToan'=>'MOMO'],
+         ['TenThanhToan'=>'Paypal'],
         ]);
     }
 }
@@ -130,7 +145,7 @@ class trang_thai_don_hangs extends Seeder
         DB::table('trang_thai_don_hangs')->insert([
          ['TenTrangThai'=>'Chưa thanh toán'],
          ['TenTrangThai'=>'Đã thanh toán'],
-         ['TenTrangThai'=>'Đã đặt đơn'],
+         ['TenTrangThai'=>'Đã hoàn thành'],
         ]);
     }
 }

@@ -40,13 +40,20 @@
             <form method="POST" class="form-horizontal" action="/login">
                 @csrf
                 <div class="card-body">
+
+                    @if($error=$errors->first('password'))
+                    <div class="alert alert-danger">
+                        {{ $error }}
+                      </div>
+                    @endif
+
                     <div class="form-group row">
                         <input type="text" class="form-control-transparent" id="inputUserName" name="username"
                             placeholder="Tên tài khoản">
                     </div>
                     <div class="form-group row">
                         <input type="password" class="form-control-transparent" id="inputPassword" name="password"
-                            placeholder="Mật khẩu" required>
+                            placeholder="Mật khẩu" >
                     </div>
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">

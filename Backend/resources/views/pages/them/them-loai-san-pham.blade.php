@@ -16,6 +16,12 @@
                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
                 </div>
 
+                <div class="form-group col-12">
+                    <label for="ten-the-loai-phim">Icon của danh mục ( ấn vào <a href="https://fontawesome.com/" target="_blank">đây</a> để tải icon)</label>
+                    <input type="text" class="form-control" id="ten-the-loai-phim" placeholder="link của icon"
+                        name="icon" required>
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div>
 
                 <div class="col-3 select">
                     <label for="nhan">Thuộc loại:</label>

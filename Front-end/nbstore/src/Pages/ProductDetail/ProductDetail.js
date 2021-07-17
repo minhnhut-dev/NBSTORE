@@ -9,10 +9,18 @@ import { useParams } from "react-router";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/thumbs/thumbs.min.css";
+import SwiperCore, { Navigation, Thumbs } from "swiper/core";
+SwiperCore.use([Navigation, Thumbs]);
 
 function ProductDetail(props) {
   const [selectedImage, SetSelectedImage] = useState([0]);
   const [Product, SetProducts] = useState([]);
+  const [suggestProduct, setSuggestProduct] = useState([]);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { onAdd } = props;
   let { id } = useParams();
 
@@ -20,33 +28,52 @@ function ProductDetail(props) {
     axios
       .get(`http://127.0.0.1:8000/api/GetProductByID/${id}`)
       .then((response) => {
-        SetProducts(response.data);
+        if (response.data == "") {
+          return null;
+        } else {
+          console.log(response.data);
+          SetProducts(response.data);
+        }
       });
+
     axios
       .get(`http://127.0.0.1:8000/api/GetImageProductByID/${id}`)
       .then((res) => {
         SetSelectedImage(res.data);
       });
-      
+
+    axios.get(`http://127.0.0.1:8000/api/suggestProduct/1`).then((response) => {
+      setSuggestProduct(response.data);
+    });
   }, []);
   const LinkImage = "http://127.0.0.1:8000/images/";
   var elements = [];
+
   Product.forEach((element) => {
-    const configs = element.CauHinh;
-    const ch = JSON.parse(configs);
-    for (const [key, value] of Object.entries(ch)) {
-      console.log(`${value.config_name}: ${value.content}`);
+    if (element.CauHinh === "" || element.CauHinh === undefined) {
       elements.push(
-        <tr className="row-info" style={{ height: "35px" }}>
-          <td className="name-Product">
-            <span style={{ color: "black" }}>{`${value.config_name}`}</span>
-          </td>
-          <td className="info-Product">{`${value.content}`}</td>
-        </tr>
+        <span style={{ color: "red", fontSize: "20px", marginTop: "20px" }}>
+          Sản phẩm này chưa có thông tin cấu hình
+        </span>
       );
+    } else {
+      const configs = element.CauHinh;
+
+      const ch = JSON.parse(configs);
+
+      for (const [key, value] of Object.entries(ch)) {
+        // console.log(`${value.config_name}: ${value.content}`);
+        elements.push(
+          <tr className="row-info" style={{ height: "35px" }} key={key}>
+            <td className="name-Product">
+              <span style={{ color: "black" }}>{`${value.config_name}`}</span>
+            </td>
+            <td className="info-Product">{`${value.content}`}</td>
+          </tr>
+        );
+      }
     }
   });
-
   return (
     <>
       <Header />
@@ -55,9 +82,9 @@ function ProductDetail(props) {
           <div className="main">
             <div className="breadcrumbs container">
               <span className="showHere">Bạn đang ở:</span>
-              <a href="#" className="path">
+              <Link to="/" className="path">
                 Trang Chủ
-              </a>
+              </Link>
               <i className="fa fa-caret-right"></i>
               <span>
                 <a href="#">Laptop</a>
@@ -76,7 +103,41 @@ function ProductDetail(props) {
               <div className="page_content">
                 <div className="row">
                   <div className="col-sm-6 col-xs-12 product_thumbnail">
-                    <img
+                    <Swiper
+                      style={{
+                        "--swiper-navigation-color": "#fff",
+                        "--swiper-pagination-color": "#fff",
+                      }}
+                      spaceBetween={5}
+                      navigation={true}
+                      thumbs={{ swiper: thumbsSwiper }}
+                      className="mySwiper2"
+                    >
+                       {selectedImage.map((image,index)=>(
+                          <SwiperSlide key={index}>
+                               <img src={LinkImage + image.AnhSanPham} alt={image.AnhSanPham} />
+                        </SwiperSlide>
+                        ))}
+                      
+                    </Swiper>
+                    <Swiper
+                      onSwiper={setThumbsSwiper}
+                      spaceBetween={5}
+                      slidesPerView={4}
+                      freeMode={true}
+                      watchSlidesVisibility={true}
+                      watchSlidesProgress={true}
+                      className="mySwiper"
+                    >
+                      {selectedImage.map((image, index)=>(
+                          <SwiperSlide key={index}>
+                          <img src={LinkImage+image.AnhSanPham} alt={image.AnhSanPham} />
+                          </SwiperSlide>
+
+                      ))}
+                     
+                    </Swiper>
+                    {/* <img
                       src={LinkImage + selectedImage[0].AnhSanPham}
                       alt={LinkImage + selectedImage[0].AnhSanPham}
                       className="Selected"
@@ -99,7 +160,7 @@ function ProductDetail(props) {
                           }
                         />
                       ))}
-                    </div>
+                    </div> */}
                   </div>
                   {Product.map((item, index) => (
                     <div
@@ -182,17 +243,21 @@ function ProductDetail(props) {
                         </div>
                         <div className="clearfix"></div>
                         <div className="form-group">
-                          {item.SoLuong == 0 ? <p style={{color:"red",fontSize:"24px"}}>Sản phẩm tạm hết hàng</p>:<Link to="/cart">
-                            <Button
-                            
-                              className="product_buy_btn btn-success theme_button addtocar"
-                              type="button"
-                              onClick={() => onAdd(item)}
-                            >
-                              Mua hàng
-                            </Button>
-                          </Link>}
-                          
+                          {item.SoLuong == 0 ? (
+                            <p style={{ color: "red", fontSize: "24px" }}>
+                              Sản phẩm tạm hết hàng
+                            </p>
+                          ) : (
+                            <Link to="/cart">
+                              <Button
+                                className="product_buy_btn btn-success theme_button addtocar"
+                                type="button"
+                                onClick={() => onAdd(item)}
+                              >
+                                Mua hàng
+                              </Button>
+                            </Link>
+                          )}
                         </div>
                       </form>
                     </div>
@@ -209,210 +274,71 @@ function ProductDetail(props) {
                     <h2 className="new-product-title">
                       Sản Phẩm thường được xem cùng
                     </h2>
-                    <a className="gearvn-new-products-hot-view-all" href="#">
-                      Xem tất cả
-                      <i className="fa fa-chevron-right"></i>
-                    </a>
                   </div>
                   <div className="loop-pro">
                     <div className="module-products row">
-                      <div className="col-sm-4 col-xs-12 padding-none col-fix20">
-                        <div className="product-row">
-                          <a href="#"></a>
-                          <div className="product-row-img">
-                            <a href="#">
-                              <img
-                                src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                className="product-row-thumbnail"
-                              />
-                            </a>
-                            <div className="product-row-price-hover">
-                              <a href="#">
+                      {suggestProduct.map((item, index) => (
+                        <div
+                          className="col-sm-4 col-xs-12 padding-none col-fix20"
+                          key={index}
+                        >
+                          <div className="product-row">
+                            <div className="product-row-img">
+                              <Link to={`/ProductDetail/${item.id}`}>
+                                <img
+                                  src={LinkImage + item.AnhDaiDien}
+                                  className="product-row-thumbnail"
+                                  alt={item.AnhDaiDien}
+                                />
+                              </Link>
+                              <div className="product-row-price-hover">
                                 <div className="product-row-note pull-left">
                                   Xem chi tiết
                                 </div>
-                              </a>
-                              <a
-                                href="#"
-                                className="product-row-btnbuy pull-right"
-                              >
-                                đặt hàng
-                              </a>
+                                <Link
+                                  to={`/ProductDetail/${item.id}`}
+                                  className="product-row-btnbuy pull-right"
+                                >
+                                  đặt hàng
+                                </Link>
+                              </div>
                             </div>
-                          </div>
+                            <h2 className="product-row-name">
+                              {item.TenSanPham}
+                            </h2>
+                            <div className="product-row-info">
+                              <div className="product-row-price pull-left">
+                                <NumberFormat
+                                  value={item.GiaCu}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  suffix={" VNĐ"}
+                                  renderText={(value, props) => (
+                                    <span {...props}>{value}</span>
+                                  )}
+                                />
+                                <br />
 
-                          <h2 className="product-row-name">
-                            Laptop gaming Acer Aspire 7 A715 42G R4ST
-                          </h2>
-                          <div className="product-row-info">
-                            <div className="product-row-price pull-left">
-                              <del>17,290,000₫</del>
-                              <br />
-                              <span className="product-row-sale">
-                                17,290,000₫
-                              </span>
+                                <NumberFormat
+                                  value={item.GiaKM}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  suffix={" VNĐ"}
+                                  renderText={(value, props) => (
+                                    <span
+                                      className="product-row-sale"
+                                      {...props}
+                                    >
+                                      {value}
+                                    </span>
+                                  )}
+                                />
+                              </div>
+                              <div className="new-product-percent">-10%</div>
                             </div>
-                            <div className="new-product-percent">-10%</div>
                           </div>
                         </div>
-                      </div>
-
-                      <div className="col-sm-4 col-xs-12 padding-none col-fix20">
-                        <div className="product-row">
-                          <a href="#"></a>
-                          <div className="product-row-img">
-                            <a href="#">
-                              <img
-                                src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                className="product-row-thumbnail"
-                              />
-                            </a>
-                            <div className="product-row-price-hover">
-                              <a href="#">
-                                <div className="product-row-note pull-left">
-                                  Xem chi tiết
-                                </div>
-                              </a>
-                              <a
-                                href="#"
-                                className="product-row-btnbuy pull-right"
-                              >
-                                đặt hàng
-                              </a>
-                            </div>
-                          </div>
-                          <h2 className="product-row-name">
-                            Laptop gaming Acer Aspire 7 A715 42G R4ST
-                          </h2>
-                          <div className="product-row-info">
-                            <div className="product-row-price pull-left">
-                              <del>17,290,000₫</del>
-                              <br />
-                              <span className="product-row-sale">
-                                17,290,000₫
-                              </span>
-                            </div>
-                            <div className="new-product-percent">-10%</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-4 col-xs-12 padding-none col-fix20">
-                        <div className="product-row">
-                          <a href="#"></a>
-                          <div className="product-row-img">
-                            <a href="#">
-                              <img
-                                src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                className="product-row-thumbnail"
-                              />
-                            </a>
-                            <div className="product-row-price-hover">
-                              <a href="#">
-                                <div className="product-row-note pull-left">
-                                  Xem chi tiết
-                                </div>
-                              </a>
-                              <a
-                                href="#"
-                                className="product-row-btnbuy pull-right"
-                              >
-                                đặt hàng
-                              </a>
-                            </div>
-                          </div>
-                          <h2 className="product-row-name">
-                            Laptop gaming Acer Aspire 7 A715 42G R4ST
-                          </h2>
-                          <div className="product-row-info">
-                            <div className="product-row-price pull-left">
-                              <del>17,290,000₫</del>
-                              <br />
-                              <span className="product-row-sale">
-                                17,290,000₫
-                              </span>
-                            </div>
-                            <div className="new-product-percent">-10%</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-4 col-xs-12 padding-none col-fix20">
-                        <div className="product-row">
-                          <a href="#"></a>
-                          <div className="product-row-img">
-                            <a href="#">
-                              <img
-                                src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                className="product-row-thumbnail"
-                              />
-                            </a>
-                            <div className="product-row-price-hover">
-                              <a href="#">
-                                <div className="product-row-note pull-left">
-                                  Xem chi tiết
-                                </div>
-                              </a>
-                              <a
-                                href="#"
-                                className="product-row-btnbuy pull-right"
-                              >
-                                đặt hàng
-                              </a>
-                            </div>
-                          </div>
-                          <h2 className="product-row-name">
-                            Laptop gaming Acer Aspire 7 A715 42G R4ST
-                          </h2>
-                          <div className="product-row-info">
-                            <div className="product-row-price pull-left">
-                              <del>17,290,000₫</del>
-                              <br />
-                              <span className="product-row-sale">
-                                17,290,000₫
-                              </span>
-                            </div>
-                            <div className="new-product-percent">-10%</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-sm-4 col-xs-12 padding-none col-fix20">
-                        <div className="product-row">
-                          <a href="#"></a>
-                          <div className="product-row-img">
-                            <a href="#">
-                              <img
-                                src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                className="product-row-thumbnail"
-                              />
-                            </a>
-                            <div className="product-row-price-hover">
-                              <a href="#">
-                                <div className="product-row-note pull-left">
-                                  Xem chi tiết
-                                </div>
-                              </a>
-                              <a
-                                href="#"
-                                className="product-row-btnbuy pull-right"
-                              >
-                                đặt hàng
-                              </a>
-                            </div>
-                          </div>
-                          <h2 className="product-row-name">
-                            Laptop gaming Acer Aspire 7 A715 42G R4ST
-                          </h2>
-                          <div className="product-row-info">
-                            <div className="product-row-price pull-left">
-                              <del>17,290,000₫</del>
-                              <br />
-                              <span className="product-row-sale">
-                                17,290,000₫
-                              </span>
-                            </div>
-                            <div className="new-product-percent">-10%</div>
-                          </div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>

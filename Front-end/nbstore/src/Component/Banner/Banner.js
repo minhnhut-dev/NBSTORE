@@ -4,6 +4,8 @@ import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import parse from 'html-react-parser';
+
 export default function Banner() {
   const [typeProduct, setTypeProduct] = useState([]);
   useEffect(() => {
@@ -11,8 +13,10 @@ export default function Banner() {
       .get("http://127.0.0.1:8000/api/getAllTypeProduct")
       .then((response) => {
         setTypeProduct(response.data);
+        // console.log(typeof(response.data[0].icon))
       });
   }, []);
+
   return (
     <>
       <div className="gearvn-header-navigation ">
@@ -24,10 +28,9 @@ export default function Banner() {
                  {typeProduct.map((item, index)=>(
                        <li className="cat-menu-item " key={index}>
                        <Link className="gearvn-cat-menu-item" to={`/collections/${item.id}`}>
-                         <span className="gearvn-cat-menu-icon">
-                           {/* <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" />
-                             <img src="//theme.hstatic.net/1000026716/1000440777/14/xxx21.png?v=19349" /> */}
-                         </span>
+                         <div className="gearvn-cat-menu-icon" dangerouslySetInnerHTML={{__html:item.icon}}>
+                        
+                         </div>
                          <span className="gearvn-cat-menu-name">{item.TenLoai}</span>
                        </Link>
                      </li>

@@ -126,7 +126,7 @@ export default function Header() {
                             </div>
                           </div>
                         </Link>
-                        <Link
+                        <Link to="/"
                           className="gearvn-header-top-item"
                           onClick={handleLogout}
                         >

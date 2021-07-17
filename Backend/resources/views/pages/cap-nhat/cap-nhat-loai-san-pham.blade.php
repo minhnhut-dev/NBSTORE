@@ -66,6 +66,19 @@
                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
                 </div>
 
+                <div class="form-group col-6">
+                    {{-- @php
+                    $str=$loai['icon'];
+                    // $replace_class=str_replace('className','class',$str);
+                    $replace_class=str_replace('className','class',$str);
+                    echo $str;
+                  @endphp --}}
+                    <label for="ten-the-loai-phim">Icon của danh mục: (Ấn vào <a href="https://fontawesome.com/" target="_blank">đây</a> để tải icon)</label>
+                    <input type="text" class="form-control" id="ten-the-loai-phim"
+                        name="icon" value="{{$loai->icon}}" required>
+                    <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                </div>
+
 
             </div>
 

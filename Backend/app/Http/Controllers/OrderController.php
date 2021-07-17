@@ -21,7 +21,7 @@ class OrderController extends Controller
     {
         $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
         FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
-        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ORDER BY don_hangs.created_at DESC; 
+        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ORDER BY don_hangs.created_at DESC;
         ');
         $amountItemsPage = 10;
         $totalPages = FLOOR(sizeof($orders['orders']) / $amountItemsPage);
@@ -290,7 +290,7 @@ class OrderController extends Controller
          AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND nguoi_dungs.id=don_hangs.nguoi_dungs_id
         ', [$id]);
         return response()->json($data,200);
-
+    }
     public static function getProductOrdersByProduct($id)
     {
         $products = DB::select('SELECT SUM(SoLuong) AS amount FROM chi_tiet_don_hangs WHERE `don_hangs_id` IN (SELECT id FROM don_hangs WHERE nguoi_dungs_id= '.$id.')');

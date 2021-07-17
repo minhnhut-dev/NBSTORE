@@ -7,39 +7,34 @@ export default function ProductBestSellingByBrand(props) {
   const { products } = props;
   const linkImage = "http://127.0.0.1:8000/images/";
   return (
+    <>
     <div id="featured-product">
       <div style={{ position: "relative" }}>
         <h2 className="new-product-title">Deal Hot Trong Tháng</h2>
-        <a className="gearvn-new-products-hot-view-all" href="#">
+        <Link className="gearvn-new-products-hot-view-all" to="#">
           Xem tất cả
           <i className="fa fa-chevron-right"></i>
-        </a>
+        </Link>
       </div>
+      
       <div className="loop-pro">
         <div className="module-products row">
-          {products.map((item) => (
-            <div className="col-sm-4 col-xs-12 padding-none col-fix20">
+          {products.map((item,index) => (
+            <div className="col-sm-4 col-xs-12 padding-none col-fix20" key={index}>
               <div className="product-row">
-                <a href="#"></a>
                 <div className="product-row-img">
-                  {/* <a href="#">
-                                <img
-                                  src="//product.hstatic.net/1000026716/product/r4st_e4cdcf53ef724ad093cc2d439bdd5994_large.png"
-                                  className="product-row-thumbnail"
-                                />
-                              </a> */}
+                
                   <Link to={`/ProductDetail/${item.id}`}>
                     <img
                       src={linkImage + item.AnhDaiDien}
                       className="product-row-thumbnail"
+                      alt={item.AnhDaiDie}
                     />
                   </Link>
                   <div className="product-row-price-hover">
-                    <a href="#">
                       <div className="product-row-note pull-left">
                         Xem chi tiết
                       </div>
-                    </a>
                     <Link
                       to={`/ProductDetail/${item.id}`}
                       className="product-row-btnbuy pull-right"
@@ -82,5 +77,9 @@ export default function ProductBestSellingByBrand(props) {
         </div>
       </div>
     </div>
+    
+    </>
+    
+    
   );
 }
