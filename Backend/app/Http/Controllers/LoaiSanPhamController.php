@@ -90,6 +90,12 @@ class LoaiSanPhamController extends Controller
         $data = new LoaiSanPham;
         $data->TenLoai = $request->ten_loai;
         $data->parent_id = $request->parent_id;
+        // $subjectVal =$request->icon;
+
+        // $replace_class=str_replace('class','className',$subjectVal);
+        // $data->icon=$replace_class;
+            $data->icon=$request->icon;
+        // return $data;
         $data->save();
         return redirect('/quan-ly-loai-san-pham');
         // return $data;
@@ -101,6 +107,12 @@ class LoaiSanPhamController extends Controller
         $data = LoaiSanPham::find($id);
         $data->TenLoai = $request->ten_loai;
         $data->parent_id = $request->parent_id;
+        // $subjectVal =$request->icon;
+
+        // $replace_class=str_replace('class','className',$subjectVal);
+        // $data->icon=$replace_class;
+        $data->icon=$request->icon;
+        // return $data;
         $data->save();
         return redirect('/quan-ly-loai-san-pham');
     }

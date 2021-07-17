@@ -13,11 +13,15 @@ import axios from "axios";
 import NumberFormat from "react-number-format";
 import {  exportComponentAsPNG } from 'react-component-export-image';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Skeleton from 'react-loading-skeleton';
+
 const buildConfig = JSON.parse(localStorage.getItem("BuildConfig") || "[]");
 function BuildConfig() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [loading,setLoading]=useState(true);
+
   const [accessories, setAccessories] = useState([]);// list accessories
   const [idConfig, setIdConfig] = useState("");
   const [typecpu, setTypeCPU] = useState([]);//set type product is cpu
@@ -39,6 +43,7 @@ function BuildConfig() {
   const [qtyVGA, setQtyVGA] = useState(1);// quantity VGA
   const [qtyCooler, setQtyCooler] = useState(1);// quantity Cooler
 
+  let today = new Date().toLocaleDateString()
 
   const componentRef = useRef();
   const [config, setConfig] = useState({
@@ -80,30 +85,38 @@ function BuildConfig() {
     
       axios.get("http://127.0.0.1:8000/api/typeCPU").then((response) => {
         setTypeCPU(response.data);
+        setLoading(false)
       });
  
       axios.get("http://127.0.0.1:8000/api/typeRAM").then((response) => {
         setTypeRAM(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typeMainBoard").then((response) => {
         setTypeMain(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typeMonitor").then((response) => {
         setTypeMonitor(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typeStorage").then((response) => {
         setTypeStorage(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typePower").then((response) => {
         setTypePower(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typeVGA").then((response) => {
         setTypeVGA(response.data);
+        setLoading(false)
       });
       axios.get("http://127.0.0.1:8000/api/typeCooler").then((response) => {
         setTypeCooler(response.data);
+        setLoading(false)
       });
-  
+      
   }, []);
   const handleAddAccessories = (data) => {
    
@@ -211,8 +224,8 @@ function BuildConfig() {
                   </span>
                 </div>
               </div>
-              <div className="build-pc-body" >
-                {/* CPU */}
+              {loading ? <Skeleton count={12}/> : <div className="build-pc-body" >
+                {/* CPU */}       
                 {typecpu.map((item, index) => (
                   <div className="product-type-item" key={index}>
                     <div className="left-content">1. {item.TenLoai}</div>
@@ -269,7 +282,7 @@ function BuildConfig() {
                               value={qtyCPU}
                               variant="outlined"
                              
-                              onChange={(e) => setQtyCPU(e.target.value >=config.cpu.SoLuong || e.target.value<1? config.cpu.SoLuong:e.target.value)}
+                              onChange={(e) => setQtyCPU(parseInt(e.target.value) >= parseInt(config.cpu.SoLuong )|| e.target.value < 1? config.cpu.SoLuong: e.target.value)}
 
                             />
                               
@@ -357,7 +370,7 @@ function BuildConfig() {
                                 defaultValue="1"
                                 variant="outlined"
                                 value={qtyRAM}
-                                onChange={(e) => setQtyRam(e.target.value >=config.ram.SoLuong || e.target.value<=0? "":e.target.value)}
+                                onChange={(e) => setQtyRam(parseInt(e.target.value) >= parseInt(config.ram.SoLuong )|| e.target.value < 1? config.ram.SoLuong: e.target.value)}
                                 />
                               <span>
                                 =
@@ -442,9 +455,10 @@ function BuildConfig() {
                                   type="number"
                                   defaultValue="1"
                                   variant="outlined"
-                                  value={parseInt(qtyMain)> parseInt(config.main.SoLuong) ||parseInt(qtyMain)<1?parseInt(config.main.SoLuong) :qtyMain}
-                                  // onChange={(e) => setQtyMain(e.target.value >=config.main.SoLuong || e.target.value < 1? config.main.SoLuong:e.target.value)}
-                                  onChange={(e) => setQtyMain(e.target.value)}
+                                  value={qtyMain}
+                                  // value={parseInt(qtyMain)> parseInt(config.main.SoLuong) ||parseInt(qtyMain)<1?parseInt(config.main.SoLuong) :qtyMain}
+                                  onChange={(e) => setQtyMain(parseInt(e.target.value) >= parseInt(config.main.SoLuong )|| e.target.value < 1? config.main.SoLuong:e.target.value)}
+                                  // onChange={(e) => setQtyMain(e.target.value)}
                                 />
                                 <span>
                                   =
@@ -531,7 +545,7 @@ function BuildConfig() {
                                 variant="outlined"
                                 value={qtyMonitor}
                                 // onChange={(e) => setQtyMonitor(e.target.value)}
-                                onChange={(e) => setQtyMonitor(e.target.value >= config.monitor.SoLuong || e.target.value<1? config.monitor.SoLuong:e.target.value)}
+                                onChange={(e) => setQtyMonitor(parseInt(e.target.value) >= parseInt(config.monitor.SoLuong )|| e.target.value < 1? config.monitor.SoLuong : e.target.value)}
 
                               />
                               <span>
@@ -617,7 +631,8 @@ function BuildConfig() {
                                 defaultValue="1"
                                 variant="outlined"
                                 value={qtyStorage}
-                                onChange={(e) => setQtyStorage(e.target.value)}
+                                onChange={(e) => setQtyStorage(parseInt(e.target.value) >= parseInt(config.storage.SoLuong )|| e.target.value < 1? config.storage.SoLuong : e.target.value)}
+
                               />
                               <span>
                                 =
@@ -702,7 +717,8 @@ function BuildConfig() {
                                 defaultValue="1"
                                 variant="outlined"
                                 value={qtyPower}
-                                onChange={(e) => setQtyPower(e.target.value)}
+                                onChange={(e) => setQtyPower(parseInt(e.target.value) >= parseInt(config.power.SoLuong )|| e.target.value < 1? config.power.SoLuong : e.target.value)}
+
                               />
                               <span>
                                 =
@@ -787,7 +803,7 @@ function BuildConfig() {
                                 defaultValue="1"
                                 variant="outlined"
                                 value={qtyVGA}
-                                onChange={(e) => setQtyVGA(e.target.value)}
+                                onChange={(e) => setQtyVGA(parseInt(e.target.value) >= parseInt(config.vga.SoLuong )|| e.target.value < 1? config.vga.SoLuong : e.target.value)}
                               />
                               <span>
                                 =
@@ -872,7 +888,7 @@ function BuildConfig() {
                                 defaultValue="1"
                                 variant="outlined"
                                 value={qtyCooler}
-                                onChange={(e) => setQtyCooler(e.target.value)}
+                                onChange={(e) => setQtyCooler(parseInt(e.target.value) >= parseInt(config.cooler.SoLuong )|| e.target.value < 1? config.cooler.SoLuong : e.target.value)}
                               />
                               <span>
                                 =
@@ -901,7 +917,8 @@ function BuildConfig() {
                     )}
                   </div>
                 ))}
-              </div>
+              </div>}
+              
 
             </div>
             
@@ -912,7 +929,9 @@ function BuildConfig() {
                     <i className="fas fa-images"></i>
                     Tải file cấu hình
                   </Button>}
+                 
                     content={() => componentRef.current}
+                    documentTitle={`BuildPC`+today}
                   />
                  
                 </div>

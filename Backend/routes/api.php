@@ -80,7 +80,6 @@ Route::get('get-image-slides', 'ImageSlideController@getURLImages');
 // suggest product
 Route::get('/suggestProduct/{id}', 'SanPhamController@SuggestProduct');
 //api build config
-Route::get('/cpu','SanPhamController@CPU');// get cpu
 Route::get('/typeCPU','LoaiSanPhamController@getTypeCPU');// get  type CPU
 Route::get('/typeRAM','LoaiSanPhamController@getTypeRAM');// get  type ram
 Route::get('/typeMainBoard','LoaiSanPhamController@getTypeMainBoard');// get  type mainboard

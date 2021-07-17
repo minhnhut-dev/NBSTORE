@@ -16,6 +16,7 @@ class CreateLoaiSanPhamsTable extends Migration
         Schema::create('loai_san_phams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('TenLoai')->unique();
+            $table->string('icon')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();//loại sản phẩm thuộc loại
             // $table->unsignedBigInteger('DanhMuc_id');
             $table->boolean('TrangThai')->default(1);

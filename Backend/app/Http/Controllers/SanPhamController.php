@@ -325,15 +325,6 @@ class SanPhamController extends Controller
                     ->get();
         return response()->json($data,200);
     }
-    // api build configs
-    public function CPU()
-    {
-        $cpu=DB::table('san_phams')
-        ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
-        ->select('san_phams.*')
-        ->where('loai_san_phams.TenLoai','=','CPU')->where('san_phams.TrangThai','=',1)
-        ->get();
-        return response()->json($cpu);
-    }
+
 
 }
