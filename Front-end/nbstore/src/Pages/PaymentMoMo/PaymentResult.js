@@ -21,6 +21,9 @@ function PaymentResult() {
   const data = {
     trang_thai_don_hangs_id: 2,
   };
+  const orderCanceled={
+    trang_thai_don_hangs_id: 4,
+  }
   var query = useQuery();
   var name = query.get("localMessage");
   var message = query.get("message");
@@ -34,14 +37,28 @@ function PaymentResult() {
     axios
       .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
       .then((res) => {
-        localStorage.removeItem("Order");
+        // localStorage.removeItem("Order");
         console.log(res.data);
       });
     name = "Đơn hàng thành công";
-  } else if (message == 2) {
-    name = "Đơn hàng không thành công";
+  }
+   else if (message == 2) {
+    axios
+    .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`, orderCanceled)
+    .then((res) => {
+      // localStorage.removeItem("Order");
+      console.log(res.data);
+    });
+    name = "Đơn hàng bị hủy";
+
   } else {
-    name = "Đơn hàng không thành công";
+    axios
+    .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`, orderCanceled)
+    .then((res) => {
+      // localStorage.removeItem("Order");
+      console.log(res.data);
+    });
+    name = "Đơn hàng bị hủy";
   }
   useEffect(() => {
     axios

@@ -252,6 +252,20 @@ class OrderController extends Controller
         $data->save();
         return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công"],200);
     }
+
+    public function updateOrderCanceled(Request $request,$id)
+    {
+        //
+        $data=DonHang::find($id);
+        if(empty($data))
+        {
+            return response()->json(["message"=>"id không tồn tại"],400);
+
+        }
+        $data->trang_thai_don_hangs_id=4;
+        $data->save();
+        return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công"],200);
+    }
     public function GetOrderUnpiadByUserID($id)
     {
         $data= DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
@@ -305,6 +319,13 @@ class OrderController extends Controller
         $amount=(int)$amounts->amount;
         return $amount;
 
+    }
+    public function getOrderCanceled($id)
+    {
+        $data= DB::select('SELECT don_hangs.id,don_hangs.ThoiGianMua,hinh_thuc_giao_hangs.TenHinhThuc,hinh_thuc_thanh_toans.TenThanhToan,don_hangs.Tongtien,trang_thai_don_hangs.TenTrangThai
+        FROM don_hangs , hinh_thuc_thanh_toans,hinh_thuc_giao_hangs, trang_thai_don_hangs
+        WHERE don_hangs.hinh_thuc_giao_hangs_id=hinh_thuc_giao_hangs.id AND don_hangs.hinh_thuc_thanh_toans_id=hinh_thuc_thanh_toans.id AND don_hangs.trang_thai_don_hangs_id=trang_thai_don_hangs.id AND trang_thai_don_hangs.id=4 AND don_hangs.nguoi_dungs_id=?', [$id]);
+        return response()->json($data);
     }
     /**
      * Remove the specified resource from storage.

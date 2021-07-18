@@ -18,6 +18,8 @@ import ResetPassword from "./Pages/Account/ResetPassword/ResetPassword";
 import Search from "./Pages/Search/Search";
 import PaymentResult from "./Pages/PaymentMoMo/PaymentResult";
 import CompleteOrder from "./Pages/Account/CompleteOrder/CompleteOrder";
+import OrderCancel from "./Pages/Account/OrderCanceled/OrderCanceled";
+
 import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
 const cartFromLocalStorage = JSON.parse(
@@ -108,6 +110,9 @@ function App() {
           </Route>
           <Route path="/resultOrder/">
             <PaymentResult/>
+          </Route>
+          <Route path="/account-orderCanceled">
+            <OrderCancel/>
           </Route>
           <Route path="/updateUser/">
             <UpdateUser/>

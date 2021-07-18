@@ -47,10 +47,14 @@ Route::post('user/reset-password-client/{token}', 'AuthController@resetPasswordU
 Route::post('user/forgot-password', 'AuthController@ForgotPassword');
 
 Route::put('/updateOrder/{id}', 'OrderController@updateOrderPaid');
+Route::put('/updateOrderCanceled/{id}', 'OrderController@updateOrderCanceled');
+
 Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUserID');
 Route::get('/getOrderPaidByUserID/{id}', 'OrderController@GetOrderPaidByUserID');
 Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
 Route::get('/getOrderCompleteByUserId/{id}','OrderController@getOrderCompleteByUserId');
+Route::get('/getOrderCanceled/{id}','OrderController@getOrderCanceled');
+
 // api build cấu hình
 
 Route::get('/getAccessories','SanPhamController@GetAccessories');
