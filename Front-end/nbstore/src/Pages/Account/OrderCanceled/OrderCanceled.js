@@ -6,12 +6,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import NumberFormat from "react-number-format";
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
-function CompleteOrder() {
+function OrderCancel() {
   const [order, setOder] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/getOrderCompleteByUserId/${userLogin.id}`)
+      .get(`http://127.0.0.1:8000/api/getOrderCanceled/${userLogin.id}`)
       .then((response) => {
+        // console.log(response.data);
         setOder(response.data);
       });
   }, []);
@@ -33,16 +34,15 @@ function CompleteOrder() {
                           <Link to="/account-order">ĐH chưa thanh toán</Link>
                         </dd>
                         <dd>
-                          <Link to="/account-ordered">Đơn hàng đã thanh toán</Link>
+                          <Link to="/account-ordered"> Đơn hàng đã thanh toán</Link>
                         </dd>
                         <dd>
-                          <Link to="/account-completeOrder">Đơn hàng đã hoàn thành</Link>
+                          <Link to="/account-completeOrder"> Đơn hàng đã hoàn thành</Link>
                         </dd>
                         <dd>
-                        <Link to="/account-orderCanceled"> Đơn hàng đã hủy</Link>
-
+                          <Link to="/account-orderCanceled"> Đơn hàng đã hủy</Link>
                         </dd>
-                      </dl> 
+                      </dl>
                       <dl>
                         <dt>Thông tin tài khoản</dt>
                         <dd>
@@ -51,15 +51,16 @@ function CompleteOrder() {
                           </Link>
                         </dd>
                         <dd>
-                          <Link to="/account-order">Thay đổi mật khẩu</Link>
+                          <Link to="/updatePassword">Thay đổi mật khẩu</Link>
                         </dd>
                       </dl>
                     </td>
                     <td valign="top" className="tb-order">
-                      <h3>Danh sách tất cả đơn hàng hoàn thành</h3>
+                      <h3>Tất cả đơn hàng đã hủy</h3>
                       <tr>
                         <td>Mã đơn hàng</td>
                         <td>Ngày đặt</td>
+
                         <td>Vận chuyển</td>
                         <td>Thanh toán</td>
                         <td>Tổng tiền</td>
@@ -102,4 +103,4 @@ function CompleteOrder() {
   );
 }
 
-export default CompleteOrder;
+export default OrderCancel;

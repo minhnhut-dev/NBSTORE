@@ -145,7 +145,8 @@ class trang_thai_don_hangs extends Seeder
         DB::table('trang_thai_don_hangs')->insert([
          ['TenTrangThai'=>'Chưa thanh toán'],
          ['TenTrangThai'=>'Đã thanh toán'],
-         ['TenTrangThai'=>'Đã hoàn thành'],
+         ['TenTrangThai'=>'Đã xác nhận'],
+         ['TenTrangThai'=>'Đã hủy'],
         ]);
     }
 }

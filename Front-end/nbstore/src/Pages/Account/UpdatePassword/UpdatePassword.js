@@ -61,6 +61,10 @@ function UpdatePassword() {
                             Đơn hàng đã hoàn thành
                           </Link>
                         </dd>
+                        <dd>
+                        <Link to="/account-orderCanceled"> Đơn hàng đã hủy</Link>
+
+                        </dd>
                       </dl>
                       <dl>
                         <dt>Thông tin tài khoản</dt>
