@@ -6,14 +6,20 @@ import { Link, Redirect } from "react-router-dom";
 import Footer from "../../Component/Footer/Footer";
 import Header from "../../Component/Header/Header";
 import "./Login.css";
+import {useSnackbar} from 'notistack';
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 function Login() {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [userName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState("");
+  const [active,setActive]=useState("");
   const [process, setProcess] = useState(false);
+
+
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -33,12 +39,17 @@ function Login() {
           setProcess(true);
           setTimeout(() => {
             setRedirect(true);
+
             window.location.reload();
           }, 3000);
         } else {
-          const message =
-            "Tài khoản chưa được xác thực vui lòng liên hệ để xác thực !";
-          setError(message);
+             
+          const message ='Tài khoản chưa được xác thực vui lòng kiểm tra lại mail !';
+
+            enqueueSnackbar(message,{
+              variant: 'warning',
+               autoHideDuration: 2000,
+            });
         }
       })
       .catch((e) => {
@@ -48,7 +59,6 @@ function Login() {
         }
       });
   };
-
   if (redirect) {
     return <Redirect to="/" />;
   }
@@ -105,6 +115,7 @@ function Login() {
                   <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
                   </Button>
+                 
                 </div>
                 {process ? <LinearProgress /> : ""}
                 <div className="req_pass">
@@ -120,9 +131,12 @@ function Login() {
           </div>
         </div>
       </div>
+     
       <Footer />
     </>
   );
 }
 
 export default Login;
+
+

@@ -15,6 +15,7 @@ import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import {useSnackbar} from 'notistack';
 
 
 function Register() {
@@ -29,6 +30,7 @@ function Register() {
   const [errorEmail, setErrorEmail] = useState([]);
   const [errorUsername, setErrorUsername] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -44,11 +46,11 @@ function Register() {
     axios
       .post("http://127.0.0.1:8000/api/Register", data)
       .then((response) => {
-       
-        setOpen(true);
+        // setOpen(true);
          setTimeout(() => {
+          enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{variant:"success"});
             setRedirect(true);
-         },1000)
+         },4000)
       })
       .catch((e) => {
         console.log(e.response.data);
@@ -210,7 +212,7 @@ function Register() {
                   <Link to="/Login">Quay về</Link>
                 </Button>
               </div>
-              <Snackbar
+              {/* <Snackbar
                 open={open}
                 autoHideDuration={3000}
                 onClose={handleClose}
@@ -220,7 +222,7 @@ function Register() {
                  Chúc mừng bạn đã đăng ký thành công!
                 </Alert>
               
-              </Snackbar>
+              </Snackbar> */}
             
             </form>
           </div>

@@ -47,6 +47,7 @@ class AuthController extends Controller
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
+
         $user->save();
         event(new Registered($user));
         $result = $this->activationService->sendActivationMail($user);
@@ -111,6 +112,19 @@ class AuthController extends Controller
         }
     }
 
+    public function reActiveUser(Request $request)
+    {
+        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
+        }
+        $user = $request->user();
+
+        event(new Registered($user));
+        $result = $this->activationService->sendActivationMail($user);
+        return response()->json(['message' => 'Vui lòng kiểm tra mail của bạn !', 'result' => $result], 200);
+
+    }
 
 
 }
