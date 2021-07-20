@@ -76,4 +76,17 @@
     height: 160px;
 }
 }
+.col-item{
+    display: flex;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+.advance{
+    display: flex;
+    font-size: 12px !important;
+}
+.select-status{
+    font-size:12px !important;
+}
 

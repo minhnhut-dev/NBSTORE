@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AnhSanPham;
 use App\CauHinh;
+use App\DonHang;
+use App\ChiTietDonHang;
 use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
@@ -21,15 +23,74 @@ class SanPhamController extends Controller
         $this->htmlselect = '';
         $this->LoaiSanPham = $LoaiSanPham;
     }
-    public function index()
+    public function index(Request $request)
     {
 
-        $sanpham['listsanpham'] = SanPham::where('TrangThai', 1)->paginate(5);
-        return view('pages.quan-ly-san-pham', $sanpham);
+        $listsanpham = SanPham::where('TrangThai', 1);
+        if ($request->amount>-1) {
+            if ($request->amount > 0) {
+
+                switch ($request->amount) {
+                    case 1: {
+                            $begin = 0;
+                            $end = 5;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 2: {
+                            $begin = 5;
+                            $end = 10;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 3: {
+                            $begin = 10;
+                            $end = 50;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+
+                    case 4: {
+                            $begin = 50;
+                            $end = 100;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 5: {
+                            $begin = 100;
+                            $end = 250;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 6: {
+                            $begin = 250;
+                            $end = 500;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 7: {
+                            $begin = 500;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin);
+                            break;
+                        }
+                    default: {
+                            //
+                        }
+                }
+            }
+
+            if($request->search) $listsanpham=$listsanpham->where('TenSanPham', 'LIKE','%'.$request->search.'%');
+          
+              if($request->category>0) $listsanpham=$listsanpham->where('loai_san_phams_id',$request->category);
+        } 
+        $listsanpham=$listsanpham->paginate(5);
+        $categories = LoaiSanPham::where('TrangThai', 1)->get();
+        return view('pages.quan-ly-san-pham', compact('listsanpham', 'categories'));
     }
 
     public function ThemSanPham()
     {
+      
         $data = LoaiSanPham::where('TrangThai', 1)->get();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $Recursion = new Recursion($dataOption);
@@ -53,9 +114,9 @@ class SanPhamController extends Controller
     {
 
         $data = SanPham::where('san_phams.id', $id)
-        // ->join('loai_san_phams','loai_san_phams.id','san_phams.loai_san_phams_id')
-        // ->select('san_phams.id')
-        ->get();
+            // ->join('loai_san_phams','loai_san_phams.id','san_phams.loai_san_phams_id')
+            // ->select('san_phams.id')
+            ->get();
         $category = LoaiSanPham::where('id', $data[0]->loai_san_phams_id)->first();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $configs = json_decode($data[0]->CauHinh);
@@ -76,7 +137,6 @@ class SanPhamController extends Controller
                     $cont = $content->content;
                 } catch (\ErrorException $e) {
                     $cont = null;
-
                 }
 
                 $html .= '<div class="form-group col-12"><label for="'
@@ -84,15 +144,15 @@ class SanPhamController extends Controller
                     . $key . '" placeholder="Nhập ' . $configs_by_category[$i]->TenCauHinh . '"name="'
                     . $key . '" value="' . $cont . '"></div>';
             }
-            else{
-                $html = '<div class="card-header"><label>Loại sản phẩm này chưa có cấu hình vui lòng thêm cấu hình<label></div>';
-            }
+        else {
+            $html = '<div class="card-header"><label>Loại sản phẩm này chưa có cấu hình vui lòng thêm cấu hình<label></div>';
+        }
 
 
         $Recursion = new Recursion($dataOption);
         $htmlOption = $Recursion->cat_parent();
 
-        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption','category', 'html'));
+        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'category', 'html'));
     }
 
     public function InsertProducts(Request $request)
@@ -116,7 +176,7 @@ class SanPhamController extends Controller
         } else {
             $HinhAnh = "meo.jpg"; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
         }
-        $data->AnhDaiDien=$HinhAnh;
+        $data->AnhDaiDien = $HinhAnh;
 
         $configs = DB::table('chi_tiet_cau_hinhs')
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
@@ -154,20 +214,19 @@ class SanPhamController extends Controller
 
         return redirect('/quan-ly-san-pham');
     }
-    public static function AffterOrder($id,$soluong)
+    public static function AffterOrder($id, $soluong)
     {
 
         $data = SanPham::find($id);
-        if($data->SoLuong<$soluong){
-            return ['result'=>false,'amount'=>$data->SoLuong,'name'=>$data->TenSanPham];
-        }
-        else{
-            $amount=$data->SoLuong-$soluong;
+        if ($data->SoLuong < $soluong) {
+            return ['result' => false, 'amount' => $data->SoLuong, 'name' => $data->TenSanPham];
+        } else {
+            $amount = $data->SoLuong - $soluong;
             $data->SoLuong =  $amount;
             $data->save();
-            return ['result'=>true,'amount'=>$data->SoLuong];
+            return ['result' => true, 'amount' => $data->SoLuong];
         }
-        return ['result'=>false,'amount'=>$data->SoLuong,'name'=>$data->TenSanPham];
+        return ['result' => false, 'amount' => $data->SoLuong, 'name' => $data->TenSanPham];
     }
     public function UpdateProduct(Request $request, $id)
     {
@@ -205,12 +264,14 @@ class SanPhamController extends Controller
         return redirect('/quan-ly-san-pham');
     }
 
-    public function DeleteProduct($id)
+    public function DeleteProduct(Request $request,$id)
     {
         $data = SanPham::find($id);
         $data->TrangThai = 0;
         $data->save();
-        return redirect('/quan-ly-san-pham');
+        if($request->page) $page='page='.$request->page;
+        else $page='';
+        return redirect("/quan-ly-san-pham?$page");
     }
     public function ConfigByCategory($id)
     {
@@ -220,11 +281,11 @@ class SanPhamController extends Controller
         $html = '';
         foreach ($configs as $item) {
             $html .= '<div class="form-group col-12"><label for="'
-            . $item->KeyName . '">'
-            . $item->TenCauHinh .':</label> <input type="text" class="form-control" id="'
-            . $item->KeyName .'" placeholder="Nhập tên '
-            . $item->TenCauHinh . '"name="'
-            . $item->KeyName . '" > </div>';
+                . $item->KeyName . '">'
+                . $item->TenCauHinh . ':</label> <input type="text" class="form-control" id="'
+                . $item->KeyName . '" placeholder="Nhập tên '
+                . $item->TenCauHinh . '"name="'
+                . $item->KeyName . '" > </div>';
         }
         if (sizeof($configs) > 0)
             return response()->json(['message' => 'success', 'html' => $html]);
@@ -234,29 +295,28 @@ class SanPhamController extends Controller
     // api
     public function GetProductSeal()
     {
-        $Product= SanPham::OrderBy('giaKM','ASC')->get();
-        return response()->json($Product,200);
+        $Product = SanPham::OrderBy('giaKM', 'ASC')->get();
+        return response()->json($Product, 200);
     }
     public function GetImageProductByid($id)
     {
-        $imageProducts=DB::select('SELECT anh_san_phams.AnhSanPham
+        $imageProducts = DB::select('SELECT anh_san_phams.AnhSanPham
         FROM anh_san_phams
         WHERE anh_san_phams.san_phams_id=?', [$id]);
-        return response($imageProducts,200);
+        return response($imageProducts, 200);
     }
     public function GetProductById($id)
     {
-        $products = SanPham::where('id',$id )->get();
+        $products = SanPham::where('id', $id)->get();
         return response()->json($products);
     }
 
     public function GetAccessories()
     {
-        $accessories=DB::select('SELECT *
+        $accessories = DB::select('SELECT *
         FROM loai_san_phams
         WHERE loai_san_phams.parent_id=5');
-        return response()->json($accessories,200);
-
+        return response()->json($accessories, 200);
     }
 
     public function getTypeProductById($id)
@@ -265,31 +325,32 @@ class SanPhamController extends Controller
         // FROM loai_san_phams , san_phams
         // WHERE san_phams.loai_san_phams_id = loai_san_phams.id AND loai_san_phams.id= ?', [$id]);
 
-        $data=DB::table('san_phams')
-            ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
-            ->where('san_phams.loai_san_phams_id','=',$id)->orWhere('loai_san_phams.parent_id','=',$id)
+        $data = DB::table('san_phams')
+            ->join('loai_san_phams', 'san_phams.loai_san_phams_id', '=', 'loai_san_phams.id')
+            ->where('san_phams.loai_san_phams_id', '=', $id)->orWhere('loai_san_phams.parent_id', '=', $id)
             ->select('san_phams.*')
             ->paginate(2);
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
     public function GetAllProduct()
     {
-        $data=SanPham::get();
-        return response()->json($data,200);
+        $data = SanPham::get();
+        return response()->json($data, 200);
     }
-    public function getProductByTypeProductId($id){
+    public function getProductByTypeProductId($id)
+    {
         // $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
-            $listProduct=DB::select('SELECT san_phams.*
+        $listProduct = DB::select('SELECT san_phams.*
             FROM san_phams
             JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
-            WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id,$id]);
-        return response()->json($listProduct,200);
+            WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id, $id]);
+        return response()->json($listProduct, 200);
     }
     public function search($keyword)
     {
         $data = DB::select('select * from san_phams where TenSanPham  like concat("%",?,"%") ', [$keyword]);
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
     public function test($id)
@@ -309,22 +370,36 @@ class SanPhamController extends Controller
         // JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
         // WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id,$id]);
         // return $listProduct;
-         $user = DB::table('san_phams')->select('loai_san_phams_id')->where('id', $id)->get();
-         $typeId=(object)$user[0]->loai_san_phams_id;
+        $user = DB::table('san_phams')->select('loai_san_phams_id')->where('id', $id)->get();
+        $typeId = (object)$user[0]->loai_san_phams_id;
 
-         return response()->json($typeId);
+        return response()->json($typeId);
     }
 
     public function SuggestProduct($id)
     {
-        $data= DB::table('san_phams')
-                    ->join('loai_san_phams','san_phams.loai_san_phams_id','=','loai_san_phams.id')
-                    ->where('loai_san_phams.id','=',$id)
-                    ->select('san_phams.*')
-                    ->orderBy('GiaKM','ASC')
-                    ->get();
-        return response()->json($data,200);
+        $data = DB::table('san_phams')
+            ->join('loai_san_phams', 'san_phams.loai_san_phams_id', '=', 'loai_san_phams.id')
+            ->where('loai_san_phams.id', '=', $id)
+            ->select('san_phams.*')
+            ->orderBy('GiaKM', 'ASC')
+            ->get();
+        return response()->json($data, 200);
     }
+    public static function recoveryProduct($id){
+        $orderDetails = ChiTietDonHang::where('don_hangs_id',$id)->get();
 
-
+        foreach ($orderDetails as $item) {
+            try{
+                $product= SanPham::find($item->san_phams_id);
+                $product->SoLuong = $product->SoLuong+$item->SoLuong;
+                $product->save();
+              
+            }catch(\Exception $e){
+                    return false;
+            }
+            
+        }
+        return true;
+    }
 }
