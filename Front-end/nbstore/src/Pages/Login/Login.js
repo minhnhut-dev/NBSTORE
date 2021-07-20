@@ -10,16 +10,20 @@ import {useSnackbar} from 'notistack';
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 function Login() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [userName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [active,setActive]=useState(false);
   const [error, setError] = useState("");
-  const [active,setActive]=useState("");
   const [process, setProcess] = useState(false);
 
-
+//   const action = () => (
+//         <Button   onClick={()=>setActive(true)}>
+//             Tại đây
+//         </Button>
+// );
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -39,40 +43,45 @@ function Login() {
           setProcess(true);
           setTimeout(() => {
             setRedirect(true);
-
             window.location.reload();
           }, 3000);
         } else {
              
-          const message ='Tài khoản chưa được xác thực vui lòng kiểm tra lại mail !';
-
+          const message ='Tài khoản chưa được xác thực vui lòng kiểm tra lại mail ';
             enqueueSnackbar(message,{
               variant: 'warning',
-               autoHideDuration: 2000,
+               autoHideDuration: 3000,
             });
         }
       })
       .catch((e) => {
         if (e.response && e.response.data) {
           console.log(e.response.data.message); // some reason error message
-          setError(e.response.data.message);
+          // setError(e.response.data.message);
+          enqueueSnackbar(e.response.data.message,{
+            variant: 'error',
+             autoHideDuration: 3000,
+          });
         }
       });
   };
   if (redirect) {
     return <Redirect to="/" />;
   }
-
+// if(active)
+// {
+//   return <Redirect to="/account/activeUser"/>
+// }
   return (
     <>
       <Header />
       <div className="noindex">
         <div id="layout-page-login" className="container">
-          {error && (
+          {/* {error && (
             <Alert severity="error" style={{ textAlign: "center" }}>
               {error}
             </Alert>
-          )}
+          )} */}
       
 
           <div id="customer-login">

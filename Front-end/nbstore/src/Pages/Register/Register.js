@@ -16,7 +16,9 @@ import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import {useSnackbar} from 'notistack';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+import Backdrop from '@material-ui/core/Backdrop';
 
 function Register() {
   const [username, setUserName] = useState("");
@@ -31,6 +33,7 @@ function Register() {
   const [errorUsername, setErrorUsername] = useState([]);
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -47,8 +50,13 @@ function Register() {
       .post("http://127.0.0.1:8000/api/Register", data)
       .then((response) => {
         // setOpen(true);
+        setOpen(true);
          setTimeout(() => {
-          enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{variant:"success"});
+          // enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{variant:"success"});
+          enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{
+            variant: 'success',
+             autoHideDuration: 3000,
+          });
             setRedirect(true);
          },4000)
       })
@@ -56,22 +64,31 @@ function Register() {
         console.log(e.response.data);
         setErrorEmail(e.response.data.Email);
         setErrorUsername(e.response.data.username);
+       
       });
   };
 
+    // errorEmail.map((emailError) => {
+    //  return  enqueueSnackbar(emailError,{
+    //     variant: 'error',
+    //      autoHideDuration: 3000,
+    //      preventDuplicate: true,
+    //   });
+    // })
+  
+    // errorUsername.map((usernameError) => {
+    //   return  enqueueSnackbar(usernameError,{
+    //      variant: 'error',
+    //       autoHideDuration: 3000,
+    //       preventDuplicate: true,
+    //    });
+    //  })
+  // 
+  
 
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
+  const handleClose = () => {
     setOpen(false);
   };
-
-  function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
   if(redirect)
   {
     return <Redirect to="/Login" />
@@ -80,19 +97,24 @@ function Register() {
     <>
       <Header />
       <div className="noindex">
-        {errorEmail &&
-          errorEmail.map((emailError) => (
-            <Alert severity="error" style={{ textAlign: "center" }}>
-              {emailError}
-            </Alert>
-          ))}
-        {errorUsername &&
-          errorUsername.map((usernameError) => (
-            <Alert severity="error" style={{ textAlign: "center" }}>
-              {usernameError}
-            </Alert>
-          ))}
-
+      {errorEmail &&
+          errorEmail.map((emailError) => {
+             enqueueSnackbar(emailError,{
+              variant: 'error',
+               autoHideDuration: 3000,
+               preventDuplicate: true,
+            });
+          })} 
+           {errorUsername &&
+          errorUsername.map((emailUsername) => {
+             enqueueSnackbar(emailUsername,{
+              variant: 'error',
+               autoHideDuration: 3000,
+               preventDuplicate: true,
+            });
+          })}
+        
+    
         <div id="layout-page-register" className="container">
           <span className="header-contact header-page clearfix">
             <h1 className="title-register">Tạo tài khoản</h1>
@@ -101,7 +123,6 @@ function Register() {
             <form
               acceptCharset="UTF-8"
               id="create_customer"
-              onSubmit={onSubmit}
             >
               <div id="userName" className="input-group">
                 <span className="input-group-addon">
@@ -205,9 +226,12 @@ function Register() {
               </div>
 
               <div className="action_bottom d-flex">
-                <Button variant="primary" className="btnLogin" type="submit">
+                <Button variant="primary" className="btnLogin" type="submit" onClick={onSubmit}>
                   Đăng ký
                 </Button>
+               <Backdrop open={open} className="backdrop-mui" onClick={handleClose}>
+                  <CircularProgress color="inherit" />
+             </Backdrop>
                 <Button variant="secondary" className="btnBack">
                   <Link to="/Login">Quay về</Link>
                 </Button>

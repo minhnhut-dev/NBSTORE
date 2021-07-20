@@ -22,6 +22,7 @@ import OrderCancel from "./Pages/Account/OrderCanceled/OrderCanceled";
 
 import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
+import ActiveUser from "./Pages/Account/ActiveUser/ActiveUser";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -128,6 +129,9 @@ function App() {
           </Route>
           <Route path="/account/configPassword/:token">
             <ResetPassword />
+          </Route>
+          <Route path="/account/activeUser">
+            <ActiveUser />
           </Route>
           <Route path="/search">
             <Search />

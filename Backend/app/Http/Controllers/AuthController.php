@@ -114,15 +114,24 @@ class AuthController extends Controller
 
     public function reActiveUser(Request $request)
     {
-        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
-        if (!Auth::attempt($credentials)) {
-            return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
-        }
-        $user = $request->user();
+        // $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
+        // if (!Auth::attempt($credentials)) {
+        //     return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
+        // }
+        // $user = $request->user();
 
-        event(new Registered($user));
-        $result = $this->activationService->sendActivationMail($user);
-        return response()->json(['message' => 'Vui lòng kiểm tra mail của bạn !', 'result' => $result], 200);
+        // event(new Registered($user));
+        // $result = $this->activationService->sendActivationMail($user);
+        // return response()->json(['message' => 'Vui lòng kiểm tra mail của bạn !', 'result' => $result], 200)->header("Access-Control-Allow-Origin",  "*");
+        $user = NguoiDung::where('Email',$request->Email)->first();
+        if ($user ){
+
+            event(new Registered($user ));
+            $result = $this->activationService->sendActivationMail($user);
+                return response()->json(['message' => 'Email kích hoạt đã được gửi'],200);
+        } else {
+            return response()->json(['message' => 'Không tìm thấy Email'],400);
+        }
 
     }
 

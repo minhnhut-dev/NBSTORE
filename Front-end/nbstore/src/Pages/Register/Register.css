@@ -31,3 +31,6 @@
     color: white;
 
 }
+.backdrop-mui{
+    z-index: 9999 !important;
+}

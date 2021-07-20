@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
-  <SnackbarProvider anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}  >
+  <SnackbarProvider anchorOrigin={{vertical: 'bottom',horizontal: 'right'}} dense >
       <App />
   </SnackbarProvider>
   

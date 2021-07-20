@@ -10,7 +10,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import CryptoJS from "crypto-js";
 import Paypal from "../../Component/Paypal/Paypal";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import {useSnackbar} from 'notistack';
+
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
@@ -32,7 +33,10 @@ function Cart(props) {
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
   const [paypal, setPayPal] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
+
+ 
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
@@ -58,12 +62,52 @@ function Cart(props) {
           }, 2000);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log((err.response.data.hinh_thuc_giao_hangs_id));
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
           setErrorLogin(err.response.data.nguoi_dungs_id);
+        
+          if(err.response.data.hinh_thuc_giao_hangs_id != undefined)
+          {
+            enqueueSnackbar(err.response.data.hinh_thuc_giao_hangs_id,{
+              variant: 'error',
+              autoHideDuration: 3000,
+              preventDuplicate:true,
+          
+            });
+          }
+          
+          if(err.response.data.nguoi_dungs_id != undefined)
+          {
+            enqueueSnackbar(err.response.data.nguoi_dungs_id,{
+              variant: 'error',
+              autoHideDuration: 3000,
+              preventDuplicate:true,
+            });
+          }
+         
+          if(err.response.data.hinh_thuc_thanh_toans_id != undefined)
+          {
+            enqueueSnackbar(err.response.data.hinh_thuc_thanh_toans_id,{
+              variant: 'error',
+              autoHideDuration: 3000,
+              preventDuplicate:true,
+            });
+          }
+           
+       
+          enqueueSnackbar(error,{
+            variant: 'error',
+            autoHideDuration: 3000,
+            preventDuplicate:true,
+          });
+        
+           
+          
+      
         });
+        
     } else if (optionPayment == 1) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
@@ -216,19 +260,8 @@ function Cart(props) {
                   {item}
                 </Alert>
               ))}
-            {errorShipping &&
-              errorShipping.map((item) => (
-                <Alert severity="error" style={{ textAlign: "center" }}>
-                  {item}
-                </Alert>
-              ))}
-            {errorLogin &&
-              errorLogin.map((item) => (
-                <Alert severity="error" style={{ textAlign: "center" }}>
-                  {item}
-                </Alert>
-              ))}
-
+           
+           
             {cartItems.length === 0 ? (
               <div className="row">
                 <div id="layout-page-first" className="col-md-12">
