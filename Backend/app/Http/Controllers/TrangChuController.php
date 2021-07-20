@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\NguoiDung;
+use App\TrangThaiDonHang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
@@ -26,7 +27,7 @@ class TrangChuController extends Controller
             $item->SanPhams = $amount;
         }
         $prods = [];
-        $products = DB::table('san_phams')->where('TrangThai', 1)->get();
+        $products = DB::table('san_phams')->where('TrangThai', 1)->limit(10)->get();
         foreach ($products as $item) {
             $amount = (int)OrderController::getProductOrdersByProduct($item->id);
             $item->SoLuong = $amount;
@@ -49,8 +50,12 @@ class TrangChuController extends Controller
             $amount = (int)OrderController::getProductOrdersByOrder($item->id);
             $item->SanPhams = $amount;
         }
-        // dd($orders);
-        return view('pages.trang-chu', compact('users','prods','orders'));
+        $chart_product = [];
+        foreach ($prods as $item){
+            array_push($chart_product,['name' => $item->TenSanPham,'steps'=>$item->SoLuong,'href'=>'images/'.$item->AnhDaiDien]);
+        }
+      
+        return view('pages.trang-chu', compact('users','prods','orders','chart_product'));
     }
     public function FormLogin()
     {

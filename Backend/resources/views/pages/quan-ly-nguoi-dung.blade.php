@@ -29,17 +29,19 @@
                                 Thêm mới tài khoản
                             </a>
                         <div class="card-tools">
+                            <form method="GET" action="">
                             <div class="input-group">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="search" value="{{!empty($_GET['search'])?$_GET['search']:''}}" class="form-control float-right" placeholder="Search">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0" style="height: 400px;">
+                    <div class="card-body table-responsive p-0">
                         <table class="table table-head-fixed table-striped">
                             <thead>
 
@@ -56,6 +58,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(!sizeof($listUser))
+                                    <tr>
+                                        <div style="padding: 10px;" class="error"> Không có dữ liệu</div>
+                                    </tr>
+                                @endif
                                 @php
                                 $stt=0;
                                 if (isset($_GET['page'])) {
@@ -102,13 +109,6 @@
                     <!-- /.card-body -->
                 </div>
                 <nav aria-label="Page navigation example">
-                    {{-- <ul class="pagination">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul> --}}
                     {{$listUser->links()}}
                 </nav>
                 <!-- /.card -->

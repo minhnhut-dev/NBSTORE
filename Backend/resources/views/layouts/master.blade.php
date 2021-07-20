@@ -297,6 +297,7 @@
     <script src={{ asset('ajax/suat-chieu-ajax.js') }}></script>
     <script src={{ asset('ajax/ve-ajax.js') }}></script>
     <script src={{ asset('js/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.js') }}></script>
+    @yield('script')
 
     <script>
         $(function() {
