@@ -19,15 +19,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   if($request->search){
+         
+            $user['listUser'] = DB::table('nguoi_dungs')
+            ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id')
+            ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
+            ->where('nguoi_dungs.SDT','LIKE',"%$request->search%")
+            ->orWhere('nguoi_dungs.TenNguoidung','LIKE',"%$request->search%")
+            ->orWhere('nguoi_dungs.Email','LIKE',"%$request->search%")
+            ->orWhere('nguoi_dungs.username','LIKE',"%$request->search%")
+            ->paginate(5);
+ 
+        }else 
         $user['listUser'] = DB::table('nguoi_dungs')
         ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id')
         ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
         ->paginate(5);
-        // //  NguoiDung::where('TrangThai', 1)
-        // // ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')->paginate(10);
-        // dd( $user['listUser']);
+
         return view('pages.quan-ly-nguoi-dung', $user);
     }
 
@@ -130,7 +139,7 @@ class CustomerController extends Controller
         return view('pages.cap-nhat.cap-nhat-nguoi-dung',compact('user','orders','html'));
     }
     public function MyProfile(Request $request)
-    {
+    {  
 
         $admin =Auth::user();
         $user =NguoiDung::where('nguoi_dungs.id','=',$admin->id)
@@ -155,7 +164,7 @@ class CustomerController extends Controller
     public function editPassword(Request $request,$id)
     {
         $data=NguoiDung::find($id);
-
+        
      if (!(Hash::check($request->get('oldPassword'), $data->password))) {
             // The passwords matches
             return response()->json(["message" => "Mật khẩu cũ không đúng"], 500);
@@ -177,7 +186,7 @@ class CustomerController extends Controller
 
 
         // }
-
+        
     public function update(Request $request,  $id)
     {
 
@@ -220,12 +229,12 @@ class CustomerController extends Controller
             return redirect('/quan-ly-nguoi-dung/show/'.$id)->withErrors($validator);
         }
         }
-
+         
            $user = NguoiDung::find($id);
         //    $user->Email = $request->email;
            $user->TenNguoiDung = $request->name;
            if(!$request->password) $user->password = $user->password;
-           else
+           else 
            $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
            $user->GioiTinh = $request->sex;

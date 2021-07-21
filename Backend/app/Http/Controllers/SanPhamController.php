@@ -81,6 +81,7 @@ class SanPhamController extends Controller
 
             if($request->search) $listsanpham=$listsanpham->where('TenSanPham', 'LIKE','%'.$request->search.'%');
 
+
               if($request->category>0) $listsanpham=$listsanpham->where('loai_san_phams_id',$request->category);
         }
         $listsanpham=$listsanpham->paginate(5);
@@ -90,7 +91,6 @@ class SanPhamController extends Controller
 
     public function ThemSanPham()
     {
-
         $data = LoaiSanPham::where('TrangThai', 1)->get();
         $dataOption = $this->LoaiSanPham::where('TrangThai', 1)->get();
         $Recursion = new Recursion($dataOption);
@@ -385,8 +385,8 @@ class SanPhamController extends Controller
             ->orderBy('GiaKM', 'ASC')
             ->get();
         return response()->json($data, 200);
-    }
 
+    }
     public static function recoveryProduct($id){
         $orderDetails = ChiTietDonHang::where('don_hangs_id',$id)->get();
 

@@ -31,18 +31,19 @@
                             Thêm mới
                         </a>
                         <div class="card-tools">
+                        <form method="GET" action="">
                             <div class="input-group">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Search">
+                                <input type="text" name="search" value="{{!empty($_GET['search'])?$_GET['search']:''}}" class="form-control float-right" placeholder="Search">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0" style="height: 400px;">
+                    <div class="card-body table-responsive p-0" >
                         <table class="table table-head-fixed table-striped">
                             <thead>
                                 <tr>
@@ -64,7 +65,7 @@
                                 }
                                 $stt=($a-1)*5;
                                 @endphp
-                                @foreach ($listloaisanpham as $loai)
+                                @foreach ($data as $loai)
                                 @php
                                 @endphp
                                 <tr>
@@ -87,12 +88,18 @@
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                             </a>
-                                            <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
+                                            <!-- <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
                                                 <button type="button" class="btn btn-danger" data-toggle="tooltip"
                                                     title="Xóa">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
-                                            </a>
+                                            </a> -->
+                                            <a >
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete{{$loai->id}}"
+                                                    title="Xóa">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                                </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -100,7 +107,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{$listloaisanpham->links()}}
+                    {{$data->links()}}
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
@@ -108,6 +115,41 @@
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
+    @foreach ($checkDel as $sp )
+
+        <div class="modal fade" id="modalDelete{{$sp['id']}}" tabindex="-1" aria-labelledby="modalDeleteLabel{{$sp['id']}}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel{{$sp['id']}}">Xoá</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   Xác nhận xoá  loại sản phẩm {{$sp['name']}}
+                </div>
+                @if($sp['delete'])
+                <center class="error ">
+                   Loại sản phẩm {{$sp['name']}} không thể xoá !
+                </center>
+                @endif
+                @php
+             
+                if(!empty($_GET['page'])){
+                    $page='page='.$_GET['page'];
+                } else $page='';
+                @endphp
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                     <a href="/quan-ly-loai-san-pham/delete/{{$sp['id']}}?{{$page}}">
+                        <button type="button" {{$sp['delete']?'disabled':''}} class="btn btn-danger">Xoá</button>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
 </section>
 
 @endsection

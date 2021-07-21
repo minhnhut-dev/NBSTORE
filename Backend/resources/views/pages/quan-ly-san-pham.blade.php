@@ -30,19 +30,44 @@
                                 <i class="fas fa-plus-circle"></i>
                                 Thêm mới sản phẩm
                             </a>
-                            <div class="card-tools">
-                                <div class="input-group">
-                                    <input type="text" name="table_search" class="form-control float-right"
-                                        placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            <form method="GET" >
+                            <div class="row advance d-flex card-tools">
+                                    Loại sản phẩm
+                                    <div class="col-item">
+                                        <select class="form-control select-status" id="category" name="category">
+                                            <option value="0">Tất cả</option>
+                                            @foreach ($categories as $item)
+                                            <option {{@$_GET['category']==$item->id?'selected':''}}
+                                                value="{{$item->id}}">{{$item->TenLoai}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                </div>
+                                    Số lượng
+                                    <div class="col-item">
+                                        <select class="form-control select-status" id="amount" name="amount">
+                                            <option value="0">Tất cả</option>
+                                            <option {{@$_GET['amount']==1?'selected':''}} value="1">0 5</option>
+                                            <option {{@$_GET['amount']==2?'selected':''}} value="2">5 - 10</option>
+                                            <option {{@$_GET['amount']==3?'selected':''}} value="3">10 - 50</option>
+                                            <option {{@$_GET['amount']==4?'selected':''}} value="4">50 - 100</option>
+                                            <option {{@$_GET['amount']==5?'selected':''}} value="5">100 - 250</option>
+                                            <option {{@$_GET['amount']==6?'selected':''}} value="6">250 - 500</option>
+                                            <option {{@$_GET['amount']==7?'selected':''}} value="7">Lớn hơn 500</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-item">
+                                        <input type="text" name="search"  value="{{!empty($_GET['search'])?$_GET['search']:''}}" class="form-control float-right"
+                                            placeholder="Search">
+
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
                             </div>
+                            </form>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0" style="height: 400px;">
+                        <div class="card-body table-responsive p-0" >
                             <table class="table table-head-fixed table-striped">
                                 <thead>
 
@@ -96,11 +121,16 @@
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                 </a>
-                                                <a href="/quan-ly-san-pham/{{$sp->id}}">
-                                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" type="submit"
+                                                <!-- <a href="/quan-ly-san-pham/{{$sp->id}}"> -->
+                                                <a >
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete{{$sp->id}}"
                                                     title="Xóa">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
+                                                </a>
+                                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete{{$sp->id}}">
+                                                Launch demo modal
+                                                </button> -->
 
 
                                             </div>
@@ -115,13 +145,7 @@
                         <!-- /.card-body -->
                     </div>
                     <nav aria-label="Page navigation example">
-                        {{-- <ul class="pagination">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul> --}}
+
                         {{$listsanpham->links()}}
                       </nav>
                     <!-- /.card -->
@@ -129,7 +153,35 @@
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
-
+        @foreach ($listsanpham as $sp )
+        <div class="modal fade" id="modalDelete{{$sp->id}}" tabindex="-1" aria-labelledby="modalDeleteLabel{{$sp->id}}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteLabel{{$sp->id}}">Xoá</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   Xác nhận xoá sản phẩm {{$sp->TenSanPham}}
+                </div>
+                @php
+                
+                if(!empty($_GET['page'])){
+                    $page='page='.$_GET['page'];
+                } else $page='';
+                @endphp
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                     <a href="/quan-ly-san-pham/{{$sp->id}}?{{$page}}">
+                        <button type="button" class="btn btn-danger">Xoá</button>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </section>
 
 @endsection
