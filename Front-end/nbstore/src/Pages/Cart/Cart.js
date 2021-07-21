@@ -6,18 +6,14 @@ import NumberFormat from "react-number-format";
 import { Button } from "react-bootstrap";
 import "./Cart.css";
 import axios from "axios";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 import CryptoJS from "crypto-js";
 import Paypal from "../../Component/Paypal/Paypal";
-import {useSnackbar} from 'notistack';
+import { useSnackbar } from "notistack";
 
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
-  function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+ 
   const { cartItems, onRemove, onAdd } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.GiaKM, 0);
   const totalPrice = itemsPrice;
@@ -35,13 +31,11 @@ function Cart(props) {
   const [paypal, setPayPal] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
-
- 
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
 
-  const handleOrder = async(e) => {
+  const handleOrder = async (e) => {
     e.preventDefault();
     const data = {
       nguoi_dungs_id: userLogin.id,
@@ -51,7 +45,7 @@ function Cart(props) {
       line_items: newArr,
     };
 
-    if (!optionPayment || !optionShipping || userLogin.id == null) {
+    if (!optionPayment || !optionShipping || userLogin.id == null ) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
@@ -62,58 +56,48 @@ function Cart(props) {
           }, 2000);
         })
         .catch((err) => {
-          console.log((err.response.data.hinh_thuc_giao_hangs_id));
+          console.log(err.response.data.error);
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
           setErrorLogin(err.response.data.nguoi_dungs_id);
-        
-          if(err.response.data.hinh_thuc_giao_hangs_id != undefined)
-          {
-            enqueueSnackbar(err.response.data.hinh_thuc_giao_hangs_id,{
-              variant: 'error',
+
+          if (err.response.data.hinh_thuc_giao_hangs_id != undefined) {
+            enqueueSnackbar(err.response.data.hinh_thuc_giao_hangs_id, {
+              variant: "error",
               autoHideDuration: 3000,
-              preventDuplicate:true,
-          
+              preventDuplicate: true,
             });
           }
-          
-          if(err.response.data.nguoi_dungs_id != undefined)
-          {
-            enqueueSnackbar(err.response.data.nguoi_dungs_id,{
-              variant: 'error',
+
+          if (err.response.data.nguoi_dungs_id != undefined) {
+            enqueueSnackbar(err.response.data.nguoi_dungs_id, {
+              variant: "error",
               autoHideDuration: 3000,
-              preventDuplicate:true,
+              preventDuplicate: true,
             });
           }
+
+          if (err.response.data.hinh_thuc_thanh_toans_id != undefined) {
+            enqueueSnackbar(err.response.data.hinh_thuc_thanh_toans_id, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+
          
-          if(err.response.data.hinh_thuc_thanh_toans_id != undefined)
-          {
-            enqueueSnackbar(err.response.data.hinh_thuc_thanh_toans_id,{
-              variant: 'error',
-              autoHideDuration: 3000,
-              preventDuplicate:true,
-            });
-          }
-           
-       
-          enqueueSnackbar(error,{
-            variant: 'error',
-            autoHideDuration: 3000,
-            preventDuplicate:true,
-          });
-        
-           
-          
-      
         });
-        
     } else if (optionPayment == 1) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
           console.log(response.data);
-          setOpen(true);
+          enqueueSnackbar("Chúc mừng bạn đã đặt hàng thành công", {
+            variant: "success",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
+          });
           setTimeout(() => {
             setRedirect(true);
             localStorage.removeItem("cartItems");
@@ -121,11 +105,18 @@ function Cart(props) {
           }, 2000);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err.response.data.error);
           setError(err.response.data.error);
           setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
           setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
           setErrorLogin(err.response.data.nguoi_dungs_id);
+          if (err.response.data.error != undefined) {
+            enqueueSnackbar(err.response.data.error, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
         });
     } else if (optionPayment == 2) {
       var dataMoMo = {
@@ -141,13 +132,14 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-     await axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
-        console.log(response.data.order);
-        localStorage.setItem("Order", JSON.stringify(response.data.order));
-      });
-
-      await axios.post(apiEndPoint, dataMoMo)
-      .then((response) => {
+      await axios
+        .post("http://127.0.0.1:8000/api/order", data)
+        .then((response) => {
+          console.log(response.data.order);
+          localStorage.setItem("Order", JSON.stringify(response.data.order));
+        })
+       
+      await axios.post(apiEndPoint, dataMoMo).then((response) => {
         setPayURL(response.data.payUrl);
         localStorage.removeItem("cartItems");
         setRedirect(true);
@@ -173,9 +165,7 @@ function Cart(props) {
     // return window.open(payURL,'_blank',"width=600,height=400").focus();
     // return window.location.assign(payURL);
     return window.location.replace(payURL);
-  //  return window.location.href = payURL;
-
-
+    //  return window.location.href = payURL;
   } else if (redirect && optionPayment == 1) {
     return <Redirect to="/account-order" />;
   }
@@ -247,7 +237,7 @@ function Cart(props) {
       <div className="noindex">
         <div id="mainframe">
           <div className="container">
-            {error ? (
+            {/* {error ? (
               <Alert severity="error" style={{ textAlign: "center" }}>
                 {error}
               </Alert>
@@ -259,9 +249,8 @@ function Cart(props) {
                 <Alert severity="error" style={{ textAlign: "center" }}>
                   {item}
                 </Alert>
-              ))}
-           
-           
+              ))} */}
+
             {cartItems.length === 0 ? (
               <div className="row">
                 <div id="layout-page-first" className="col-md-12">
@@ -324,8 +313,6 @@ function Cart(props) {
                                   justifyContent: "space-evenly",
                                 }}
                               >
-                                
-
                                 <button
                                   onClick={() => onRemove(item)}
                                   className="remove"
@@ -535,15 +522,7 @@ function Cart(props) {
                           >
                             Thanh toán
                           </Button>
-                          <Snackbar
-                            open={open}
-                            autoHideDuration={6000}
-                            onClose={handleClose}
-                          >
-                            <Alert onClose={handleClose} severity="success">
-                              Chúc mừng bạn đặt hàng thành công !
-                            </Alert>
-                          </Snackbar>
+                         
                         </div>
                       </div>
                     </div>

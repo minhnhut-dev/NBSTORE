@@ -12,9 +12,6 @@ import {
 import "./Register.css";
 import { useState } from "react";
 import axios from "axios";
-import Alert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 import {useSnackbar} from 'notistack';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -27,7 +24,7 @@ function Register() {
   const [nameUser, setNameUser] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [errorEmail, setErrorEmail] = useState([]);
   const [errorUsername, setErrorUsername] = useState([]);
@@ -64,7 +61,23 @@ function Register() {
         console.log(e.response.data);
         setErrorEmail(e.response.data.Email);
         setErrorUsername(e.response.data.username);
-       
+        if(e.response.data.Email != undefined)
+        {
+          enqueueSnackbar(e.response.data.Email,{
+            variant: 'error',
+             autoHideDuration: 3000,
+             preventDuplicate: true,
+          });
+        }
+        if(e.response.data.username != undefined)
+        {
+          enqueueSnackbar(e.response.data.username,{
+            variant: 'error',
+             autoHideDuration: 3000,
+             preventDuplicate: true,
+          });
+        }
+
       });
   };
 
@@ -97,22 +110,7 @@ function Register() {
     <>
       <Header />
       <div className="noindex">
-      {errorEmail &&
-          errorEmail.map((emailError) => {
-             enqueueSnackbar(emailError,{
-              variant: 'error',
-               autoHideDuration: 3000,
-               preventDuplicate: true,
-            });
-          })} 
-           {errorUsername &&
-          errorUsername.map((emailUsername) => {
-             enqueueSnackbar(emailUsername,{
-              variant: 'error',
-               autoHideDuration: 3000,
-               preventDuplicate: true,
-            });
-          })}
+     
         
     
         <div id="layout-page-register" className="container">
