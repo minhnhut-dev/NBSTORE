@@ -27,10 +27,10 @@ class OrderController extends Controller
         if ($request->search) {
             $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
             FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
-            INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id 
-            WHERE don_hangs.id = "' . $request->search . '" 
-            OR nguoi_dungs.TenNguoidung LIKE "%' . $request->search . '%" 
-            OR nguoi_dungs.SDT LIKE "%' . $request->search . '%" 
+            INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
+            WHERE don_hangs.id = "' . $request->search . '"
+            OR nguoi_dungs.TenNguoidung LIKE "%' . $request->search . '%"
+            OR nguoi_dungs.SDT LIKE "%' . $request->search . '%"
             ORDER BY don_hangs.created_at DESC;
             ');
         }
@@ -331,6 +331,8 @@ class OrderController extends Controller
             return response()->json(["message"=>"id không tồn tại"],400);
 
         }
+        // SanPhamController::recoveryProduct($id);
+
         $data->trang_thai_don_hangs_id=4;
         $data->save();
         return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công"],200);

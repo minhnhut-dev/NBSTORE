@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
-    <App />
+  <SnackbarProvider anchorOrigin={{vertical: 'bottom',horizontal: 'right'}} dense >
+      <App />
+  </SnackbarProvider>
+  
   ,
   document.getElementById('root')
 );

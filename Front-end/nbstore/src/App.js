@@ -22,6 +22,7 @@ import OrderCancel from "./Pages/Account/OrderCanceled/OrderCanceled";
 
 import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
+import ActiveUser from "./Pages/Account/ActiveUser/ActiveUser";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -54,8 +55,9 @@ function App() {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
       setCartItems(
+        
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
+          x.id === product.id? { ...exist, qty: exist.qty + 1 } : x
         )
       );
     } else {
@@ -128,6 +130,9 @@ function App() {
           </Route>
           <Route path="/account/configPassword/:token">
             <ResetPassword />
+          </Route>
+          <Route path="/account/activeUser">
+            <ActiveUser />
           </Route>
           <Route path="/search">
             <Search />

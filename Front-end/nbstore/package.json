@@ -16,6 +16,7 @@
     "fotorama-react-wrapper": "^1.0.7",
     "html-react-parser": "^1.2.7",
     "http-proxy-middleware": "^0.19.1",
+    "notistack": "^1.0.9",
     "react": "^16.14.0",
     "react-bootstrap": "^1.5.2",
     "react-bootstrap-floating-label": "^1.6.0",

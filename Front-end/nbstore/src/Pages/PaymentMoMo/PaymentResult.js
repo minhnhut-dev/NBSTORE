@@ -50,6 +50,7 @@ function PaymentResult() {
       console.log(res.data);
     });
     name = "Đơn hàng bị hủy";
+    console.log("paypal");
 
   } else {
     axios
@@ -57,6 +58,7 @@ function PaymentResult() {
     .then((res) => {
       // localStorage.removeItem("Order");
       console.log(res.data);
+      console.log("momo");
     });
     name = "Đơn hàng bị hủy";
   }

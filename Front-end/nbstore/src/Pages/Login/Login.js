@@ -6,14 +6,24 @@ import { Link, Redirect } from "react-router-dom";
 import Footer from "../../Component/Footer/Footer";
 import Header from "../../Component/Header/Header";
 import "./Login.css";
+import {useSnackbar} from 'notistack';
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 function Login() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [userName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [active,setActive]=useState(false);
   const [error, setError] = useState("");
   const [process, setProcess] = useState(false);
+
+//   const action = () => (
+//         <Button   onClick={()=>setActive(true)}>
+//             Tại đây
+//         </Button>
+// );
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -36,33 +46,42 @@ function Login() {
             window.location.reload();
           }, 3000);
         } else {
-          const message =
-            "Tài khoản chưa được xác thực vui lòng liên hệ để xác thực !";
-          setError(message);
+             
+          const message ='Tài khoản chưa được xác thực vui lòng kiểm tra lại mail ';
+            enqueueSnackbar(message,{
+              variant: 'warning',
+               autoHideDuration: 3000,
+            });
         }
       })
       .catch((e) => {
         if (e.response && e.response.data) {
           console.log(e.response.data.message); // some reason error message
-          setError(e.response.data.message);
+          // setError(e.response.data.message);
+          enqueueSnackbar(e.response.data.message,{
+            variant: 'error',
+             autoHideDuration: 3000,
+          });
         }
       });
   };
-
   if (redirect) {
     return <Redirect to="/" />;
   }
-
+// if(active)
+// {
+//   return <Redirect to="/account/activeUser"/>
+// }
   return (
     <>
       <Header />
       <div className="noindex">
         <div id="layout-page-login" className="container">
-          {error && (
+          {/* {error && (
             <Alert severity="error" style={{ textAlign: "center" }}>
               {error}
             </Alert>
-          )}
+          )} */}
       
 
           <div id="customer-login">
@@ -105,6 +124,7 @@ function Login() {
                   <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
                   </Button>
+                 
                 </div>
                 {process ? <LinearProgress /> : ""}
                 <div className="req_pass">
@@ -120,9 +140,12 @@ function Login() {
           </div>
         </div>
       </div>
+     
       <Footer />
     </>
   );
 }
 
 export default Login;
+
+

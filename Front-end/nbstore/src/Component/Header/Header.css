@@ -16,7 +16,7 @@ a:hover{
       width: 100%;
       display: inline-block;
       top: 0;
-      z-index: 9999;
+      z-index: 999;
     }
   }
   /* @media screen and (max-width: 500px)
@@ -29,7 +29,7 @@ a:hover{
     position: relative;
     width: 100%;
     top: 0;
-    z-index: 9999;
+    z-index: 999;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
