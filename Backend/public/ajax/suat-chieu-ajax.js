@@ -14,4 +14,9 @@ $(document).ready(function () {
             $( "#end" ).prop( "disabled", true );
           }  
     });
+    ClassicEditor
+            .create( document.querySelector( '#des' ) )
+            .catch( error => {
+                console.error( error );
+            } );
 });
