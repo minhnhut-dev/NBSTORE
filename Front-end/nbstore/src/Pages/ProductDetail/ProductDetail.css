@@ -265,3 +265,7 @@
     height: 100%;
     object-fit: cover;
   }
+
+  .vote-product {
+      margin-left: 60px;
+  }

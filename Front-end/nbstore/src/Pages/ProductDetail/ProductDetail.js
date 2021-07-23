@@ -170,7 +170,7 @@ function ProductDetail(props) {
                       <h1 className="product_name">{item.TenSanPham}</h1>
                       <div className="ins-preview-wrapper ins-preview-wrapper-145">
                         <div className="img-nb">
-                          <img src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png" />
+                          <img src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png" alt="gvn"/>
                         </div>
                         <span className="follower">25</span>
                         <span className="follower">
@@ -358,55 +358,13 @@ function ProductDetail(props) {
                           <tbody>{elements.map((item) => item)}</tbody>
                         </table>
                       </div>
-                      <h2>
-                        <span style={{ fontSize: "15pt" }}>
-                          Đánh giá chi tiết :&nbsp;
-                        </span>
-                        <span style={{ fontSize: "15pt" }}>
-                          <br />
-                        </span>
-                      </h2>
-                      <p>
-                        <img src="https://file.hstatic.net/1000026716/file/1_8adb7d38a9094a94a450be9b3a5c1d05.png" />
-                      </p>
-                      <h3 style={{ textAlign: "left" }}>
-                        <span style={{ color: "#000000" }}>
-                          Laptop Gaming Tốt Nhất Phân Khúc
-                        </span>
-                      </h3>
-                      <p style={{ textAlign: "justify" }}>
-                        <span style={{ color: "#000000" }}>
-                          Acer Aspire 7 2020 A715 42G R4ST tích hợp card đồ họa
-                          NVIDIA GTX1650 4GB GDDR6 ra mắt năm 2020, là laptop
-                          chơi game tốt nhất phân khúc. Không chỉ vậy, phiên bản
-                          này còn mang thiết kế mới gọn gàng và sexy hơn. Aspire
-                          7 2020 được trang bị hệ thống tản nhiệt mạnh mẽ bậc
-                          nhất trong phân khúc, thừa hưởng công nghệ từ các dòng
-                          máy cao cấp hơn của Acer, cùng cấu hình đỉnh cao, giúp
-                          cho người dùng có thể vừa chơi game vừa làm việc ở bất
-                          cứ lúc nào.
-                        </span>
-                      </p>
-                      <p>
-                        <img src="https://file.hstatic.net/1000026716/file/2_5f8ab09ec95547a9ad2975be2f96300e.png" />
-                      </p>
-                      <h3 style={{ textAlign: "left" }}>
-                        <span style={{ color: "#000000" }}>
-                          THIẾT KẾ TỐI ƯU TRẢI NGHIỆM CHƠI GAME
-                        </span>
-                      </h3>
-                      <p style={{ textAlign: "justify" }}>
-                        <span style={{ color: "#000000" }}>
-                          Hệ thống hai quạt tản nhiệt, 3 ống đồng fullsize,
-                          heatsink size lớn giúp Acer Aspire 7 A715 2020 tối ưu
-                          khả năng tản nhiệt. Bản lề thiết kế chắc chắn ít bị
-                          rung lắc khi chơi, có khả năng mở góc 180 độ giúp bảo
-                          vệ máy tốt hơn.
-                        </span>
-                      </p>
-                      <p>
-                        <img src="https://file.hstatic.net/1000026716/file/3_21a5af15cbc64fdcab3dc6b881d31f76.png" />
-                      </p>
+                     
+                     {/*phần đánh giá chi tiết */}
+                     {Product.map((item, index)=>(
+                       <div key={index} dangerouslySetInnerHTML={{__html:item.ThongTin}} className="vote-product">
+
+                       </div>
+                     ))}
                     </TabPanel>
                     <TabPanel>
                       <h2>Cẩm Nhung xinh đẹp </h2>
