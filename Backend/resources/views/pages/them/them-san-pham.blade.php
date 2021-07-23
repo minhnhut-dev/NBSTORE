@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label class="col-sm-2">Mô tả:</label>
                         <div class="col-sm-12">
-                            <textarea name="detail" class="form-control" id="des" required></textarea>
+                            <textarea name="detail" class="form-control" id="des" ></textarea>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
