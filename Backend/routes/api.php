@@ -92,5 +92,6 @@ Route::get('/typePower','LoaiSanPhamController@getTypePower');// get  type Power
 Route::get('/typeVGA','LoaiSanPhamController@getTypeVGA');// get  type VGA
 Route::get('/typeCooler','LoaiSanPhamController@getTypeCooler');// get  type Cooler
 
+Route::get('/imageProduct/{id}','ImageProductController@showImage');
 
 

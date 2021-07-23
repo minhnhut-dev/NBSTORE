@@ -11,7 +11,7 @@ const cartFromLocalStorage = JSON.parse(
 );
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
-export default function Header() {
+function Header() {
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
@@ -275,3 +275,4 @@ export default function Header() {
     </>
   );
 }
+export default React.memo(Header) ;

@@ -6,6 +6,7 @@ use App\DonHang;
 use App\ChiTietDonHang;
 use App\TrangThaiDonHang;
 use App\Http\Controllers\SanPhamController;
+use App\SanPham;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -175,8 +176,7 @@ class OrderController extends Controller
                 $orderItem->save();
             } else {
                 DB::rollBack();
-
-                return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']], 500);
+                return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']], 400);
             }
         }
         $order->Tongtien = $total;
@@ -322,20 +322,21 @@ class OrderController extends Controller
         return response()->json(["message" => "Cập nhật trạng thái đơn hàng thành công"], 200);
     }
 
-    public function updateOrderCanceled(Request $request,$id)
+    public function updateOrderCanceled($id)
     {
         //
+        $result=SanPhamController::recoveryProduct($id);
+
         $data=DonHang::find($id);
         if(empty($data))
         {
             return response()->json(["message"=>"id không tồn tại"],400);
 
         }
-        // SanPhamController::recoveryProduct($id);
-
         $data->trang_thai_don_hangs_id=4;
         $data->save();
-        return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công"],200);
+
+        return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công",'result'=>$result],200);
     }
     public function GetOrderUnpiadByUserID($id)
     {

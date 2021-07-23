@@ -22,13 +22,14 @@ function Cart(props) {
   const [optionPayment, setOptionPayment] = useState();
   const [optionShipping, setOptionShipping] = useState();
   const [open, setOpen] = React.useState(false);
-  const [error, setError] = useState("");
+  const [errorQty, setError] = useState("");
   const [errorPayment, setErrorPayment] = useState([]);
   const [errorShipping, setErrorShipping] = useState([]);
   const [errorLogin, setErrorLogin] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
   const [paypal, setPayPal] = useState(false);
+  const [qtyPaypal,setQtyPaypal]=useState("");
   const { enqueueSnackbar } = useSnackbar();
 
   const newArr = cartItems.map((item) => {
@@ -45,7 +46,7 @@ function Cart(props) {
       line_items: newArr,
     };
 
-    if (!optionPayment || !optionShipping || userLogin.id == null ) {
+    if (!optionPayment || !optionShipping || userLogin.id == null  ) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
@@ -85,7 +86,7 @@ function Cart(props) {
               preventDuplicate: true,
             });
           }
-
+          
          
         });
     } else if (optionPayment == 1) {
@@ -117,8 +118,10 @@ function Cart(props) {
               preventDuplicate: true,
             });
           }
+          // console.log("qty error:",typeof(errorQty));
+          // console.log("qty error:",(errorQty));
         });
-    } else if (optionPayment == 2) {
+    } else if (optionPayment == 2 ) {
       var dataMoMo = {
         accessKey: accessKey,
         partnerCode: partnerCode,
@@ -132,25 +135,46 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-      await axios
+      
+     
+      if(totalPrice < 20000000)
+      {
+        await axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
           console.log(response.data.order);
           localStorage.setItem("Order", JSON.stringify(response.data.order));
         })
+
+        await axios.post(apiEndPoint, dataMoMo).then((response) => {
+          setPayURL(response.data.payUrl);
+          localStorage.removeItem("cartItems");
+          setRedirect(true);
+        })
+      }
+      else
+      {
+        enqueueSnackbar("Vui lòng giảm giá trị đơn hàng do hạn mức của momo", {
+          variant: "error",
+          autoHideDuration: 3000,
+          preventDuplicate: true,
+        });
+      }
+         
        
-      await axios.post(apiEndPoint, dataMoMo).then((response) => {
-        setPayURL(response.data.payUrl);
-        localStorage.removeItem("cartItems");
-        setRedirect(true);
-      });
+      
     } else if (optionPayment == 3) {
-      axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
-        console.log(response.data.order);
-        localStorage.setItem("Order", JSON.stringify(response.data.order));
-      });
-      setPayPal(true);
-      localStorage.removeItem("cartItems");
+      
+        axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
+          console.log(response.data.order);
+          localStorage.setItem("Order", JSON.stringify(response.data.order));
+        })
+        // .catch((err)=>{
+        //   setPayPal(false);
+        //   setQtyPaypal(err.response.data.error);
+        // })
+        setPayPal(true);
+        localStorage.removeItem("cartItems");
     }
   };
   const handleClose = (event, reason) => {

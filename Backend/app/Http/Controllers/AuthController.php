@@ -56,9 +56,14 @@ class AuthController extends Controller
     }
     public function Login(Request  $request)
     {
-        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
+        $credentials = $request->only('username', 'password');
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
+        }
+         if(Auth::user()->loai_nguoi_dungs_id ==1)
+        {
+            return response()->json(["message" => "Tài khoản không hợp lệ"], 400);
+
         }
         $user = $request->user();
         $tokenResult = $user->createToken('Access Token');
