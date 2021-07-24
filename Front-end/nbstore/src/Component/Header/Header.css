@@ -176,7 +176,14 @@ a:hover{
     margin-right: 8px;
     max-height: 25px;
   }
-
+  .gearvn-header-top-item img.avt__user{
+    max-width: 37px;
+    margin-right: 8px;
+    max-height: 40px;
+    margin-top: -5px;
+    border-radius: 20px;
+    
+  }
   .gearvn-content-section .gearvn-right-top-block .gearvn-header-top-item .header-right-description .gearvn-text {
     color: #010101;
     font-weight: 700;

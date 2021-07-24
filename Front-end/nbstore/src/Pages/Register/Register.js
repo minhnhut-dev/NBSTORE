@@ -12,10 +12,11 @@ import {
 import "./Register.css";
 import { useState } from "react";
 import axios from "axios";
-import {useSnackbar} from 'notistack';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { useSnackbar } from "notistack";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ImageUploading from "react-images-uploading";
 
-import Backdrop from '@material-ui/core/Backdrop';
+import Backdrop from "@material-ui/core/Backdrop";
 
 function Register() {
   const [username, setUserName] = useState("");
@@ -30,8 +31,22 @@ function Register() {
   const [errorUsername, setErrorUsername] = useState([]);
   const [open, setOpen] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  
+  const [images, setImages] = React.useState([]);
+  const [imageUser,setImageUser]=useState();
+  const maxNumber = 69;
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList);
+    setImages(imageList);
 
+    if(imageList[0] !== undefined)
+    {
+      setImageUser(imageList[0].data_url);
+    }else
+    {
+      return ;
+    }
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -42,86 +57,59 @@ function Register() {
       SDT: phone,
       DiaChi: address,
       GioiTinh: sex,
+      Anh:imageUser,
     };
     axios
       .post("http://127.0.0.1:8000/api/Register", data)
       .then((response) => {
         // setOpen(true);
         setOpen(true);
-         setTimeout(() => {
+        setTimeout(() => {
           // enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{variant:"success"});
-          enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{
-            variant: 'success',
-             autoHideDuration: 3000,
+          enqueueSnackbar("Chúc mừng bạn đăng ký thành công !", {
+            variant: "success",
+            autoHideDuration: 3000,
           });
-            setRedirect(true);
-         },4000)
+          setRedirect(true);
+        }, 4000);
       })
       .catch((e) => {
-        console.log(e.response.data);
+        console.log(e.response.data.message);
         setErrorEmail(e.response.data.Email);
         setErrorUsername(e.response.data.username);
-        if(e.response.data.Email != undefined)
-        {
-          enqueueSnackbar(e.response.data.Email,{
-            variant: 'error',
-             autoHideDuration: 3000,
-             preventDuplicate: true,
+        if (e.response.data.Email != undefined) {
+          enqueueSnackbar(e.response.data.Email, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
           });
         }
-        if(e.response.data.username != undefined)
-        {
-          enqueueSnackbar(e.response.data.username,{
-            variant: 'error',
-             autoHideDuration: 3000,
-             preventDuplicate: true,
+        if (e.response.data.username != undefined) {
+          enqueueSnackbar(e.response.data.username, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
           });
         }
-
       });
   };
-
-    // errorEmail.map((emailError) => {
-    //  return  enqueueSnackbar(emailError,{
-    //     variant: 'error',
-    //      autoHideDuration: 3000,
-    //      preventDuplicate: true,
-    //   });
-    // })
   
-    // errorUsername.map((usernameError) => {
-    //   return  enqueueSnackbar(usernameError,{
-    //      variant: 'error',
-    //       autoHideDuration: 3000,
-    //       preventDuplicate: true,
-    //    });
-    //  })
-  // 
-  
-
   const handleClose = () => {
     setOpen(false);
   };
-  if(redirect)
-  {
-    return <Redirect to="/Login" />
+  if (redirect) {
+    return <Redirect to="/Login" />;
   }
   return (
     <>
       <Header />
       <div className="noindex">
-     
-        
-    
         <div id="layout-page-register" className="container">
           <span className="header-contact header-page clearfix">
             <h1 className="title-register">Tạo tài khoản</h1>
           </span>
           <div className="userbox">
-            <form
-              acceptCharset="UTF-8"
-              id="create_customer"
-            >
+            <form acceptCharset="UTF-8" id="create_customer">
               <div id="userName" className="input-group">
                 <span className="input-group-addon">
                   <i class="fas fa-file-signature"></i>
@@ -222,30 +210,76 @@ function Register() {
                   <option value="-1">Khác</option>
                 </select>
               </div>
-
+              <div id="upload" className="input-group">
+              {/* <span className="input-group-addon">
+              <i className="fas fa-upload"></i>
+                
+                </span> */}
+              <ImageUploading
+                value={images}
+                onChange={onChange}
+                maxNumber={maxNumber}
+                dataURLKey="data_url"
+              >
+                {({
+                  imageList,
+                  onImageUpload,
+                  onImageUpdate,
+                  onImageRemove,
+                  isDragging,
+                  dragProps,
+                }) => (
+                  // write your building UI
+                  <div className="upload__image-wrapper">
+                    <Button
+              style={isDragging ? { color: "red" } : null}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Chọn ảnh avatar
+            </Button>
+                    &nbsp;
+                    {imageList.map((image, index) => (
+                      <div key={index} className="image-item" style={{position:"relative"}}>
+                        <img src={image.data_url} alt="avatar-user"  />
+                        <div className="image-item__btn-wrapper">
+                        <i className="fas fa-edit" onClick={() => onImageUpdate(index)} title="Chỉnh sửa"></i>
+                        <i className="fas fa-backspace btn-close" onClick={() => onImageRemove(index)} title="Xóa"></i>
+                          {/* <Button onClick={() => onImageUpdate(index)}>
+                            Update
+                          </Button>
+                          <Button onClick={() => onImageRemove(index)}>
+                            Remove
+                          </Button> */}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </ImageUploading>
+              </div>
+             
               <div className="action_bottom d-flex">
-                <Button variant="primary" className="btnLogin" type="submit" onClick={onSubmit}>
+                <Button
+                  variant="primary"
+                  className="btnLogin"
+                  type="submit"
+                  onClick={onSubmit}
+                >
                   Đăng ký
                 </Button>
-               <Backdrop open={open} className="backdrop-mui" onClick={handleClose}>
+                <Backdrop
+                  open={open}
+                  className="backdrop-mui"
+                  onClick={handleClose}
+                >
                   <CircularProgress color="inherit" />
-             </Backdrop>
+                </Backdrop>
                 <Button variant="secondary" className="btnBack">
                   <Link to="/Login">Quay về</Link>
                 </Button>
               </div>
-              {/* <Snackbar
-                open={open}
-                autoHideDuration={3000}
-                onClose={handleClose}
-                
-              >
-                <Alert onClose={handleClose} severity="success">
-                 Chúc mừng bạn đã đăng ký thành công!
-                </Alert>
-              
-              </Snackbar> */}
-            
+             
             </form>
           </div>
         </div>

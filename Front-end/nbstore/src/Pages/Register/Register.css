@@ -34,3 +34,16 @@
 .backdrop-mui{
     z-index: 9999 !important;
 }
+.image-item{
+    margin-top: 10px;
+}
+.image-item img{
+   height:140px;
+   width: 140px;
+}
+.image-item i.btn-close{
+    margin-left: 100px;
+}
+.image-item i{
+   cursor: pointer;
+}

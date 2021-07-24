@@ -19,7 +19,7 @@ class CreateNguoiDungsTable extends Migration
             $table->string('TenNguoidung');
             $table->string('SDT');
             $table->string('DiaChi');
-            $table->string('Anh')->nullable();
+            $table->text('Anh')->nullable();
             $table->integer('GioiTinh')->default(1);
             $table->string('username')->unique();
             $table->string('password');
