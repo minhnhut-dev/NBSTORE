@@ -88,7 +88,7 @@ $(document).ready(function () {
                     $("#not-added").html(
                         '<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">'
                     );
-                    
+
                 },
                 success: function (response) {
                     var body = JSON.parse(JSON.stringify(response));
@@ -106,10 +106,10 @@ $(document).ready(function () {
     });
     // thêm cấu hình vào danh sách tổng
     $(document).on("click", "#btn_add_config", function (e) {
-       
+
         var config = $("#config").val();
         var cateogryId = $("#LoaiSanPham").val();
-     
+
 
         if (config.length > 0)
             $.ajax({
@@ -154,14 +154,17 @@ $(document).ready(function () {
     });
 
     $(document).on("click", "#reset-password", function (e) {
-       
+
         $("#repassword").show();
-     
+
     });
     $(document).on("click", "#btn-un-reset-password", function (e) {
 
         $("#repassword").hide();
         $(".btn-un-reset-password").hide();
-     
+
     });
+
+
+
 });

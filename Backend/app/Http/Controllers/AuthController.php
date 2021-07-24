@@ -27,12 +27,17 @@ class AuthController extends Controller
     {
         $rule = [
             "Email" => "required|unique:nguoi_dungs",
-            "username" => "required|unique:nguoi_dungs|min:5"
+            "username" => "required|unique:nguoi_dungs|min:5",
+
         ];
         $customMessage = [
             "Email.unique" => "Email đã tồn tại !",
             "username.unique" => "Tên tài khoản đã tồn tại !",
             "username.min" => "Tên tài khoản phải lớn hơn 5 ký tự !",
+            "Email.required" => "Email không được bỏ trống !",
+            "username.required" => "Tên tài khoản không được bỏ trống",
+
+
         ];
         $validator = Validator::make($request->all(), $rule, $customMessage);
         if ($validator->fails()) {
@@ -47,7 +52,7 @@ class AuthController extends Controller
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->loai_nguoi_dungs_id = 2;
-
+        $user->Anh= $request->Anh;
         $user->save();
         event(new Registered($user));
         $result = $this->activationService->sendActivationMail($user);
@@ -56,9 +61,14 @@ class AuthController extends Controller
     }
     public function Login(Request  $request)
     {
-        $credentials = $request->only('username', 'password', 'loai_nguoi_dungs_id' == 2);
+        $credentials = $request->only('username', 'password');
         if (!Auth::attempt($credentials)) {
             return response()->json(["message" => "Sai Tài khoản hoặc mật khẩu"], 401);
+        }
+         if(Auth::user()->loai_nguoi_dungs_id ==1)
+        {
+            return response()->json(["message" => "Tài khoản không hợp lệ"], 400);
+
         }
         $user = $request->user();
         $tokenResult = $user->createToken('Access Token');

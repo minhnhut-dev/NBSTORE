@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import parse from 'html-react-parser';
 
-export default function Banner() {
+ function Banner() {
   const [typeProduct, setTypeProduct] = useState([]);
   useEffect(() => {
     axios
@@ -136,3 +136,4 @@ export default function Banner() {
     </>
   );
 }
+export default React.memo(Banner) ;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useMemo } from "react";
 import Footer from "../../Component/Footer/Footer";
 import Header from "../../Component/Header/Header";
 import "./PaymentResult.css";
@@ -7,7 +7,7 @@ import axios from "axios";
 import NumberFormat from "react-number-format";
 const orderInfo = JSON.parse(localStorage.getItem("Order") || "[]");
 
-function PaymentResult() {
+function PaymentResult(){
   const [order, setOder] = useState([]);
 
 
@@ -21,47 +21,48 @@ function PaymentResult() {
   const data = {
     trang_thai_don_hangs_id: 2,
   };
-  const orderCanceled={
-    trang_thai_don_hangs_id: 4,
-  }
+ 
   var query = useQuery();
   var name = query.get("localMessage");
   var message = query.get("message");
-  if (name == "Thành công") {
-    axios
-      .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
-      .then((res) => {
-        console.log(res.data);
-      });
-  } else if (message == 1) {
-    axios
-      .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
+  useMemo(() => {
+    if (name == "Thành công") {
+      axios
+        .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
+        .then((res) => {
+          console.log(res.data);
+        });
+    } else if (message == 1) {
+      axios
+        .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
+        .then((res) => {
+          // localStorage.removeItem("Order");
+          console.log(res.data);
+        });
+      name = "Đơn hàng thành công";
+    }
+     else if (message == 2) {
+      axios
+      .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}` )
       .then((res) => {
         // localStorage.removeItem("Order");
         console.log(res.data);
       });
-    name = "Đơn hàng thành công";
-  }
-   else if (message == 2) {
-    axios
-    .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`, orderCanceled)
-    .then((res) => {
-      // localStorage.removeItem("Order");
-      console.log(res.data);
-    });
-    name = "Đơn hàng bị hủy";
-    console.log("paypal");
-
-  } else {
-    axios
-    .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`, orderCanceled)
-    .then((res) => {
-      // localStorage.removeItem("Order");
-      console.log(res.data);
-      console.log("momo");
-    });
-    name = "Đơn hàng bị hủy";
-  }
+      name = "Đơn hàng bị hủy";
+      console.log("paypal");
+  
+    } else {
+      axios
+      .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`)
+      .then((res) => {
+        // localStorage.removeItem("Order");
+        console.log(res.data);
+        console.log("momo");
+      });
+      name = "Đơn hàng bị hủy";
+    }
+  }, []);
+  
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/getInformationOrderById/${orderInfo.id}`)

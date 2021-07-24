@@ -11,7 +11,7 @@ const cartFromLocalStorage = JSON.parse(
 );
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
-export default function Header() {
+function Header() {
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
@@ -119,7 +119,7 @@ export default function Header() {
                           to="/account-order"
                           className="gearvn-header-top-item"
                         >
-                          <img src="//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349" />
+                          <img src={userLogin.Anh} alt="avt-user" className="avt__user" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
                               {userLogin.TenNguoidung}
@@ -275,3 +275,4 @@ export default function Header() {
     </>
   );
 }
+export default React.memo(Header) ;

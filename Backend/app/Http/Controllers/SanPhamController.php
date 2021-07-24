@@ -151,8 +151,9 @@ class SanPhamController extends Controller
 
         $Recursion = new Recursion($dataOption);
         $htmlOption = $Recursion->cat_parent();
-
-        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'category', 'html'));
+        $imageProduct=ImageProductController::showImage($id);
+        // return $imageProduct;
+        return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'category', 'html','imageProduct'));
     }
 
     public function InsertProducts(Request $request)
@@ -260,7 +261,8 @@ class SanPhamController extends Controller
         $cauhinhString = json_encode($configJson);
         $data->CauHinh = $cauhinhString;
         $data->save();
-
+        //     $ImageProduct=AnhSanPham::where('san_phams_id',$id);
+        //     $imageProduct->
         return redirect('/quan-ly-san-pham');
     }
 
