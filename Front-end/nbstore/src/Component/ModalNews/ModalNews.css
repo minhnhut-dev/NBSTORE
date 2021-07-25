@@ -1,0 +1,20 @@
+.modal-news .modal-dialog .modal-content {
+    background-color: #0000;
+    border: none;
+}
+.modal-news {
+    overflow: hidden !important;
+}
+.modal-news .modal-dialog .modal-content img {
+    height: 90%;
+    width: 90%;
+}
+.modal-news .modal-dialog .modal-content p.close-modal {
+    position: absolute;
+    color: red;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 50px;
+    font-weight: 700;
+    left: 80%;
+}

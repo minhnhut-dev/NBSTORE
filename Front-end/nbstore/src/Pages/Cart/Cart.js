@@ -20,7 +20,7 @@ function Cart(props) {
   const LinkImage = "http://127.0.0.1:8000/images/";
   const [city, setCity] = useState([]);
   const [optionPayment, setOptionPayment] = useState();
-  const [optionShipping, setOptionShipping] = useState();
+  const [optionShipping, setOptionShipping] = useState(1);
   const [open, setOpen] = React.useState(false);
   const [errorQty, setError] = useState("");
   const [errorPayment, setErrorPayment] = useState([]);
@@ -515,6 +515,7 @@ function Cart(props) {
                                 onChange={(e) =>
                                   setOptionShipping(e.target.value)
                                 }
+                                checked
                               />
                               <label
                                 style={{
