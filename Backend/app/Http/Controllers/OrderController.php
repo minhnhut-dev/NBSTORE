@@ -129,7 +129,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public static function  create(Request $request)
     {
 
         DB::beginTransaction();

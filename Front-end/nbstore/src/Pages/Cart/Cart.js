@@ -31,11 +31,19 @@ function Cart(props) {
   const [paypal, setPayPal] = useState(false);
   const [qtyPaypal,setQtyPaypal]=useState("");
   const { enqueueSnackbar } = useSnackbar();
-
+  console.log("httt",optionPayment);
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
 
+    useEffect(() => {
+      axios.get('http://127.0.0.1:8000/api/getCity')
+      .then((response)=>{
+        console.log(response.data);
+        setCity(response.data.LtsItem);
+      })
+      
+    }, [])
   const handleOrder = async (e) => {
     e.preventDefault();
     const data = {
@@ -169,12 +177,32 @@ function Cart(props) {
           console.log(response.data.order);
           localStorage.setItem("Order", JSON.stringify(response.data.order));
         })
-        // .catch((err)=>{
-        //   setPayPal(false);
-        //   setQtyPaypal(err.response.data.error);
-        // })
         setPayPal(true);
         localStorage.removeItem("cartItems");
+    }
+    else if(optionPayment==4)
+    {
+      console.log('VNPAY');
+    await  axios.post('http://127.0.0.1:8000/api/paymentVNPAY',data)
+      .then((response)=>{
+        console.log(response.data.Order);
+        setPayURL(response.data.pay_url.data);
+        localStorage.setItem("Order", JSON.stringify(response.data.Order));
+        setRedirect(true);
+      })
+      .catch((err)=>{
+        console.log(err.response.data.error);
+        if (err.response.data.error != undefined) {
+          enqueueSnackbar(err.response.data.error, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
+          });
+        }
+      })
+      localStorage.removeItem("cartItems");
+
+      
     }
   };
   const handleClose = (event, reason) => {
@@ -192,6 +220,10 @@ function Cart(props) {
     //  return window.location.href = payURL;
   } else if (redirect && optionPayment == 1) {
     return <Redirect to="/account-order" />;
+  }
+  else if(redirect && optionPayment == 4)
+  {
+    return window.location.replace(payURL);
   }
 
   // Thanh toán MOMO
@@ -497,6 +529,27 @@ function Cart(props) {
                               >
                                 <i className="fab fa-cc-paypal"></i>
                                 <span> Paypal</span>
+                              </label>
+                            </div>
+                            <div id="vnpay">
+                              <input
+                                name="payment_vnpay"
+                                type="radio"
+                                name="payment"
+                                value="4"
+                                onChange={(e) =>
+                                  setOptionPayment(e.target.value)
+                                }
+                              />
+                              <label
+                                style={{
+                                  display: "inline-block",
+                                  lineHeight: "20px",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                <i className="fab fa-cc-paypal"></i>
+                                <span> VNPAY</span>
                               </label>
                             </div>
                           </div>

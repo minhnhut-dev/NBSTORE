@@ -94,4 +94,7 @@ Route::get('/typeCooler','LoaiSanPhamController@getTypeCooler');// get  type Coo
 
 Route::get('/imageProduct/{id}','ImageProductController@showImage');
 
-
+Route::get('/getCity','AddressUserController@getCity');
+Route::get('/getProvince/{idCity}','AddressUserController@getProvince');
+Route::get('/getWard/{idDistrict}','AddressUserController@getWard');
+Route::post('/paymentVNPAY','PaymentController@createOrder');// thanh toán VNPAY

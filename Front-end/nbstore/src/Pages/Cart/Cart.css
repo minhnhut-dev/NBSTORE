@@ -197,3 +197,8 @@ i.cps-zalopay {
     width: auto;
     height: auto;
 }
+#vnpay input {
+    width: auto;
+    height: auto;
+    margin-top: 17px;
+}
