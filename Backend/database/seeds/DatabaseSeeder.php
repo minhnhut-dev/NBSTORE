@@ -135,6 +135,7 @@ class hinh_thuc_thanh_toans extends Seeder
          ['TenThanhToan'=>'Tiền mặt'],
          ['TenThanhToan'=>'MOMO'],
          ['TenThanhToan'=>'Paypal'],
+         ['TenThanhToan'=>'VNpay'],
         ]);
     }
 }

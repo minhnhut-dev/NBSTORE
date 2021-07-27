@@ -65,7 +65,6 @@ class PaymentController extends Controller
         DB::commit();
 
 
-        $amount=300000;
         $endpoint="http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://localhost:3000/resultOrder";
         $vnp_TmnCode = "U5PFWTIM";//Mã website tại VNPAY
@@ -121,7 +120,6 @@ class PaymentController extends Controller
              'data' => $vnp_Url);
         $data= json_encode($returnData);
         return response()->json(['pay_url'=>$returnData,'Order'=>$order]);
-
-
     }
+
 }

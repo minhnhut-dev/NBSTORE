@@ -31,7 +31,6 @@ function Cart(props) {
   const [paypal, setPayPal] = useState(false);
   const [qtyPaypal,setQtyPaypal]=useState("");
   const { enqueueSnackbar } = useSnackbar();
-  console.log("httt",optionPayment);
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
@@ -176,22 +175,31 @@ function Cart(props) {
         axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
           console.log(response.data.order);
           localStorage.setItem("Order", JSON.stringify(response.data.order));
+          setPayPal(true);
         })
-        setPayPal(true);
+        .catch((err)=>{
+          setPayPal(false);
+          if (err.response.data.error != undefined) {
+            enqueueSnackbar(err.response.data.error, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+        })
         localStorage.removeItem("cartItems");
     }
     else if(optionPayment==4)
     {
-      console.log('VNPAY');
     await  axios.post('http://127.0.0.1:8000/api/paymentVNPAY',data)
       .then((response)=>{
-        console.log(response.data.Order);
         setPayURL(response.data.pay_url.data);
         localStorage.setItem("Order", JSON.stringify(response.data.Order));
+        localStorage.removeItem("cartItems");
         setRedirect(true);
+
       })
       .catch((err)=>{
-        console.log(err.response.data.error);
         if (err.response.data.error != undefined) {
           enqueueSnackbar(err.response.data.error, {
             variant: "error",
@@ -200,9 +208,6 @@ function Cart(props) {
           });
         }
       })
-      localStorage.removeItem("cartItems");
-
-      
     }
   };
   const handleClose = (event, reason) => {
@@ -548,8 +553,8 @@ function Cart(props) {
                                   marginLeft: "15px",
                                 }}
                               >
-                                <i className="fab fa-cc-paypal"></i>
-                                <span> VNPAY</span>
+                                <i className="cs-vnpay"></i>
+                                <span> Cổng thanh toán VNPAY</span>
                               </label>
                             </div>
                           </div>

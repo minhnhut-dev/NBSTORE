@@ -25,6 +25,7 @@ function PaymentResult(){
   var query = useQuery();
   var name = query.get("localMessage");
   var message = query.get("message");
+  var response_code=query.get("vnp_ResponseCode");
   useMemo(() => {
     if (name == "Thành công") {
       axios
@@ -43,6 +44,16 @@ function PaymentResult(){
         });
       name = "Đơn hàng thành công";
       setStatusOrder("Đơn hàng thành công");
+    }
+    else if(response_code =="00")
+    {
+      axios
+      .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
+      .then((res) => {
+        // localStorage.removeItem("Order");
+        console.log(res.data);
+      });
+    setStatusOrder("Đơn hàng thành công");
     }
      else if (message == 2) {
       axios
