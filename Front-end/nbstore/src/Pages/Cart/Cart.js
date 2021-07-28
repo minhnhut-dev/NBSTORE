@@ -13,14 +13,13 @@ import { useSnackbar } from "notistack";
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
- 
   const { cartItems, onRemove, onAdd } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.GiaKM, 0);
   const totalPrice = itemsPrice;
   const LinkImage = "http://127.0.0.1:8000/images/";
   const [city, setCity] = useState([]);
   const [optionPayment, setOptionPayment] = useState();
-  const [optionShipping, setOptionShipping] = useState();
+  const [optionShipping, setOptionShipping] = useState(1);
   const [open, setOpen] = React.useState(false);
   const [errorQty, setError] = useState("");
   const [errorPayment, setErrorPayment] = useState([]);
@@ -29,13 +28,17 @@ function Cart(props) {
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
   const [paypal, setPayPal] = useState(false);
-  const [qtyPaypal,setQtyPaypal]=useState("");
   const { enqueueSnackbar } = useSnackbar();
-
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
 
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/getCity").then((response) => {
+      console.log(response.data);
+      setCity(response.data.LtsItem);
+    });
+  }, []);
   const handleOrder = async (e) => {
     e.preventDefault();
     const data = {
@@ -46,7 +49,7 @@ function Cart(props) {
       line_items: newArr,
     };
 
-    if (!optionPayment || !optionShipping || userLogin.id == null  ) {
+    if (!optionPayment || !optionShipping || userLogin.id == null) {
       axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
@@ -86,8 +89,6 @@ function Cart(props) {
               preventDuplicate: true,
             });
           }
-          
-         
         });
     } else if (optionPayment == 1) {
       axios
@@ -118,10 +119,9 @@ function Cart(props) {
               preventDuplicate: true,
             });
           }
-          // console.log("qty error:",typeof(errorQty));
-          // console.log("qty error:",(errorQty));
+         
         });
-    } else if (optionPayment == 2 ) {
+    } else if (optionPayment == 2) {
       var dataMoMo = {
         accessKey: accessKey,
         partnerCode: partnerCode,
@@ -135,46 +135,77 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-      
-     
-      if(totalPrice < 20000000)
-      {
-        await axios
+      await axios.post(apiEndPoint, dataMoMo).then((response) => {
+        if (response.data.errorCode == 0) {
+          localStorage.removeItem("cartItems");
+          setPayURL(response.data.payUrl);
+
+          axios
+            .post("http://127.0.0.1:8000/api/order", data)
+            .then((response) => {
+              console.log(response.data.order);
+              localStorage.setItem(
+                "Order",
+                JSON.stringify(response.data.order)
+              );
+              setRedirect(true);
+            })
+            .catch((err) => {
+              setRedirect(false);
+              if (err.response.data.error !== undefined) {
+                enqueueSnackbar(err.response.data.error, {
+                  variant: "error",
+                  autoHideDuration: 3000,
+                  preventDuplicate: true,
+                });
+              }
+            });
+        } else {
+          setRedirect(false);
+          enqueueSnackbar(response.data.localMessage, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
+          });
+        }
+      });
+    } else if (optionPayment == 3) {
+      axios
         .post("http://127.0.0.1:8000/api/order", data)
         .then((response) => {
           console.log(response.data.order);
           localStorage.setItem("Order", JSON.stringify(response.data.order));
+          setPayPal(true);
         })
-
-        await axios.post(apiEndPoint, dataMoMo).then((response) => {
-          setPayURL(response.data.payUrl);
+        .catch((err) => {
+          setPayPal(false);
+          if (err.response.data.error != undefined) {
+            enqueueSnackbar(err.response.data.error, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+        });
+      localStorage.removeItem("cartItems");
+    } else if (optionPayment == 4) {
+      await axios
+        .post("http://127.0.0.1:8000/api/paymentVNPAY", data)
+        .then((response) => {
+          setPayURL(response.data.pay_url.data);
+          localStorage.setItem("Order", JSON.stringify(response.data.Order));
           localStorage.removeItem("cartItems");
           setRedirect(true);
         })
-      }
-      else
-      {
-        enqueueSnackbar("Vui lòng giảm giá trị đơn hàng do hạn mức của momo", {
-          variant: "error",
-          autoHideDuration: 3000,
-          preventDuplicate: true,
+        .catch((err) => {
+          if (err.response.data.error != undefined) {
+            enqueueSnackbar(err.response.data.error, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
         });
-      }
-         
-       
-      
-    } else if (optionPayment == 3) {
-      
-        axios.post("http://127.0.0.1:8000/api/order", data).then((response) => {
-          console.log(response.data.order);
-          localStorage.setItem("Order", JSON.stringify(response.data.order));
-        })
-        // .catch((err)=>{
-        //   setPayPal(false);
-        //   setQtyPaypal(err.response.data.error);
-        // })
-        setPayPal(true);
-        localStorage.removeItem("cartItems");
     }
   };
   const handleClose = (event, reason) => {
@@ -186,12 +217,13 @@ function Cart(props) {
   };
   //Thanh toán tiền mặc
   if (redirect && optionPayment == 2) {
-    // return window.open(payURL,'_blank',"width=600,height=400").focus();
     // return window.location.assign(payURL);
     return window.location.replace(payURL);
     //  return window.location.href = payURL;
   } else if (redirect && optionPayment == 1) {
     return <Redirect to="/account-order" />;
+  } else if (redirect && optionPayment == 4) {
+    return window.location.replace(payURL);
   }
 
   // Thanh toán MOMO
@@ -499,6 +531,27 @@ function Cart(props) {
                                 <span> Paypal</span>
                               </label>
                             </div>
+                            <div id="vnpay">
+                              <input
+                                name="payment_vnpay"
+                                type="radio"
+                                name="payment"
+                                value="4"
+                                onChange={(e) =>
+                                  setOptionPayment(e.target.value)
+                                }
+                              />
+                              <label
+                                style={{
+                                  display: "inline-block",
+                                  lineHeight: "20px",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                <i className="cs-vnpay"></i>
+                                <span> Cổng thanh toán VNPAY</span>
+                              </label>
+                            </div>
                           </div>
                           <div className="box-cart-user-info">
                             <div className="title_box_cart">
@@ -515,6 +568,7 @@ function Cart(props) {
                                 onChange={(e) =>
                                   setOptionShipping(e.target.value)
                                 }
+                                checked
                               />
                               <label
                                 style={{
@@ -546,7 +600,6 @@ function Cart(props) {
                           >
                             Thanh toán
                           </Button>
-                         
                         </div>
                       </div>
                     </div>

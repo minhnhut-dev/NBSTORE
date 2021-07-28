@@ -197,3 +197,24 @@ i.cps-zalopay {
     width: auto;
     height: auto;
 }
+#vnpay input {
+    width: auto;
+    height: auto;
+    margin-top: 17px;
+}
+i.cs-vnpay{
+    width: 75px;
+    margin: 5px 0;
+    /* background-position: 0 -30px; */
+}
+#vnpay i {
+    height: 27px;
+    background-image: url(https://cdn.cellphones.com.vn/media/logo/icon-online_21102019.png);
+     background-repeat: no-repeat;
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    background-position:-73px -27px ;
+    margin-bottom: 15px;
+}

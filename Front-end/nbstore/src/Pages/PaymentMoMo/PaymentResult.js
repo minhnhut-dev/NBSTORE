@@ -9,7 +9,7 @@ const orderInfo = JSON.parse(localStorage.getItem("Order") || "[]");
 
 function PaymentResult(){
   const [order, setOder] = useState([]);
-
+  const [statusOrder,setStatusOrder]=useState("");
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -25,6 +25,7 @@ function PaymentResult(){
   var query = useQuery();
   var name = query.get("localMessage");
   var message = query.get("message");
+  var response_code=query.get("vnp_ResponseCode");
   useMemo(() => {
     if (name == "Thành công") {
       axios
@@ -32,6 +33,8 @@ function PaymentResult(){
         .then((res) => {
           console.log(res.data);
         });
+        setStatusOrder("Đơn hàng thành công");
+
     } else if (message == 1) {
       axios
         .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
@@ -40,6 +43,17 @@ function PaymentResult(){
           console.log(res.data);
         });
       name = "Đơn hàng thành công";
+      setStatusOrder("Đơn hàng thành công");
+    }
+    else if(response_code =="00")
+    {
+      axios
+      .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`, data)
+      .then((res) => {
+        // localStorage.removeItem("Order");
+        console.log(res.data);
+      });
+    setStatusOrder("Đơn hàng thành công");
     }
      else if (message == 2) {
       axios
@@ -50,7 +64,8 @@ function PaymentResult(){
       });
       name = "Đơn hàng bị hủy";
       console.log("paypal");
-  
+      setStatusOrder("Đơn hàng bị hủy");
+
     } else {
       axios
       .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`)
@@ -60,6 +75,8 @@ function PaymentResult(){
         console.log("momo");
       });
       name = "Đơn hàng bị hủy";
+      setStatusOrder("Đơn hàng bị hủy");
+
     }
   }, []);
   
@@ -82,7 +99,7 @@ function PaymentResult(){
                 <span className="split">-</span>
                 <span className="status">
                   <i className="fal fa-check-circle"></i>
-                  {name}
+                  {statusOrder}
                 </span>
               </div>
               {/* <div className="totalPrice">Tổng giá: {item.Tongtien} VNĐ</div> */}
