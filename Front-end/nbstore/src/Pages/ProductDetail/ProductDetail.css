@@ -269,3 +269,12 @@
   .vote-product {
       margin-left: 60px;
   }
+
+  .btn-comment{
+    margin-top:140px;
+    margin-left: 80%;
+
+  }
+  .comment textarea.comment-box {
+    height:150px;
+  }

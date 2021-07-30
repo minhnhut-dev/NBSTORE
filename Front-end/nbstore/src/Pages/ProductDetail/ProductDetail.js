@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../../Component/Header/Header";
 import Footer from "../../Component/Footer/Footer";
 import "./ProductDetail.css";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useParams } from "react-router";
@@ -14,6 +14,16 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/thumbs/thumbs.min.css";
 import SwiperCore, { Navigation, Thumbs } from "swiper/core";
+import {
+  Divider,
+  Avatar,
+  Grid,
+  Paper,
+  TextField,
+  Box,
+} from "@material-ui/core";
+import FloatingLabel from "react-bootstrap-floating-label";
+
 SwiperCore.use([Navigation, Thumbs]);
 
 function ProductDetail(props) {
@@ -23,7 +33,8 @@ function ProductDetail(props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { onAdd } = props;
   let { id } = useParams();
-
+  const imgLink =
+    "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/GetProductByID/${id}`)
@@ -113,12 +124,14 @@ function ProductDetail(props) {
                       thumbs={{ swiper: thumbsSwiper }}
                       className="mySwiper2"
                     >
-                       {selectedImage.map((image,index)=>(
-                          <SwiperSlide key={index}>
-                               <img src={LinkImage + image.AnhSanPham} alt={image.AnhSanPham} />
+                      {selectedImage.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={LinkImage + image.AnhSanPham}
+                            alt={image.AnhSanPham}
+                          />
                         </SwiperSlide>
-                        ))}
-                      
+                      ))}
                     </Swiper>
                     <Swiper
                       onSwiper={setThumbsSwiper}
@@ -129,13 +142,14 @@ function ProductDetail(props) {
                       watchSlidesProgress={true}
                       className="mySwiper"
                     >
-                      {selectedImage.map((image, index)=>(
-                          <SwiperSlide key={index}>
-                          <img src={LinkImage+image.AnhSanPham} alt={image.AnhSanPham} />
-                          </SwiperSlide>
-
+                      {selectedImage.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <img
+                            src={LinkImage + image.AnhSanPham}
+                            alt={image.AnhSanPham}
+                          />
+                        </SwiperSlide>
                       ))}
-                     
                     </Swiper>
                     {/* <img
                       src={LinkImage + selectedImage[0].AnhSanPham}
@@ -170,7 +184,10 @@ function ProductDetail(props) {
                       <h1 className="product_name">{item.TenSanPham}</h1>
                       <div className="ins-preview-wrapper ins-preview-wrapper-145">
                         <div className="img-nb">
-                          <img src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png" alt="gvn"/>
+                          <img
+                            src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png"
+                            alt="gvn"
+                          />
                         </div>
                         <span className="follower">25</span>
                         <span className="follower">
@@ -358,16 +375,92 @@ function ProductDetail(props) {
                           <tbody>{elements.map((item) => item)}</tbody>
                         </table>
                       </div>
-                     
-                     {/*phần đánh giá chi tiết */}
-                     {Product.map((item, index)=>(
-                       <div key={index} dangerouslySetInnerHTML={{__html:item.ThongTin}} className="vote-product">
 
-                       </div>
-                     ))}
+                      {/*phần đánh giá chi tiết */}
+                      {Product.map((item, index) => (
+                        <div
+                          key={index}
+                          dangerouslySetInnerHTML={{ __html: item.ThongTin }}
+                          className="vote-product"
+                        ></div>
+                      ))}
                     </TabPanel>
                     <TabPanel>
-                      <h2>Cẩm Nhung xinh đẹp </h2>
+                      {/* <h2>Cẩm Nhung xinh đẹp </h2> */}
+                      <div style={{ padding: 14 }} className="App">
+                        <h1> 1 Comments</h1>
+                        <Paper style={{ padding: "40px 20px" }}>
+                          <Grid container wrap="nowrap" spacing={2}>
+                            <Grid item>
+                              <Avatar alt="Remy Sharp" src={imgLink} />
+                            </Grid>
+                            <Grid justifyContent="left" item xs zeroMinWidth>
+                              <h4 style={{ margin: 0, textAlign: "left" }}>
+                                Michel Michel
+                              </h4>
+                              <p style={{ textAlign: "left" }}>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Aenean luctus ut est sed
+                                faucibus. Duis bibendum ac ex vehicula laoreet.
+                                Suspendisse congue vulputate lobortis.
+                                Pellentesque at interdum tortor. Quisque arcu
+                                quam, malesuada vel mauris et, posuere sagittis
+                                ipsum. Aliquam ultricies a ligula nec faucibus.
+                                In elit metus, efficitur lobortis nisi quis,
+                                molestie porttitor metus. Pellentesque et neque
+                                risus. Aliquam vulputate, mauris vitae tincidunt
+                                interdum, mauris mi vehicula urna, nec feugiat
+                                quam lectus vitae ex.{" "}
+                              </p>
+                              <p style={{ textAlign: "left", color: "gray" }}>
+                                posted 1 minute ago
+                              </p>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                        <Paper style={{ height: "230px", marginTop: "30px" }}>
+                          {/* <FloatingLabel
+                            controlId="floatingTextarea2"
+                            label="Nhập bình luận của bạn ở đây"
+                          >
+                            <Form.Control
+                              as="textarea"
+                              placeholder="Leave a comment here"
+                              
+                            />
+                          </FloatingLabel>
+                          <Button className="btn-comment"> Bình luận</Button> */}
+                          <div className="bg-light p-2 comment">
+                            <div className="d-flex flex-row align-items-start">
+                              <img
+                                className="rounded-circle"
+                                src="https://i.imgur.com/RpzrMR2.jpg"
+                                width={40}
+                                alt="avatar"
+                              />
+                              <textarea
+                                className="form-control ml-1 shadow-none textarea comment-box "
+                                defaultValue={""}
+                                placeholder="Nhập đánh giá của bạn ở đây"
+                              />
+                            </div>
+                            <div className="mt-2 text-right">
+                              <button
+                                className="btn btn-primary btn-sm shadow-none"
+                                type="button"
+                              >
+                                Post comment
+                              </button>
+                              <button
+                                className="btn btn-outline-primary btn-sm ml-1 shadow-none"
+                                type="button"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </Paper>
+                      </div>
                     </TabPanel>
                   </Tabs>
                 </div>
