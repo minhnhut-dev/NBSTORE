@@ -14,7 +14,7 @@ import NumberFormat from "react-number-format";
 import { exportComponentAsPNG } from "react-component-export-image";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-
+import imageToBase64 from 'image-to-base64/browser';
 const buildConfig = JSON.parse(localStorage.getItem("BuildConfig") || "[]");
 function BuildConfig() {
   const [show, setShow] = useState(false);
@@ -86,6 +86,7 @@ function BuildConfig() {
     axios
       .get(`http://127.0.0.1:8000/api/getProductByTypeProductId/${data.id}`)
       .then((response) => {
+        console.log(response)
         setAccessories(response.data);
       });
     setShow(true);
@@ -242,6 +243,7 @@ function BuildConfig() {
     }
   };
   const LinkImage = "http://127.0.0.1:8000/images/";
+ 
   return (
     <>
       <Header />
@@ -305,99 +307,101 @@ function BuildConfig() {
               ) : (
                 <div className="build-pc-body">
                   {/* CPU */}
-                  {typecpu.map((item, index) => (
-                    <div className="product-type-item" key={index}>
-                      <div className="left-content">1. {item.TenLoai}</div>
-                      {config.cpu === undefined ? (
-                        <div className="right-content">
-                          <Button
-                            variant="danger"
-                            className="choose-product"
-                            onClick={() => handleShowAccessories(item)}
-                          >
-                            <i className="fas fa-plus"></i>
-                            {item.TenLoai}
-                          </Button>
-                        </div>
-                      ) : (
-                        <div className="right-content">
-                          <div className="choose-product-item-detail">
-                            <div className="image">
-                              <img
-                                src={LinkImage + config.cpu.AnhDaiDien}
-                                alt={config.cpu.AnhDaiDien}
-                              />
-                            </div>
-                            <div className="content">
-                              <p className="name">{config.cpu.TenSanPham}</p>
+                  {typecpu.map((item, index) => {
+                  
+                    return <div className="product-type-item" key={index}>
+                    <div className="left-content">1. {item.TenLoai}</div>
+                    {config.cpu === undefined ? (
+                      <div className="right-content">
+                        <Button
+                          variant="danger"
+                          className="choose-product"
+                          onClick={() => handleShowAccessories(item)}
+                        >
+                          <i className="fas fa-plus"></i>
+                          {item.TenLoai}
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="right-content">
+                        <div className="choose-product-item-detail">
+                          <div className="image">
+                            <img
+                           
+                              src={(LinkImage + config.cpu.AnhDaiDien)}
+                              alt={config.cpu.AnhDaiDien}
+                            />
+                          </div>
+                          <div className="content">
+                            <p className="name">{config.cpu.TenSanPham}</p>
 
-                              <NumberFormat
-                                value={config.cpu.GiaKM}
-                                displayType={"text"}
-                                thousandSeparator={true}
-                                suffix={" VNĐ"}
-                                renderText={(value, props) => (
-                                  <p className="price" {...props}>
-                                    Giá: {value}
-                                  </p>
-                                )}
+                            <NumberFormat
+                              value={config.cpu.GiaKM}
+                              displayType={"text"}
+                              thousandSeparator={true}
+                              suffix={" VNĐ"}
+                              renderText={(value, props) => (
+                                <p className="price" {...props}>
+                                  Giá: {value}
+                                </p>
+                              )}
+                            />
+                            <p className="productid">
+                              Mã sản phẩm: {`SP${config.cpu.id}`}
+                            </p>
+                            <div
+                              className="action"
+                              style={{
+                                display: "flex",
+                                marginTop: "5px",
+                              }}
+                            >
+                              <span>Số lượng: </span>
+                              <TextField
+                                id="outlined-number"
+                                className="qty"
+                                type="number"
+                                defaultValue="1"
+                                value={qtyCPU}
+                                variant="outlined"
+                                onChange={(e) =>
+                                  setQtyCPU(
+                                    parseInt(e.target.value) >=
+                                      parseInt(config.cpu.SoLuong) ||
+                                      e.target.value < 1
+                                      ? config.cpu.SoLuong
+                                      : e.target.value
+                                  )
+                                }
                               />
-                              <p className="productid">
-                                Mã sản phẩm: {`SP${config.cpu.id}`}
-                              </p>
-                              <div
-                                className="action"
-                                style={{
-                                  display: "flex",
-                                  marginTop: "5px",
-                                }}
-                              >
-                                <span>Số lượng: </span>
-                                <TextField
-                                  id="outlined-number"
-                                  className="qty"
-                                  type="number"
-                                  defaultValue="1"
-                                  value={qtyCPU}
-                                  variant="outlined"
-                                  onChange={(e) =>
-                                    setQtyCPU(
-                                      parseInt(e.target.value) >=
-                                        parseInt(config.cpu.SoLuong) ||
-                                        e.target.value < 1
-                                        ? config.cpu.SoLuong
-                                        : e.target.value
-                                    )
-                                  }
+
+                              <span>
+                                =
+                                <NumberFormat
+                                  value={priceCPU}
+                                  displayType={"text"}
+                                  thousandSeparator={true}
+                                  suffix={" VNĐ"}
+                                  renderText={(value, props) => (
+                                    <strong className="price" {...props}>
+                                      {value}
+                                    </strong>
+                                  )}
                                 />
-
-                                <span>
-                                  =
-                                  <NumberFormat
-                                    value={priceCPU}
-                                    displayType={"text"}
-                                    thousandSeparator={true}
-                                    suffix={" VNĐ"}
-                                    renderText={(value, props) => (
-                                      <strong className="price" {...props}>
-                                        {value}
-                                      </strong>
-                                    )}
-                                  />
-                                </span>
-                                <span className="delete">
-                                  <i
-                                    className="fas fa-trash-alt"
-                                    onClick={() => handleRemove(item)}
-                                  ></i>
-                                </span>
-                              </div>
+                              </span>
+                              <span className="delete">
+                                <i
+                                  className="fas fa-trash-alt"
+                                  onClick={() => handleRemove(item)}
+                                ></i>
+                              </span>
                             </div>
                           </div>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                      </div>
+                    )}
+                  </div>
+                  })}
 
                   {/* ram */}
                   {typeram.map((item, index) => (
@@ -1130,37 +1134,37 @@ function BuildConfig() {
               </Button>
             </div>
             <div className="list-product-data">
-              {accessories.map((item, index) => (
-                <div className="modal-product-detail" key={index}>
-                  <div className="image">
-                    <img src={LinkImage + item.AnhDaiDien} alt="AnhDaiDien" />
-                  </div>
-                  <div className="content">
-                    <Link to={`/ProductDetail/${item.id}`} target="_blank">
-                      <p className="name">{item.TenSanPham}</p>
-                      {/* <p className="price">{item.GiaKM}</p> */}
-                      <p className="productid">Mã sản phẩm: SP{item.id}</p>
-                      <NumberFormat
-                        value={item.GiaKM}
-                        displayType={"text"}
-                        thousandSeparator={true}
-                        suffix={" VNĐ"}
-                        renderText={(value, props) => (
-                          <p className="price" {...props}>
-                            {value}
-                          </p>
-                        )}
-                      />
-                    </Link>
-                    <Button
-                      className="add-to-build"
-                      onClick={() => handleAddAccessories(item)}
-                    >
-                      Chọn
-                    </Button>
-                  </div>
-                </div>
-              ))}
+              {accessories.map((item, index) => {
+                return <div className="modal-product-detail" key={index}>
+                 <div className="image">
+                   <img src={LinkImage + item.AnhDaiDien} alt="AnhDaiDien" />
+                 </div>
+                 <div className="content">
+                   <Link to={`/ProductDetail/${item.id}`} target="_blank">
+                     <p className="name">{item.TenSanPham}</p>
+                     {/* <p className="price">{item.GiaKM}</p> */}
+                     <p className="productid">Mã sản phẩm: SP{item.id}</p>
+                     <NumberFormat
+                       value={item.GiaKM}
+                       displayType={"text"}
+                       thousandSeparator={true}
+                       suffix={" VNĐ"}
+                       renderText={(value, props) => (
+                         <p className="price" {...props}>
+                           {value}
+                         </p>
+                       )}
+                     />
+                   </Link>
+                   <Button
+                     className="add-to-build"
+                     onClick={() => handleAddAccessories(item)}
+                   >
+                     Chọn
+                   </Button>
+                 </div>
+               </div>
+              })}
             </div>
           </div>
         </Modal.Body>

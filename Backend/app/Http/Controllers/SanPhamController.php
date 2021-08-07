@@ -359,8 +359,7 @@ class SanPhamController extends Controller
     public function test($id)
     {
 
-        $data=Comment::where('san_phams_id',$id)->where('parent_id',null)->with(['children'])->get()->toArray();
-
+        $data=Comment::where('san_phams_id',$id)->with(['user'])->get()->toArray();
         return $data;
         // $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
         // return $data;
@@ -409,5 +408,29 @@ class SanPhamController extends Controller
 
         }
         return true;
+    }
+    public function getComments($id){
+        $data=Comment::where('san_phams_id',$id)->with(['user'])->get()->toArray();
+        return response()->json($data);
+    }
+    public function userComments(Request $request)
+    {
+        $data= Comment::get();
+        foreach($data as $item)
+        {
+            if($request->nguoi_dungs_id == $item->nguoi_dungs_id && $request->san_phams_id == $item->san_phams_id)
+                {
+                    return response()->json(['message' =>'Hình như bạn đã bình luận sản phẩm này rồi'],400);
+                }
+
+        }
+        $comment=new Comment();
+        $comment->content=$request->content;
+                $comment->nguoi_dungs_id=$request->nguoi_dungs_id;
+                $comment->san_phams_id=$request->san_phams_id;
+                $comment->save();
+                return response()->json(['message' =>'Thành công','comment'=>$comment]);
+
+
     }
 }

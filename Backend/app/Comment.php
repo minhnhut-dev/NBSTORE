@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\SanPham;
+use App\NguoiDung;
 class Comment extends Model
 {
     //
@@ -13,5 +14,7 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class,'parent_id');
     }
-
+    public function user(){
+        return $this->belongsTo(NguoiDung::class,'nguoi_dungs_id');
+    }
 }

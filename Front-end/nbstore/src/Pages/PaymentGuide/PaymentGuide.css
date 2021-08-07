@@ -1,0 +1,612 @@
+.ladi-wraper {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #fff;
+}
+@media (min-width: 768px)
+{
+    #SECTION1 {
+        height: 60px;
+    }
+}
+.ladi-section {
+    margin: 0 auto;
+    position: relative;
+}
+.ladi-section .ladi-section-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+@media (min-width: 768px)
+{
+    .ladi-section .ladi-container {
+        width: 1200px;
+    }
+}
+.ladi-container {
+    position: relative;
+    margin: 0 auto;
+    height: 100%;
+}
+@media (min-width: 768px)
+{
+    #IMAGE120 {
+        width: 146.008px;
+        height: 40px;
+        top: 10px;
+        left: 10px;
+    }
+}
+.ladi-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+.ladi-element img{
+    width: 140px;
+}
+@media (min-width: 768px)
+{
+    #SECTION2 {
+        height: 600px;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION2 > .ladi-section-background {
+        background-color: rgb(255 255 255);
+    }
+}
+.ladi-section .ladi-section-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+@media (min-width: 768px)
+{
+    #IMAGE128 {
+        width: 653.538px;
+        height: 590px;
+        top: 5px;
+        left: 536.462px;
+    }
+}
+.ladi-element{
+    position: absolute;
+    cursor: pointer;
+}
+@media (min-width: 768px)
+{
+    #IMAGE128 > .ladi-image > .ladi-image-background {
+        width: 653.538px;
+        height: 590px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s1000x900/5bf3dc7edc60303c34e4991f/img-04-20200903083609.png);
+    }
+}
+.ladi-image .ladi-image-background {
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    background-attachment: scroll;
+    background-origin: content-box;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+@media (min-width: 768px)
+{
+    #HEADLINE126 {
+        width: 450px;
+        top: 160px;
+        left: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE126 > .ladi-headline {
+        font-weight: bolder;
+        color: rgb(237, 28, 37);
+        font-size: 60px;
+        line-height: 1.2;
+    }
+}
+.ladi-headline {
+    width: 100%;
+    display: inline-block;
+    background-size: cover;
+    background-position: center center;
+}
+@media (min-width: 768px)
+{
+    #HEADLINE127 {
+        width: 450px;
+        top: 310px;
+        left: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE127 > .ladi-headline {
+        color: rgb(48, 72, 112);
+        font-size: 32px;
+        line-height: 1.6;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION130 {
+        height: 580px;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION130 > .ladi-section-background {
+        background-color: rgb(249, 250, 254);
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME350 {
+        width: 380px;
+        height: 240px;
+        top: 30px;
+        left: 410px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME350 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+.ladi-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.ladi-transition {
+    transition: all 150ms linear 0s;
+}
+@media (min-width: 768px)
+{
+    #FRAME350 > .ladi-frame > .ladi-frame-background {
+        background-color: rgb(255, 255, 255);
+    }
+}
+.ladi-frame .ladi-frame-background {
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+@media (min-width: 768px)
+{
+    #HEADLINE136 {
+        width: 280px;
+        top: 20px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE136 > .ladi-headline {
+       font-weight: bolder;
+        color: rgb(48, 72, 112);
+        font-size: 30px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME350 > .ladi-frame:hover {
+        transform: scale(1.03);
+        -webkit-transform: scale(1.03);
+        border-color: rgb(237, 28, 39);
+        opacity: 1.01;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE137 {
+        width: 340px;
+        top: 130px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE137 > .ladi-headline {
+        color: rgb(48, 72, 112);
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE434 {
+        width: 110px;
+        height: 110px;
+        top: 10px;
+        left: 260px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE434 > .ladi-image {
+        opacity: 0.3;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE434 > .ladi-image > .ladi-image-background {
+        width: 110px;
+        height: 110px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s450x450/5bf3dc7edc60303c34e4991f/dich-vu-chuyen-va-nhan-tien-20200904035642.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME351 {
+        width: 380px;
+        height: 240px;
+        top: 30px;
+        left: 810px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME351 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME351 > .ladi-frame > .ladi-frame-background {
+        background-color: rgb(255, 255, 255);
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE356 {
+        width: 340px;
+        top: 130px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE356 > .ladi-headline {
+        font-weight: bolder;
+        color: rgb(48, 72, 112);
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME354 {
+        width: 380px;
+        height: 240px;
+        top: 30px;
+        left: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME354 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME354 > .ladi-frame > .ladi-frame-background {
+        background-color: rgb(255, 255, 255);
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE355 {
+        width: 280px;
+        top: 20px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE355 > .ladi-headline {
+        font-weight: bolder;
+        color: rgb(48, 72, 112);
+        font-size: 30px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE357 {
+        width: 340px;
+        top: 130px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE357 > .ladi-headline {
+        color: rgb(48, 72, 112);
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME351 > .ladi-frame:hover {
+        transform: scale(1.03);
+        -webkit-transform: scale(1.03);
+        border-color: rgb(237, 28, 39);
+        opacity: 1.01;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME351 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME354 > .ladi-frame:hover {
+        transform: scale(1.03);
+        -webkit-transform: scale(1.03);
+        border-color: rgb(237, 28, 39);
+        opacity: 1.01;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME354 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME523 {
+        width: 380px;
+        height: 240px;
+        top: 290px;
+        left: 210px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME523 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME523 > .ladi-frame > .ladi-frame-background {
+        background-color: rgb(255, 255, 255);
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE524 {
+        width: 280px;
+        top: 20px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE524 > .ladi-headline {
+        font-weight: bolder;
+        color: rgb(48, 72, 112);
+        font-size: 30px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE525 {
+        width: 340px;
+        top: 130px;
+        left: 20px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE525 > .ladi-headline {
+        font-weight: bolder;
+
+        color: rgb(48, 72, 112);
+        font-size: 18px;
+        line-height: 1.4;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION456 {
+        height: 1040px;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION456 > .ladi-section-background {
+        background-color: rgb(233, 243, 255);
+    }
+}
+@media (min-width: 768px)
+{
+    #BOX459 {
+        width: 30px;
+        height: 30px;
+        top: 40px;
+        left: 288px;
+    }
+}
+@media (min-width: 768px)
+{
+    #BOX459 > .ladi-box {
+        background-color: rgb(58, 175, 213);
+    }
+}
+.ladi-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+@media (min-width: 768px)
+{
+    #HEADLINE457 {
+        width: 700px;
+        top: 110px;
+        left: 250px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE457 > .ladi-headline {
+        color: rgb(37, 57, 101);
+        font-size: 19px;
+        text-align: center;
+        line-height: 1.4;
+        font-weight: bolder;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME523 > .ladi-frame:hover {
+        transform: scale(1.03);
+        -webkit-transform: scale(1.03);
+        border-color: rgb(237, 28, 39);
+        opacity: 1.01;
+    }
+}
+@media (min-width: 768px)
+{
+    #FRAME523 > .ladi-frame {
+        box-shadow: 0px 0px 20px -18px #000;
+        -webkit-box-shadow: 0px 0px 20px -18px #000;
+        border-color: rgb(0, 0, 0);
+        border-width: 1px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE461 {
+        width: 851px;
+        height: 851px;
+        top: -290px;
+        left: 1500px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE461 > .ladi-image > .ladi-image-background {
+        width: 851px;
+        height: 851px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s1200x1200/5bf3dc7edc60303c34e4991f/br-28-20200903105110.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE487 {
+        width: 820px;
+        height: 680px;
+        top: 190px;
+        left: 190px;
+        filter: drop-shadow(rgb(228, 228, 228) 5px 5px 10px);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE487 > .ladi-image > .ladi-image-background {
+        width: 820px;
+        height: 680px;
+        top: 0px;
+        left: 0px;
+        background-image: url(../../assets/paymentMoMo.PNG);
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE488 {
+        width: 780px;
+        top: 910px;
+        left: 210px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE488 > .ladi-headline {
+        color: rgb(37, 57, 101);
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.4;
+        font-weight: bolder;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE460 {
+        width: 691px;
+        top: 40px;
+        left: 254.5px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE460 > .ladi-headline {
+        color: rgb(48, 72, 112);
+        font-size: 36px;
+        text-align: center;
+        line-height: 1.6;
+        font-weight: bolder;
+    }
+}

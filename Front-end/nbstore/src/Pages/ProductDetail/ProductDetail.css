@@ -278,3 +278,6 @@
   .comment textarea.comment-box {
     height:150px;
   }
+  .comment-list{
+      min-width:1200px;
+  }

@@ -14,6 +14,8 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/thumbs/thumbs.min.css";
 import SwiperCore, { Navigation, Thumbs } from "swiper/core";
+import { useSnackbar } from "notistack";
+
 import {
   Divider,
   Avatar,
@@ -22,19 +24,23 @@ import {
   TextField,
   Box,
 } from "@material-ui/core";
-import FloatingLabel from "react-bootstrap-floating-label";
+import Comment from "../../Component/Comment/Comment";
 
 SwiperCore.use([Navigation, Thumbs]);
+const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
 function ProductDetail(props) {
   const [selectedImage, SetSelectedImage] = useState([0]);
   const [Product, SetProducts] = useState([]);
   const [suggestProduct, setSuggestProduct] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [comment,setComment]=useState([]);
+  const [content,setContent] = useState("");
   const { onAdd } = props;
+  const { enqueueSnackbar } = useSnackbar();
+
   let { id } = useParams();
-  const imgLink =
-    "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260";
+
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/GetProductByID/${id}`)
@@ -56,7 +62,38 @@ function ProductDetail(props) {
     axios.get(`http://127.0.0.1:8000/api/suggestProduct/1`).then((response) => {
       setSuggestProduct(response.data);
     });
+    axios.get(`http://127.0.0.1:8000/api/getComments/${id}`)
+    .then((response)=>{
+      setComment(response.data);
+    })
   }, []);
+
+  const handlePostComment=()=>{
+    const data={
+        content:content,
+        nguoi_dungs_id:userLogin.id,
+        san_phams_id:id,
+    }
+    axios.post('http://127.0.0.1:8000/api/AddComment',data)
+    .then((response)=>{
+      axios.get(`http://127.0.0.1:8000/api/getComments/${id}`)
+      .then((response)=>{
+        setComment(response.data);
+      })
+    })
+    .catch((err)=>{
+      console.log(err.response);
+      if(err.response.data.message != undefined)
+      {
+        enqueueSnackbar(err.response.data.message, {
+          variant: "error",
+          autoHideDuration: 3000,
+          preventDuplicate: true,
+        });
+      }
+    })
+    
+  }
   const LinkImage = "http://127.0.0.1:8000/images/";
   var elements = [];
 
@@ -387,54 +424,16 @@ function ProductDetail(props) {
                     </TabPanel>
                     <TabPanel>
                       {/* <h2>Cẩm Nhung xinh đẹp </h2> */}
-                      <div style={{ padding: 14 }} className="App">
-                        <h1> 1 Comments</h1>
-                        <Paper style={{ padding: "40px 20px" }}>
-                          <Grid container wrap="nowrap" spacing={2}>
-                            <Grid item>
-                              <Avatar alt="Remy Sharp" src={imgLink} />
-                            </Grid>
-                            <Grid justifyContent="left" item xs zeroMinWidth>
-                              <h4 style={{ margin: 0, textAlign: "left" }}>
-                                Michel Michel
-                              </h4>
-                              <p style={{ textAlign: "left" }}>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Aenean luctus ut est sed
-                                faucibus. Duis bibendum ac ex vehicula laoreet.
-                                Suspendisse congue vulputate lobortis.
-                                Pellentesque at interdum tortor. Quisque arcu
-                                quam, malesuada vel mauris et, posuere sagittis
-                                ipsum. Aliquam ultricies a ligula nec faucibus.
-                                In elit metus, efficitur lobortis nisi quis,
-                                molestie porttitor metus. Pellentesque et neque
-                                risus. Aliquam vulputate, mauris vitae tincidunt
-                                interdum, mauris mi vehicula urna, nec feugiat
-                                quam lectus vitae ex.{" "}
-                              </p>
-                              <p style={{ textAlign: "left", color: "gray" }}>
-                                posted 1 minute ago
-                              </p>
-                            </Grid>
-                          </Grid>
-                        </Paper>
+                      <div style={{ padding: 14 }} className="comment-list">
+                        <h2> {comment.length} Comments cho sản phẩm này</h2>
+                       <Comment comment={comment} />
                         <Paper style={{ height: "230px", marginTop: "30px" }}>
-                          {/* <FloatingLabel
-                            controlId="floatingTextarea2"
-                            label="Nhập bình luận của bạn ở đây"
-                          >
-                            <Form.Control
-                              as="textarea"
-                              placeholder="Leave a comment here"
-                              
-                            />
-                          </FloatingLabel>
-                          <Button className="btn-comment"> Bình luận</Button> */}
+                        
                           <div className="bg-light p-2 comment">
                             <div className="d-flex flex-row align-items-start">
                               <img
                                 className="rounded-circle"
-                                src="https://i.imgur.com/RpzrMR2.jpg"
+                                src={userLogin.Anh}
                                 width={40}
                                 alt="avatar"
                               />
@@ -442,12 +441,15 @@ function ProductDetail(props) {
                                 className="form-control ml-1 shadow-none textarea comment-box "
                                 defaultValue={""}
                                 placeholder="Nhập đánh giá của bạn ở đây"
+                                onChange={(e) =>setContent(e.target.value)}
                               />
                             </div>
                             <div className="mt-2 text-right">
                               <button
+                              type="submit"
+                              onClick={handlePostComment}
                                 className="btn btn-primary btn-sm shadow-none"
-                                type="button"
+                                
                               >
                                 Post comment
                               </button>

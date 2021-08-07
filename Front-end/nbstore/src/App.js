@@ -23,6 +23,7 @@ import OrderCancel from "./Pages/Account/OrderCanceled/OrderCanceled";
 import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
 import ActiveUser from "./Pages/Account/ActiveUser/ActiveUser";
+import PaymentGuide from "./Pages/PaymentGuide/PaymentGuide";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -136,6 +137,9 @@ function App() {
           </Route>
           <Route path="/search">
             <Search />
+          </Route>
+          <Route path="/PaymentGuide">
+            <PaymentGuide />
           </Route>
           <Route path="*">
             <NoMatch />

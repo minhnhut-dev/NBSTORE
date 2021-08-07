@@ -236,14 +236,15 @@ function Header() {
                 </div>
                 Tổng hợp Khuyến mãi
               </a>
-              <a className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
+              
+              <Link to="/PaymentGuide" className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
                 <div className="xxxkt">
-                  <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
+                    <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
 
-                  <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
-                </div>
+                    <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
+                  </div>
                 Hướng dẫn thanh toán
-              </a>
+              </Link>
               <a className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
                 <div className="xxxkt">
                   <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
