@@ -119,7 +119,7 @@ function Header() {
                           to="/account-order"
                           className="gearvn-header-top-item"
                         >
-                          <img src={userLogin.Anh} alt="avt-user" className="avt__user" />
+                          <img src={userLogin.Anh !==""? userLogin.Anh:"//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
                               {userLogin.TenNguoidung}

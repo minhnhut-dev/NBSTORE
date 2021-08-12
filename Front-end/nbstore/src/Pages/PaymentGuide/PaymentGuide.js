@@ -157,6 +157,92 @@ function PaymentGuide() {
             </div> 
           </div>
         </div>
+
+        <div id="SECTION489" className="ladi-section">
+          <div className="ladi-section-background"></div>
+          <div className="ladi-container">
+            <div id="BOX490" className="ladi-element">
+              <div className="ladi-box"></div>
+            </div>
+            <div id="HEADLINE492" className="ladi-element">
+                <h3 className="ladi-headline">
+                Sau khi chọn hình thức thanh toán qua ứng dụng Paypal, hệ thống chuyển sang giao diện thanh toán của VNPay.
+                </h3>
+            </div>
+            <div id="IMAGE493" className="ladi-element">
+                <div className="ladi-image">
+                    <div className="ladi-image-background">
+
+                    </div>
+                </div>
+            </div>
+            <div id="IMAGE494" className="ladi-element">
+                <div className="ladi-image">
+                    <div className="ladi-image-background">
+
+                    </div>
+                </div>
+            </div>
+            <div id="HEADLINE488" className="ladi-element">
+                <h3 className="ladi-headline">
+                Hãy đăng nhập VNpay trên để hoàn tất việc đặt hàng.
+                <br/>
+                Vậy là bạn đã hoàn thành một bước mua hàng online tại 
+                <span style={{color: 'red'}}> NBSTORE </span>
+                một cách dể dàng và tiện lợi chưa đến 2 phút.
+                </h3>
+            </div>
+            <div id="HEADLINE460" className="ladi-element">
+                <h3 className="ladi-headline">
+                THANH TOÁN 
+                <span style={{color:"red"}}> VNPAY</span>
+                </h3>
+            </div> 
+          </div>
+        </div>
+
+        <div id="SECTION489" className="ladi-section">
+          <div className="ladi-section-background"></div>
+          <div className="ladi-container">
+            <div id="BOX490" className="ladi-element">
+              <div className="ladi-box"></div>
+            </div>
+            <div id="HEADLINE492" className="ladi-element">
+                <h3 className="ladi-headline">
+                Sau khi chọn hình thức thanh toán qua ứng dụng Paypal, hệ thống chuyển sang giao diện thanh toán của Paypal.
+                </h3>
+            </div>
+            <div id="IMAGE493" className="ladi-element">
+                <div className="ladi-image">
+                    <div className="ladi-image-background">
+
+                    </div>
+                </div>
+            </div>
+            <div id="IMAGE477" className="ladi-element" >
+                <div className="ladi-image">
+                    <div className="ladi-image-background">
+
+                    </div>
+                </div>
+            </div>
+            <div id="HEADLINE488" className="ladi-element">
+                <h3 className="ladi-headline">
+                Hãy đăng nhập Paypal trên để hoàn tất việc đặt hàng.
+                <br/>
+                Vậy là bạn đã hoàn thành một bước mua hàng online tại 
+                <span style={{color: 'red'}}> NBSTORE </span>
+                một cách dể dàng và tiện lợi chưa đến 2 phút.
+                </h3>
+            </div>
+            <div id="HEADLINE460" className="ladi-element">
+                <h3 className="ladi-headline">
+                THANH TOÁN 
+                <span style={{color:"red"}}> Paypal</span>
+                </h3>
+            </div> 
+          </div>
+        </div>
       </div>
     </>
   );

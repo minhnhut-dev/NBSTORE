@@ -610,3 +610,108 @@
         font-weight: bolder;
     }
 }
+@media (min-width: 768px)
+{
+    #SECTION489 {
+        height: 1040px;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION489 > .ladi-section-background {
+        background-color: rgb(255, 255, 255);
+    }
+}
+@media (min-width: 768px)
+{
+    #BOX490 {
+        width: 30px;
+        height: 30px;
+        top: 40px;
+        left: 264px;
+    }
+}
+@media (min-width: 768px)
+{
+    #BOX490 > .ladi-box {
+        background-color: rgb(58, 175, 213);
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE492 {
+        width: 700px;
+        top: 110px;
+        left: 250px;
+    }
+}
+@media (min-width: 768px)
+{
+    #HEADLINE492 > .ladi-headline {
+        color: rgb(37, 57, 101);
+        font-size: 19px;
+        text-align: center;
+        line-height: 1.4;
+        font-weight: bolder;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE493 {
+        width: 851px;
+        height: 851px;
+        top: -290px;
+        left: 1500px;
+    }   
+}
+@media (min-width: 768px)
+{
+    #IMAGE493 > .ladi-image > .ladi-image-background {
+        width: 851px;
+        height: 851px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s1200x1200/5bf3dc7edc60303c34e4991f/br-28-20200903105110.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE494 {
+        width: 820px;
+        height: 680px;
+        top: 190px;
+        left: 190px;
+        filter: drop-shadow(rgb(228, 228, 228) 5px 5px 10px);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE494 > .ladi-image > .ladi-image-background {
+        width: 820px;
+        height: 680px;
+        top: 0px;
+        left: 0px;
+        background-image: url(../../assets/PaymentVNPAY.PNG);
+    }
+}
+
+@media (min-width: 768px)
+{
+    #IMAGE477 {
+        width: 820px;
+        height: 680px;
+        top: 190px;
+        left: 190px;
+        filter: drop-shadow(rgb(228, 228, 228) 5px 5px 10px);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE477 > .ladi-image > .ladi-image-background {
+        width: 820px;
+        height: 680px;
+        top: 0px;
+        left: 0px;
+        background-image: url(../../assets/PaymentPaypal.PNG);
+    }
+}
