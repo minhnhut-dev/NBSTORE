@@ -9,7 +9,6 @@ ReactDOM.render(
   <SnackbarProvider anchorOrigin={{vertical: 'bottom',horizontal: 'right'}} dense >
       <App />
   </SnackbarProvider>
-  
   ,
   document.getElementById('root')
 );
