@@ -98,3 +98,5 @@ Route::get('/getCity','AddressUserController@getCity');
 Route::get('/getProvince/{idCity}','AddressUserController@getProvince');
 Route::get('/getWard/{idDistrict}','AddressUserController@getWard');
 Route::post('/paymentVNPAY','PaymentController@createOrder');// thanh toán VNPAY
+Route::get('getComments/{id}','SanPhamController@getComments');
+Route::post('/AddComment','SanPhamController@userComments');

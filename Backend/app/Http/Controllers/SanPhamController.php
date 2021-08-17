@@ -6,6 +6,7 @@ use App\AnhSanPham;
 use App\CauHinh;
 use App\DonHang;
 use App\ChiTietDonHang;
+use App\Comment;
 use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
@@ -357,6 +358,9 @@ class SanPhamController extends Controller
 
     public function test($id)
     {
+
+        $data=Comment::where('san_phams_id',$id)->with(['user'])->get()->toArray();
+        return $data;
         // $data = LoaiSanPham::with(['products', 'childrenRecursive', 'childrenRecursive.products'])->where('id', $id)->get()->toArray();
         // return $data;
         // $categories = LoaiSanPham::where('parent_id', $id)
@@ -372,10 +376,10 @@ class SanPhamController extends Controller
         // JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
         // WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id,$id]);
         // return $listProduct;
-        $user = DB::table('san_phams')->select('loai_san_phams_id')->where('id', $id)->get();
-        $typeId = (object)$user[0]->loai_san_phams_id;
+        // $user = DB::table('san_phams')->select('loai_san_phams_id')->where('id', $id)->get();
+        // $typeId = (object)$user[0]->loai_san_phams_id;
 
-        return response()->json($typeId);
+        // return response()->json($typeId);
     }
 
     public function SuggestProduct($id)
@@ -404,5 +408,29 @@ class SanPhamController extends Controller
 
         }
         return true;
+    }
+    public function getComments($id){
+        $data=Comment::where('san_phams_id',$id)->with(['user'])->get()->toArray();
+        return response()->json($data);
+    }
+    public function userComments(Request $request)
+    {
+        $data= Comment::get();
+        foreach($data as $item)
+        {
+            if($request->nguoi_dungs_id == $item->nguoi_dungs_id && $request->san_phams_id == $item->san_phams_id)
+                {
+                    return response()->json(['message' =>'Hình như bạn đã bình luận sản phẩm này rồi'],400);
+                }
+
+        }
+        $comment=new Comment();
+        $comment->content=$request->content;
+                $comment->nguoi_dungs_id=$request->nguoi_dungs_id;
+                $comment->san_phams_id=$request->san_phams_id;
+                $comment->save();
+                return response()->json(['message' =>'Thành công','comment'=>$comment]);
+
+
     }
 }

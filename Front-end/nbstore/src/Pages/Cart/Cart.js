@@ -137,9 +137,7 @@ function Cart(props) {
       };
       await axios.post(apiEndPoint, dataMoMo).then((response) => {
         if (response.data.errorCode == 0) {
-          localStorage.removeItem("cartItems");
           setPayURL(response.data.payUrl);
-
           axios
             .post("http://127.0.0.1:8000/api/order", data)
             .then((response) => {
@@ -148,6 +146,8 @@ function Cart(props) {
                 "Order",
                 JSON.stringify(response.data.order)
               );
+              localStorage.removeItem("cartItems");
+
               setRedirect(true);
             })
             .catch((err) => {
@@ -175,6 +175,7 @@ function Cart(props) {
         .then((response) => {
           console.log(response.data.order);
           localStorage.setItem("Order", JSON.stringify(response.data.order));
+          localStorage.removeItem("cartItems");
           setPayPal(true);
         })
         .catch((err) => {
@@ -187,7 +188,6 @@ function Cart(props) {
             });
           }
         });
-      localStorage.removeItem("cartItems");
     } else if (optionPayment == 4) {
       await axios
         .post("http://127.0.0.1:8000/api/paymentVNPAY", data)

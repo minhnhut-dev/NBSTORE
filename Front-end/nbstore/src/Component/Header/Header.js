@@ -119,7 +119,7 @@ function Header() {
                           to="/account-order"
                           className="gearvn-header-top-item"
                         >
-                          <img src={userLogin.Anh} alt="avt-user" className="avt__user" />
+                          <img src={userLogin.Anh !==""? userLogin.Anh:"//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
                               {userLogin.TenNguoidung}
@@ -236,14 +236,15 @@ function Header() {
                 </div>
                 Tổng hợp Khuyến mãi
               </a>
-              <a className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
+              
+              <Link to="/PaymentGuide" className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
                 <div className="xxxkt">
-                  <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
+                    <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
 
-                  <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
-                </div>
+                    <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />
+                  </div>
                 Hướng dẫn thanh toán
-              </a>
+              </Link>
               <a className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
                 <div className="xxxkt">
                   <img src="//theme.hstatic.net/1000026716/1000440777/14/xk2.png?v=19349" />

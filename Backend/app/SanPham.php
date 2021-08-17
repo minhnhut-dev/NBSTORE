@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\LoaiSanPham;
 use App\CauHinh;
+use App\Comment;
 class SanPham extends Model
 {
     //
@@ -21,5 +22,17 @@ class SanPham extends Model
     public function CauHinh()
     {
         return $this->hasOne(CauHinh::class,'san_phams_id','id');
+    }
+
+    public function Comment()
+    {
+        return $this->hasMany(Comment::class,'san_phams_id','id');
+    }
+    public function Children()
+    {
+        return $this->hasMany(Comment::class,'parent_id');
+    }
+    public function nestComments(){
+        return $this->Comment()->with('nestComments');
     }
 }
