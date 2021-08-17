@@ -19,4 +19,17 @@ $(document).ready(function () {
             .catch( error => {
                 console.error( error );
             } );
+
+
+    // doah thu
+
+    $('#month-revenue-month').change(function(){
+        window.location.replace("/?month="+$(this).val()+"&year_revenue_month="+$('#year-revenue-month').val()+"&year_revenue_year="+$('#year-revenue-year').val());
+    });
+    $('#year-revenue-month').change(function(){
+        window.location.replace("/?month="+$('#month-revenue-month').val()+"&year_revenue_month="+$(this).val()+"&year_revenue_year="+$('#year-revenue-year').val());
+    });
+    $('#year-revenue-year').change(function(){
+        window.location.replace("/?month="+$('#month-revenue-month').val()+"&year_revenue_year="+$(this).val()+"&year_revenue_month="+$('#year-revenue-month').val());
+    });
 });

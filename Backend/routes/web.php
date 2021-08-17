@@ -60,11 +60,11 @@ Route::post('/updatepayment/{id}','HinhThucThanhToanController@UpdatePayments');
 Route::get('/quan-ly-hinh-thuc-thanh-toan/{id}','HinhThucThanhToanController@DeletePayments');//xóa hình thức thanh toán
 
 //Bình quản lis người dùng
-Route::get('/quan-ly-nguoi-dung','CustomerController@index')->name('admin-customers');
-Route::get('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@create');
-Route::post('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@store');
+Route::get('/quan-ly-nguoi-dung','CustomerController@index')->name('admin-customers')->middleware('checklogin::class');
+Route::get('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@create')->middleware('checklogin::class');
+Route::post('/quan-ly-nguoi-dung/them-nguoi-dung','CustomerController@store')->middleware('checklogin::class');
 Route::get('/quan-ly-nguoi-dung/show/{id}','CustomerController@show')->middleware('checklogin::class');
-Route::post('/quan-ly-nguoi-dung/update/{id}','CustomerController@update');
+Route::post('/quan-ly-nguoi-dung/update/{id}','CustomerController@update')->middleware('checklogin::class');
 Route::get('/quan-ly-nguoi-dung/my-profile','CustomerController@MyProfile')->middleware('checklogin::class')->name('my-profile');
 
 // quản lí đơn hàng
@@ -73,3 +73,5 @@ Route::get('/quan-ly-don-hang/{id}','OrderController@show')->middleware('checklo
 Route::get('/quan-ly-don-hang/order/complete/{id}','OrderController@complete')->middleware('checklogin::class');
 
 Route::get('/quan-ly-slide','ImageSlideController@index')->name('quan-ly-slide')->middleware('checklogin::class');
+Route::get('/doanh-thu/thang','TrangChuController@exportExcelMonth')->middleware('checklogin::class');
+Route::get('/doanh-thu/nam','TrangChuController@exportExcelYear')->middleware('checklogin::class');
