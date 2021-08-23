@@ -4,15 +4,16 @@ import Banner from "../../Component/Banner/Banner";
 import Body from "../../Component/Body/Body";
 import Footer from "../../Component/Footer/Footer";
 import ModalNews from "../../Component/ModalNews/ModalNews";
+import { useLocation } from "react-router-dom";
 
 import "./Home.css";
 function Home(props) {
   const {products,loading}=props;
-
+  
   return (
     <>
       <ModalNews />
-      <Header />
+      <Header/>
       <Banner />
       <Body products={products} loading={loading}/>
       <Footer />

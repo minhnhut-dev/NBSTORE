@@ -34,9 +34,10 @@ Route::post('/delete-configs-from-category/{id}', 'LoaiSanPhamController@DeleteC
 Route::post('/Register','AuthController@Register');
 Route::post('/Login','AuthController@Login');
 Route::post('/reActiveUser', 'AuthController@reActiveUser');
+Route::post('/checkLoginGoogle','AuthController@checkLoginGoogle');
 //order api
 Route::post('/order', 'OrderController@create');
-Route::post('/orderAPI', 'OrderController@createAPI');
+Route::post('/orderAPI', 'OrderController@createOrder');
 Route::get('/getInformationOrderById/{id}','OrderController@getInformationOrderById');
 // mail xác thực
 Route::get('user/activation/{token}', 'AuthController@activateUser')->name('user.activate');
@@ -47,7 +48,7 @@ Route::post('user/forgot-password', 'AuthController@ForgotPassword');
 
 Route::put('/updateOrder/{id}', 'OrderController@updateOrderPaid');
 Route::put('/updateOrderCanceled/{id}', 'OrderController@updateOrderCanceled');
-
+Route::put('/sendMailConifirmOrder/{id}','OrderController@sendMailConifirmOrder');
 Route::get('/getOrderUnpaidByUserID/{id}', 'OrderController@GetOrderUnpiadByUserID');
 Route::get('/getOrderPaidByUserID/{id}', 'OrderController@GetOrderPaidByUserID');
 Route::get('/getOrderDetails/{id}', 'OrderController@GetOrderDetails');
