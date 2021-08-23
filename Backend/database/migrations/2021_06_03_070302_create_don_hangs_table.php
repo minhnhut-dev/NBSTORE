@@ -22,7 +22,9 @@ class CreateDonHangsTable extends Migration
             $table->date('ThoiGianMua');
             $table->string('Tongtien');
             $table->unsignedBigInteger('trang_thai_don_hangs_id');
-            $table->timestamps();
+            // $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

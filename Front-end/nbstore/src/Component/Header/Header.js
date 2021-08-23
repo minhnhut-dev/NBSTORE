@@ -9,18 +9,23 @@ import NumberFormat from "react-number-format";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
-const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
 function Header() {
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [redirect, setRedirect]=useState(false);
+  const [userLoged,setUserLoged]=useState({});
+  useEffect(() => {
+    const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
+      setUserLoged(userLogin);
+  },[]);
   const handleLogout = () => {
     window.location.reload();
     localStorage.removeItem("userLogin");
     localStorage.removeItem("accessToken");
   };
+ 
   const handleSearch = (e) =>{
     e.preventDefault();
       setRedirect(true);
@@ -113,16 +118,16 @@ function Header() {
                 </div>
                 <div className=" pdl0 fl1 ">
                   <div className="gearvn-right-top-block">
-                    {userLogin.TenNguoidung ? (
+                    {userLoged.TenNguoidung !==undefined ? (
                       <div>
                         <Link
                           to="/account-order"
                           className="gearvn-header-top-item"
                         >
-                          <img src={userLogin.Anh !==""? userLogin.Anh:"//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
+                          <img src={userLoged.Anh !==""? userLoged.Anh:"//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
-                              {userLogin.TenNguoidung}
+                              {userLoged.TenNguoidung}
                             </div>
                           </div>
                         </Link>

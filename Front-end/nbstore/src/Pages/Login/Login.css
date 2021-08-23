@@ -13,6 +13,9 @@
 }
 .title-register, #title-login {
     text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    margin-top:20px
 }
 
 
@@ -82,9 +85,7 @@
     margin-left: 10px;
 }
 
-#login{
-    margin-top: 70px;
-}
+
 /*Animation*/
 /* #title-login {  
     background-position: center center;
@@ -157,3 +158,22 @@
       -2px -5px 5px yellow,
       4px -10px 10px yellow; }
   } */
+
+  .buttonGoogle{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: black;
+    margin-bottom: 16px;
+    position: relative;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .buttonGoogle span{
+      color: black;
+  }

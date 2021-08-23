@@ -144,6 +144,25 @@ class AuthController extends Controller
         }
 
     }
+    public function checkLoginGoogle(Request $request)
+    {
+        $data=NguoiDung::all();
+        foreach($data as $item)
+        {
+            if($request->Email == $item->Email)
+            {
+                return response()->json(['User'=>$item]);
+            }
+        }
+        $user = new NguoiDung;
+        $user->Email = $request->Email;
+        $user->TenNguoidung = $request->TenNguoidung;
+        $user->loai_nguoi_dungs_id = 2;
+        $user->Anh= $request->Anh;
+        $user->active =1;
+        $user->save();
+        return response()->json(['Message'=>$user],200);
 
+    }
 
 }

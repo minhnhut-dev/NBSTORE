@@ -92,7 +92,7 @@ function Cart(props) {
         });
     } else if (optionPayment == 1) {
       axios
-        .post("http://127.0.0.1:8000/api/order", data)
+        .post("http://127.0.0.1:8000/api/orderAPI", data)
         .then((response) => {
           console.log(response.data);
           enqueueSnackbar("Chúc mừng bạn đã đặt hàng thành công", {

@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use App\Classes\OrderConfirmationService;
 class OrderController extends Controller
 {
     /**
@@ -183,6 +183,71 @@ class OrderController extends Controller
         $order->save();
         DB::commit();
 
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return response(['message' => 'unsuccessful', 'error' => $e],500);
+        // }
+        return response(['message' => 'successful', 'order' => $order]);
+    }
+    public static function  createOrder(Request $request)
+    {
+
+        DB::beginTransaction();
+        $rule = [
+            "hinh_thuc_giao_hangs_id" => "required",
+            'hinh_thuc_thanh_toans_id' => "required",
+            "nguoi_dungs_id" => "required",
+        ];
+        $customMessage = [
+            // "Email.unique"=>"Email đã tồn tại !",
+            // "username.unique"=>"Tên tài khoản đã tồn tại !",
+            // "username.min" =>"Tên tài khoản phải lớn hơn 5 ký tự !",
+            "hinh_thuc_giao_hangs_id.required" => "Hình thức giao hàng bắt buộc !",
+            "hinh_thuc_thanh_toans_id.required" => "Hình thức thanh toán bắt buộc !",
+            "nguoi_dungs_id.required" => "Bạn chưa đăng nhập vui lòng đăng nhập !",
+        ];
+        $validator = Validator::make($request->all(), $rule, $customMessage);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+            DB::rollBack();
+        }
+        // try {
+        $order = new DonHang;
+        $order->nguoi_dungs_id = $request->nguoi_dungs_id;
+        $order->hinh_thuc_giao_hangs_id = $request->hinh_thuc_giao_hangs_id;
+        $order->hinh_thuc_thanh_toans_id = $request->hinh_thuc_thanh_toans_id;
+        $order->ThoiGianMua = Carbon::now();
+        $order->Tongtien = 0;
+        $order->trang_thai_don_hangs_id = $request->trang_thai_don_hangs_id;
+        $order->save();
+        $items = ($request->line_items);
+        $total = 0;
+
+        foreach ($items as $item) {
+            $total += $item['DonGia'] * $item['SoLuong'];
+            $result = SanPhamController::AffterOrder($item['san_phams_id'], $item['SoLuong']);
+            if ($result['result']) {
+                $orderItem = new ChiTietDonHang;
+                $orderItem->don_hangs_id = $order->id;
+                $orderItem->san_phams_id = $item['san_phams_id'];
+                $orderItem->DonGia = $item['DonGia'];
+                $orderItem->SoLuong = $item['SoLuong'];
+                $orderItem->ThanhTien = $item['SoLuong'] * $item['DonGia'];
+                $orderItem->save();
+            } else {
+                DB::rollBack();
+                return response(['message' => 'unsuccessful', 'error' => 'Số lượng sản phẩm ' . $result['name'] . ' không được quá ' . $result['amount']], 400);
+            }
+        }
+        $order->Tongtien = $total;
+        $order->save();
+        DB::commit();
+        if($order->trang_thai_don_hangs_id ==1)
+        {
+            OrderConfirmationService::sendOrderConfirmationEmail($order->id);
+
+        }
+
 
         // } catch (\Exception $e) {
         //     DB::rollBack();
@@ -236,6 +301,7 @@ class OrderController extends Controller
             }
             $order->Tongtien = $total;
             $order->save();
+
         } catch (\Exception $e) {
             try {
                 DB::table('don_hangs')->where('id', '=', $id)->delete();
@@ -314,11 +380,12 @@ class OrderController extends Controller
     {
         //
         $data = DonHang::find($id);
-        if (empty($data)) {
+        if (empty($data)) { 
             return response()->json(["message" => "id không tồn tại"], 400);
         }
         $data->trang_thai_don_hangs_id = 2;
         $data->save();
+        OrderConfirmationService::sendOrderConfirmationEmail($id);
         return response()->json(["message" => "Cập nhật trạng thái đơn hàng thành công"], 200);
     }
 
@@ -337,6 +404,17 @@ class OrderController extends Controller
         $data->save();
 
         return response()->json(["message"=>"Cập nhật trạng thái đơn hàng thành công",'result'=>$result],200);
+    }
+    public function sendMailConifirmOrder($id)
+    {
+        $data = DonHang::find($id);
+        if (empty($data)) {
+            return response()->json(["message" => "id không tồn tại"], 400);
+        }
+        $data->trang_thai_don_hangs_id = 1;
+        $data->save();
+        OrderConfirmationService::sendOrderConfirmationEmail($id);
+        return response()->json(["message" => "Cập nhật trạng thái đơn hàng thành công"], 200);
     }
     public function GetOrderUnpiadByUserID($id)
     {

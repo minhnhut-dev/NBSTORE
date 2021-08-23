@@ -5,10 +5,10 @@ import Footer from "../../../Component/Footer/Footer";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import NumberFormat from "react-number-format";
-const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 function CompleteOrder() {
   const [order, setOder] = useState([]);
   useEffect(() => {
+    const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
     axios
       .get(`http://127.0.0.1:8000/api/getOrderCompleteByUserId/${userLogin.id}`)
       .then((response) => {

@@ -9,7 +9,7 @@ class OrderConfirmationService
 
     public function __construct()
     {
-       
+
     }
 
     public static function sendOrderConfirmationEmail($order_id)

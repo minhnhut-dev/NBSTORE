@@ -8,6 +8,8 @@ import Header from "../../Component/Header/Header";
 import "./Login.css";
 import {useSnackbar} from 'notistack';
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { GoogleLogin } from 'react-google-login';
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -18,12 +20,47 @@ function Login() {
   const [active,setActive]=useState(false);
   const [error, setError] = useState("");
   const [process, setProcess] = useState(false);
+  const [google,setGoogle]=useState({});
+  let history = useHistory();
 
-//   const action = () => (
-//         <Button   onClick={()=>setActive(true)}>
-//             Tại đây
-//         </Button>
-// );
+
+const onLoginSusscess=(res)=>{
+  console.log('login success:', res.profileObj);
+  const Email={
+    Email:res.profileObj.email
+  }
+  const dataGoogle={
+    Email:res.profileObj.email,
+    TenNguoidung:res.profileObj.name,
+    Anh:res.profileObj.imageUrl,
+  }
+  axios.post('http://127.0.0.1:8000/api/checkLoginGoogle',dataGoogle)
+  .then((res)=>{
+      if(res.data.User)     
+      {
+        localStorage.setItem(
+          "userLogin",
+          JSON.stringify(res.data.User)
+        );
+        setRedirect(true);
+        history.push('/');
+      } 
+      else
+      {
+        localStorage.setItem(
+          "userLogin",
+          JSON.stringify(res.data.Message)
+        );
+        setRedirect(true);
+        history.push('/');
+      }
+      
+  })
+
+}
+const onLoginFail=(res)=>{
+  console.log('login fails:', res);
+}
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -86,12 +123,9 @@ function Login() {
 
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
-              <h1 id="title-login">Đăng Nhập</h1>
+              <h5 id="title-login">Chào mừng bạn đến NBSTORE</h5>
             </span>
             <div id="login" className="userbox">
-              <div className="accounttype">
-                <h2 className="title"></h2>
-              </div>
 
               <form onSubmit={onSubmit}>
                 <div className="input-group">
@@ -120,6 +154,14 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+                <GoogleLogin
+                className="buttonGoogle"
+                  clientId="1044195774340-85bluj7hjcahgqia4miacjnh6ivkv6gf.apps.googleusercontent.com"
+                  buttonText="Đăng nhập với google"
+                  onSuccess={onLoginSusscess}
+                  onFailure={onLoginFail}
+                  cookiePolicy={'single_host_origin'}
+                />
                 <div className="action_bottom">
                   <Button variant="primary" className="btnLogin" type="submit">
                     Đăng nhập
