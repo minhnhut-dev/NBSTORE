@@ -38,6 +38,7 @@ class OrderConfirmationMail extends Mailable
         ->where('chi_tiet_don_hangs.don_hangs_id','=',  $id)
         ->get();
         $order = DB::table('don_hangs')->where('don_hangs.id','=',$this->order[0]->id)
+        ->select('don_hangs.id','don_hangs.Tongtien','trang_thai_don_hangs.TenTrangThai')
         ->join('trang_thai_don_hangs','don_hangs.trang_thai_don_hangs_id','=','trang_thai_don_hangs.id')
         ->get();
         return $this->view('email.order-confirmation',compact('order_details','order'));
