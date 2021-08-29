@@ -106,7 +106,7 @@ function Register() {
       <div className="noindex">
         <div id="layout-page-register" className="container">
           <span className="header-contact header-page clearfix">
-            <h1 className="title-register">Tạo tài khoản</h1>
+            <h5 className="title-register">Tạo tài khoản</h5>
           </span>
           <div className="userbox">
             <form acceptCharset="UTF-8" id="create_customer">

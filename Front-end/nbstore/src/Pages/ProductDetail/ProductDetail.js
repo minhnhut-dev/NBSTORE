@@ -15,6 +15,7 @@ import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/thumbs/thumbs.min.css";
 import SwiperCore, { Navigation, Thumbs } from "swiper/core";
 import { useSnackbar } from "notistack";
+import { FacebookProvider, Comments } from "react-facebook";
 
 import {
   Divider,
@@ -34,8 +35,8 @@ function ProductDetail(props) {
   const [Product, SetProducts] = useState([]);
   const [suggestProduct, setSuggestProduct] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [comment,setComment]=useState([]);
-  const [content,setContent] = useState("");
+  const [comment, setComment] = useState([]);
+  const [content, setContent] = useState("");
   const { onAdd } = props;
   const { enqueueSnackbar } = useSnackbar();
 
@@ -62,38 +63,39 @@ function ProductDetail(props) {
     axios.get(`http://127.0.0.1:8000/api/suggestProduct/1`).then((response) => {
       setSuggestProduct(response.data);
     });
-    axios.get(`http://127.0.0.1:8000/api/getComments/${id}`)
-    .then((response)=>{
-      setComment(response.data);
-    })
+    axios
+      .get(`http://127.0.0.1:8000/api/getComments/${id}`)
+      .then((response) => {
+        setComment(response.data);
+      });
   }, []);
 
-  const handlePostComment=()=>{
-    const data={
-        content:content,
-        nguoi_dungs_id:userLogin.id,
-        san_phams_id:id,
-    }
-    axios.post('http://127.0.0.1:8000/api/AddComment',data)
-    .then((response)=>{
-      axios.get(`http://127.0.0.1:8000/api/getComments/${id}`)
-      .then((response)=>{
-        setComment(response.data);
+  const handlePostComment = () => {
+    const data = {
+      content: content,
+      nguoi_dungs_id: userLogin.id,
+      san_phams_id: id,
+    };
+    axios
+      .post("http://127.0.0.1:8000/api/AddComment", data)
+      .then((response) => {
+        axios
+          .get(`http://127.0.0.1:8000/api/getComments/${id}`)
+          .then((response) => {
+            setComment(response.data);
+          });
       })
-    })
-    .catch((err)=>{
-      console.log(err.response);
-      if(err.response.data.message != undefined)
-      {
-        enqueueSnackbar(err.response.data.message, {
-          variant: "error",
-          autoHideDuration: 3000,
-          preventDuplicate: true,
-        });
-      }
-    })
-    
-  }
+      .catch((err) => {
+        console.log(err.response);
+        if (err.response.data.message != undefined) {
+          enqueueSnackbar(err.response.data.message, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
+          });
+        }
+      });
+  };
   const LinkImage = "http://127.0.0.1:8000/images/";
   var elements = [];
 
@@ -463,6 +465,7 @@ function ProductDetail(props) {
                           </div>
                         </Paper>
                       </div>
+                      
                     </TabPanel>
                   </Tabs>
                 </div>
