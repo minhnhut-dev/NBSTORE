@@ -179,8 +179,8 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     @if (Session::has('user'))
                         <div class="image">
-                            <img src="/images/{{Session::get('user')->Anh }}" class="img-circle elevation-2"
-                                alt="User Image">
+                            <!-- <img src="/images/{{Session::get('user')->Anh }}" class="img-circle elevation-2"
+                                alt="User Image"> -->
                         </div>
                     @endif
                     <div class="info">

@@ -2,13 +2,13 @@
     <table class="m_-6158600730156614244main" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2" >
         <tbody>
             <tr>
-                <td class="m_-6158600730156614244outer-box" style="max-width:550px;border-radius:24px" bgcolor="#ffffff" align="center" style="padding:0 8px">
+                <td  style="max-width:550px;border-radius:24px" bgcolor="#ffffff" align="center" style="padding:0 8px">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tbody>
                             <tr>
-                                <td align="center" class="m_-6158600730156614244indeed-logo" style="padding:25px 0px">
+                                <td align="center" style="padding:25px 0px">
                                     <a href="http://localhost:3000/" target="_blank" >
-                                        <img class="m_-6158600730156614244jecl-Icon-img CToWUd" src="http://localhost:3000/static/media/logo-nbstore.ef1509cc.png" alt="indeed-logo" width="100" style="display:block" border="0">
+                                        <img class="m_-6158600730156614244jecl-Icon-img CToWUd" src="http://localhost:3000/static/media/logo-nbstore.ef1509cc.png" alt="nbstore-logo" width="100" style="display:block" border="0">
                                     </a>
                                 </td>
                             </tr>

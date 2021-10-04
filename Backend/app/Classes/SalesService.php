@@ -8,8 +8,8 @@ class  SalesService
         $numer_in_month=$max_day>0?$max_day:DateService::getNumerDate($month,$year);
         $result=[];
         for ($i =1;$i<=$numer_in_month;$i++){
-            $revenue_by_day = DB::table('don_hangs')->whereYear('created_at', '=', $year)
-            ->whereMonth('created_at', '=', $month)->whereDay('created_at', '=', $i)->sum('Tongtien');
+            $revenue_by_day = DB::table('don_hangs')->whereYear('ThoiGianMua', '=', $year)
+            ->whereMonth('ThoiGianMua', '=', $month)->whereDay('ThoiGianMua', '=', $i)->sum('Tongtien');
             $day =DateService::createDate($i,$month,$year);
             $in_day = [
                 "timestamp" =>$day,
@@ -24,8 +24,8 @@ class  SalesService
         $numer_in_year=$max_month>0?$max_month:12;
         $result=[];
         for ($i =1;$i<=$numer_in_year;$i++){           
-            $revenue_by_day = DB::table('don_hangs')->whereYear('created_at', '=', $year)
-            ->whereMonth('created_at', '=', $i)->sum('Tongtien');
+            $revenue_by_day = DB::table('don_hangs')->whereYear('ThoiGianMua', '=', $year)
+            ->whereMonth('ThoiGianMua', '=', $i)->sum('Tongtien');
             $in_month = [
                 "month" =>$i,
                 "revenue"=>$revenue_by_day
@@ -38,8 +38,8 @@ class  SalesService
         $numer_in_year=$max_month>0?$max_month:12;
         $result=[];
         for ($i =1;$i<=$numer_in_year;$i++){           
-            $revenue_by_day = DB::table('don_hangs')->whereYear('created_at', '=', $year)
-            ->whereMonth('created_at', '=', $i)->count();
+            $revenue_by_day = DB::table('don_hangs')->whereYear('ThoiGianMua', '=', $year)
+            ->whereMonth('ThoiGianMua', '=', $i)->count();
             $in_month = [
                 "month" =>$i,
                 "amount"=>$revenue_by_day
@@ -52,8 +52,8 @@ class  SalesService
         $numer_in_month=$max_day>0?$max_day:DateService::getNumerDate($month,$year);
         $result=[];
         for ($i =1;$i<=$numer_in_month;$i++){
-            $revenue_by_day = DB::table('don_hangs')->whereYear('created_at', '=', $year)
-            ->whereMonth('created_at', '=', $month)->whereDay('created_at', '=', $i)->count();
+            $revenue_by_day = DB::table('don_hangs')->whereYear('ThoiGianMua', '=', $year)
+            ->whereMonth('ThoiGianMua', '=', $month)->whereDay('ThoiGianMua', '=', $i)->count();
             $day =DateService::createDate($i,$month,$year);
             $in_day = [
                 "timestamp" =>$day,
