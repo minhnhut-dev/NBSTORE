@@ -54,7 +54,7 @@
                                 <select class="form-control" id="year-revenue-month" name="year_revenue_month">
                                     @for($i=0;$i<$len;$i++)
                                         <!-- <option {{@$_GET['year_revenue_month']==$i+$start_year?'selected':''}}  value="{{$i+$start_year}}">{{$i+$start_year}}</option> -->
-                                        <option {{@year_month==$i+$start_year?'selected':''}}  value="{{$i+$start_year}}">{{$i+$start_year}}</option>
+                                        <option {{@$year_month==$i+$start_year?'selected':''}}  value="{{$i+$start_year}}">{{$i+$start_year}}</option>
                                     @endfor
                                 </select>
                             </div>
