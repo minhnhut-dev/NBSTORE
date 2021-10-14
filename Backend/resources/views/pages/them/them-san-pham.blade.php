@@ -71,19 +71,7 @@
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
-
-                </div>
-                <div class="tab-pane container" id="menu1">
-                    {!!$html!!}
-                </div>
-                <div class="tab-pane container" id="menu2">
-                    <div class="form-group col-4">
-                        <label for="ten-sản-CPU">Hình ảnh:</label>
-                        <input type="file" class="form-control" style="border: none;" name="imageFile[]" required multiple>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group d-flex">
+                    <div class="form-group d-flex">
                         <div class="col-4">
                             <label for="LoaiSanPham">Loại sản phẩm:</label>
                             <select class="form-control" id="LoaiSanPham" name="LoaiSanPham" style="background-image: none;">
@@ -91,6 +79,19 @@
                             </select>
                         </div>
             </div>
+                </div>
+                <div class="tab-pane container" id="menu1">
+                    {!!$html!!}
+                </div>
+                <div class="tab-pane container" id="menu2">
+                    <div class="form-group col-4">
+                        <label for="ten-sản-CPU">Hình ảnh:</label>
+
+                        <input type="file" class="image-upload" style="border: none;" name="imageFile[]" required multiple>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-4">
             <button type="submit" class="btn btn-primary btn-submit-input-form btn-them-phim" data-toggle="modal" style="margin:12px">
                 <strong>Tiến hành thêm</strong>
