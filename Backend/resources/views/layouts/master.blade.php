@@ -26,10 +26,11 @@
     <!--Dropzone-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/min/dropzone.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.0/dropzone.js"></script>
      <!-- tiny editor -->
      <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+     <!-- dropzone-->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css" integrity="sha512-WvVX1YO12zmsvTpUQV8s7ZU98DnkaAokcciMZJfnNWyNzm7//QRV61t4aEr0WdIa4pe854QHLTV302vH92FSMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <!--
       BODY TAG OPTIONS:
@@ -178,11 +179,22 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     @if (Session::has('user'))
+                        @if (Session::get('user')->Anh)
                         <div class="image">
-                            <!-- <img src="/images/{{Session::get('user')->Anh }}" class="img-circle elevation-2"
-                                alt="User Image"> -->
+                            <img src="{{Session::get('user')->Anh }}" class="img-circle elevation-2"
+                                alt="User Image">
                         </div>
+                        @else
+                        <div class="image">
+
+                            <img src="/images/iconUser.png" class="img-circle elevation-2"
+                                alt="User Image">
+                        </div>
+                        @endif
+
+
                     @endif
+
                     <div class="info">
                         <a href="{{route('my-profile')}}" class="d-block">
                             @if (Session::has('user'))
@@ -307,26 +319,6 @@
             $('.duallistbox').bootstrapDualListbox()
         })
 
-    </script>
-    <script type="text/javascript">
-       Dropzone.options.dropzone =
-        {
-            maxFilesize: 10,
-            renameFile: function (file) {
-                var dt = new Date();
-                var time = dt.getTime();
-                return time + file.name;
-            },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 60000,
-            success: function (file, response) {
-                console.log(response);
-            },
-            error: function (file, response) {
-                return false;
-            }
-        };
     </script>
     <script src={{ asset('ajax/ajax.js') }}></script>
 

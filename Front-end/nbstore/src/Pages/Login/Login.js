@@ -26,9 +26,6 @@ function Login() {
 
 const onLoginSusscess=(res)=>{
   console.log('login success:', res.profileObj);
-  const Email={
-    Email:res.profileObj.email
-  }
   const dataGoogle={
     Email:res.profileObj.email,
     TenNguoidung:res.profileObj.name,
