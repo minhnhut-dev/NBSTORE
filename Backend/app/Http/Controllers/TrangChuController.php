@@ -72,7 +72,7 @@ class TrangChuController extends Controller
 
     
         $orders = DB::table('don_hangs')->join('nguoi_dungs', 'nguoi_dungs.id', '=', 'don_hangs.nguoi_dungs_id')
-        ->select('nguoi_dungs.TenNguoidung','nguoi_dungs.SDT','don_hangs.*')->limit(5)->orderBy('don_hangs.created_at', 'DESC')->get();
+        ->select('nguoi_dungs.TenNguoidung','nguoi_dungs.SDT','don_hangs.*')->limit(5)->orderBy('don_hangs.ThoiGianMua', 'DESC')->get();
 
         foreach ($orders as $item) {
 

@@ -21,25 +21,25 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
+        $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.ThoiGianMua, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
         FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
-        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ORDER BY don_hangs.created_at DESC;
+        INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ORDER BY don_hangs.ThoiGianMua DESC;
         ');
         if ($request->search) {
-            $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
+            $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.ThoiGianMua, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
             FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
             INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id
             WHERE don_hangs.id = "' . $request->search . '"
             OR nguoi_dungs.TenNguoidung LIKE "%' . $request->search . '%"
             OR nguoi_dungs.SDT LIKE "%' . $request->search . '%"
-            ORDER BY don_hangs.created_at DESC;
+            ORDER BY don_hangs.ThoiGianMua DESC;
             ');
         }
         if ($request->status > -1) {
-            $query = 'SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.created_at, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
+            $query = 'SELECT nguoi_dungs.TenNguoidung, nguoi_dungs.SDT, don_hangs.id, don_hangs.ThoiGianMua, don_hangs.ThoiGianMua, don_hangs.Tongtien, don_hangs.trang_thai_don_hangs_id, trang_thai_don_hangs.TenTrangThai
             FROM `don_hangs` INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id
             INNER JOIN `trang_thai_don_hangs` ON `don_hangs`.trang_thai_don_hangs_id=`trang_thai_don_hangs`.id ';
-            if ($request->begin) $query .= 'WHERE don_hangs.created_at >= "' . $request->begin . '" AND don_hangs.created_at <= "' . $request->end . '" ';
+            if ($request->begin) $query .= 'WHERE don_hangs.ThoiGianMua >= "' . $request->begin . '" AND don_hangs.ThoiGianMua <= "' . $request->end . '" ';
             else $query .= 'WHERE true ';
             if ($request->status > 0) $query .= ' AND don_hangs.trang_thai_don_hangs_id = "' . $request->status . '" ';
             if ($request->total > 0) {
@@ -92,11 +92,19 @@ class OrderController extends Controller
                         }
                 }
             }
-            $query .= ' ORDER BY don_hangs.created_at DESC;';
+            $query .= ' ORDER BY don_hangs.ThoiGianMua DESC;';
             $orders['orders'] = DB::select($query);
         }
         $amountItemsPage = 10;
         $totalPages = FLOOR(sizeof($orders['orders']) / $amountItemsPage);
+
+        if($request->search){
+            $end_point = '&search='.$request->search;
+        }else{
+            $end_point='';
+            if($request->begin) $end_point.='&begin='.$request->begin.'&end='.$request->end;
+            $end_point.='&status='.$request->status.'&total='.$request->total;
+        }
         if (sizeof($orders['orders']) % $amountItemsPage > 0) {
             $totalPages++;
         }
@@ -105,20 +113,20 @@ class OrderController extends Controller
         if (is_numeric($request->page)) {
             $currentPage = $request->page;
             if ($currentPage > 1) $html = '<ul class="pagination"><li class="page-item">
-            <a class="page-link" href="/quan-ly-don-hang?page=' . ($currentPage - 1) . '">Previous</a></li>';
+            <a class="page-link" href="/quan-ly-don-hang?page=' . ($currentPage - 1).$end_point . '">Previous</a></li>';
         };
 
         $orders = array_slice($orders['orders'], ($currentPage - 1) * $amountItemsPage, $amountItemsPage);
         for ($i = 1; $i <= $totalPages; $i++) {
             $disabled = '';
             if ($i == $currentPage) $disabled = 'disabled';
-            $html .= '<li class="page-item ' . $disabled . '"><a class="page-link" href="/quan-ly-don-hang?page=' . $i . '">' . $i . '</a></li>';
+            $html .= '<li class="page-item ' . $disabled . '"><a class="page-link" href="/quan-ly-don-hang?page=' . $i.$end_point . '">' . $i . '</a></li>';
         }
 
         if ($currentPage == $totalPages) {
             $html .= '  <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
         } else {
-            $html .= ' <li class="page-item"><a class="page-link" href="/quan-ly-don-hang?page=' . ($currentPage + 1) . '">Next</a></li>';
+            $html .= ' <li class="page-item"><a class="page-link" href="/quan-ly-don-hang?page=' . ($currentPage + 1).$end_point . '">Next</a></li>';
         }
         $status = TrangThaiDonHang::get();
         return view('pages.quan-ly-don-hang', compact('orders', 'html', 'status'));

@@ -181,7 +181,6 @@
                     @if (Session::has('user'))
                         @if (Session::get('user')->Anh)
                         <div class="image">
-
                             <img src="{{Session::get('user')->Anh }}" class="img-circle elevation-2"
                                 alt="User Image">
                         </div>
