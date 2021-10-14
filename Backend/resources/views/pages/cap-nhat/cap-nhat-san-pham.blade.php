@@ -93,13 +93,12 @@
                                                         class="btn btn-outline-info btn-view-image">Xóa</a>
                                                     <a href="#" data-src="" data-id=""
                                                         class="btn btn-outline-info btn-view-image" style="margin-left: 37px">Sửa</a>
-
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
-
                                 </div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup-them-image">Thêm ảnh</button>
 
                             </div>
 
@@ -132,7 +131,48 @@
                 </form>
 
             @endforeach
-        </div>
+             {{-- <div class="modal fade modal-them-phim-question" id="popup-them-image">
+
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal body -->
+                                <div class="modal-body text-center">
+                                <i class="fas fa-cloud-upload-alt" style="color: #dc3545;"></i>
+                                    Chọn ảnh
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <div class="col-md-12 ">
+                                        <div id="msg"></div>
+                                        <form method="post" id="image-form" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" name="img[]" class="file" accept="image/*" required>
+                                            <div class="feedback"   style="color:red; display:none;">Vui lòng chọn hình ảnh</div>
+                                            <div class="input-group my-3">
+                                                <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="browse btn btn-primary">Browse...</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <img src="http://aquaphor.vn/wp-content/uploads/2016/06/default-placeholder.png"
+                                                    id="preview" class="img-thumbnail">
+                                            </div>
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-warning btn-xac-nhan-them-phim" id="btn-insert-image">
+                                                    <strong>Thêm ảnh</strong>
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div> --}}
     </section>
 
 @endsection

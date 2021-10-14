@@ -74,9 +74,9 @@ function ResetPassword() {
         <div id="layout-page-login" className="container">
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
-              <h2 id="title-login" style={{ marginTop: "20px" }}>
+              <h4 id="title-login" style={{ marginTop: "20px" }}>
                 Khôi phục mật khẩu
-              </h2>
+              </h4>
             </span>
             <div id="login" className="userbox">
               <div className="input-group">
