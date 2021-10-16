@@ -24,6 +24,7 @@ import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
 import ActiveUser from "./Pages/Account/ActiveUser/ActiveUser";
 import PaymentGuide from "./Pages/PaymentGuide/PaymentGuide";
+import Promotion from "./Pages/Promotion/Promotion";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -140,6 +141,9 @@ function App() {
           </Route>
           <Route path="/PaymentGuide">
             <PaymentGuide />
+          </Route>
+          <Route path="/Promotion-information">
+            <Promotion />
           </Route>
           <Route path="*">
             <NoMatch />
