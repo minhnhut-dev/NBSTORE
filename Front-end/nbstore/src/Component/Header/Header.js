@@ -124,7 +124,7 @@ function Header() {
                           to="/account-order"
                           className="gearvn-header-top-item"
                         >
-                          <img src={userLoged.Anh !==""? userLoged.Anh:"//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
+                          <img src={userLoged.Anh != null? userLoged.Anh: "//theme.hstatic.net/1000026716/1000440777/14/ak3.png?v=19349"} alt="avt-user" className="avt__user" />
                           <div className="header-right-description">
                             <div className="gearvn-text">
                               {userLoged.TenNguoidung}
@@ -228,10 +228,12 @@ function Header() {
         </div>
         <div className="gearvn-content-section padding-10-0 hidden-xs hidden-sm container">
           <div className="content-flex top-header-bar">
-            <span className="style-nav-fix hidden">
-              <i className="fa fa-bars"></i>
-              Danh mục sản phẩm
-            </span>
+          <Link to="/Product-Portffolio">
+              <span className="style-nav-fix hidden">
+                <i className="fa fa-bars"></i>
+                Danh mục sản phẩm
+              </span>
+            </Link>
             <div className="gearvn-header-navigation-right content-flex">
               <a className="gearvn-header-navigation-item recently-product-item header-navigation-recently-products ">
                 <div className="xxxkt">
