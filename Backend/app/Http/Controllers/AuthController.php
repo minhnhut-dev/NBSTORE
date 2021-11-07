@@ -28,7 +28,7 @@ class AuthController extends Controller
         $rule = [
             "Email" => "required|unique:nguoi_dungs",
             "username" => "required|unique:nguoi_dungs|min:5",
-
+            "password" => "regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/",
         ];
         $customMessage = [
             "Email.unique" => "Email đã tồn tại !",
@@ -36,8 +36,7 @@ class AuthController extends Controller
             "username.min" => "Tên tài khoản phải lớn hơn 5 ký tự !",
             "Email.required" => "Email không được bỏ trống !",
             "username.required" => "Tên tài khoản không được bỏ trống",
-
-
+            "password.regex" => "Mật khẩu gồm 8 ký tự và Có 1 chữ viết hoa"
         ];
         $validator = Validator::make($request->all(), $rule, $customMessage);
         if ($validator->fails()) {
@@ -85,7 +84,6 @@ class AuthController extends Controller
                 'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
             ]
         ]);
-        // return response()->json($user);
     }
     public function activateUser($token)
     {
@@ -162,7 +160,6 @@ class AuthController extends Controller
         $user->active =1;
         $user->save();
         return response()->json(['Message'=>$user],200);
-
     }
 
 }

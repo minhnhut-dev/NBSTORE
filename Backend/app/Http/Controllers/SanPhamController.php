@@ -332,7 +332,7 @@ class SanPhamController extends Controller
             ->join('loai_san_phams', 'san_phams.loai_san_phams_id', '=', 'loai_san_phams.id')
             ->where('san_phams.loai_san_phams_id', '=', $id)->orWhere('loai_san_phams.parent_id', '=', $id)
             ->select('san_phams.*')
-            ->paginate(2);
+            ->paginate(5);
         return response()->json($data, 200);
     }
 
@@ -344,10 +344,16 @@ class SanPhamController extends Controller
     public function getProductByTypeProductId($id)
     {
         // $listProduct=SanPham::where('loai_san_phams_id',$id)->get();
-        $listProduct = DB::select('SELECT san_phams.*
-            FROM san_phams
-            JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
-            WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id, $id]);
+        // $listProduct = DB::select('SELECT san_phams.*
+        //     FROM san_phams
+        //     JOIN loai_san_phams ON san_phams.loai_san_phams_id = loai_san_phams.id
+        //     WHERE san_phams.loai_san_phams_id = ? OR loai_san_phams.parent_id =?', [$id, $id]);
+          $listProduct = DB::table('san_phams')
+          ->join('loai_san_phams', 'san_phams.loai_san_phams_id','=', 'loai_san_phams.id')
+          -> where('san_phams.loai_san_phams_id' , '=', $id) ->orWhere('loai_san_phams.parent_id', '=', $id)
+          -> select('san_phams.*')
+          ->paginate(5);
+          return $listProduct;
         return response()->json($listProduct, 200);
     }
     public function search($keyword)

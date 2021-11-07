@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('nguoi_dungs_id');
             $table->unsignedBigInteger('san_phams_id');
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->boolean('TrangThai')->default(1);
             $table->timestamps();
         });
     }

@@ -391,7 +391,7 @@ class OrderController extends Controller
         if (empty($data)) { 
             return response()->json(["message" => "id không tồn tại"], 400);
         }
-        $data->trang_thai_don_hangs_id = 2;
+        $data->trang_thai_don_hangs_id = $request->status;
         $data->save();
         OrderConfirmationService::sendOrderConfirmationEmail($id);
         return response()->json(["message" => "Cập nhật trạng thái đơn hàng thành công"], 200);
