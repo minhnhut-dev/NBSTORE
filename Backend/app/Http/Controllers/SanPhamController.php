@@ -7,6 +7,7 @@ use App\CauHinh;
 use App\DonHang;
 use App\ChiTietDonHang;
 use App\Comment;
+use App\Http\Controllers\OrderController;
 use App\Components\Recursion;
 use Illuminate\Http\Request;
 use App\SanPham;
@@ -438,5 +439,73 @@ class SanPhamController extends Controller
                 return response()->json(['message' =>'Thành công','comment'=>$comment]);
 
 
+    }
+    public function topProductsHot(Request $request)
+    {
+        $limit  =$request->limit? $request->limit:10;
+        switch($request->type) {
+            case 'amount': {
+                $prods = [];
+                $products = DB::table('chi_tiet_don_hangs')->select('san_phams_id')->groupBy('san_phams_id')->get();
+                foreach ($products as $item) {
+                    $amount = (int)OrderController::getProductOrdersByProduct($item->san_phams_id);
+                    $sp = SanPham::find($item->san_phams_id);
+                    $sp->amount = $amount;  
+                    array_push($prods, $sp);
+                }
+                usort(
+                    $prods,
+                    function ($a, $b) {
+                        if ($a == $b) {
+                            return 0;
+                        }
+                        return ($a->amount > $b->amount) ? -1 : 1;
+                    }
+                );
+                $prods= array_slice($prods,0,$limit);
+                return response()->json($prods);
+            } break;
+            case 'discount':{
+                $promotion_products = DB::table('san_phams')->get()->toArray();
+                foreach ($promotion_products as $item) {
+                    $discount_price = ceil(($item->GiaCu- $item->GiaKM)/$item->GiaCu*100);
+                    $item->discount_price=$discount_price;
+                }
+                usort(
+                    $promotion_products,
+                    function ($a, $b) {
+                        if ($a == $b) {
+                            return 0;
+                        }
+                        return ($a->discount_price > $b->discount_price) ? -1 : 1;
+                    }
+                );
+                $promotion_products= array_slice($promotion_products,0,$limit);
+        
+                return response()->json($promotion_products);
+            }break;
+            default : {
+                $prods = [];
+                $products = DB::table('chi_tiet_don_hangs')->select('san_phams_id')->groupBy('san_phams_id')->get();
+                foreach ($products as $item) {
+                    $amount = (int)OrderController::getProductOrdersByProduct($item->san_phams_id);
+                    $sp = SanPham::find($item->san_phams_id);
+                    array_push($prods, $sp);
+                }
+                usort(
+                    $prods,
+                    function ($a, $b) {
+                        if ($a == $b) {
+                            return 0;
+                        }
+                        return ($a->SoLuong > $b->SoLuong) ? -1 : 1;
+                    }
+                );
+                $prods= array_slice($prods,0,$limit);
+                return response()->json($prods);
+            }   break;
+        }
+      
+     
     }
 }

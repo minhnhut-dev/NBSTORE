@@ -101,3 +101,4 @@ Route::get('/getWard/{idDistrict}','AddressUserController@getWard');
 Route::post('/paymentVNPAY','PaymentController@createOrder');// thanh toán VNPAY
 Route::get('getComments/{id}','SanPhamController@getComments');
 Route::post('/AddComment','SanPhamController@userComments');
+Route::get('/top-products-hot', 'SanPhamController@topProductsHot');
