@@ -9,11 +9,13 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import Paypal from "../../Component/Paypal/Paypal";
 import { useSnackbar } from "notistack";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 
-  const { cartItems, onRemove, onAdd } = props;
+  const { cartItems, onRemove, onAdd, onRemoveAll } = props;
   const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.GiaKM, 0);
   const totalPrice = itemsPrice;
   const LinkImage = "http://127.0.0.1:8000/images/";
@@ -28,11 +30,18 @@ function Cart(props) {
   const [redirect, setRedirect] = useState(false);
   const [payURL, setPayURL] = useState();
   const [paypal, setPayPal] = useState(false);
+  const [openBackDrop, setOpenBackDrop] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [name, setName] = useState(userLogin.TenNguoidung);
+  const [address, setAddress] = useState(userLogin.DiaChi);
+  const [phone, setPhone] = useState(userLogin.SDT);
+  console.log("name: ", name);
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
-
+  const handleCloseBackdrop = () => {
+    setOpenBackDrop(false);
+  };
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/api/getCity").then((response) => {
       console.log(response.data);
@@ -41,6 +50,11 @@ function Cart(props) {
   }, []);
   const handleOrder = async (e) => {
     e.preventDefault();
+    const dataUser = {
+      name: name,
+      DiaChi: address,
+      SDT: phone,
+    };
     const data = {
       nguoi_dungs_id: userLogin.id,
       hinh_thuc_thanh_toans_id: optionPayment,
@@ -92,34 +106,57 @@ function Cart(props) {
         });
     } else if (optionPayment == 1) {
       axios
-        .post("http://127.0.0.1:8000/api/orderAPI", data)
-        .then((response) => {
-          console.log(response.data);
-          enqueueSnackbar("Chúc mừng bạn đã đặt hàng thành công", {
-            variant: "success",
-            autoHideDuration: 3000,
-            preventDuplicate: true,
-          });
-          setTimeout(() => {
-            setRedirect(true);
-            localStorage.removeItem("cartItems");
-            window.location.reload();
-          }, 2000);
+        .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, dataUser)
+        .then(() => {
+          setOpenBackDrop(true);
+          axios
+            .post("http://127.0.0.1:8000/api/orderAPI", data)
+            .then((response) => {
+              console.log(response.data);
+              enqueueSnackbar("Chúc mừng bạn đã đặt hàng thành công", {
+                variant: "success",
+                autoHideDuration: 3000,
+                preventDuplicate: true,
+              });
+                setRedirect(true);
+                localStorage.setItem(
+                  "Order",
+                  JSON.stringify(response.data.order)
+                );
+                localStorage.removeItem("cartItems");
+                window.location.reload();
+            })
+            .catch((err) => {
+              console.log(err.response.data.error);
+              setError(err.response.data.error);
+              setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
+              setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
+              setErrorLogin(err.response.data.nguoi_dungs_id);
+              if (err.response.data.error != undefined) {
+                enqueueSnackbar(err.response.data.error, {
+                  variant: "error",
+                  autoHideDuration: 3000,
+                  preventDuplicate: true,
+                });
+              }
+            });
         })
         .catch((err) => {
-          console.log(err.response.data.error);
-          setError(err.response.data.error);
-          setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
-          setErrorShipping(err.response.data.hinh_thuc_giao_hangs_id);
-          setErrorLogin(err.response.data.nguoi_dungs_id);
-          if (err.response.data.error != undefined) {
-            enqueueSnackbar(err.response.data.error, {
+          console.log(err.response.data.DiaChi);
+          if (err.response.data.DiaChi != undefined) {
+            enqueueSnackbar(err.response.data.DiaChi, {
               variant: "error",
               autoHideDuration: 3000,
               preventDuplicate: true,
             });
           }
-         
+          if (err.response.data.SDT != undefined) {
+            enqueueSnackbar(err.response.data.SDT, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
         });
     } else if (optionPayment == 2) {
       var dataMoMo = {
@@ -135,9 +172,64 @@ function Cart(props) {
         extraData: extraData,
         signature: signature,
       };
-      await axios.post(apiEndPoint, dataMoMo).then((response) => {
-        if (response.data.errorCode == 0) {
-          setPayURL(response.data.payUrl);
+      axios
+        .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, dataUser)
+        .then(() => {
+          axios.post(apiEndPoint, dataMoMo).then((response) => {
+            if (response.data.errorCode == 0) {
+              setPayURL(response.data.payUrl);
+              axios
+                .post("http://127.0.0.1:8000/api/order", data)
+                .then((response) => {
+                  console.log(response.data.order);
+                  localStorage.setItem(
+                    "Order",
+                    JSON.stringify(response.data.order)
+                  );
+                  localStorage.removeItem("cartItems");
+
+                  setRedirect(true);
+                })
+                .catch((err) => {
+                  setRedirect(false);
+                  if (err.response.data.error !== undefined) {
+                    enqueueSnackbar(err.response.data.error, {
+                      variant: "error",
+                      autoHideDuration: 3000,
+                      preventDuplicate: true,
+                    });
+                  }
+                });
+            } else {
+              setRedirect(false);
+              enqueueSnackbar(response.data.localMessage, {
+                variant: "error",
+                autoHideDuration: 3000,
+                preventDuplicate: true,
+              });
+            }
+          });
+        })
+        .catch((err) => {
+          if (err.response.data.DiaChi != undefined) {
+            enqueueSnackbar(err.response.data.DiaChi, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+          if (err.response.data.SDT != undefined) {
+            enqueueSnackbar(err.response.data.SDT, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+        });
+    } else if (optionPayment == 3) {
+      axios
+        .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, dataUser)
+        .then(() => {
           axios
             .post("http://127.0.0.1:8000/api/order", data)
             .then((response) => {
@@ -147,12 +239,11 @@ function Cart(props) {
                 JSON.stringify(response.data.order)
               );
               localStorage.removeItem("cartItems");
-
-              setRedirect(true);
+              setPayPal(true);
             })
             .catch((err) => {
-              setRedirect(false);
-              if (err.response.data.error !== undefined) {
+              setPayPal(false);
+              if (err.response.data.error != undefined) {
                 enqueueSnackbar(err.response.data.error, {
                   variant: "error",
                   autoHideDuration: 3000,
@@ -160,28 +251,17 @@ function Cart(props) {
                 });
               }
             });
-        } else {
-          setRedirect(false);
-          enqueueSnackbar(response.data.localMessage, {
-            variant: "error",
-            autoHideDuration: 3000,
-            preventDuplicate: true,
-          });
-        }
-      });
-    } else if (optionPayment == 3) {
-      axios
-        .post("http://127.0.0.1:8000/api/order", data)
-        .then((response) => {
-          console.log(response.data.order);
-          localStorage.setItem("Order", JSON.stringify(response.data.order));
-          localStorage.removeItem("cartItems");
-          setPayPal(true);
         })
         .catch((err) => {
-          setPayPal(false);
-          if (err.response.data.error != undefined) {
-            enqueueSnackbar(err.response.data.error, {
+          if (err.response.data.DiaChi != undefined) {
+            enqueueSnackbar(err.response.data.DiaChi, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+          if (err.response.data.SDT != undefined) {
+            enqueueSnackbar(err.response.data.SDT, {
               variant: "error",
               autoHideDuration: 3000,
               preventDuplicate: true,
@@ -189,17 +269,40 @@ function Cart(props) {
           }
         });
     } else if (optionPayment == 4) {
-      await axios
-        .post("http://127.0.0.1:8000/api/paymentVNPAY", data)
-        .then((response) => {
-          setPayURL(response.data.pay_url.data);
-          localStorage.setItem("Order", JSON.stringify(response.data.Order));
-          localStorage.removeItem("cartItems");
-          setRedirect(true);
+      axios
+        .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, dataUser)
+        .then(() => {
+          axios
+            .post("http://127.0.0.1:8000/api/paymentVNPAY", data)
+            .then((response) => {
+              setPayURL(response.data.pay_url.data);
+              localStorage.setItem(
+                "Order",
+                JSON.stringify(response.data.Order)
+              );
+              localStorage.removeItem("cartItems");
+              setRedirect(true);
+            })
+            .catch((err) => {
+              if (err.response.data.error != undefined) {
+                enqueueSnackbar(err.response.data.error, {
+                  variant: "error",
+                  autoHideDuration: 3000,
+                  preventDuplicate: true,
+                });
+              }
+            });
         })
         .catch((err) => {
-          if (err.response.data.error != undefined) {
-            enqueueSnackbar(err.response.data.error, {
+          if (err.response.data.DiaChi != undefined) {
+            enqueueSnackbar(err.response.data.DiaChi, {
+              variant: "error",
+              autoHideDuration: 3000,
+              preventDuplicate: true,
+            });
+          }
+          if (err.response.data.SDT != undefined) {
+            enqueueSnackbar(err.response.data.SDT, {
               variant: "error",
               autoHideDuration: 3000,
               preventDuplicate: true,
@@ -221,7 +324,7 @@ function Cart(props) {
     return window.location.replace(payURL);
     //  return window.location.href = payURL;
   } else if (redirect && optionPayment == 1) {
-    return <Redirect to="/account-order" />;
+    return <Redirect to="/resultOrder/?message=3" />;
   } else if (redirect && optionPayment == 4) {
     return window.location.replace(payURL);
   }
@@ -295,21 +398,26 @@ function Cart(props) {
           <div className="container">
             {cartItems.length === 0 ? (
               <div className="site-content-inner">
-                  <div className="woocommerce">
-                      <div className="woocommerce-notices-wrapper">
-                          <div className="gearvn-cart-empty">
-                              <img className="lazy loaded" src="https://beta.gearvn.com/wp-content/themes/gearvn-electro-child-v1/assets/images/empty-cart.png" alt="cart_empty"/>
-                              <p className="text-center">Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
-                          </div>
-                          <p className="return-to-shop">
-                              <Link className="button wc-backward" to="/">
-                                  Quay lại trang chủ
-                              </Link>
-                          </p>
-                      </div>
+                <div className="woocommerce">
+                  <div className="woocommerce-notices-wrapper">
+                    <div className="gearvn-cart-empty">
+                      <img
+                        className="lazy loaded"
+                        src="https://beta.gearvn.com/wp-content/themes/gearvn-electro-child-v1/assets/images/empty-cart.png"
+                        alt="cart_empty"
+                      />
+                      <p className="text-center">
+                        Chưa có sản phẩm nào trong giỏ hàng của bạn.
+                      </p>
+                    </div>
+                    <p className="return-to-shop">
+                      <Link className="button wc-backward" to="/">
+                        Quay lại trang chủ
+                      </Link>
+                    </p>
                   </div>
+                </div>
               </div>
-
             ) : (
               <div id="wrap-cart" className="container">
                 <div className="row">
@@ -384,7 +492,7 @@ function Cart(props) {
                               <th className="remove">
                                 <i
                                   className="fas fa-trash-alt"
-                                  onClick={() => onRemove(item)}
+                                  onClick={() => onRemoveAll(item)}
                                 ></i>
                               </th>
                             </tr>
@@ -395,10 +503,6 @@ function Cart(props) {
                               style={{ fontWeight: "bold", fontSize: "20px" }}
                             >
                               Tổng tiền
-                              <Link href="#" className="print_price">
-                                  <i class="fa fa-print"></i> 
-                                  In báo giá
-                              </Link>
                             </td>
                             <td className="price">
                               <span className="total">
@@ -427,28 +531,28 @@ function Cart(props) {
                             <input
                               name="name"
                               placeholder="Họ tên"
-                              value={userLogin.TenNguoidung}
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
                             />
                             <input
                               name="name"
                               placeholder="Email"
                               value={userLogin.Email}
+                              disabled
                             />
                             <input
                               name="name"
                               placeholder="Số điện thoại"
-                              value={userLogin.SDT}
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                              required
                             />
-                            <select name="city">
-                              <option value="0">Chọn tỉnh / Thành phố</option>
-                              {city.map((item) => (
-                                <option value={item.ID}>{item.Title}</option>
-                              ))}
-                            </select>
                             <input
                               name="name"
                               placeholder="Địa chỉ"
-                              value={userLogin.DiaChi}
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                              required
                             />
                           </div>
                           <div className="box-cart-user-info">
@@ -591,6 +695,13 @@ function Cart(props) {
                             Thanh toán
                           </Button>
                         </div>
+                        <Backdrop
+                          open={openBackDrop}
+                          className="backdrop-mui"
+                          onClick={handleCloseBackdrop}
+                        >
+                          <CircularProgress color="inherit" />
+                        </Backdrop>
                       </div>
                     </div>
                   </div>

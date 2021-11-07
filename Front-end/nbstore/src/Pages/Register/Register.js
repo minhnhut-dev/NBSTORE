@@ -59,13 +59,12 @@ function Register() {
       GioiTinh: sex,
       Anh:imageUser,
     };
+    setOpen(true);
+
     axios
       .post("http://127.0.0.1:8000/api/Register", data)
-      .then((response) => {
-        // setOpen(true);
-        setOpen(true);
+      .then(() => {
         setTimeout(() => {
-          // enqueueSnackbar('Chúc mừng bạn đăng ký thành công !',{variant:"success"});
           enqueueSnackbar("Chúc mừng bạn đăng ký thành công !", {
             variant: "success",
             autoHideDuration: 3000,
@@ -74,7 +73,8 @@ function Register() {
         }, 4000);
       })
       .catch((e) => {
-        console.log(e.response.data.message);
+        setOpen(false);
+        console.log(e.response);
         setErrorEmail(e.response.data.Email);
         setErrorUsername(e.response.data.username);
         if (e.response.data.Email != undefined) {
@@ -86,6 +86,14 @@ function Register() {
         }
         if (e.response.data.username != undefined) {
           enqueueSnackbar(e.response.data.username, {
+            variant: "error",
+            autoHideDuration: 3000,
+            preventDuplicate: true,
+          });
+        }
+
+        if (e.response.data.password != undefined) {
+          enqueueSnackbar(e.response.data.password, {
             variant: "error",
             autoHideDuration: 3000,
             preventDuplicate: true,

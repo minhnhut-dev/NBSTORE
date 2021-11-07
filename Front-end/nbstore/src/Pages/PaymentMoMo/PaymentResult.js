@@ -19,7 +19,7 @@ function PaymentResult(){
   //Thành công
   //Đơn hàng đã bị huỷ bỏ
   const data = {
-    trang_thai_don_hangs_id: 2,
+    status: 2,
   };
  
   var query = useQuery();
@@ -66,7 +66,21 @@ function PaymentResult(){
       console.log("paypal");
       setStatusOrder("Đơn hàng bị hủy");
 
-    } else {
+    } 
+    else if(message == 3){
+      const data_1 ={
+        status: 1,
+      }
+      axios
+      .put(`http://127.0.0.1:8000/api/updateOrder/${orderInfo.id}`,data_1 )
+      .then((res) => {
+        // localStorage.removeItem("Order");
+        console.log(res.data);
+      });
+      name = "Đơn hàng thành công";
+      setStatusOrder("Đơn hàng thành công");
+    }
+    else {
       axios
       .put(`http://127.0.0.1:8000/api/updateOrderCanceled/${orderInfo.id}`)
       .then((res) => {

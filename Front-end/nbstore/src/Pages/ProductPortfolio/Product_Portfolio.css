@@ -1,0 +1,271 @@
+@media (min-width: 768px)
+{
+    #SECTION4 {
+        height: 85px;
+}
+}
+@media (min-width: 768px)
+{
+    #SECTION63 {
+        height: 502.633px;
+}
+}
+@media (min-width: 768px)
+{
+    #IMAGE65 {
+        width: 2366px;
+        height: 512.633px;
+        top: -10px;
+        left: -583px;
+}
+}
+.ladi-element {
+    position: absolute;
+}
+@media (min-width: 768px)
+{
+    #IMAGE65 > .ladi-image > .ladi-image-background {
+        width: 2366px;
+        height: 512.633px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s2700x850/5bf3dc7edc60303c34e4991f/lp-final-46-20210806143644.png);
+}
+}
+@media (min-width: 768px)
+{
+    #IMAGE64 {
+        width: 678px;
+        height: 424.976px;
+        top: 33.8285px;
+        left: 248.939px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE64 > .ladi-image > .ladi-image-background {
+        width: 678px;
+        height: 424.976px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s1000x750/5bf3dc7edc60303c34e4991f/lp-final-47-20210806140954.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION68 > a .ladi-section-background {
+        background-size: cover;
+        background-attachment: scroll;
+        background-origin: content-box;
+        background-image: url(hhttps://w.ladicdn.com/s1440x5/5bf3dc7edc60303c34e4991f/lp-final-73-20210806144155.png);
+        background-position: center top;
+        background-repeat: repeat;
+    }
+    
+}
+@media (min-width: 768px)
+{
+    #SECTION67 {
+        height: 801.8px;
+    }
+}
+@media (min-width: 768px)
+{
+    .ladi-section .ladi-container {
+        width: 1200px;
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION67 > .ladi-section-background {
+        background-color: rgb(255, 248, 227);
+    }
+}
+@media (min-width: 768px)
+{
+    #SECTION67 > .ladi-overlay {
+        background-size: 100%;
+        background-attachment: scroll;
+        background-origin: content-box;
+        background-image: url(https://w.ladicdn.com/s700x1500/5bf3dc7edc60303c34e4991f/lp-final-45-20210806144302.png);
+        background-position: center center;
+        background-repeat: repeat;
+    }
+}
+.ladi-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+@media (min-width: 768px)
+{
+    #IMAGE69 {
+        width: 693px;
+        height: 88px;
+        top: 46.1686px;
+        left: 241.439px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE69 > .ladi-image > .ladi-image-background {
+        width: 693px;
+        height: 88px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s1000x400/5bf3dc7edc60303c34e4991f/lp-final-64-20210806144503.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE70 {
+        width: 264px;
+        height: 250.995px;
+        top: 154.793px;
+        left: 72px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE70 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-48-20210806144620.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE74 {
+        width: 264px;
+        height: 250.995px;
+        top: 154.793px;
+        left: 336px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE74 > a .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE77 {
+        width: 264px;
+        height: 250.995px;
+        top: 405.788px;
+        left: 72px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE77 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-52-20210806144620.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE78 {
+        width: 264px;
+        height: 250.995px;
+        top: 405.788px;
+        left: 336px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE78 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-53-20210806144621.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE79 {
+        width: 264px;
+        height: 250.995px;
+        top: 405.788px;
+        left: 600px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE79 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-54-20210806144621.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE80 {
+        width: 264px;
+        height: 250.995px;
+        top: 405.788px;
+        left: 864px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE80 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-55-20210806144621.png);
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE75 {
+        width: 264px;
+        height: 250.995px;
+        top: 154.793px;
+        left: 600px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE75 > a .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE76 {
+        width: 264px;
+        height: 250.995px;
+        top: 154.793px;
+        left: 864px;
+    }
+}
+@media (min-width: 768px)
+{
+    #IMAGE76 > .ladi-image > .ladi-image-background {
+        width: 264px;
+        height: 250.995px;
+        top: 0px;
+        left: 0px;
+        background-image: url(https://w.ladicdn.com/s600x600/5bf3dc7edc60303c34e4991f/lp-final-51-20210806144620.png);
+    }
+}
