@@ -15,7 +15,6 @@ import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/thumbs/thumbs.min.css";
 import SwiperCore, { Navigation, Thumbs } from "swiper/core";
 import { useSnackbar } from "notistack";
-import { FacebookProvider, Comments } from "react-facebook";
 
 import {
   Divider,

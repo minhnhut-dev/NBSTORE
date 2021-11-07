@@ -19,12 +19,13 @@ import Search from "./Pages/Search/Search";
 import PaymentResult from "./Pages/PaymentMoMo/PaymentResult";
 import CompleteOrder from "./Pages/Account/CompleteOrder/CompleteOrder";
 import OrderCancel from "./Pages/Account/OrderCanceled/OrderCanceled";
-
 import UpdateUser from "./Pages/Account/UpdateUser/UpdateUser";
 import UpdatePassword from "./Pages/Account/UpdatePassword/UpdatePassword";
 import ActiveUser from "./Pages/Account/ActiveUser/ActiveUser";
 import PaymentGuide from "./Pages/PaymentGuide/PaymentGuide";
 import Promotion from "./Pages/Promotion/Promotion";
+import Product_Portfolio from "./Pages/ProductPortfolio/Product_Portfolio";
+import User_infomartion from "./Pages/User_Infomartion/User_infomartion";
 const cartFromLocalStorage = JSON.parse(
   localStorage.getItem("cartItems") || "[]"
 );
@@ -34,7 +35,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/ProductDealInMonth")
+      .get("http://127.0.0.1:8000/api/top-products-hot")
       .then(
         (response) => {
           console.log("res:", response.data);
@@ -78,6 +79,10 @@ function App() {
       );
     }
   };
+  const onRemoveAll = (product) => {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+  };
+
   return (
     <>
       <Router>
@@ -98,7 +103,7 @@ function App() {
             <TypeProduct />
           </Route>
           <Route path="/cart">
-            <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+            <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} onRemoveAll={onRemoveAll}/>
           </Route>
           <Route path="/account-order">
             <Order />
@@ -144,6 +149,12 @@ function App() {
           </Route>
           <Route path="/Promotion-information">
             <Promotion />
+          </Route>
+          <Route path="/Product-Portffolio">
+            <Product_Portfolio />
+          </Route>
+          <Route path="/checkouts">
+            <User_infomartion/>
           </Route>
           <Route path="*">
             <NoMatch />

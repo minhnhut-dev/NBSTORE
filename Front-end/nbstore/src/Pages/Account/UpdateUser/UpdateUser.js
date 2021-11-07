@@ -8,27 +8,32 @@ import { Button } from "react-bootstrap";
 import { TextField } from "@material-ui/core";
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 function UpdateUser() {
-    const [name,setName]=useState(userLogin.TenNguoidung);
-    const[address,setAddress]=useState(userLogin.DiaChi);
-    const [phone,setPhone]=useState(userLogin.SDT);
-    const [notification,setNotification]=useState("");
-    const handUpdate=()=>{
-        const data={
-            name:name,
-            address:address,
-            phone:phone,
-        }
-        axios.post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`,data)
-        .then((response)=>{
-            console.log(response.data.user);
-            setNotification(response.data.message);
-            localStorage.setItem("userLogin", JSON.stringify(response.data.user));
-
-        })
-        .catch((err)=>{
-            console.log(err.response);
-        })
-    }
+  const [name, setName] = useState(userLogin.TenNguoidung);
+  const [address, setAddress] = useState(userLogin.DiaChi);
+  const [phone, setPhone] = useState(userLogin.SDT);
+  const [notification, setNotification] = useState("");
+  const [error_required, setErrorRequired] = useState(false);
+  const handUpdate = () => {
+    const data = {
+      name: name,
+      DiaChi: address,
+      SDT: phone,
+    };
+    axios
+      .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, data)
+      .then((response) => {
+        setErrorRequired(false);
+        setNotification(response.data.message);
+        localStorage.setItem("userLogin", JSON.stringify(response.data.user));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setErrorRequired(true);
+      });
+  };
   return (
     <>
       <Header />
@@ -56,8 +61,10 @@ function UpdateUser() {
                           </Link>
                         </dd>
                         <dd>
-                        <Link to="/account-orderCanceled"> Đơn hàng đã hủy</Link>
-
+                          <Link to="/account-orderCanceled">
+                            {" "}
+                            Đơn hàng đã hủy
+                          </Link>
                         </dd>
                       </dl>
                       <dl>
@@ -72,13 +79,12 @@ function UpdateUser() {
                     </td>
                     <td valign="top" className="tb-order">
                       <h3>Thông tin tài khoản</h3>
-                     <p style={{color:"#1f4cb1"}}>
-                            
-                            {notification ?<b>Thông báo: {notification}</b>:""}
-                     </p>
+                      <p style={{ color: "#1f4cb1" }}>
+                        {notification ? <b>Thông báo: {notification}</b> : ""}
+                      </p>
                       <div className="input-group">
                         <span className="input-group-addon">
-                        <i className="fas fa-envelope"></i>                        
+                          <i className="fas fa-envelope"></i>
                         </span>
 
                         <TextField
@@ -92,47 +98,76 @@ function UpdateUser() {
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                        <i className="fas fa-user-edit"></i>                        
+                          <i className="fas fa-user-edit"></i>
                         </span>
 
                         <TextField
-                        required
+                          required
                           id="outlined-basic-2"
                           variant="outlined"
                           name="name"
                           type="text"
                           value={name}
-                          onChange={(e)=>setName(e.target.value)}
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                        <i className="fas fa-map-marker-alt"></i>
+                          <i className="fas fa-map-marker-alt"></i>
                         </span>
-                        <TextField
-                          id="outlined-basic-3"
-                          variant="outlined"
-                          name="address"
-                          type="text"
-                          value={address}
-                          onChange={(e)=>setAddress(e.target.value)}
-                        />
+                        {error_required ? (
+                          <TextField
+                            error
+                            label="Vui lòng nhập địa chỉ cụ thể"
+                            id="outlined-basic-3"
+                            variant="outlined"
+                            name="address"
+                            type="text"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                          />
+                        ) : (
+                          <TextField
+                            id="outlined-basic-3"
+                            variant="outlined"
+                            name="address"
+                            type="text"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                          />
+                        )}
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                        <i className="fas fa-phone"></i>
-                    </span>
+                          <i className="fas fa-phone"></i>
+                        </span>
+                        {error_required ? <TextField
+                          error
+                          label="Vui lòng nhập số điện thoại cụ thể"
+                          id="outlined-basic-4"
+                          variant="outlined"
+                          name="phone"
+                          type="text"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                        /> :
                         <TextField
                           id="outlined-basic-4"
                           variant="outlined"
                           name="phone"
                           type="text"
                           value={phone}
-                          onChange={(e)=>setPhone(e.target.value)}
+                          onChange={(e) => setPhone(e.target.value)}
                         />
+                        }
+                        
                       </div>
                       <div>
-                        <Button variant="primary" className="btn-updateUser" onClick={handUpdate}>
+                        <Button
+                          variant="primary"
+                          className="btn-updateUser"
+                          onClick={handUpdate}
+                        >
                           Thay đổi
                         </Button>
                       </div>
