@@ -86,8 +86,7 @@
                 <div class="tab-pane container" id="menu2">
                     <div class="form-group col-4">
                         <label for="ten-sản-CPU">Hình ảnh:</label>
-
-                        <input type="file" class="image-upload" style="border: none;" name="imageFile[]" required multiple>
+                        <input type="file" class="image-upload" style="border: none" name="imageFile[]" required multiple  />
                     </div>
                 </div>
             </div>

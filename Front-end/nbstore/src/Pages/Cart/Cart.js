@@ -293,37 +293,23 @@ function Cart(props) {
       <div className="noindex">
         <div id="mainframe">
           <div className="container">
-            {/* {error ? (
-              <Alert severity="error" style={{ textAlign: "center" }}>
-                {error}
-              </Alert>
-            ) : (
-              ""
-            )}
-            {errorPayment &&
-              errorPayment.map((item) => (
-                <Alert severity="error" style={{ textAlign: "center" }}>
-                  {item}
-                </Alert>
-              ))} */}
-
             {cartItems.length === 0 ? (
-              <div className="row">
-                <div id="layout-page-first" className="col-md-12">
-                  <span className="header-page clearfix">
-                    <h1 className="title-cart"> Giỏ hàng</h1>
-                  </span>
-                  <p className="text-center">
-                    Không có sản phẩm nào trong giỏ hàng!
-                  </p>
-                  <p className="text-center">
-                    <Link to="/">
-                      <i className="fas fa-backward"></i>
-                      <span className="back-HomePage">Quay về trang chủ</span>
-                    </Link>
-                  </p>
-                </div>
+              <div className="site-content-inner">
+                  <div className="woocommerce">
+                      <div className="woocommerce-notices-wrapper">
+                          <div className="gearvn-cart-empty">
+                              <img className="lazy loaded" src="https://beta.gearvn.com/wp-content/themes/gearvn-electro-child-v1/assets/images/empty-cart.png" alt="cart_empty"/>
+                              <p className="text-center">Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
+                          </div>
+                          <p className="return-to-shop">
+                              <Link className="button wc-backward" to="/">
+                                  Quay lại trang chủ
+                              </Link>
+                          </p>
+                      </div>
+                  </div>
               </div>
+
             ) : (
               <div id="wrap-cart" className="container">
                 <div className="row">
@@ -409,6 +395,10 @@ function Cart(props) {
                               style={{ fontWeight: "bold", fontSize: "20px" }}
                             >
                               Tổng tiền
+                              <Link href="#" className="print_price">
+                                  <i class="fa fa-print"></i> 
+                                  In báo giá
+                              </Link>
                             </td>
                             <td className="price">
                               <span className="total">

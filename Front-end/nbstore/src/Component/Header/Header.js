@@ -159,12 +159,12 @@ function Header() {
                       </div>
                     )}
                     <div>
-                      <a href="#" className="gearvn-header-top-item">
+                      <Link className="gearvn-header-top-item" to="/Promotion-information">
                         <img src="//theme.hstatic.net/1000026716/1000440777/14/ak4.png?v=19349" />
                         <div className="header-right-description">
                           <div className="gearvn-text">Khuyến mãi</div>
                         </div>
-                      </a>
+                        </Link>
                       <Link to="/cart" className="gearvn-header-top-item rela">
                         <div>
                           <Badge variant="danger">

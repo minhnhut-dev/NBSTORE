@@ -52,7 +52,7 @@
                             </div>
                             @endforeach
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -76,7 +76,7 @@
                 <div class="col-md-12 ">
                     <div id="msg"></div>
                     <form method="post" id="image-form" enctype="multipart/form-data">
-                        @csrf 
+                        @csrf
                         <input type="file" name="img[]" class="file" accept="image/*" required>
                         <div class="feedback"   style="color:red; display:none;">Vui lòng chọn hình ảnh</div>
                         <div class="input-group my-3">
@@ -94,10 +94,10 @@
                                 <strong>Thêm ảnh</strong>
                             </button>
                         </div>
-                     
+
                     </form>
                 </div>
- 
+
             </div>
         </div>
     </div>

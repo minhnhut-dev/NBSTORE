@@ -218,3 +218,46 @@ i.cs-vnpay{
     background-position:-73px -27px ;
     margin-bottom: 15px;
 }
+.gearvn-cart-empty{
+    margin-top: 50px;
+}
+.gearvn-cart-empty img {
+    width: 100%;
+    margin-left: 30%;
+    max-width: 420px;
+}
+img.lazy {
+    min-height: 1px;
+}
+.gearvn-cart-empty>p {
+    margin: 25px 0;
+    font-size: 26px;
+    font-weight: 600;
+    padding: 0 10px;
+}
+.return-to-shop {
+    text-align: center;
+    margin-bottom: 7em;
+}
+ .return-to-shop a {
+    align-items: center;
+    padding: 10px 10px;
+    width: 320px;
+    margin: 0 auto;
+    height: 45px;
+    border: 1px solid #C6C5C5;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    color: rgb(15, 2, 2);
+}
+.button:hover{
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+.print_price{
+    margin: 30%;
+    font-size: 14px;
+    color: black;
+}

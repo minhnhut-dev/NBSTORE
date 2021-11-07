@@ -153,14 +153,28 @@ class CustomerController extends Controller
     public function edit(Request $request,$id)
     {
         //
+        $rule = [
+            "DiaChi" => "required",
+            "SDT" => "required",
+        ];
+        $customMessage = [
+           "DiaChi.required" => "Địa chỉ không được bỏ trống",
+           "SDT.required" => "Số điện thoại không được bỏ trống"
+
+        ];
+        $validator = Validator::make($request->all(), $rule, $customMessage);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
         $data=NguoiDung::find($id);
         $data->TenNguoidung=$request->name;
-        $data->DiaChi = $request->address;
-        $data->SDT= $request->phone;
+        $data->DiaChi = $request->DiaChi;
+        $data->SDT= $request->SDT;
         $data->save();
         return response()->json(["message"=>"Cập nhât người dùng thành công","user"=>$data],200);
     }
 
+   
     public function editPassword(Request $request,$id)
     {
         $data=NguoiDung::find($id);
