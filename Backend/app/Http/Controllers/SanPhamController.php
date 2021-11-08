@@ -344,7 +344,7 @@ class SanPhamController extends Controller
             ->join('loai_san_phams', 'san_phams.loai_san_phams_id', '=', 'loai_san_phams.id')
             ->where('san_phams.loai_san_phams_id', '=', $id)->orWhere('loai_san_phams.parent_id', '=', $id)
             ->select('san_phams.*')
-            ->paginate(5);
+            ->paginate(10);
         return response()->json($data, 200);
     }
 
