@@ -5,12 +5,12 @@ function Paginate(props) {
     return (
         <>
             <Pagination count={total} 
-            color="secondary"
-            variant="outlined"
-            hideNextButton={true}
-            hidePrevButton={true}
-            defaultPage={1}
-            onChange={(event,value)=>handleChangePage(value)}
+                color="secondary"
+                variant="outlined"
+                hideNextButton={true}
+                hidePrevButton={true}
+                defaultPage={1}
+                onChange={(event,value)=>handleChangePage(value)}
             />
         </>
     );

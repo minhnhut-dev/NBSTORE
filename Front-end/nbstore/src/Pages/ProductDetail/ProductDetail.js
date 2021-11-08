@@ -139,7 +139,7 @@ function ProductDetail(props) {
                 <a href="#">Laptop</a>
               </span>
               <i className="fa fa-caret-right"></i>
-              <span className="path">Acer Nitro5</span>
+              <span className="path">{}</span>
             </div>
           </div>
         </div>
@@ -189,30 +189,7 @@ function ProductDetail(props) {
                         </SwiperSlide>
                       ))}
                     </Swiper>
-                    {/* <img
-                      src={LinkImage + selectedImage[0].AnhSanPham}
-                      alt={LinkImage + selectedImage[0].AnhSanPham}
-                      className="Selected"
-                    />
-                    <div className="imgContainer">
-                      {selectedImage.map((img, index) => (
-                        <img
-                          key={index}
-                          src={LinkImage + img.AnhSanPham}
-                          alt={img}
-                          style={{
-                            border:
-                              LinkImage + selectedImage[0].AnhSanPham ===
-                              LinkImage + img.AnhSanPham
-                                ? "3px solid purple"
-                                : "",
-                          }}
-                          onClick={() =>
-                            console.log(LinkImage + img.AnhSanPham)
-                          }
-                        />
-                      ))}
-                    </div> */}
+                   
                   </div>
                   {Product.map((item, index) => (
                     <div
@@ -250,22 +227,12 @@ function ProductDetail(props) {
                             <span style={{ color: "#ff0000" }}>★</span>
                             <span>&nbsp;</span>
                             <span style={{ color: "#0000ff" }}>
-                              Tặng người yêu khi mua sản phẩm này
+                              Tặng balo khi mua sản phẩm này
                             </span>
                           </strong>
                         </span>
                       </p>
-                      <p>
-                        <span style={{ fontSize: "15pt" }}>
-                          <strong>
-                            <span style={{ color: "#ff0000" }}>★</span>
-                            <span>&nbsp;</span>
-                            <span style={{ color: "#0000ff" }}>
-                              Tặng thêm đứa con quá hời
-                            </span>
-                          </strong>
-                        </span>
-                      </p>
+                     
                       <form id="add-item-form-2" name="shoppingCart">
                         <div className="product_nav_btn">
                           <div className="product_sales_off pull-left">
