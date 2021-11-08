@@ -292,7 +292,7 @@ row {
   }
   
   .new-product-percent {
-    background: url("https://theme.hstatic.net/1000026716/1000440777/14/icon-saleoff.png") no-repeat scroll center center transparent;
+    /* background: url("https://theme.hstatic.net/1000026716/1000440777/14/icon-saleoff.png") no-repeat scroll center center transparent;
     position: absolute;
     width: 48px;
     height: 51px;
@@ -302,7 +302,15 @@ row {
     vertical-align: middle;
     color: #180733;
     font-size: 16px;
-    padding-top: 14px;
+    padding-top: 14px; */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 5px 16px;
+    background: red;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 12px;
   }
   
   /*end body css*/

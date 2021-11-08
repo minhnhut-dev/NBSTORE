@@ -1136,7 +1136,7 @@ useEffect(() => {
                 className="input-paging"
                 type="number"
                 disabled
-                value="1"
+                value={page}
               />
               <Button className="btn-next">
                 <i className="fas fa-forward" onClick={()=>setPage(page >= totalPage ? totalPage : page+1)}></i>

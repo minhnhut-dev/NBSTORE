@@ -6,6 +6,9 @@ import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import {useSnackbar} from 'notistack';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 function SendMailResetPassword() {
   const [message, setMessage] = useState("");
@@ -13,22 +16,37 @@ function SendMailResetPassword() {
   const [mail, setMail] = useState("");
   const [process, setProcess] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
+  const [open, setOpen] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleSendMail = () => {
     var data = {
       Email: mail,
     };
+    setOpen(true);
+
     axios
       .post("http://127.0.0.1:8000/api/user/forgot-password/", data)
       .then((response) => {
         setMessage(response.data.message);
-        setProcess(true);
+        enqueueSnackbar(response.data.message, {
+          variant: "success",
+          autoHideDuration: 3000,
+        });
+        // setProcess(true);
         setTimeout(() => {
           setRedirect(true);
         }, 3000);
       })
       .catch((e) => {
         setError(e.response.data.message);
+        setOpen(false);
+        enqueueSnackbar(e.response.data.message, {
+          variant: "error",
+          autoHideDuration: 3000,
+        });
       });
   };
   if (redirect) {
@@ -39,17 +57,6 @@ function SendMailResetPassword() {
       <Header />
       <div className="noindex">
         <div id="layout-page-login" className="container">
-          {message && (
-            <Alert severity="success" style={{ textAlign: "center" }}>
-              {message}
-            </Alert>
-          )}
-          {error && (
-            <Alert severity="error" style={{ textAlign: "center" }}>
-              {error}
-            </Alert>
-          )}
-
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
               <h4 id="title-login" style={{ marginTop: "20px" }}>
@@ -80,8 +87,16 @@ function SendMailResetPassword() {
                 >
                   Gửi mã
                 </Button>
+                <Backdrop
+                  open={open}
+                  className="backdrop-mui"
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
               </div>
-              {process ? <LinearProgress /> : ""}
+
+              {/* {process ? <LinearProgress /> : ""} */}
             </div>
           </div>
         </div>

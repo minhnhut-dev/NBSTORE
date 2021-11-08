@@ -4,18 +4,23 @@ import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import parse from 'html-react-parser';
 
  function Banner() {
   const [typeProduct, setTypeProduct] = useState([]);
+  const [slides,setSlides]= useState([]);
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/getAllTypeProduct")
       .then((response) => {
         setTypeProduct(response.data);
-        // console.log(typeof(response.data[0].icon))
+      });
+      axios
+      .get("http://127.0.0.1:8000/api/get-image-slides")
+      .then((response) => {
+        setSlides(response.data.images);
       });
   }, []);
+  const linkImage = "http://127.0.0.1:8000/slides/";
 
   return (
     <>
@@ -44,35 +49,15 @@ import parse from 'html-react-parser';
               <div className="left">
                 <div className="slider-wrap">
                   <Carousel>
-                    <Carousel.Item>
-                      <img
-                        className="d-block w-100"
-                        src="//theme.hstatic.net/1000026716/1000440777/14/slideshow_2.jpg?v=19349"
-                        alt="First slide"
-                      />
+                    {slides.map((slide, index) =>(
+                      <Carousel.Item key={index}>
+                        <img
+                          className="d-block w-100"
+                          src={linkImage+slide.image_name}
+                          alt={slide.image_name}
+                        />
                     </Carousel.Item>
-                    <Carousel.Item>
-                      <img
-                        className="d-block w-100"
-                        src="//theme.hstatic.net/1000026716/1000440777/14/slideshow_4.jpg?v=19349"
-                        alt="Second slide"
-                      />
-                    </Carousel.Item>
-
-                    <Carousel.Item>
-                      <img
-                        className="d-block w-100"
-                        src="//theme.hstatic.net/1000026716/1000440777/14/slideshow_5.jpg?v=19349"
-                        alt="Third slide"
-                      />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                      <img
-                        className="d-block w-100"
-                        src="//theme.hstatic.net/1000026716/1000440777/14/slideshow_9.jpg?v=19349"
-                        alt="Third slide"
-                      />
-                    </Carousel.Item>
+                    ))}
                   </Carousel>
                 </div>
                 <div className="sub-banner-wrap i100">
