@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ImageSlide;
+use App\AnhSanPham;
+
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
@@ -41,11 +43,43 @@ class ImageSlideController extends Controller
         }
 
     }
+    public function InsertProductImagesAPI(Request $request)
+    {
+        // dd($request->file('images'));
+        try{      
+                foreach($request->file('images') as $image)
+                {
+                    $image_temp = $image;
+                    $product_image = new AnhSanPham;
+                    $nameimages = time() . '.' . $image_temp->getClientOriginalExtension();
+                    $image_temp->move(public_path() . '/images/', $nameimages);
+                    $product_image->AnhSanPham = $nameimages;
+                    $product_image->san_phams_id = $request->product_id;
+                    $product_image->save();
+                }
+                $imgs =  AnhSanPham::where('san_phams_id','=',$request->product_id)->get();
+            return response()->json([ 'message'=>'succeess','images'=>$imgs ],200);
+        } catch (\Exception $e){
+            return response()->json([ 'message'=>$e,'err'=>'failed'],500);
+        }
+
+    }
     public function DeleteImageAPI(Request $request)
     {
         try{      
-            DB::table('table_image_slides')->where('id', '=', $request->id)->delete();
+            DB::table('image_products')->where('id', '=', $request->id)->delete();
             $imgs =  ImageSlide::get();
+            return response()->json([ 'message'=>'succeess','images'=>$imgs],200);
+        } catch (\Exception $e){
+            return response()->json([ 'message'=>$e,'err'=>'failed' ],500);
+        }
+
+    }
+    public function DeleteImageProductAPI(Request $request)
+    {
+        try{      
+            DB::table('anh_san_phams')->where('id', '=', $request->id)->delete();
+            $imgs =  AnhSanPham::where('san_phams_id','=',$request->product_id)->get();
             return response()->json([ 'message'=>'succeess','images'=>$imgs],200);
         } catch (\Exception $e){
             return response()->json([ 'message'=>$e,'err'=>'failed' ],500);

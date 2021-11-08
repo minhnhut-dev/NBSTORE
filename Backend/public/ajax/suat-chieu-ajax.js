@@ -32,4 +32,5 @@ $(document).ready(function () {
     $('#year-revenue-year').change(function(){
         window.location.replace("/?month="+$('#month-revenue-month').val()+"&year_revenue_year="+$(this).val()+"&year_revenue_month="+$('#year-revenue-month').val());
     });
+
 });

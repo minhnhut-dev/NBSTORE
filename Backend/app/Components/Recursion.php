@@ -22,4 +22,15 @@ class Recursion
         }
         return $this->htmlselect;
     }
+    function catParentSelected($id = 0, $text = '',$id_selected)
+    {
+        foreach ($this->data as $val) {
+            
+                $selected = $id_selected==$val['id']?' selected':'';
+                $this->htmlselect .= "<option".$selected." value=".$val['id'].">" . $text . $val['TenLoai'] . "</option>";
+
+            
+        }
+        return $this->htmlselect;
+    }
 }

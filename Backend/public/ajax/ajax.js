@@ -152,7 +152,19 @@ $(document).ready(function () {
             $('.pwds').addClass('is-invalid')
             }
     });
-
+    // $(document).on("click", "#submit-product", function (e) {
+        
+    //     e.preventDefault();
+    // console.log(e);
+    //     var price = $('#GiaCu').val();
+    //     var promotion_price = $('#GiaKM').val();
+    //     if(Number(price)<Number(promotion_price)){
+    //         alert("Failed");
+    //     }else{
+    //         $(this).trigger(e.type);
+    //     }
+   
+    // });
     $(document).on("click", "#reset-password", function (e) {
 
         $("#repassword").show();
