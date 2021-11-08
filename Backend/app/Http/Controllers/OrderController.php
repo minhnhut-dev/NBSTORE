@@ -367,8 +367,13 @@ class OrderController extends Controller
 
     public function complete(Request $request, $id)
     {
+        if($request->type=='complete') {
+            $type=5;
+        }else{
+            $type=3;
+        }
         $order = DonHang::find($id);
-        $order->trang_thai_don_hangs_id = 3;
+        $order->trang_thai_don_hangs_id = $type;
         $order->save();
         return redirect('/quan-ly-don-hang/' . $id);
     }

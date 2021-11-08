@@ -190,6 +190,7 @@ class trang_thai_don_hangs extends Seeder
          ['TenTrangThai'=>'Đã thanh toán'],
          ['TenTrangThai'=>'Đã xác nhận'],
          ['TenTrangThai'=>'Đã hủy'],
+         ['TenTrangThai'=>'Đã hoàn thành'],
         ]);
     }
 }
