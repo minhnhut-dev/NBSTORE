@@ -98,5 +98,101 @@ $(document).ready(function () {
           },
       });
     });
+    $(document).on("click", ".btn-delete-image-product", function (e) {
+        var id = $(this).attr("data-id");
+        var product_id = $(this).attr("data-product-id");
+        $.ajax({
+          url: "/api/delete-image-product?id="+id+"&product_id="+product_id,
+          type: "GET",
+          contentType: false,
+          cache: false,
+          processData: false,
+          beforeSend: function () {
+            $("#list-product-images").html(
+                '<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">'
+            );
+        
+            },
+          success: function (data) {
+           
+              var body = JSON.parse(JSON.stringify(data));
+              var html = "";
+              body.images.forEach(function (element) {
+                  html += '<div class="col-md-2 col-sm-3">';
+                  html += '<div class="card item-slide">';
+                  html +=
+                      '<div class="card-header d-flex image-slide-item ">';
+                  html +=
+                      '<img src="/images/' +
+                      element.AnhSanPham +
+                      '"  class="card-image" alt="">';
+                  html +=
+                      '</div><a href="#" data-src="/images/' +
+                      element.AnhSanPham +
+                      '" data-id="' +
+                      element.id +
+                      '" data-product-id="' +
+                      product_id +
+                      '" class="btn btn-outline-danger btn-delete-image-product">Xoá</a> </div> </div>';
+              });
+
+              $("#list-product-images").html(html);
+          },
+          error: function (data) {
+            $("#popup-show-image").modal("hide");
+              var body = JSON.parse(JSON.stringify(data));
+          },
+      });
+    });
+
+    $(document).on("submit", "#product-images-form", function (e) {
+        e.preventDefault();
+        var product_id = $('#btn-insert-product-images').attr("data-product-id");
+        console.log($(this));
+        $.ajax({
+            url: "/api/insert-product-images?product_id="+product_id,
+            type: "POST",
+            data: new FormData(this),
+            contentType: false,
+          cache: false,
+          processData: false,
+          beforeSend: function () {
+            $("#list-product-images").html(
+                '<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">'
+            );
+        
+            },
+          success: function (data) {
+           
+              var body = JSON.parse(JSON.stringify(data));
+              var html = "";
+              body.images.forEach(function (element) {
+                  html += '<div class="col-md-2 col-sm-3">';
+                  html += '<div class="card item-slide">';
+                  html +=
+                      '<div class="card-header d-flex image-slide-item ">';
+                  html +=
+                      '<img src="/images/' +
+                      element.AnhSanPham +
+                      '"  class="card-image" alt="">';
+                  html +=
+                      '</div><a href="#" data-src="/images/' +
+                      element.AnhSanPham +
+                      '" data-id="' +
+                      element.id +
+                      '" data-product-id="' +
+                      product_id +
+                      '" class="btn btn-outline-danger btn-delete-image-product">Xoá</a> </div> </div>';
+              });
+
+              $("#popup-add-product-images").modal("hide");
+              $("#list-product-images").html(html);
+          },
+          error: function (data) {
+            $("#popup-add-product-images").modal("hide");
+              var body = JSON.parse(JSON.stringify(data));
+          },
+      });
+    });
 
 });

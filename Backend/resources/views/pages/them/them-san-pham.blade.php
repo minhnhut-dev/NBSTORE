@@ -13,9 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#home">Sản Phẩm</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu1">Cấu hình sản phẩm</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#menu2">Hình ảnh</a>
                 </li>
@@ -29,13 +29,7 @@
                         <input type="text" class="form-control" id="ten-phim" placeholder="Nhập tên sản phẩm " name="ten_san_pham" required>
                         <div class="invalid-feedback">Không được bỏ trống trường này</div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2">Mô tả:</label>
-                        <div class="col-sm-12">
-                            <textarea name="detail" class="form-control" id="des" ></textarea>
-                            <div class="invalid-feedback">Không được bỏ trống trường này</div>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2">Hãng sản xuất :</label>
                         <div class="col-sm-12">
@@ -44,7 +38,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2">Giá Cũ :</label>
+                        <label class="col-sm-2">Giá :</label>
                         <div class="col-sm-12">
                             <input name="GiaCu" class="form-control" id="GiaCu" required>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
@@ -60,9 +54,13 @@
                     <div class="form-group">
                         <label class="col-sm-2">Số lượng :</label>
                         <div class="col-sm-12">
-                            <input name="SoLuong" class="form-control" id="SoLuong" required>
+                            <input name="SoLuong" type="number" min="0" class="form-control" id="SoLuong" required>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
+                    </div>
+                    <div id="menu1">
+                    {!!$html!!}
+
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2">Ảnh đại diện:</label>
@@ -71,6 +69,7 @@
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
+
                     <div class="form-group d-flex">
                         <div class="col-4">
                             <label for="LoaiSanPham">Loại sản phẩm:</label>
@@ -78,11 +77,16 @@
                                 {{!!$htmlOption!!}}
                             </select>
                         </div>
-            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2">Mô tả:</label>
+                        <div class="col-sm-12">
+                            <textarea name="detail" class="form-control" id="des" ></textarea>
+                            <div class="invalid-feedback">Không được bỏ trống trường này</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="tab-pane container" id="menu1">
-                    {!!$html!!}
-                </div>
+
                 <div class="tab-pane container" id="menu2">
                     <div class="form-group col-4">
                         <label for="ten-sản-CPU">Hình ảnh:</label>

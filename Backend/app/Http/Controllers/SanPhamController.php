@@ -152,7 +152,7 @@ class SanPhamController extends Controller
 
 
         $Recursion = new Recursion($dataOption);
-        $htmlOption = $Recursion->cat_parent();
+        $htmlOption = $Recursion->catParentSelected(0,'',$category->id);
         $imageProduct=ImageProductController::showImage($id);
         // return $imageProduct;
         return view('pages.cap-nhat.cap-nhat-san-pham', compact('data', 'htmlOption', 'category', 'html','imageProduct'));
@@ -170,6 +170,8 @@ class SanPhamController extends Controller
         $data->GiaKM = $request->GiaKM;
         $data->SoLuong = $request->SoLuong;
         $data->loai_san_phams_id = $request->LoaiSanPham;
+        if( $data->GiaKM> $data->GiaCu)  $data->GiaKM=  $data->GiaCu;
+
         if ($request->hasFile('AnhDaiDien')) {
             $image = $request->file('AnhDaiDien');
             $name = time() . '.' . $image->getClientOriginalExtension();
@@ -233,7 +235,6 @@ class SanPhamController extends Controller
     }
     public function UpdateProduct(Request $request, $id)
     {
-
         $data = SanPham::find($id);
         // $data1 = CauHinh::find(1);
 
@@ -243,7 +244,7 @@ class SanPhamController extends Controller
         $data->GiaCu = $request->GiaCu;
         $data->GiaKM = $request->GiaKM;
         $data->SoLuong = $request->SoLuong;
-
+        if( $data->GiaKM> $data->GiaCu)  $data->GiaKM=  $data->GiaCu;
         $configs = DB::table('chi_tiet_cau_hinhs')
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
             ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $request->LoaiSanPham)->get();
@@ -259,13 +260,22 @@ class SanPhamController extends Controller
 
                 $configJson[$key] = $config;
             }
-
+            if ($request->hasFile('AnhDaiDien')) {
+                $image = $request->file('AnhDaiDien');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $image->move($destinationPath, $name);
+                $HinhAnh = $name;
+            } else {
+                $HinhAnh = "meo.jpg"; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
+            }
+            $data->AnhDaiDien = $HinhAnh;
         $cauhinhString = json_encode($configJson);
         $data->CauHinh = $cauhinhString;
         $data->save();
         //     $ImageProduct=AnhSanPham::where('san_phams_id',$id);
         //     $imageProduct->
-        return redirect('/quan-ly-san-pham');
+        return redirect('/quan-ly-san-pham/update/'.$data->id);
     }
 
     public function DeleteProduct(Request $request,$id)
@@ -283,6 +293,7 @@ class SanPhamController extends Controller
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
             ->where('chi_tiet_cau_hinhs.loai_san_phams_id', '=', $id)->get();
         $html = '';
+       
         foreach ($configs as $item) {
             $html .= '<div class="form-group col-12"><label for="'
                 . $item->KeyName . '">'
@@ -293,7 +304,7 @@ class SanPhamController extends Controller
         }
         if (sizeof($configs) > 0)
             return response()->json(['message' => 'success', 'html' => $html]);
-        return response()->json(['message' => 'unsuccessful']);
+        return response()->json(['message' => 'unsuccessful','html' => '']);
     }
 
     // api

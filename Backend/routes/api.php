@@ -80,6 +80,10 @@ Route::post('/updatePassword/{id}','CustomerController@editPassword');
 Route::post('insert-image-slides', 'ImageSlideController@InsertImageAPI');
 Route::get('delete-image-slides', 'ImageSlideController@DeleteImageAPI');
 Route::get('get-image-slides', 'ImageSlideController@getURLImages');
+//api image product
+Route::get('delete-image-product', 'ImageSlideController@DeleteImageProductAPI');
+Route::post('insert-product-images', 'ImageSlideController@InsertProductImagesAPI');
+
 
 // suggest product
 Route::get('/suggestProduct/{id}', 'SanPhamController@SuggestProduct');
