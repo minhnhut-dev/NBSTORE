@@ -122,9 +122,31 @@
                                 @php
 
                                 $stt++;
-                                if($item->trang_thai_don_hangs_id==3)
-                                $success='bg-success';
-                                else $success='bg-danger';
+                                switch($item->trang_thai_don_hangs_id){
+                                        case 1: 
+                                            $success = 'bg-warning';
+                                            break;
+                                        
+                                        case 2: 
+                                            $success = 'bg-primary';
+                                            break;
+                                        
+                                        case 3: 
+                                            $success = 'bg-info';
+                                            break;
+                                        
+                                        case 4: 
+                                            $success = 'bg-dark';
+                                            break;
+                                        
+                                        case 5: 
+                                            $success = 'bg-success';
+                                            break;
+                                        
+                                        default:
+                                            $success = 'bg-danger';
+                                        
+                                    }
                                 @endphp
                                 <tr>
                                     <!-- <td>

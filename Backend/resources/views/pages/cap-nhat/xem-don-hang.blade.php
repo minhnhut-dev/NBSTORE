@@ -20,8 +20,33 @@
 if($order->trang_thai_don_hangs_id==3)
 $success='bg-success';
 else $success='bg-danger';
+switch(  $order->trang_thai_don_hangs_id){
+        case 1: 
+            $success = 'btn-warning';
+            break;
+        
+        case 2: 
+            $success = 'btn-primary';
+            break;
+        
+        case 3: 
+            $success = 'btn-info';
+            break;
+        
+        case 4: 
+            $success = 'btn-dark';
+            break;
+        
+        case 5: 
+            $success = 'btn-success';
+            break;
+        
+        default:
+            $success = 'btn-danger';
+        
+    }
 @endphp
-<!-- Main content -->
+<!-- content -->
 <section class="content">
     <div class="container-fluid">
         <!-- /.row -->
@@ -91,13 +116,33 @@ else $success='bg-danger';
                                             <span class=" amount"><bdi><span class="woocommerce-Price-currencySymbol myDIV">{{number_format($order->Tongtien, 0, '', ',')}}</span> VNĐ</bdi></span>
                                         </td>
                                     </tr>
+                                    @php
+                                    $hide=false;
+                                    $disabled = '';
+                                    if (in_array($order->trang_thai_don_hangs_id, [1,2,4], true)){
+                                        $type='comfirm';
+                                        $action='Xác nhận';
+                                        $btn='btn-info';
+                                        if($order->trang_thai_don_hangs_id==4) $disabled='disabled';
+                                    } else {
+                                        $type='complete';
+                                        $btn='btn-success';
+                                        $action='Hoàn thành';
+                                        if($order->trang_thai_don_hangs_id==5){
+                                            $hide=true;
+                                        }
+                                    }
+                                    @endphp
                                     <tr>
+                                        @if(!$hide)
                                         <td>
-                                            <a class="btn btn-primary {{$disabled}}" role="button" href='order/complete/{{$order->id}}'>
+                                            <a class="btn {{$btn}} {{$disabled}}" role="button" 
+                                            href='order/complete/{{$order->id}}?type={{ $type}}'>
                                                 <i class="fas fa-check"></i>
-                                                Hoàn thành 
+                                               {{$action}}
                                             </a>
                                         </td>
+                                        @endif
 
                                     </tr>
                                 </tbody>
