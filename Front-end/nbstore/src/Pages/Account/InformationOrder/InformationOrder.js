@@ -42,10 +42,10 @@ function InformationOrder() {
                   <th style={{ width: "112px" }}>Số lượng</th>
                   <th style={{ width: "152px" }}>Tổng cộng</th>
                 </tr>
-                {orderDetails.map((item) => (
-                  <tr style={{ height: "40px" }}>
+                {orderDetails.map((item,index) => (
+                  <tr style={{ height: "40px" }} key={index}>
                     <td style={{ width: "530px" }}>
-                      <Link>{item.TenSanPham}</Link>
+                      <Link to={`/ProductDetail/${item.id}`}>{item.TenSanPham}</Link>
                     </td>
                     <NumberFormat
                       value={item.DonGia}
