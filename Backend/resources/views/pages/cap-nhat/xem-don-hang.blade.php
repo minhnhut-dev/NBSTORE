@@ -17,9 +17,7 @@
 </section>
 @php
 
-if($order->trang_thai_don_hangs_id==3)
-$success='bg-success';
-else $success='bg-danger';
+
 switch(  $order->trang_thai_don_hangs_id){
         case 1: 
             $success = 'btn-warning';
