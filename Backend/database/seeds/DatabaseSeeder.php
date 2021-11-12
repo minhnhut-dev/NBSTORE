@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(trang_thai_don_hangs::class);
         $this->call(don_hangs::class);
         $this->call(chi_tiet_don_hangs::class);
+        $this->call(slides::class);
+
     }
 
 
@@ -457,8 +459,17 @@ class chi_tiet_don_hangs extends Seeder
         // ['don_hangs_id'=>119,'san_phams_id'=>6,'SoLuong'=>1,'DonGia'=>10490000,'ThanhTien'=>10490000],
         // ['don_hangs_id'=>120,'san_phams_id'=>7,'SoLuong'=>1,'DonGia'=>20490000,'ThanhTien'=>20490000],
         // ['don_hangs_id'=>121,'san_phams_id'=>7,'SoLuong'=>1,'DonGia'=>20490000,'ThanhTien'=>20490000],
-
-
+        ]);
+    }
+}
+class slides extends Seeder
+{
+    public function run()
+    {
+        DB::table('table_image_slides')->insert([
+            ['image_name' => 'slideshow_1.jpg'],
+            ['image_name' => 'slideshow_4.jpg'],
+            ['image_name' => 'slideshow_6.jpg'],
         ]);
     }
 }

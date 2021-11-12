@@ -34,10 +34,22 @@ import axios from "axios";
                        <li className="cat-menu-item " key={index}>
                        <Link className="gearvn-cat-menu-item" to={`/collections/${item.id}`}>
                          <div className="gearvn-cat-menu-icon" dangerouslySetInnerHTML={{__html:item.icon}}>
-                        
                          </div>
                          <span className="gearvn-cat-menu-name">{item.TenLoai}</span>
                        </Link>
+                       {/* <div className="megamenu absolute-center level0 xlab_grid_container" style={{display:"none"}}>
+                          <div className="column xlab_column_5_5">
+                              <div className="sub-cat-item">
+                                  <a className="sub-cat-item-name">Laptop Gaming theo thương hiệu</a>
+                                  <a className="sub-cat-item-filter">Asus</a>
+                                  <a className="sub-cat-item-filter">Asus</a>
+                                  <a className="sub-cat-item-filter">Asus</a>
+                                  <a className="sub-cat-item-filter">Asus</a>
+                                  <a className="sub-cat-item-filter">Asus</a>
+
+                              </div>
+                          </div>
+                       </div> */}
                      </li>
                  ))}
                 </ol>
