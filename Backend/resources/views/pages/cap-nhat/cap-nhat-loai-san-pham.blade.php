@@ -32,8 +32,15 @@
 
                                     <input type="text" name="config" id="config" class="form-control"
                                         placeholder="Nhập tên cấu hình">
+                                        <div class="error  align-items-center" style="display: none;" id="error-dup-config">
+                                            <p> Cấu hình không được trùng</p>
+                                        </div>
+                                        <div class="error  align-items-center" style="display: none;" id="error-null-config">
+                                            <p> Vui lòng nhập cấu hình</p>
+                                        </div>
                                 </div>
 
+                              
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button type="button" class="btn btn-success btn-xac-nhan-them-suat-chieu" id="btn_add_config">
                                         <strong>Thêm</strong>
@@ -128,29 +135,38 @@
 <section class="content-header">
     <div class="container">
         <div class="row">
-            <div class="row container">
-                <div class="col-md-4 " id="added">
+            <div class="col-md-6">
+                <div class="col-md-12 " id="added">
                     <select id="configs-added" class="form-control" size="10" style="height: 100%;" multiple="multiple"
                         name="configs-added[]">
                         {{!!$html_configs_added!!}}
                     </select>
                 </div>
-
-                <div class="col-md-2">
-                    <button class="btn btn-danger " id="submit_subtract">Loại bỏ</button>
+                <div class="row" style="margin-top:10px;">
+                                <div class="col-md-4">  </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-danger " id="submit_subtract">Loại bỏ</button>
+                    </div>
                 </div>
+                
 
-                <div class="col-md-4" id="not-added">
+              
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12" id="not-added">
                     <select id="configs-not-added" class="form-control" size="10" style="height: 100%;"
                         multiple="multiple" name="configs-not-added[]">
                         {{!!$html_configs_not_added!!}}
                     </select>
                 </div>
-                <div class="col-md-2 center " style="float: left">
+                <div class="row" style="margin-top:10px;">
+                                <div class="col-md-4">  </div>
+                <div class="col-md-4 center " style="float: left">
                     <button class="btn btn-success " id="submit_add">Thêm vào</button>
                 </div>
-            </div>
+                </div>
 
+            </div>
         </div>
 </section>
 

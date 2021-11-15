@@ -29,7 +29,11 @@ class TrangChuController extends Controller
             $month = $request->month? $request->month:date('m');
             $year = $request->year_revenue_month? $request->year_revenue_month:date('Y');
             $max_day =(int)date('m')==$month&& (int)date('Y')==$year?date('d'):0;
-            return Excel::download(new RevenueMonthExport($max_day,$month, $year),'Doanh thu tháng '.$month.' năm '.$year.' NBStore.xlsx');
+           
+            $status = $request->status_month<6&&$request->status_month>0?$request->status_month:0;
+            $order_status= TrangThaiDonHang::find($status);
+            $status_name = $order_status?$order_status->TenTrangThai:'Tất cả';
+            return Excel::download(new RevenueMonthExport($max_day,$month, $year,$status,$status_name),'Doanh thu ('.$status_name.') tháng '.$month.' năm '.$year.' NBStore.xlsx');
 
     }
     public function exportExcelYear(Request $request)
@@ -37,17 +41,56 @@ class TrangChuController extends Controller
       
             $year = $request->year_revenue_year?$request->year_revenue_year:date('Y');
             $max_month =(int)date('Y')==$year?date('m'):0;
-            return Excel::download(new RevenueYearExport($max_month, $year),'Doanh thu năm '.$year.' NBStore.xlsx');
+            $status = $request->status_year<6&&$request->status_year>0?$request->status_year:0;
+            $order_status= TrangThaiDonHang::find($status);
+            $status_name = $order_status?$order_status->TenTrangThai:'Tất cả';
+           
+            return Excel::download(new RevenueYearExport($max_month, $year,$status,$status_name),'Doanh thu ('.$status_name.') năm '.$year.' NBStore.xlsx');
 
+    }
+    public function revenueMonthApi(Request $request){
+        $month =($request->month)? $request->month:date('m');
+        $year_month = ($request->year_revenue_month)? $request->year_revenue_month:date('Y');
+        $max_day =(int)date('m')==$month&& (int)date('Y')==$year_month?date('d'):0;
+        $status = $request->status<6&&$request->status>0?$request->status:0;
+        $revenue_each_day_by_this_month = SalesService::revenueEachDayByMonth($max_day,$month, $year_month,$status);
+        $revenue =[];
+        $total_sales= 0;
+        foreach ($revenue_each_day_by_this_month as $item){
+
+            $item1 =[
+                "date"=>date("d-m", $item["timestamp"]->getTimestamp()),
+                "value"=>$item["revenue"],
+            ];
+            $total_sales+=$item["revenue"];
+            array_push($revenue,$item1);
+        }  
+        $total_sales = number_format($total_sales, 0, '', ',').' VNĐ';
+        return response()->json(['total'=>$total_sales,'revenue'=>  $revenue,'year'=>$year_month,'month'=>$month]);
+    }
+    public function revenueYeahApi(Request $request){
+        $year_year = ($request->year_revenue_year)? $request->year_revenue_year:date('Y');
+        $max_month =(int)date('Y')==$year_year?date('m'):0;
+        $status = $request->status<6&&$request->status>0?$request->status:0;
+        $revenue_each_month_by_this_year = SalesService::revenueEachMonthByYear($max_month,$year_year,$status);
+        $total = 0;
+
+        $revenue=[];
+        foreach ($revenue_each_month_by_this_year as $item){
+
+            $item1 =[
+                "date"=>"Tháng".$item["month"],
+                "value"=>$item["revenue"],
+            ];
+            $total+=$item["revenue"];
+            array_push($revenue,$item1);
+        }
+        $total = number_format($total, 0, '', ',').' VNĐ';
+        return response()->json(['total'=>$total,'revenue'=>  $revenue,'year'=>$year_year]);
     }
     public function index(Request $request)
     {
-        $users = DB::table('nguoi_dungs')->where('TrangThai', 1)->limit(5)->orderBy('created_at', 'DESC')->get();
-        foreach ($users as $item) {
 
-            $amount = (int)CustomerController::getProductsByUser($item->id);
-            $item->SanPhams = $amount;
-        }
         $prods = [];
         $products = DB::table('chi_tiet_don_hangs')->select('san_phams_id')->groupBy('san_phams_id')->get();
         foreach ($products as $item) {
@@ -72,7 +115,8 @@ class TrangChuController extends Controller
 
     
         $orders = DB::table('don_hangs')->join('nguoi_dungs', 'nguoi_dungs.id', '=', 'don_hangs.nguoi_dungs_id')
-        ->select('nguoi_dungs.TenNguoidung','nguoi_dungs.SDT','don_hangs.*')->limit(5)->orderBy('don_hangs.ThoiGianMua', 'DESC')->get();
+        ->join('trang_thai_don_hangs','don_hangs.trang_thai_don_hangs_id','=','trang_thai_don_hangs.id')
+        ->select('nguoi_dungs.TenNguoidung','nguoi_dungs.SDT','don_hangs.*','trang_thai_don_hangs.TenTrangThai')->limit(5)->orderBy('don_hangs.ThoiGianMua', 'DESC')->get();
 
         foreach ($orders as $item) {
 
@@ -87,36 +131,18 @@ class TrangChuController extends Controller
         $month =($request->month&& $request->month!='undefined')? $request->month:date('m');
         $year_month = ($request->year_revenue_month&&$request->year_revenue_month!='undefined')? $request->year_revenue_month:date('Y');
         $year_year = ($request->year_revenue_year&&$request->year_revenue_year!='undefined')? $request->year_revenue_year:date('Y');
-        $max_day =(int)date('m')==$month&& (int)date('Y')==$year_month?date('d'):0;
-        $max_month =(int)date('Y')==$year_year?date('m'):0;
-        $revenue_each_day_by_this_month = SalesService::revenueEachDayByMonth($max_day,$month, $year_month);
-        $revenue_each_month_by_this_year = SalesService::revenueEachMonthByYear($max_month,$year_year);
         $revenue =[];
         $total_sales= 0;
-        foreach ($revenue_each_day_by_this_month as $item){
-
-            $item1 =[
-                "date"=>date("d-m", $item["timestamp"]->getTimestamp()),
-                "value"=>$item["revenue"],
-            ];
-            $total_sales+=$item["revenue"];
-            array_push($revenue,$item1);
-        }  
+      
         $revenue_year =[];
         $total_sales_year= 0;
-        foreach ($revenue_each_month_by_this_year as $item){
-
-            $item1 =[
-                "date"=>"Tháng ".$item["month"],
-                "value"=>$item["revenue"],
-            ];
-            $total_sales_year+=$item["revenue"];
-            array_push($revenue_year,$item1);
-        }  
-        return view('pages.trang-chu', compact('users','prods','orders','chart_product',
-        'revenue','year_month','year_year',
-        'month','total_sales','revenue_year','total_sales_year'));
+      
+        $orders_status = TrangThaiDonHang::get();
+        return view('pages.trang-chu', compact('users','prods','orders','chart_product'
+        ,'year_month','year_year',
+        'month','total_sales','total_sales_year','orders_status'));
     }
+    
     public function FormLogin()
     {
         return view('pages.dang-nhap');

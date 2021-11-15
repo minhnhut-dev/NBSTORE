@@ -35,7 +35,6 @@ class LoaiSanPhamController extends Controller
     }
     public function index(Request $request)
     {
-
         $data = LoaiSanPham::where('TrangThai', 1);
         $categories = LoaiSanPham::where('TrangThai', 1)->get();
 
@@ -111,7 +110,18 @@ class LoaiSanPhamController extends Controller
         // $replace_class=str_replace('class','className',$subjectVal);
         // $data->icon=$replace_class;
         $data->icon = $request->icon;
+       
         // return $data;
+        $data->save();
+        if($data->parent_id){
+            $parent_added_configs = DB::table('chi_tiet_cau_hinhs')
+ 
+            ->where('loai_san_phams_id', '=', $data->parent_id)->get();
+            foreach ($parent_added_configs as $item) {
+                DB::insert('insert into chi_tiet_cau_hinhs (loai_san_phams_id, cau_hinhs_id) values (?, ?)', [$data->id, $item->cau_hinhs_id]);
+            }
+
+        }
         $data->save();
         return redirect('/quan-ly-loai-san-pham');
         // return $data;
@@ -214,7 +224,11 @@ class LoaiSanPhamController extends Controller
     {
 
         foreach ($req->configIds as $item) {
-            DB::insert('insert into chi_tiet_cau_hinhs (loai_san_phams_id, cau_hinhs_id) values (?, ?)', [$id, $item]);
+            try{
+                DB::insert('insert into chi_tiet_cau_hinhs (loai_san_phams_id, cau_hinhs_id) values (?, ?)', [$id, $item]);
+            } catch(\Exception $e){
+                return response([],402);
+            }
         }
         $configs_added = DB::table('chi_tiet_cau_hinhs')
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
@@ -394,6 +408,27 @@ class LoaiSanPhamController extends Controller
             ->where('TrangThai', '=', 1)->where('TenLoai', '=', 'Cooler')
             ->get();
         return response()->json($TypeCooler);
+    }
+    public static function getChildCategory($categories)
+    {
+        foreach ($categories as $key => $item) {
+                 $child_category = DB::table('loai_san_phams')->where('parent_id',$item->id)->get();
+                 $item->childs=  $child_category;
+        }
+    }
+    public static function treeCategory()
+    {
+        $categories = DB::table('loai_san_phams')->where('TrangThai', 1)->where('parent_id',Null)->get();
+                LoaiSanPhamController::getChildCategory($categories);
+                     foreach ($categories as $key => $item) {
+                            LoaiSanPhamController::getChildCategory($item->childs);
+                            // foreach ($item->childs as $key => $item) {
+                            //     // foreach ($item->childs as $key => $item) {
+                            //         LoaiSanPhamController::getChildCategory($item->childs);
+                            //     // }
+                            // }
+                    }
+        return $categories;
     }
     // public function checkDeleteCategory($data,$id){
 

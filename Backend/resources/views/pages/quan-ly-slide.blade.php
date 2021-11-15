@@ -45,7 +45,7 @@
                                     <div class="card-header d-flex image-slide-item ">
                                         <img src="/slides/{{$image->image_name}}" class="card-image" alt="">
                                     </div>
-                                    <a href="#" data-src="/slides/{{$image->image_name}}" data-id="{{$image->id}}"
+                                    <a href="#" data-name="{{$image->title}}" data-src="/slides/{{$image->image_name}}" data-id="{{$image->id}}"
                                         class="btn btn-outline-info btn-view-image">Xem</a>
 
                                 </div>
@@ -77,14 +77,24 @@
                     <div id="msg"></div>
                     <form method="post" id="image-form" enctype="multipart/form-data">
                         @csrf
+                        <div class="input-group my-3">
+                        <div class="input-group-append">
+                                <label class="append col-form-label" >Tiêu đề ảnh </label>
+                            </div>
+                            <input style="margin-left: 10px"  type="text" name="name" class="form-control"  placeholder="Nhập tiêu đề ảnh" >
+                         
+                        </div>
                         <input type="file" name="img[]" class="file" accept="image/*" required>
                         <div class="feedback"   style="color:red; display:none;">Vui lòng chọn hình ảnh</div>
                         <div class="input-group my-3">
+                       
                             <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
                             <div class="input-group-append">
                                 <button type="button" class="browse btn btn-primary">Browse...</button>
                             </div>
                         </div>
+                
+                   
                         <div class="col-md-12">
                             <img src="http://aquaphor.vn/wp-content/uploads/2016/06/default-placeholder.png"
                                 id="preview" class="img-thumbnail">
@@ -105,23 +115,32 @@
 <div class="modal fade modal-them-phim-question" id="popup-show-image">
 
     <div class="modal-dialog modal-dialog-centered">
+    <form method="post" id="image-form-update" enctype="multipart/form-data">
+                        @csrf
         <div class="modal-content">
 
 
             <div class="modal-body text-center">
+                
                 <div class="col-md-12 ">
-
+                <div class="input-group my-3">
+                        <div class="input-group-append">
+                                <label class="append col-form-label" >Tiêu đề ảnh </label>
+                            </div>
+                            <input style="margin-left: 10px" disabled id="title_image_slide"  type="text" name="name" class="form-control"  placeholder="Không có tiêu đề ảnh" >
+                         
+                        </div>
                     <div class="col-md-12">
                         <img src="https://placehold.it/80x80" id="image-preview" class="card-image img-thumbnail">
                     </div>
                     <div class="modal-footer d-flex justify-content-center" id="box-delete-image" >
-                        <button type="button" class="btn btn-danger" id="btn-delete-image">
-                            <strong>Xoá ảnh</strong>
-                        </button>
+           
                     </div>
+     
                 </div>
             </div>
         </div>
+    </form>
     </div>
 </div>
 @endsection

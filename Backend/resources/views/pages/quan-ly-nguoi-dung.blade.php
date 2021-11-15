@@ -89,7 +89,7 @@
                                     <td>{{$item->Email}}</td>
                                     <td>{{$item->DiaChi}}</td>
                                     <td>{{$item->TenLoai}}</td>
-                                    <td>{{$item->created_at}}</td>
+                                    <td>{{date_format(date_create($item->created_at),'d-m-Y')}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="/quan-ly-nguoi-dung/show/{{$item->id}}">
