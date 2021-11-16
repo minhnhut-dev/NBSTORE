@@ -11,6 +11,8 @@ import Paypal from "../../Component/Paypal/Paypal";
 import { useSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import { useForm } from "react-hook-form";
+import { TextField } from "@material-ui/core";
 
 function Cart(props) {
   const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
@@ -35,7 +37,7 @@ function Cart(props) {
   const [name, setName] = useState(userLogin.TenNguoidung);
   const [address, setAddress] = useState(userLogin.DiaChi);
   const [phone, setPhone] = useState(userLogin.SDT);
-  console.log("name: ", name);
+  const {register, handleSubmit,  formState: { errors }, watch } = useForm({});
   const newArr = cartItems.map((item) => {
     return { san_phams_id: item.id, DonGia: item.GiaKM, SoLuong: item.qty };
   });
@@ -127,6 +129,8 @@ function Cart(props) {
                 window.location.reload();
             })
             .catch((err) => {
+              setOpenBackDrop(false);
+
               console.log(err.response.data.error);
               setError(err.response.data.error);
               setErrorPayment(err.response.data.hinh_thuc_thanh_toans_id);
@@ -142,7 +146,6 @@ function Cart(props) {
             });
         })
         .catch((err) => {
-          console.log(err.response.data.DiaChi);
           if (err.response.data.DiaChi != undefined) {
             enqueueSnackbar(err.response.data.DiaChi, {
               variant: "error",
@@ -158,6 +161,7 @@ function Cart(props) {
             });
           }
         });
+       
     } else if (optionPayment == 2) {
       var dataMoMo = {
         accessKey: accessKey,
@@ -425,6 +429,7 @@ function Cart(props) {
                     <span className="header-page clearfix">
                       <h1 className="title-card"> Giỏ hàng</h1>
                     </span>
+                    <form onSubmit={handleSubmit(handleOrder)}>
                     <div id="cartformpage">
                       <table width="100%">
                         <thead>
@@ -506,7 +511,6 @@ function Cart(props) {
                             </td>
                             <td className="price">
                               <span className="total">
-                                {/* <strong>{totalPrice}</strong> */}
                                 <NumberFormat
                                   value={totalPrice}
                                   displayType={"text"}
@@ -527,33 +531,48 @@ function Cart(props) {
                           <div className="title_box_cart">
                             1. Thông tin khách hàng
                           </div>
-                          <div className="box-cart-user-info">
-                            <input
+                          <div className="input-group name d-flex" >
+                            <TextField
+                              id="outlined-basic-1"
+                              variant="outlined"
+                              type="text"
+                              placeholder="Nhập họ tên"
                               name="name"
-                              placeholder="Họ tên"
                               value={name}
-                              onChange={(e) => setName(e.target.value)}
+                              onChange={(e)=>setName(e.target.value)}
                             />
-                            <input
-                              name="name"
-                              placeholder="Email"
-                              value={userLogin.Email}
-                              disabled
-                            />
-                            <input
-                              name="name"
-                              placeholder="Số điện thoại"
+                        
+                             <TextField
+                             style={{ marginLeft: "10px" }}
+                                id="outlined-basic-2"
+                                variant="outlined"
+                                type="text"
+                                value={userLogin.Email}
+                                disabled
+                              
+                              />  
+                            
+                          </div>
+                          <div className="input-group name d-flex" >
+                            <TextField
+                              id="outlined-basic-3"
+                              variant="outlined"
+                              type="text"
+                              placeholder="Nhập số điện thọai"
+                              name="phone"
                               value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
-                              required
+                              onChange={(e)=>setPhone(e.target.value)}
+
                             />
-                            <input
-                              name="name"
-                              placeholder="Địa chỉ"
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
-                              required
-                            />
+                             <TextField
+                             style={{ marginLeft: "10px" }}
+                                id="outlined-basic-4"
+                                variant="outlined"
+                                type="text"
+                                placeholder="Nhập địa chỉ"
+                                value={address}
+                              />  
+                            
                           </div>
                           <div className="box-cart-user-info">
                             <div className="title_box_cart">
@@ -704,6 +723,7 @@ function Cart(props) {
                         </Backdrop>
                       </div>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>

@@ -1088,7 +1088,7 @@ useEffect(() => {
                   documentTitle={`BuildPC` + today}
                 />
               </div>
-              <div className="btn-item">
+              {/* <div className="btn-item">
                 <Button
                   className="btn btnShare"
                   onClick={() => exportComponentAsPNG(componentRef)}
@@ -1096,7 +1096,7 @@ useEffect(() => {
                   <i className="fab fa-facebook-f"></i>
                   Tải ảnh cấu hình
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

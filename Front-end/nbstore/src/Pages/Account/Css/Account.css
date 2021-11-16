@@ -67,3 +67,47 @@
 .tb-order input {
     margin-top:5px;
 }
+.action_bottom_resetPassword .btn_send_mail{
+    width: 350px;
+}
+.input-group-resetPassword { 
+    margin-bottom: 15px;
+}
+.input-group-resetPassword .MuiOutlinedInput-root { 
+    width: 350px !important;
+    height: 100% !important;
+}
+
+.action_bottom.config_pass .btnResetPass{
+    width: 350px;
+}
+.input-group.config_pass { 
+    margin-bottom: 15px;
+}
+.input-group.config_pass .MuiOutlinedInput-root { 
+    width: 350px !important;
+    height: 100% !important;
+}
+.input-group.config_pass p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.config_pass p{
+    color: #bf1616;
+}
+.input-group-updatePassword .MuiOutlinedInput-root { 
+    width: 350px !important;
+    height: 100% !important;
+}
+.input-group-updatePassword {
+    margin-bottom: 10px;
+}
+.input-group-updatePassword p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group-updatePassword p{
+    color: #bf1616;
+}

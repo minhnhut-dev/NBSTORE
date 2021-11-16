@@ -13,7 +13,7 @@
 }
 .title-register, #title-login {
     text-align: center;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 1.5rem;
     margin-top:20px
 }
@@ -68,7 +68,7 @@
     border-bottom-right-radius: 0;
 }
 #customer-login  .input-group{
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     width: 100%;
 
 }
@@ -84,7 +84,9 @@
 .linkRegister{
     margin-left: 10px;
 }
-
+.action_bottom .btnLogin{
+  width: 350px !important;
+}
 
 /*Animation*/
 /* #title-login {  
@@ -177,3 +179,30 @@
   .buttonGoogle span{
       color: black;
   }
+#login.userbox{
+  width: 350px;
+}
+.input-group.username_login p::before {
+  display: inline;
+  content: "⚠ ";
+}
+
+.input-group.username_login p{
+  color: #bf1650;
+}
+.input-group.password_login p::before {
+  display: inline;
+  content: "⚠ ";
+}
+
+.input-group.password_login p{
+  color: #bf1650;
+}
+.input-group.username_login .MuiOutlinedInput-root {
+  height: 100% !important;
+  width: 350px !important;
+}
+.input-group.password_login .MuiOutlinedInput-root {
+  height: 100% !important;
+  width: 350px !important;
+}

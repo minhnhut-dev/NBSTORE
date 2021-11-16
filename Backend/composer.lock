@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "beb668a7b7ae3d3420e8f6bfae8efebe",
+    "content-hash": "da7152c5d4d54888310d101c5ba36694",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1404,6 +1404,57 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "kjmtrue/vietnam-zone",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kjmtrue/vietnam-zone.git",
+                "reference": "23cb83150760ef44f55612bb1afd022d5e488fe1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kjmtrue/vietnam-zone/zipball/23cb83150760ef44f55612bb1afd022d5e488fe1",
+                "reference": "23cb83150760ef44f55612bb1afd022d5e488fe1",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3.1|^7.0",
+                "illuminate/console": "^5.8|^6|^7|^8",
+                "illuminate/database": "^5.8|^6|^7|^8",
+                "illuminate/support": "^5.8|^6|^7|^8",
+                "maatwebsite/excel": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kjmtrue\\VietnamZone\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kjmtrue\\VietnamZone\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KimTrien",
+                    "email": "kimtrien@gmail.com"
+                }
+            ],
+            "description": "VietNam Zone",
+            "support": {
+                "issues": "https://github.com/kjmtrue/vietnam-zone/issues",
+                "source": "https://github.com/kjmtrue/vietnam-zone/tree/v1.0.1"
+            },
+            "time": "2021-05-11T09:04:49+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",

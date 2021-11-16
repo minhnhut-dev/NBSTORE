@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../../../Component/Header/Header";
 import Footer from "../../../Component/Footer/Footer";
 import { Button } from "react-bootstrap";
@@ -9,12 +9,14 @@ import axios from "axios";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
-  } from "react-router-dom";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
+import "../Css/Account.css";
+import { useForm } from "react-hook-form";
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const [password_confirm, setPassword_confirm] = useState("");
@@ -22,9 +24,17 @@ function ResetPassword() {
   const [open, setOpen] = React.useState(false);
   const [redirect, setRedirect] = useState(false);
   let { token } = useParams();
-  const handleResetPassword = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({});
+  const Password = useRef({});
+  Password.current = watch("password", "");
+  const handleResetPassword = (e) => {
     const data = {
-      password: password,
+      password: e.password,
     };
 
     if (password == password_confirm) {
@@ -36,8 +46,8 @@ function ResetPassword() {
         .then((response) => {
           setOpen(true);
           setTimeout(() => {
-             setRedirect(true);
-          },3000)
+            setRedirect(true);
+          }, 3000);
         })
         .catch((error) => {
           console.log(error.response.data.message);
@@ -56,21 +66,13 @@ function ResetPassword() {
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
-  if(redirect)
-  {
-    return <Redirect to="/Login" />
+  if (redirect) {
+    return <Redirect to="/Login" />;
   }
   return (
     <>
       <Header />
       <div className="noindex">
-        {error ? (
-          <Alert severity="error" style={{ textAlign: "center" }}>
-            {error}
-          </Alert>
-        ) : (
-          ""
-        )}
         <div id="layout-page-login" className="container">
           <div id="customer-login">
             <span className="header-contact header-page clearfix">
@@ -78,58 +80,64 @@ function ResetPassword() {
                 Khôi phục mật khẩu
               </h4>
             </span>
-            <div id="login" className="userbox">
-              <div className="input-group">
-                <span className="input-group-addon">
-                  <i className="fas fa-key"></i>
-                </span>
+            <form onSubmit={handleSubmit(handleResetPassword)}>
+              <div id="login" className="userbox">
+                <div className="input-group config_pass">
+                  <TextField
+                    id="outlined-basic-1"
+                    label="Nhập mật khẩu mới"
+                    variant="outlined"
+                    name="password"
+                    type="password"
+                    {...register("password", {
+                      required: true,
+                      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                    })}
+                  />
+                  {errors?.password?.type === "required" && (
+                    <p>Mật khẩu không được bỏ trống</p>
+                  )}
+                  {errors?.password?.type === "pattern" && (
+                    <p>Mật khẩu có 8 ký tự và 1 ký tự hoa</p>
+                  )}
+                </div>
+                <div className="input-group config_pass">
+                  <TextField
+                    id="outlined-basic"
+                    label="Nhập lại mật khẩu"
+                    variant="outlined"
+                    name="password_repeat"
+                    type="password"
+                    {...register("password_repeat", {
+                      validate: (value) =>
+                        value === Password.current || "Mật khẩu không khớp",
+                    })}
+                  />
+                  {errors.password_repeat && (
+                    <p>{errors.password_repeat.message}</p>
+                  )}
+                </div>
 
-                <TextField
-                  id="outlined-basic-1"
-                  label="Nhập mật khẩu mới"
-                  variant="outlined"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="input-group">
-                <span className="input-group-addon">
-                  <i className="fas fa-lock"></i>
-                </span>
-
-                <TextField
-                  id="outlined-basic"
-                  label="Nhập lại mật khẩu"
-                  variant="outlined"
-                  name="password_repeat"
-                  type="password"
-                  onChange={(e) => setPassword_confirm(e.target.value)}
-                />
-              </div>
-
-              <div className="action_bottom">
-                <Button
-                  variant="primary"
-                  className="btnLogin"
-                  type="submit"
-                  onClick={handleResetPassword}
+                <div className="action_bottom config_pass">
+                  <Button
+                    variant="primary"
+                    className="btnResetPass"
+                    type="submit"
+                  >
+                    Xác nhận
+                  </Button>
+                </div>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={3000}
+                  onClose={handleClose}
                 >
-                  Xác nhận
-                </Button>
+                  <Alert onClose={handleClose} severity="success">
+                    Chúc mừng bạn đã đổi mật khẩu thành công!
+                  </Alert>
+                </Snackbar>
               </div>
-              <Snackbar
-                open={open}
-                autoHideDuration={3000}
-                onClose={handleClose}
-                
-              >
-                <Alert onClose={handleClose} severity="success">
-                 Chúc mừng bạn đã đổi mật khẩu thành công!
-                </Alert>
-              
-              </Snackbar>
-            </div>
+            </form>
           </div>
         </div>
       </div>

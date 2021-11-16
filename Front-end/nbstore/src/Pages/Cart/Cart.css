@@ -54,7 +54,7 @@ table {
     width: 161px;
 }
 #cartformpage .qty input {
-    width: 35px;
+    width: 50px;
     text-align: center;
 }
 
@@ -65,6 +65,7 @@ table {
 button.add {
     background-color: #40c0f0;
     width: 1.8rem;
+    height: 1.9rem;
     font-size: .8rem;
     padding: .2rem;
     margin: .1rem;
@@ -77,6 +78,7 @@ button.add {
   button.remove {
     background-color: #f04040;
     width: 1.8rem;
+    height: 1.9rem;
     font-size: .8rem;
     padding: .2rem;
     margin: .1rem;
@@ -260,4 +262,11 @@ img.lazy {
     margin: 30%;
     font-size: 14px;
     color: black;
+}
+.cart-container .input-group.name .MuiOutlinedInput-root{
+    width: 350px !important;
+    height: 100% !important;
+}
+.cart-container .input-group.name{
+    margin-bottom: 15px;
 }

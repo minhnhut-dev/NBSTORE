@@ -31,6 +31,7 @@
     "react-messenger-customer-chat": "^0.8.0",
     "react-notifications": "^1.7.2",
     "react-number-format": "^4.5.5",
+    "react-phone-input-2": "^2.14.0",
     "react-rating": "^2.0.5",
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.0",
