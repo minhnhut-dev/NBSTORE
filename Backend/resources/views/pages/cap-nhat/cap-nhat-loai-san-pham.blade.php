@@ -16,42 +16,7 @@
                         data-toggle="modal" data-target="#popup-them-question">
                         <strong>Thêm cấu hình mới</strong>
                     </button>
-                    <div class="modal fade modal-them-suat-chieu-question" id="popup-them-question">
-                        <div class="modal-dialog  modal-sm">
-                            <div class="modal-content">
-                                <!-- Modal body -->
-                                <div class="modal-body text-center">
-                                    <i class="fas fa-plus" style="color: #dc3545;"></i>
-                                    Thêm cấu hình mới
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
 
-
-
-                                <div class="card-header  justify-content-between align-items-center">
-
-                                    <input type="text" name="config" id="config" class="form-control"
-                                        placeholder="Nhập tên cấu hình">
-                                        <div class="error  align-items-center" style="display: none;" id="error-dup-config">
-                                            <p> Cấu hình không được trùng</p>
-                                        </div>
-                                        <div class="error  align-items-center" style="display: none;" id="error-null-config">
-                                            <p> Vui lòng nhập cấu hình</p>
-                                        </div>
-                                </div>
-
-                              
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-success btn-xac-nhan-them-suat-chieu" id="btn_add_config">
-                                        <strong>Thêm</strong>
-                                    </button>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -102,13 +67,16 @@
             <input name="LoaiSanPham" type="hidden" id="LoaiSanPham" value="{{$loai->id}}">
 
             <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-submit-input-form btn-cap-nhat-the-loai-phim"
-                    data-toggle="modal">
+                <button type="submit" class="btn btn-primary btn-submit-input-form a"
+                    data-toggle="modal" data-target="#popup-comfirm-update" >
                     <strong>Cập nhật</strong>
                 </button>
+                <button type="button" class="btn btn-danger  btn-submit-input-form b"
+                    data-toggle="modal" data-target="#popup-delete-category">
+                    <strong>Xoá</strong>
+                </button>
 
-
-                <div class="modal fade modal-cap-nhat-the-loai-phim-question" id="popup-them-question">
+                <div class="modal fade a" id="popup-comfirm-update">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <!-- Modal body -->
@@ -127,6 +95,65 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade b" id="popup-delete-category">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body text-center">
+                                <i class="fas fa-info-circle" style="color: #dc3545;"></i>
+                                Xác nhận xoá loại sản phẩm
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            @if($kq)
+                            <center class="error ">
+                            Loại sản phẩm {{$loai->TenLoai}} không thể xoá !
+                            </center>
+                            @endif
+                            <!-- Modal footer -->
+                            <div class="modal-footer d-flex justify-content-center">
+                                <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
+                                    <button type="button" {{$kq?'disabled':''}} class="btn btn-danger">Xoá</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade modal-them-suat-" id="popup-them-question">
+                        <div class="modal-dialog  modal-sm">
+                            <div class="modal-content">
+                                <!-- Modal body -->
+                                <div class="modal-body text-center">
+                                    <i class="fas fa-plus" style="color: #dc3545;"></i>
+                                    Thêm cấu hình mới
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+
+
+                                <div class="card-header  justify-content-between align-items-center">
+
+                                    <input type="text" name="config" id="config" class="form-control"
+                                        placeholder="Nhập tên cấu hình">
+                                        <div class="error  align-items-center" style="display: none;" id="error-dup-config">
+                                            <p> Cấu hình không được trùng</p>
+                                        </div>
+                                        <div class="error  align-items-center" style="display: none;" id="error-null-config">
+                                            <p> Vui lòng nhập cấu hình</p>
+                                        </div>
+                                </div>
+
+                              
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="button" class="btn btn-success btn-xac-nhan" id="btn_add_config">
+                                        <strong>Thêm</strong>
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
         </form>
         @endforeach
     </div>

@@ -90,6 +90,71 @@ class SanPhamController extends Controller
         $categories = LoaiSanPham::where('TrangThai', 1)->get();
         return view('pages.quan-ly-san-pham', compact('listsanpham', 'categories'));
     }
+    public function indexTrash(Request $request)
+    {
+
+        $listsanpham = SanPham::where('TrangThai','<>', 1);
+        if ($request->amount>-1) {
+            if ($request->amount > 0) {
+
+                switch ($request->amount) {
+                    case 1: {
+                            $begin = 0;
+                            $end = 5;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 2: {
+                            $begin = 5;
+                            $end = 10;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 3: {
+                            $begin = 10;
+                            $end = 50;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+
+                    case 4: {
+                            $begin = 50;
+                            $end = 100;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 5: {
+                            $begin = 100;
+                            $end = 250;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 6: {
+                            $begin = 250;
+                            $end = 500;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin)->where('Soluong', '<=', $end);
+                            break;
+                        }
+                    case 7: {
+                            $begin = 500;
+                            $listsanpham = $listsanpham->where('Soluong', '>=', $begin);
+                            break;
+                        }
+                    default: {
+                            //
+                        }
+                }
+            }
+
+            if($request->search) $listsanpham=$listsanpham->where('TenSanPham', 'LIKE','%'.$request->search.'%');
+
+
+              if($request->category>0) $listsanpham=$listsanpham->where('loai_san_phams_id',$request->category);
+        }
+        $listsanpham=$listsanpham->paginate(5);
+        $categories = LoaiSanPham::where('TrangThai', 1)->get();
+        return view('pages.thung-rac-san-pham', compact('listsanpham', 'categories'));
+    }
 
     public function ThemSanPham()
     {
@@ -286,6 +351,16 @@ class SanPhamController extends Controller
         if($request->page) $page='page='.$request->page;
         else $page='';
         return redirect("/quan-ly-san-pham?$page");
+    }
+
+    public function RecoverProduct(Request $request,$id)
+    {
+        $data = SanPham::find($id);
+        $data->TrangThai = 1;
+        $data->save();
+        if($request->page) $page='page='.$request->page;
+        else $page='';
+        return redirect("/quan-ly-san-pham/thung-rac?$page");
     }
     public function ConfigByCategory($id)
     {

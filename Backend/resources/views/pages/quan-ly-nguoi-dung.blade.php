@@ -53,7 +53,8 @@
                                     <th>Mail</th>
                                     <th>Địa chỉ</th>
                                     <th>Loại người dùng</th>
-                                    <th>Thời gian tạo</th>
+                                    <th>Trạng thái</th>
+                                 
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
@@ -76,9 +77,34 @@
 
                                 @foreach ($listUser as $item )
                                 @php
-                            
                                     $stt++;
-                                    @endphp
+
+                                    if($item->TenLoai=='Admin'){
+                                        if($item->TrangThai==1) {
+                                            $btn='bg-success';
+                                            $title='Hoạt động';
+                                        }
+                                        else{
+                                            $btn='bg-dark';
+                                            $title='Ngừng hoạt động';
+                                        }
+                                    }else{
+                                        if($item->TrangThai==0) {
+                                            $btn='bg-dark';
+                                            $title='Ngừng hoạt động';
+                                        }
+                                        else{
+                                            if($item->active==1){
+                                                $btn='bg-success';
+                                                $title='Hoạt động';
+                                            }else {
+                                                $btn='bg-danger';
+                                                $title='Chưa xác thực mail';
+                                            }
+
+                                        }
+                                    }
+                                @endphp
                                 <tr>
                                     <td>
                                         {{$stt}}
@@ -89,7 +115,13 @@
                                     <td>{{$item->Email}}</td>
                                     <td>{{$item->DiaChi}}</td>
                                     <td>{{$item->TenLoai}}</td>
-                                    <td>{{date_format(date_create($item->created_at),'d-m-Y')}}</td>
+                                    <td> 
+                                        <span class="card {{$btn}} status">
+                                        {{$title}}
+                                        </span>
+                                    </td>
+
+                                    <!-- <td>{{date_format(date_create($item->created_at),'d-m-Y')}}</td> -->
                                     <td>
                                         <div class="btn-group">
                                             <a href="/quan-ly-nguoi-dung/show/{{$item->id}}">
