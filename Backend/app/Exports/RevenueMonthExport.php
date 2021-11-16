@@ -26,11 +26,14 @@ class RevenueMonthExport implements FromCollection, WithEvents , WithCustomStart
     protected $max_day;
     protected $year;
     protected $month;
-    function __construct($day, $month, $year)
+    protected $status;
+    function __construct($day, $month, $year,$status=0,$status_name = 'Tất cả')
     {
         $this->max_day = $day;
         $this->year = $year;
         $this->month = $month;
+        $this->status = $status;
+        $this->status_name = $status_name;
     }
     public function startCell(): string
     {
@@ -43,8 +46,8 @@ class RevenueMonthExport implements FromCollection, WithEvents , WithCustomStart
     public function collection()
     {
 
-        $revenue =SalesService::revenueEachDayByMonth($this->max_day,$this->month, $this->year);
-        $orders =SalesService::numberOrdersPerDayByMonth($this->max_day,$this->month, $this->year);
+        $revenue =SalesService::revenueEachDayByMonth($this->max_day,$this->month, $this->year,$this->status);
+        $orders =SalesService::numberOrdersPerDayByMonth($this->max_day,$this->month, $this->year,$this->status);
         $collection = new Collection();
         $i=0;
         foreach ($revenue as $item){
@@ -68,6 +71,7 @@ class RevenueMonthExport implements FromCollection, WithEvents , WithCustomStart
             5    => ['font' => ['bold' => true]],
             6    => ['font' => ['bold' => true]],
             7    => ['font' => ['bold' => true]],
+            8    => ['font' => ['bold' => true]],
             // 'A1:A4'=>
             // [
             //     'alignment' => [
@@ -178,8 +182,8 @@ class RevenueMonthExport implements FromCollection, WithEvents , WithCustomStart
     }
     public function headings(): array
     {
-        $revenue =SalesService::revenueEachDayByMonth($this->max_day,$this->month, $this->year);
-        $orders =SalesService::numberOrdersPerDayByMonth($this->max_day,$this->month, $this->year);
+        $revenue =SalesService::revenueEachDayByMonth($this->max_day,$this->month, $this->year,$this->status);
+        $orders =SalesService::numberOrdersPerDayByMonth($this->max_day,$this->month, $this->year,$this->status);
         $total_revenue =0;
         foreach($revenue as $item){
             $total_revenue+=$item["revenue"];
@@ -197,7 +201,7 @@ class RevenueMonthExport implements FromCollection, WithEvents , WithCustomStart
             ['Nội dung: ','Doanh thu tháng  '.$this->month.' năm '.$this->year],
             ['Người xuất: ',$name],
             ['Ngày xuất: ', date("H:i d-m-Y")],
-            [''],
+            ['Trạng thái: ',$this->status_name],
             ['Tổng doanh thu: ', number_format($total_revenue, 0, '', ',').' VNĐ'],
             ['Tổng đơn hàng: ', $total_orders.' Đơn'],
             [' '],

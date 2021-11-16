@@ -25,19 +25,22 @@ class RevenueYearExport implements FromCollection, WithEvents , WithCustomStartC
 
     protected $year;
     protected $month;
-    function __construct($month, $year)
+    protected $status;
+    protected $status_name;
+    function __construct($month, $year,$status=0,$status_name = 'Tất cả')
     {
         $this->year = $year;
         $this->month = $month;
+        $this->status = $status;
+        $this->status_name = $status_name;
     }
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-
-        $revenue =SalesService::revenueEachMonthByYear($this->month, $this->year);
-        $orders =SalesService::numberOrdersPerMonthByYear($this->month, $this->year);
+        $revenue =SalesService::revenueEachMonthByYear($this->month, $this->year,$this->status);
+        $orders =SalesService::numberOrdersPerMonthByYear($this->month, $this->year,$this->status);
         $collection = new Collection();
         $i=0;
         foreach ($revenue as $item){
@@ -57,6 +60,7 @@ class RevenueYearExport implements FromCollection, WithEvents , WithCustomStartC
             // Style the first row as bold text.
             2    => ['font' => ['bold' => true, 'italic' => true,'size' => 18]],
             7    => ['font' => ['bold' => true]],
+            8    => ['font' => ['bold' => true]],
             3    => ['font' => ['bold' => true]],
             4    => ['font' => ['bold' => true]],
             5    => ['font' => ['bold' => true]],
@@ -176,8 +180,8 @@ class RevenueYearExport implements FromCollection, WithEvents , WithCustomStartC
     }
     public function headings(): array
     {
-        $revenue =SalesService::revenueEachMonthByYear($this->month, $this->year);
-        $orders =SalesService::numberOrdersPerMonthByYear($this->month, $this->year);
+        $revenue =SalesService::revenueEachMonthByYear($this->month, $this->year,$this->status);
+        $orders =SalesService::numberOrdersPerMonthByYear($this->month, $this->year,$this->status);
         $total_revenue =0;
         foreach($revenue as $item){
             $total_revenue+=$item["revenue"];
@@ -195,10 +199,10 @@ class RevenueYearExport implements FromCollection, WithEvents , WithCustomStartC
             ['Nội dung: ','Doanh thu  năm '.$this->year],
             ['Người xuất: ',$name],
             ['Ngày xuất: ', date("H:i d-m-Y")],
-            [''],
+            ['Trạng thái: ', $this->status_name],
             ['Tổng doanh thu: ', number_format($total_revenue, 0, '', ',').' VNĐ'],
             ['Tổng đơn hàng: ', $total_orders.' Đơn'],
-            [' '],
+            [''],
             ['#',
             'Tháng',
             'Doanh thu',
@@ -207,6 +211,7 @@ class RevenueYearExport implements FromCollection, WithEvents , WithCustomStartC
     }
     public function map($bill): array
     {
+      
         return [
             $bill["timestamp"],
             $bill["month"],

@@ -56,10 +56,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Trang chủ</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Liên hệ</a>
+                    <a href="/" class="nav-link">Trang chủ</a>
                 </li>
             </ul>
 
@@ -307,9 +304,11 @@
     <script src={{ asset('dist/js/demo.js') }}></script>
     <script src={{ asset('dist/js/pages/dashboard3.js') }}></script>
     <script src={{ asset('js/handler-submit-them.js') }}></script>
-    <script src={{ asset('ajax/xep-lich-ajax.js') }}></script>
-    <script src={{ asset('ajax/suat-chieu-ajax.js') }}></script>
-    <script src={{ asset('ajax/ve-ajax.js') }}></script>
+    <script src={{ asset('ajax/ajax_category.js') }}></script>
+    <script src={{ asset('ajax/ajax_order.js') }}></script>
+    <script src={{ asset('ajax/ajax_slide.js') }}></script>
+    <script src={{ asset('ajax/ajax_test.js') }}></script>
+
     <script src={{ asset('js/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.js') }}></script>
     @yield('script')
 

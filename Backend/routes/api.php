@@ -30,6 +30,8 @@ Route::get('/config-by-category/{id}', 'SanPhamController@ConfigByCategory');
 Route::post('/add-configs-to-category/{id}', 'LoaiSanPhamController@AddConfigsAPI');
 Route::post('/add-config/{id}', 'LoaiSanPhamController@AddConfigAPI');
 Route::post('/delete-configs-from-category/{id}', 'LoaiSanPhamController@DeleteConfigsAPI');
+Route::get('/tree-categories', 'LoaiSanPhamController@treeCategory');
+
 
 Route::post('/Register','AuthController@Register');
 Route::post('/Login','AuthController@Login');
@@ -78,8 +80,11 @@ Route::post('/updatePassword/{id}','CustomerController@editPassword');
 
 //api slide
 Route::post('insert-image-slides', 'ImageSlideController@InsertImageAPI');
+Route::post('update-image-slides', 'ImageSlideController@updateImageAPI');
 Route::get('delete-image-slides', 'ImageSlideController@DeleteImageAPI');
 Route::get('get-image-slides', 'ImageSlideController@getURLImages');
+
+
 //api image product
 Route::get('delete-image-product', 'ImageSlideController@DeleteImageProductAPI');
 Route::post('insert-product-images', 'ImageSlideController@InsertProductImagesAPI');
@@ -106,3 +111,8 @@ Route::post('/paymentVNPAY','PaymentController@createOrder');// thanh toán VNPA
 Route::get('getComments/{id}','SanPhamController@getComments');
 Route::post('/AddComment','SanPhamController@userComments');
 Route::get('/top-products-hot', 'SanPhamController@topProductsHot');
+// revenue
+Route::get('/revenue-year', 'TrangChuController@revenueYeahApi');
+Route::get('/revenue-month', 'TrangChuController@revenueMonthApi');
+
+

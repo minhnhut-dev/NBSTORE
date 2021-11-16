@@ -116,6 +116,8 @@ switch(  $order->trang_thai_don_hangs_id){
                                     </tr>
                                     @php
                                     $hide=false;
+                                    $show=true;
+                                    $cancel_disabled='';
                                     $disabled = '';
                                     if (in_array($order->trang_thai_don_hangs_id, [1,2,4], true)){
                                         $type='comfirm';
@@ -126,13 +128,20 @@ switch(  $order->trang_thai_don_hangs_id){
                                         $type='complete';
                                         $btn='btn-success';
                                         $action='Hoàn thành';
+                                        
                                         if($order->trang_thai_don_hangs_id==5){
-                                            $hide=true;
+                                            $disabled='disabled';
                                         }
+                                    }
+                                    if (in_array($order->trang_thai_don_hangs_id, [1,2,3], true)){
+                                        $cancel_disabled='';
+                                    } else {
+                                        $cancel_disabled='disabled';
+
                                     }
                                     @endphp
                                     <tr>
-                                        @if(!$hide)
+                                      
                                         <td>
                                             <a class="btn {{$btn}} {{$disabled}}" role="button" 
                                             href='order/complete/{{$order->id}}?type={{ $type}}'>
@@ -140,7 +149,17 @@ switch(  $order->trang_thai_don_hangs_id){
                                                {{$action}}
                                             </a>
                                         </td>
-                                        @endif
+                                        
+                                        <td width="2%"></td>
+                                     
+                                        <td>
+                                            <a class="btn btn-outline-dark {{$cancel_disabled}} " role="button" 
+                                            href='order/complete/{{$order->id}}?type=cancel'>
+                                                <i class="fas fa-check"></i>
+                                              Huỷ
+                                            </a>
+                                        </td>
+                                        
 
                                     </tr>
                                 </tbody>
