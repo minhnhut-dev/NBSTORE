@@ -337,11 +337,12 @@ class SanPhamController extends Controller
                 $image->move($destinationPath, $name);
                 $HinhAnh = $name;
             } else {
-                $HinhAnh = "meo.jpg"; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
+                $HinhAnh = $request->AnhDaiDien; // nếu k thì có thì chọn tên ảnh mặc định ảnh mặc định
             }
             $data->AnhDaiDien = $HinhAnh;
         $cauhinhString = json_encode($configJson);
         $data->CauHinh = $cauhinhString;
+
         $data->save();
         //     $ImageProduct=AnhSanPham::where('san_phams_id',$id);
         //     $imageProduct->

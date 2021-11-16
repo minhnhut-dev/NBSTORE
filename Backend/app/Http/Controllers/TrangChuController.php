@@ -138,7 +138,7 @@ class TrangChuController extends Controller
         $total_sales_year= 0;
       
         $orders_status = TrangThaiDonHang::get();
-        return view('pages.trang-chu', compact('users','prods','orders','chart_product'
+        return view('pages.trang-chu', compact('prods','orders','chart_product'
         ,'year_month','year_year',
         'month','total_sales','total_sales_year','orders_status'));
     }

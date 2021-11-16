@@ -72,6 +72,8 @@
                                 <label class="col-sm-6">Thay đổi ảnh đại diện:</label>
                                 <div class="col-sm-6">
                                     <input name="AnhDaiDien" class="form-control" id="HinhAnh" type="file">
+                                    <input name="AnhDaiDien"  id="HinhAnh" type="hidden" value="{{$sp->AnhDaiDien}}">
+
                                 </div>
                             </div>
                             <div class="form-group d-flex">
