@@ -54,6 +54,19 @@ class LoaiSanPhamController extends Controller
         $data = $data->paginate(10);
         return view('pages.quan-ly-loai-san-pham', compact('data', 'checkDel'));
     }
+    public function indexTrash(Request $request)
+    {
+        $data = LoaiSanPham::where('TrangThai','<>', 1);
+
+        if ($request->search) {
+
+            $data =  LoaiSanPham::where('TrangThai','<>' ,1)->where('TenLoai', 'LIKE', '%' . $request->search . '%');
+        }
+    
+        $data = $data->paginate(10);
+        return view('pages.thung-rac-loai-san-pham', compact('data'));
+    }
+
 
     public function ThemLoai()
     {
@@ -69,10 +82,11 @@ class LoaiSanPhamController extends Controller
     public function CapNhatLoaiSanPham($id)
     {
 
-        $dataOptions = $this->LoaiSanPham::where('TrangThai', 1)->get();
-        $Recursion = new Recursion($dataOptions);
-        $htmlOption = $Recursion->cat_parent();
+
+       
         $data = LoaiSanPham::where('id', $id)->get();
+        $dataOptions = $this->LoaiSanPham::where('TrangThai', 1)->where('id','<>',$id)->get();
+        $Recursion = new Recursion($dataOptions);
         // lấy cấu hình thuộc loại
         $configs_added = DB::table('chi_tiet_cau_hinhs')
             ->join('cau_hinhs', 'chi_tiet_cau_hinhs.cau_hinhs_id', '=', 'cau_hinhs.id')
@@ -96,34 +110,39 @@ class LoaiSanPhamController extends Controller
         foreach ($configs_not_added as $val) {
             $html_configs_not_added .= "<option value=" . $val->id . ">" . $val->TenCauHinh . "</option>";
         }
-
-
-        return view('pages.cap-nhat.cap-nhat-loai-san-pham', compact('data', 'htmlOption', 'html_configs_added', 'html_configs_not_added'));
+        $htmlOption = $Recursion->cat_parent_selected(0,'',$data[0]->parent_id);
+        $kq = LoaiSanPhamController::checkDeleteCategory($dataOptions, $data[0]->id);
+        return view('pages.cap-nhat.cap-nhat-loai-san-pham', compact('data', 'htmlOption', 'html_configs_added', 'html_configs_not_added','kq'));
     }
     public function InsertProductType(Request $request)
     {
         $data = new LoaiSanPham;
-        $data->TenLoai = $request->ten_loai;
-        $data->parent_id = $request->parent_id;
-        // $subjectVal =$request->icon;
-
-        // $replace_class=str_replace('class','className',$subjectVal);
-        // $data->icon=$replace_class;
-        $data->icon = $request->icon;
-       
-        // return $data;
-        $data->save();
-        if($data->parent_id){
-            $parent_added_configs = DB::table('chi_tiet_cau_hinhs')
- 
-            ->where('loai_san_phams_id', '=', $data->parent_id)->get();
-            foreach ($parent_added_configs as $item) {
-                DB::insert('insert into chi_tiet_cau_hinhs (loai_san_phams_id, cau_hinhs_id) values (?, ?)', [$data->id, $item->cau_hinhs_id]);
-            }
+        try {
+            $data->TenLoai = $request->ten_loai;
+            $data->parent_id = $request->parent_id;
+    
+            $data->icon = $request->icon;
+        
+            $data->save();
+        } catch (\Throwable $th) {
+            return redirect('/quan-ly-loai-san-pham');
 
         }
-        $data->save();
-        return redirect('/quan-ly-loai-san-pham');
+   
+        if($data->parent_id){
+            try {
+                  $parent_added_configs = DB::table('chi_tiet_cau_hinhs')
+ 
+                ->where('loai_san_phams_id', '=', $data->parent_id)->get();
+                foreach ($parent_added_configs as $item) {
+                    DB::insert('insert into chi_tiet_cau_hinhs (loai_san_phams_id, cau_hinhs_id) values (?, ?)', [$data->id, $item->cau_hinhs_id]);
+                }
+
+            } catch (\Throwable $th) {
+                return redirect('/quan-ly-loai-san-pham/update/'.$data->id);
+            }   
+        }
+        return redirect('/quan-ly-loai-san-pham/update/'.$data->id);
         // return $data;
     }
 
@@ -150,11 +169,23 @@ class LoaiSanPhamController extends Controller
         if (!LoaiSanPhamController::checkDeleteCategory($data, $id)) {
 
             $category->TrangThai = 0;
+            $category->parent_id = null;
+
             $category->save();
         }
         if ($request->page) $page = 'page=' . $request->page;
         else $page = '';
         return redirect("/quan-ly-loai-san-pham?$page");
+    }
+    public function recoverProductType(Request $request, $id)
+    {
+             $category = LoaiSanPham::find($id);
+            $category->TrangThai = 1;
+            $category->save();
+
+        if ($request->page) $page = 'page=' . $request->page;
+        else $page = '';
+        return redirect("/quan-ly-loai-san-pham/thung-rac?$page");
     }
 
     public function checkDeleteCategory($data, $id)
@@ -179,6 +210,7 @@ class LoaiSanPhamController extends Controller
         foreach ($data as $key => $val) {
             if ($val['parent_id'] == $id) {
                 $count = false;
+                return true;
                 unset($data[$key]);
                 if (LoaiSanPhamController::checkSanPhamThuocLoai($val['id']))  {
                     // echo $char . ' [ Trả về kết quả true ]';

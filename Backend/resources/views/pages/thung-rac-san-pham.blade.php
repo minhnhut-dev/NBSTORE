@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản Lý sản phẩm</h1>
+                    <h1>Sản phẩm đã xoá</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản lý sản phẩm</li>
+                        <li class="breadcrumb-item active">Sản phẩm đã xoá</li>
                     </ol>
                 </div>
             </div>
@@ -26,13 +26,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary" role="button" href={{ url('quan-ly-san-pham/them-san-pham')}}>
-                                <i class="fas fa-plus-circle"></i>
-                                Thêm mới sản phẩm
-                            </a>
-                            <a class="btn btn-dark" role="button" href={{ url('quan-ly-san-pham/thung-rac')}}>
-                                <i class="fas fa-trash"></i>
-                                Các sản phẩm đã xoá
+                            <a class="" role="button" href="#">
+
                             </a>
                             <form method="GET" >
                             <div class="row advance d-flex card-tools">
@@ -119,22 +114,12 @@
                                         <td>{{$sp->SoLuong}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="/quan-ly-san-pham/update/{{$sp->id}}">
-                                                    <button type="submit" class="btn btn-warning" data-toggle="tooltip"
-                                                        data-placement="top" title="Chỉnh sửa">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                </a>
-                                                <!-- <a href="/quan-ly-san-pham/{{$sp->id}}"> -->
                                                 <a >
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete{{$sp->id}}"
-                                                    title="Xóa">
-                                                    <i class="far fa-trash-alt"></i>
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalDelete{{$sp->id}}"
+                                                    title="Khôi phục">
+                                                    <i class="fas fa-trash-restore"></i>
                                                 </button>
                                                 </a>
-                                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDelete{{$sp->id}}">
-                                                Launch demo modal
-                                                </button> -->
 
 
                                             </div>
@@ -162,13 +147,13 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalDeleteLabel{{$sp->id}}">Xoá</h5>
+                    <h5 class="modal-title" id="modalDeleteLabel{{$sp->id}}">Khôi phục</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                   Xác nhận xoá sản phẩm {{$sp->TenSanPham}}
+                   Xác nhận khôi phục sản phẩm {{$sp->TenSanPham}}
                 </div>
                 @php
                 
@@ -178,8 +163,8 @@
                 @endphp
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                     <a href="/quan-ly-san-pham/{{$sp->id}}?{{$page}}">
-                        <button type="button" class="btn btn-danger">Xoá</button>
+                     <a href="/quan-ly-san-pham/khoi-phuc/{{$sp->id}}?{{$page}}">
+                        <button type="button" class="btn btn-success">Khôi phục</button>
                     </a>
                 </div>
                 </div>

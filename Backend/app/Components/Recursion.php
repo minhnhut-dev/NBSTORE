@@ -22,7 +22,7 @@ class Recursion
         }
         return $this->htmlselect;
     }
-    function catParentSelected($id = 0, $text = '',$id_selected)
+    function catParentSelected($id = 0, $text = '',$id_selected=0)
     {
         foreach ($this->data as $val) {
             
@@ -30,6 +30,18 @@ class Recursion
                 $this->htmlselect .= "<option".$selected." value=".$val['id'].">" . $text . $val['TenLoai'] . "</option>";
 
             
+        }
+        return $this->htmlselect;
+    }
+    function cat_parent_selected($id = 0, $text = '',$check_id=null)
+    {
+        $space =str_repeat('&nbsp;', 5); 
+        foreach ($this->data as $val) {
+            if ($val['parent_id'] == $id) {
+                $selected = $check_id==$val['id']?' selected':'';
+                $this->htmlselect .= "<option ".$selected." value=".$val['id'].">" . $text . $val['TenLoai'] . "</option>";
+                $this-> cat_parent_selected($val['id'], $text .$space,$check_id);
+            }
         }
         return $this->htmlselect;
     }

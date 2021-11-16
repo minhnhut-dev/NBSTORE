@@ -23,7 +23,7 @@ class CustomerController extends Controller
     {   if($request->search){
          
             $user['listUser'] = DB::table('nguoi_dungs')
-            ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id')
+            ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id','nguoi_dungs.TrangThai','nguoi_dungs.active')
             ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
             ->where('nguoi_dungs.SDT','LIKE',"%$request->search%")
             ->orWhere('nguoi_dungs.TenNguoidung','LIKE',"%$request->search%")
@@ -33,10 +33,9 @@ class CustomerController extends Controller
  
         }else 
         $user['listUser'] = DB::table('nguoi_dungs')
-        ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id')
+        ->select('TenNguoidung','nguoi_dungs.created_at','loai_nguoi_dungs.TenLoai','SDT','DiaChi','Email','username','nguoi_dungs.id','nguoi_dungs.TrangThai','nguoi_dungs.active')
         ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
         ->paginate(5);
-
         return view('pages.quan-ly-nguoi-dung', $user);
     }
 
@@ -102,10 +101,17 @@ class CustomerController extends Controller
 
     public function show(Request $request, $id)
     {
+        $admin =Auth::user();
+      
+
         $user =NguoiDung::where('nguoi_dungs.id','=',$id)
         ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
-        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
+        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.TrangThai','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
         ->first();
+
+        if($admin->id==$user->id){
+            return redirect('/quan-ly-nguoi-dung/my-profile');
+        }
 
         $orders['orders'] = DB::select('SELECT nguoi_dungs.TenNguoidung,nguoi_dungs.SDT,don_hangs.id,don_hangs.ThoiGianMua,don_hangs.Tongtien FROM `don_hangs`
         INNER JOIN `nguoi_dungs` ON `don_hangs`.nguoi_dungs_id=`nguoi_dungs`.id WHERE don_hangs.nguoi_dungs_id='.$id);
@@ -144,7 +150,7 @@ class CustomerController extends Controller
         $admin =Auth::user();
         $user =NguoiDung::where('nguoi_dungs.id','=',$admin->id)
         ->join('loai_nguoi_dungs','nguoi_dungs.loai_nguoi_dungs_id','=','loai_nguoi_dungs.id')
-        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
+        ->select('loai_nguoi_dungs.TenLoai','nguoi_dungs.id','nguoi_dungs.TenNguoidung','nguoi_dungs.DiaChi','nguoi_dungs.SDT','nguoi_dungs.Email','nguoi_dungs.TrangThai','nguoi_dungs.username','nguoi_dungs.GioiTinh','nguoi_dungs.created_at')
         ->first();
 
         return view('pages.cap-nhat.my-profile',compact('user'));
@@ -169,6 +175,7 @@ class CustomerController extends Controller
         $data=NguoiDung::find($id);
         $data->TenNguoidung=$request->name;
         $data->DiaChi = $request->DiaChi;
+        
         $data->SDT= $request->SDT;
         $data->save();
         return response()->json(["message"=>"Cập nhât người dùng thành công","user"=>$data],200);
@@ -251,6 +258,7 @@ class CustomerController extends Controller
            else 
            $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
+           $user    ->TrangThai = $request->TrangThai;
            $user->GioiTinh = $request->sex;
            $user->save();
            if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile');

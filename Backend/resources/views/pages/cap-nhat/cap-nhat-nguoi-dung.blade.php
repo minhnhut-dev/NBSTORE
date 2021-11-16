@@ -3,7 +3,7 @@
 
 <section class="content-header">
     <div class="container">
-        <h2>Thông tin người dùng</h2>
+        <h2>Thông tin người dùng </h2>
         <hr>
 
         <form method="POST" action="/quan-ly-nguoi-dung/update/{{$user->id}}" class="was-validated d-flex flex-column input-form" id="form-them-the-loai-phim">
@@ -30,6 +30,16 @@
                 <div class="invalid-feedback">Không được bỏ trống địa chỉ</div>
 
             </div>
+
+            <div class="sex">
+                <div class="col-3 select">
+                    <label for="nhan">Thời gian tạo:</label>
+                </div>
+                <div class="col-3">
+                <input type="text" class="form-control" id="created_at" name="created_at" value="{{$user->created_at}}"  disabled>
+
+                </div>
+            </div>
             <div class="sex">
                 <div class="col-3 select">
                     <label for="nhan">Giới tính:</label>
@@ -47,6 +57,54 @@
                     </select>
                 </div>
             </div>
+            @php
+                if($user->TenLoai=='Admin'){
+                    if($user->TrangThai==1) {
+                        $btn='bg-success';
+                        $title='Hoạt động';
+                    }
+                    else{
+                        $btn='bg-dark';
+                        $title='Ngừng hoạt động';
+                    }
+                }else{
+                    if($user->TrangThai==0) {
+                        $btn='bg-dark';
+                        $title='Ngừng hoạt động';
+                    }
+                    else{
+                        if($user->active==1){
+                            $btn='bg-success';
+                            $title='Hoạt động';
+                        }else {
+                            $btn='bg-danger';
+                            $title='Chưa xác thực mail';
+                        }
+
+                    }
+                }
+            @endphp
+            <div class="sex">
+                <div class="col-1 select">
+                    <label for="nhan">Trạng thái:</label>
+                </div>
+                <div class="col-2 select">
+                <span class="card {{$btn}} status">{{$title}}</span>
+                </div>
+                <div class="col-3">
+                    <select class="form-control" id="trang-thai" name="TrangThai" style="background-image: none;" value="">
+                    @if($user->TrangThai==1)
+                        <option value="1" selected>Hoạt động</option>
+                        <option value="0" >Ngừng hoạt động</option>
+                        @endif
+                        @if($user->TrangThai!=1)
+                        <option value="1">Hoạt động</option>
+                        <option value="0" selected>Ngừng hoạt động</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
+            
 
 
             <div class="form-group col-md-6">
@@ -149,6 +207,7 @@
             </div>
         </form>
     </div>
+    @if($user->TenLoai!='Admin')
     <div class="container">
     <div class="row" id="table-orders">
        
@@ -233,6 +292,7 @@
         </div>
     </div>
     </div>
+    @endif
 </section>
 
 

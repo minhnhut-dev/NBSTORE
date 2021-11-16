@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'TrangChuController@index')->middleware('checklogin::class')->name('home');
 
 Route::get('/quan-ly-san-pham', 'SanPhamController@index')->middleware('checklogin::class')->name('admin-products');;
+Route::get('/quan-ly-san-pham/thung-rac', 'SanPhamController@indexTrash')->middleware('checklogin::class')->name('admin-products-trash');;
 
 Route::get('/quan-ly-san-pham/them-san-pham', 'SanPhamController@ThemSanPham')->middleware('checklogin::class'); // lấy sản phẩm thêm theo id
 
@@ -26,8 +27,12 @@ Route::get('/quan-ly-san-pham/update/{id}','SanPhamController@SuaSanPham')->midd
 Route::post('/updateproduct/{id}','SanPhamController@UpdateProduct'); // cập nhật sản phẩm
 
 Route::get('/quan-ly-san-pham/{id}','SanPhamController@DeleteProduct')->middleware('checklogin::class');// xóa sản phẩm
+Route::get('/quan-ly-san-pham/khoi-phuc/{id}','SanPhamController@RecoverProduct')->middleware('checklogin::class');// khôi phục sản phẩm
+
 
 Route::get('/quan-ly-loai-san-pham','LoaiSanPhamController@index')->middleware('checklogin::class')->name('admin-categories'); // Xem danh sách loại sản phẩm
+Route::get('/quan-ly-loai-san-pham/thung-rac','LoaiSanPhamController@indexTrash')->middleware('checklogin::class')->name('admin-categories-trash'); // Xem thùng rác loại sản phẩm
+Route::get('/quan-ly-loai-san-pham/khoi-phuc/{id}','LoaiSanPhamController@recoverProductType')->middleware('checklogin::class')->name('admin-categories-recover'); // Xem thùng rác loại sản phẩm
 
 Route::get('/quan-ly-loai-san-pham/them-loai', 'LoaiSanPhamController@ThemLoai')->middleware('checklogin::class');// lấy tất cả loại sản phẩm
 

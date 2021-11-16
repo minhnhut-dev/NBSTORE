@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý loại sản phẩm</h1>
+                <h1>Thùng rác loại sản phẩm</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Quản lý loaị sản phẩm</li>
+                    <li class="breadcrumb-item active">Thùng rác loaị sản phẩm</li>
                 </ol>
             </div>
         </div>
@@ -26,14 +26,6 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <a class="btn btn-primary" role="button" href="{{ url('/quan-ly-loai-san-pham/them-loai') }}">
-                            <i class="fas fa-plus-circle"></i>
-                            Thêm mới
-                        </a>
-                        <a class="btn btn-dark left" role="button" href={{ url('quan-ly-loai-san-pham/thung-rac')}}>
-                                <i class="fas fa-trash"></i>
-                                Các loại sản phẩm đã xoá
-                            </a>
                         <div class="card-tools">
                         <form method="GET" action="">
                             <div class="input-group">
@@ -85,24 +77,17 @@
                                         @endif
                                     </td>
                                     <td>
+                                    <div class="btn-group">
+
+
+
+                                            </div>
                                         <div class="btn-group">
-                                            <a href="quan-ly-loai-san-pham/update/{{$loai->id}}">
-                                                <button type="button" class="btn btn-warning" data-toggle="tooltip"
-                                                    data-placement="top" title="Chỉnh sửa">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </a>
-                                            <!-- <a href="/quan-ly-loai-san-pham/delete/{{$loai->id}}">
-                                                <button type="button" class="btn btn-danger" data-toggle="tooltip"
-                                                    title="Xóa">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                            </a> -->
-                                            <a >
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete{{$loai->id}}"
-                                                    title="Xóa">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
+                                                <a >
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalDelete{{$loai->id}}"
+                                                    title="Khôi phục">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                    </button>
                                                 </a>
                                         </div>
                                     </td>
@@ -119,25 +104,20 @@
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
-    @foreach ($checkDel as $sp )
+    @foreach ($data as $sp )
 
         <div class="modal fade" id="modalDelete{{$sp['id']}}" tabindex="-1" aria-labelledby="modalDeleteLabel{{$sp['id']}}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalDeleteLabel{{$sp['id']}}">Xoá</h5>
+                    <h5 class="modal-title" id="modalDeleteLabel{{$sp['id']}}">Khôi phục loại sản phẩm</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                   Xác nhận xoá  loại sản phẩm {{$sp['name']}}
+                   Xác nhận khôi  loại sản phẩm {{$sp->TenLoai}}
                 </div>
-                @if($sp['delete'])
-                <center class="error ">
-                   Loại sản phẩm {{$sp['name']}} không thể xoá !
-                </center>
-                @endif
                 @php
              
                 if(!empty($_GET['page'])){
@@ -146,8 +126,8 @@
                 @endphp
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                     <a href="/quan-ly-loai-san-pham/delete/{{$sp['id']}}?{{$page}}">
-                        <button type="button" {{$sp['delete']?'disabled':''}} class="btn btn-danger">Xoá</button>
+                     <a href="/quan-ly-loai-san-pham/khoi-phuc/{{$sp['id']}}?{{$page}}">
+                        <button type="button"  class="btn btn-success">Khôi phục</button>
                     </a>
                 </div>
                 </div>

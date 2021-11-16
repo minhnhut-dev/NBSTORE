@@ -119,23 +119,24 @@ $(document).ready(function () {
                 data: {
                     config: config,
                 },
-                beforeSend: function () {
-                    $("#not-added").html(
-                        '<img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif">'
-                    );
-                },
                 success: function (response) {
                     var body = JSON.parse(JSON.stringify(response));
 
                     $("#not-added").html(body.html_configs_not_added);
                     $("#config").val('');
+                    $("#error-null-config").hide();
+                    $("#error-dup-config").hide();
+                    $("#popup-them-question").hide();
+                    $(".fade").hide();
+                    
+
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
-                    alert("Error");
+                    $("#error-dup-config").show();
                 },
             });
-        else alert("Vui lòng nhập Cấu hình !");
+        else   $("#error-null-config").show();
     });
         $('#pwdId, #cPwdId').on('keyup', function () {
             if ($('#pwdId').val() != '' && $('#cPwdId').val() != '' && $('#pwdId').val() == $('#cPwdId').val()) {
