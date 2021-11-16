@@ -197,7 +197,7 @@ function ProductDetail(props) {
                       key={index}
                     >
                       <h1 className="product_name">{item.TenSanPham}</h1>
-                      <div className="ins-preview-wrapper ins-preview-wrapper-145">
+                      {/* <div className="ins-preview-wrapper ins-preview-wrapper-145">
                         <div className="img-nb">
                           <img
                             src="https://image.useinsider.com/gearvn/defaultImageLibrary/81721246_549814752275222_5174665937835524096_n-LPC3yvsFp2VYuVOl7AQz1578559780.png"
@@ -208,7 +208,7 @@ function ProductDetail(props) {
                         <span className="follower">
                           người đang quan tâm sản phẩm
                         </span>
-                      </div>
+                      </div> */}
                       <p className="Brand-product">
                         <span>Hãng sản xuất : {item.HangSanXuat}</span>
                       </p>

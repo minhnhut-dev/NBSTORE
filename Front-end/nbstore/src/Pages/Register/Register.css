@@ -1,5 +1,5 @@
 #layout-page-register {
-    width: 320px;
+    width: 1200px;
     margin: 10px auto;
 }
 .clr, .clearfix {
@@ -9,13 +9,13 @@
 
 .title-register {
     text-align: center;
-    font-size: 36px;
+    font-size: 24px;
 }   
 #layout-page-register .input-group {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 .userbox{
-    width: 350px;
+    width: 1200px;
 }
 
 .title-register{
@@ -45,4 +45,84 @@
 }
 .image-item i{
    cursor: pointer;
+}
+.input-group .MuiOutlinedInput-root {
+    height: 100% !important;
+    width: 550px !important;
+}
+.input-group.password .MuiOutlinedInput-root{
+    width: 270px !important;
+}
+.react-tel-input{
+    margin-bottom: 15px;
+}
+.react-tel-input input{
+    height: 100% !important;
+    width: 550px !important;
+}
+.input-group.city .MuiOutlinedInput-root{
+    width: 270px !important;
+}
+.input-group.ward .MuiOutlinedInput-root{
+    width: 550px !important;
+    height: 100% !important;
+
+}
+#upload{
+    margin-bottom: 15px;
+}
+.btnRegister{
+    width: 550px !important;
+}
+.input-group.username p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.username p{
+    color: #bf1650;
+
+}
+
+.input-group.name p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.name p{
+    color: #bf1650;
+
+}
+.input-group.email p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.email p{
+    color: #bf1650;
+}
+
+.input-group.password p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.password p{
+    color: #bf1650;
+}
+.input-group.sex p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.sex p{
+    color: #bf1650;
+}
+.input-group.ward p::before {
+    display: inline;
+    content: "⚠ ";
+  }
+
+.input-group.ward p{
+    color: #bf1650;
 }

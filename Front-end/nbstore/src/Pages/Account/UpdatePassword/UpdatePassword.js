@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../Css/Account.css";
 import Header from "../../../Component/Header/Header";
 import Footer from "../../../Component/Footer/Footer";
@@ -6,35 +6,40 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { TextField } from "@material-ui/core";
+import { useForm } from "react-hook-form";
+import { useSnackbar } from "notistack";
+
 const userLogin = JSON.parse(localStorage.getItem("userLogin") || "[]");
 function UpdatePassword() {
-    const [passwordOld,setPasswordOld]=useState("");
-    const [rePassword,setRepassword]=useState("");
-    const [newPassword,setNewpassword]=useState("");
-    const [notification,setNotification]=useState("");
-    const [error,setError]=useState("");
-    const handleUpdatePassword =()=>{
-        const data={
-            oldPassword:passwordOld,
-            password:newPassword
-        }
-        if(newPassword == rePassword )
-        {
-            axios.post(`http://127.0.0.1:8000/api/updatePassword/${userLogin.id}`,data)
-            .then((response)=>{
-                setNotification(response.data.message);
-                console.log(response.data);
-            })
-            .catch((err)=>{
-                setError(err.response.data.message);
-                console.log(err.response.data.message);
-            })
-        }
-        else
-        {
-            setError("Mật khẩu nhập lại không đúng");
-        }
-    }
+  const [passwordOld, setPasswordOld] = useState("");
+  const [rePassword, setRepassword] = useState("");
+  const [newPassword, setNewpassword] = useState("");
+  const [notification, setNotification] = useState("");
+  const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({});
+  const Password = useRef({});
+  Password.current = watch("newPassword", "");
+  const handleUpdatePassword = (e) => {
+    const data = {
+      oldPassword: e.old_password,
+      password: e.newPassword,
+    };
+    axios
+      .post(`http://127.0.0.1:8000/api/updatePassword/${userLogin.id}`, data)
+      .then((response) => {
+        setNotification(response.data.message);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        setError(err.response.data.message);
+        console.log(err.response.data.message);
+      });
+  };
   return (
     <>
       <Header />
@@ -62,8 +67,10 @@ function UpdatePassword() {
                           </Link>
                         </dd>
                         <dd>
-                        <Link to="/account-orderCanceled"> Đơn hàng đã hủy</Link>
-
+                          <Link to="/account-orderCanceled">
+                            {" "}
+                            Đơn hàng đã hủy
+                          </Link>
                         </dd>
                       </dl>
                       <dl>
@@ -78,60 +85,59 @@ function UpdatePassword() {
                     </td>
                     <td valign="top" className="tb-order">
                       <h3>Thay đổi mật khẩu</h3>
-                     <p style={{color:"#1f4cb1"}}>
-                            
-                            {notification ?<b>Thông báo: {notification}</b>:""}
-                     </p>
-                     <p style={{color:"red"}}>
-                            
-                            {error ?<b>Thông báo: {error}</b>:""}
-                     </p>
-                      <div className="input-group">
-                        <span className="input-group-addon">
-                        <i className="fas fa-key"></i>                    
-                        </span>
-
+                      <p style={{ color: "#1f4cb1" }}>
+                        {notification ? <b>Thông báo: {notification}</b> : ""}
+                      </p>
+                      <p style={{ color: "red" }}>
+                        {error ? <b>Thông báo: {error}</b> : ""}
+                      </p>
+                      <div className="input-group-updatePassword">
                         <TextField
                           id="outlined-basic-1"
                           variant="outlined"
-                          name="password"
+                          name="old_password"
                           type="password"
                           label="Nhập mật khẩu cũ"
-                          onChange={(e)=>setPasswordOld(e.target.value)}
+                          {...register("old_password", { required: true})}
                         />
+                          {errors?.old_password?.type === "required" && (
+                          <p>Mật khẩu không được bỏ trống</p>)}
                       </div>
-                      <div className="input-group">
-                        <span className="input-group-addon">
-                        <i className="fas fa-key"></i>                    
-                       
-                        </span>
-
+                      <div className="input-group-updatePassword">
                         <TextField
                           id="outlined-basic-2"
                           variant="outlined"
                           name="newPassword"
                           type="password"
                           label="Nhập mật khẩu mới"
-                          onChange={(e)=>setNewpassword(e.target.value)}
+                          {...register("newPassword", { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/})}
                         />
+                         {errors?.newPassword?.type === "required" && (
+                           <p>Mật khẩu không được bỏ trống</p>)}
+                           {errors?.newPassword?.type === "pattern" && (
+                           <p>Mật khẩu có 8 ký tự và 1 ký tự hoa</p>)}
                       </div>
-                      <div className="input-group">
-                        <span className="input-group-addon">
-                        <i className="fas fa-key"></i>                    
-
-                        </span>
+                      <div className="input-group-updatePassword">
                         <TextField
                           id="outlined-basic-3"
                           variant="outlined"
-                          name="re-password"
+                          name="re_password"
                           type="password"
-                          label="Nhập lại mật khẩu"
-                          onChange={(e)=>setRepassword(e.target.value)}
+                          label="Nhập lại mật khẩu mới"
+                          {...register("re_password", { validate: value => value === Password.current || "Mật khẩu không khớp"
+                        })}
                         />
+                        {errors.re_password && <p>{errors.re_password .message}</p>}
+
                       </div>
-                     
+
                       <div>
-                        <Button variant="primary" className="btn-updateUser" onClick={handleUpdatePassword}>
+                        <Button
+                          variant="primary"
+                          className="btn-updateUser"
+                          type="submit"
+                          onClick={handleSubmit(handleUpdatePassword)}
+                        >
                           Thay đổi
                         </Button>
                       </div>

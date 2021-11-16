@@ -6,10 +6,11 @@ import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import {useSnackbar} from 'notistack';
+import { useSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
-
+import { TextField } from "@material-ui/core";
+import "../Css/Account.css";
 function SendMailResetPassword() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -64,24 +65,21 @@ function SendMailResetPassword() {
               </h4>
             </span>
             <div id="login" className="userbox">
-              <div className="input-group">
-                <span className="input-group-addon">
-                  <i class="fas fa-user-tie"></i>
-                </span>
-                <input
-                  required
-                  type="email"
-                  name="username"
-                  placeholder="Nhập email"
-                  className="text form-control"
-                  onChange={(e) => setMail(e.target.value)}
+              <div className="input-group-resetPassword">
+                <TextField
+                  id="outlined-basic-1"
+                  variant="outlined"
+                  type="text"
+                  label="Nhập email"
+                  name="email"
+                  onChange={(e)=>setMail(e.target.value)}
                 />
               </div>
 
-              <div className="action_bottom">
+              <div className="action_bottom_resetPassword">
                 <Button
                   variant="primary"
-                  className="btnLogin"
+                  className="btn_send_mail"
                   type="submit"
                   onClick={handleSendMail}
                 >

@@ -12,7 +12,9 @@ function UpdateUser() {
   const [address, setAddress] = useState(userLogin.DiaChi);
   const [phone, setPhone] = useState(userLogin.SDT);
   const [notification, setNotification] = useState("");
-  const [error_required, setErrorRequired] = useState(false);
+  const [error_Phone, setErrPhone] = useState(false);
+  const [error_Address, setErrAddress] = useState(false);
+
   const handUpdate = () => {
     const data = {
       name: name,
@@ -22,7 +24,8 @@ function UpdateUser() {
     axios
       .post(`http://127.0.0.1:8000/api/updateUser/${userLogin.id}`, data)
       .then((response) => {
-        setErrorRequired(false);
+        // setErrPhone(false);
+        // setAddress(false);     
         setNotification(response.data.message);
         localStorage.setItem("userLogin", JSON.stringify(response.data.user));
         setTimeout(() => {
@@ -31,7 +34,13 @@ function UpdateUser() {
       })
       .catch((err) => {
         console.log(err.response.data);
-        setErrorRequired(true);
+        if(err.response.data.SDT !== undefined) {
+          setErrPhone(true);
+        }
+        if(err.response.data.DiaChi != undefined)
+        {
+          setErrAddress(true);
+        }
       });
   };
   return (
@@ -115,7 +124,7 @@ function UpdateUser() {
                         <span className="input-group-addon">
                           <i className="fas fa-map-marker-alt"></i>
                         </span>
-                        {error_required ? (
+                        {error_Address ? (
                           <TextField
                             error
                             label="Vui lòng nhập địa chỉ cụ thể"
@@ -141,7 +150,7 @@ function UpdateUser() {
                         <span className="input-group-addon">
                           <i className="fas fa-phone"></i>
                         </span>
-                        {error_required ? <TextField
+                        {error_Phone ? <TextField
                           error
                           label="Vui lòng nhập số điện thoại cụ thể"
                           id="outlined-basic-4"

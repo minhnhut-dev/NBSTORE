@@ -8,7 +8,7 @@
                             <tr>
                                 <td align="center" style="padding:25px 0px">
                                     <a href="http://localhost:3000/" target="_blank" >
-                                        <img class="m_-6158600730156614244jecl-Icon-img CToWUd" src="http://localhost:3000/static/media/logo-nbstore.ef1509cc.png" alt="nbstore-logo" width="100" style="display:block" border="0">
+                                        <img class="m_-6158600730156614244jecl-Icon-img CToWUd" src="/images/logo-nbstore.png" alt="nbstore-logo" width="100" style="display:block" border="0">
                                     </a>
                                 </td>
                             </tr>
