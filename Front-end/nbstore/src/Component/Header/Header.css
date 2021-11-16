@@ -477,9 +477,9 @@ a:hover{
     -moz-border-radius: 4px 0 0 4px;
     border-radius: 4px 0 0 4px;
   }
-  .gearvn-header-menu .gearvn-cat-menu .megamenu-nav .cat-menu-item:hover {
+  /* .gearvn-header-menu .gearvn-cat-menu .megamenu-nav .cat-menu-item:hover {
     background: #ea1c04;
-  }
+  } */
   .gearvn-header-navigation .gearvn-header-navigation-block {
     flex: 1;
   }

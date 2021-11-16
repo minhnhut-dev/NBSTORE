@@ -28,7 +28,7 @@ export default function ProductBestSellingByBrand(props) {
                     <img
                       src={linkImage + item.AnhDaiDien}
                       className="product-row-thumbnail"
-                      alt={item.AnhDaiDie}
+                      alt={item.AnhDaiDien}
                     />
                   </Link>
                   <div className="product-row-price-hover">

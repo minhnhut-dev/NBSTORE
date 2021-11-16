@@ -10,7 +10,7 @@ import axios from "axios";
   const [slides,setSlides]= useState([]);
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/getAllTypeProduct")
+      .get("http://127.0.0.1:8000/api/tree-categories")
       .then((response) => {
         setTypeProduct(response.data);
       });
@@ -37,19 +37,17 @@ import axios from "axios";
                          </div>
                          <span className="gearvn-cat-menu-name">{item.TenLoai}</span>
                        </Link>
-                       {/* <div className="megamenu absolute-center level0 xlab_grid_container" style={{display:"none"}}>
+                       <div className="megamenu absolute-center level0 xlab_grid_container" style={{display:"block"}}>
                           <div className="column xlab_column_5_5">
                               <div className="sub-cat-item">
-                                  <a className="sub-cat-item-name">Laptop Gaming theo thương hiệu</a>
-                                  <a className="sub-cat-item-filter">Asus</a>
-                                  <a className="sub-cat-item-filter">Asus</a>
-                                  <a className="sub-cat-item-filter">Asus</a>
-                                  <a className="sub-cat-item-filter">Asus</a>
-                                  <a className="sub-cat-item-filter">Asus</a>
+                                  {item.childs.map((sub_item,index)=>(
+                                  <a className="sub-cat-item-name">{sub_item.TenLoai}</a>
+                                  ))}
+                                  {/* <a className="sub-cat-item-filter">Asus</a> */}
 
                               </div>
                           </div>
-                       </div> */}
+                       </div>
                      </li>
                  ))}
                 </ol>
