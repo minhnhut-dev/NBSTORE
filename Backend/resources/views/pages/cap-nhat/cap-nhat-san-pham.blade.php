@@ -24,8 +24,12 @@
                         <div class="tab-pane active container" id="home">
                             <div class="form-group col-12">
                                 <label for="ten-sản-phẩm">Tên sản phẩm :</label>
+                                    @if (session('error_duplicate'))
+                                        <div class="invalid-feedback">{{session('error_duplicate')}}</div>
+                                    @endif
                                 <input type="text" class="form-control" id="ten-phim" placeholder="Nhập tên sản phẩm "
                                     name="ten_san_pham" value="{{ $sp->TenSanPham }}" required>
+
                             </div>
 
                             <div class="form-group">
@@ -38,13 +42,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2">Giá :</label>
                                 <div class="col-sm-12">
-                                    <input name="GiaCu" class="form-control" id="GiaCu" value="{{ $sp->GiaCu }}" required>
+                                    <input name="GiaCu" type="number" min="0" class="form-control" id="GiaCu" value="{{ $sp->GiaCu }}" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2">Giá KM :</label>
                                 <div class="col-sm-12">
-                                    <input name="GiaKM" class="form-control " id="GiaKM" value="{{ $sp->GiaKM }}" required>
+                                    <input name="GiaKM" type="number" min="0" class="form-control " id="GiaKM" value="{{ $sp->GiaKM }}" required>
                                     <div class="invalid-feedback">Không được bỏ trống trường này</div>
                                     <div class="invalid-feedback ">Không được bỏ trống trường này</div>
                                 </div>

@@ -227,9 +227,11 @@ class SanPhamController extends Controller
     {
 
         $data = new SanPham;
-
+        
+        $products = SanPham::where('TrangThai',1)->where('TenSanPham',$request->ten_san_pham)->first();
+        if($products) return redirect()->back()->with('error','Tên sản phẩm'.$request->ten_san_pham.' đã tồn tại !');
         $data->TenSanPham = $request->ten_san_pham;
-        $data->ThongTin = $request->detail;
+        $data->ThongTin = $request->detail? $request->detail:'Thông tin';
         $data->HangSanXuat = $request->HangSanXuat;
         $data->GiaCu = $request->GiaCu;
         $data->GiaKM = $request->GiaKM;
@@ -302,9 +304,12 @@ class SanPhamController extends Controller
     {
         $data = SanPham::find($id);
         // $data1 = CauHinh::find(1);
+        $products = SanPham::where('TrangThai',1)->where('TenSanPham',$request->ten_san_pham)->where('id','<>',$id)->first();
+
+        if($products) return redirect()->back()->with('error_duplicate','Tên sản phẩm'.$request->ten_san_pham.' đã tồn tại !');
+        $data->ThongTin = $request->detail? $request->detail:'Thông tin';
 
         $data->TenSanPham = $request->ten_san_pham;
-        $data->ThongTin = $request->detail;
         $data->HangSanXuat = $request->HangSanXuat;
         $data->GiaCu = $request->GiaCu;
         $data->GiaKM = $request->GiaKM;

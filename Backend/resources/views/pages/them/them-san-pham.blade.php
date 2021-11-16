@@ -27,6 +27,9 @@
                     <div class="form-group col-12">
                         <label for="ten-sản-phẩm">Tên sản phẩm :</label>
                         <input type="text" class="form-control" id="ten-phim" placeholder="Nhập tên sản phẩm " name="ten_san_pham" required>
+                        @if (session('error'))
+                            <div class="invalid-feedback">{{session('error')}}</div>
+                        @endif
                         <div class="invalid-feedback">Không được bỏ trống trường này</div>
                     </div>
 
@@ -40,14 +43,14 @@
                     <div class="form-group">
                         <label class="col-sm-2">Giá :</label>
                         <div class="col-sm-12">
-                            <input name="GiaCu" class="form-control" id="GiaCu" required>
+                            <input name="GiaCu" type="number" min="0" class="form-control" id="GiaCu" required>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2">Giá KM :</label>
                         <div class="col-sm-12">
-                            <input name="GiaKM" class="form-control" id="GiaKM" required>
+                            <input name="GiaKM" type="number" min="0" class="form-control" id="GiaKM" required>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
@@ -81,7 +84,7 @@
                     <div class="form-group">
                         <label class="col-sm-2">Mô tả:</label>
                         <div class="col-sm-12">
-                            <textarea name="detail" class="form-control" id="des" ></textarea>
+                            <textarea name="detail" class="form-control" id="des"  ></textarea>
                             <div class="invalid-feedback">Không được bỏ trống trường này</div>
                         </div>
                     </div>
