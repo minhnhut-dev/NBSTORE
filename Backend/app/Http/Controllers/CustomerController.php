@@ -258,7 +258,7 @@ class CustomerController extends Controller
            else 
            $user->password =  Hash::make($request->password);
            $user->DiaChi = $request->dia_chi;
-           $user    ->TrangThai = $request->TrangThai;
+           if($admin->id!=$id)$user  ->TrangThai = $request->TrangThai;
            $user->GioiTinh = $request->sex;
            $user->save();
            if($admin->id==$id) return redirect('/quan-ly-nguoi-dung/my-profile');
