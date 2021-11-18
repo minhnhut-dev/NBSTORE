@@ -37,17 +37,17 @@ import axios from "axios";
                          </div>
                          <span className="gearvn-cat-menu-name">{item.TenLoai}</span>
                        </Link>
-                       <div className="megamenu absolute-center level0 xlab_grid_container" style={{display:"block"}}>
+                       {/* <div className="megamenu absolute-center level0 xlab_grid_container" style={{display:"block"}}>
                           <div className="column xlab_column_5_5">
                               <div className="sub-cat-item">
                                   {item.childs.map((sub_item,index)=>(
                                   <a className="sub-cat-item-name">{sub_item.TenLoai}</a>
                                   ))}
-                                  {/* <a className="sub-cat-item-filter">Asus</a> */}
+                                  <a className="sub-cat-item-filter">Asus</a>
 
                               </div>
                           </div>
-                       </div>
+                       </div> */}
                      </li>
                  ))}
                 </ol>

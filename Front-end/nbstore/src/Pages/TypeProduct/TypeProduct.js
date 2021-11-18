@@ -15,9 +15,7 @@ export default function TypeProduct() {
   const [sort, setSort] = useState("");
   const [page,setPage] = useState(1);
   const [total, setTotal] = useState("");
-  const handleChangePage= (page)=>{
-    
-    console.log(page);
+  const handleChangePage= (page)=>{    
     setPage(page);
   }
   useEffect(() => {
@@ -48,9 +46,19 @@ export default function TypeProduct() {
       });
       setProduct(sortDecrease);
     }
-    else
+    else if (sort == "")
     {
-      return;
+        return product;
+    }
+    else if (sort == 3)
+    {
+        const FilterPriceFive = [...product].filter(a => a.GiaKM >= 5000000 && a.GiaKM <= 20000000);
+        setProduct(FilterPriceFive);
+    }
+    else if (sort == 4)
+    {
+        const FilterPriceTotal = [...product].filter(a => a.GiaKM >= 25000000 && a.GiaKM <= 40000000);
+        setProduct(FilterPriceTotal);
     }
   };
   const LinkImage = "http://127.0.0.1:8000/images/";
@@ -95,6 +103,8 @@ export default function TypeProduct() {
                                 <option value="">Tùy chọn</option>
                                 <option value="1">Giá từ thấp đến cao</option>
                                 <option value="2">Giá từ cao đến thấp</option>
+                                <option value="3">Giá từ 5 đến 20 triệu</option>
+                                <option value="4">Giá từ 25 đến 40 triệu</option>
                               </Form.Control>
                             </Form.Group>
                           </Form>
