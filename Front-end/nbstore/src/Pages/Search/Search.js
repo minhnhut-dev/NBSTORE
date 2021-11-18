@@ -4,8 +4,11 @@ import Footer from "../../Component/Footer/Footer";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import NumberFormat from "react-number-format";
+import { Form } from "react-bootstrap";
 export default function Search() {
   const [result,setResult]=useState([]);
+  const [sort, setSort] = useState("");
+
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
@@ -16,8 +19,34 @@ export default function Search() {
       .then((response) =>{
         setResult(response.data);
       })
-      // document.title=`${name}-Kết quả tìm kiếm- NBSTORE uy tín số 1`;
   },[])
+  const handleSort = () => {
+    if (sort == 1) {
+      const sortIncrease = [...result].sort((a, b) => {
+        return a.GiaKM - b.GiaKM;
+      });
+      setResult(sortIncrease);
+    } else if (sort == 2) {
+      const sortDecrease = [...result].sort((a, b) => {
+        return b.GiaKM - a.GiaKM;
+      });
+      setResult(sortDecrease);
+    }
+    else if (sort == "")
+    {
+        return result;
+    }
+    else if (sort == 3)
+    {
+        const FilterPriceFive = [...result].filter(a => a.GiaKM >= 5000000 && a.GiaKM <= 20000000);
+        setResult(FilterPriceFive);
+    }
+    else if (sort == 4)
+    {
+        const FilterPriceTotal = [...result].filter(a => a.GiaKM >= 25000000 && a.GiaKM <= 40000000);
+        setResult(FilterPriceTotal);
+    }
+  };
   const LinkImage = "http://127.0.0.1:8000/images/";
 
   return (
@@ -39,7 +68,31 @@ export default function Search() {
                       </div>
                     </div>
                   </div>
+                  <div className="col-md-12">
+                    <div className="row">
+                      <div className="col-sm-12 wrap-sort-by">
+                        <div className="browse-tags pull-right">
+                          <Form>
+                            <Form.Group controlId="exampleForm.ControlSelect1">
+                              <Form.Label>Tùy chọn</Form.Label>
+                              <Form.Control
+                                as="select"
+                                onChange={(e) => setSort(e.target.value)}
+                                onClick={handleSort}
+                              >
+                                <option value="">Tùy chọn</option>
+                                <option value="1">Giá từ thấp đến cao</option>
+                                <option value="2">Giá từ cao đến thấp</option>
+                                <option value="3">Giá từ 5 đến 20 triệu</option>
+                                <option value="4">Giá từ 25 đến 40 triệu </option>
 
+                              </Form.Control>
+                            </Form.Group>
+                          </Form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="col-md-12 product-list">
                     <div className="row content-product-list">
 
@@ -102,6 +155,7 @@ export default function Search() {
                       </div>
                       ))}
                     </div>
+                    
                   </div>
                 </div>
               </div>
